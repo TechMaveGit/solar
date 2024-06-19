@@ -82,7 +82,7 @@
                                                         <h5 class="nk-wgw-title title">Total Clients</h5>
                                                     </div>
                                                     <div class="nk-wgw-balance">
-                                                        <div class="amount">495</div>
+                                                        <div class="amount">{{ $totalClients }}</div>
                                                     </div>
                                                 </a></div>
                                         </div>
@@ -95,7 +95,7 @@
                                                         <h5 class="nk-wgw-title title">Total Staff</h5>
                                                     </div>
                                                     <div class="nk-wgw-balance">
-                                                        <div class="amount">102</div>
+                                                        <div class="amount">{{ $totalStaff }}</div>
                                                     </div>
                                                 </a></div>
                                         </div>

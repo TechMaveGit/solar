@@ -11,7 +11,6 @@ class StaffController extends Controller
 {
 
 
-
     public function index(Request $request){
         $staffs = User::where('user_type','2')->orderBy('id','DESC')->get();
         return view('staff.all-staff',compact('staffs'));
@@ -41,6 +40,7 @@ class StaffController extends Controller
                 'password'      => Hash::make($request->password),
                 'user_type'     => '2',
                 'gender'     => $request->gender,
+                'status'     => $request->status,
             ]);
             $details  = User::where('id', $user->id)->first();
             return redirect()->back()->with('success','Register Successfully!');
@@ -53,7 +53,10 @@ class StaffController extends Controller
     public function edit(Request $request)
     {
         $id = base64_decode($request->id);
-        $staff = User::whereId($id)->first();
+        $staff = User::whereId($id)->where('user_type','2')->first();
+        if (!$staff) {
+            return redirect()->back()->with('error', 'Staff not found or invalid.');
+        }
         return view('staff.edit-staff',compact('staff'));
 
     }
@@ -61,29 +64,47 @@ class StaffController extends Controller
     public function update(Request $request)
     {
 
-        $user = User::findOrFail($request->id);
+        $staff = User::where('user_type','2')->find($request->id);
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'mobile' => 'required|numeric|digits_between:8,13|unique:users,mobile,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $staff->id,
+            'mobile' => 'required|numeric|digits_between:8,13|unique:users,mobile,' . $staff->id,
             'gender' => 'required',
-            'password' => 'nullable|string|min:6|confirmed',
+            'password' => 'nullable|string|min:6',
         ]);
 
         try {
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->email = $request->email;
-            $user->email = $request->email;
-            $user->email = $request->email;
-            if($request->has('password')){
-                $user->password = Hash::make($request->password);
+            $staff->name = $request->name;
+            $staff->email = $request->email;
+            $staff->dial_code = $request->dial_code;
+            $staff->mobile = $request->mobile;
+            $staff->gender = $request->gender;
+            $staff->status = $request->status;
+            $staff->user_type = '2';
+            if($request->filled('password')){
+                $staff->password = Hash::make($request->password);
             }
-            return redirect()->back()->with('success','Register Successfully!');
+            $staff->save();
+            return redirect()->route('admin.all-staff')->with('success','Updated Successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');
         }
 
     }
+
+    public function changeStatus(Request $request) {
+        $id = $request->id;
+        $staff = User::whereId($id)->where('user_type', '2')->first();
+
+        if ($staff) {
+            $staff->status = $staff->status == 1 ? 2 : 1;
+            $staff->save();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
 
 }

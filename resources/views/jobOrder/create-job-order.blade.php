@@ -4,8 +4,7 @@
 
 <div class="nk-content nk-content-fluid">
     <div class="components-preview formMainContainer">
-        <form class="nk-stepper stepper-init is-alter nk-stepper-s1" action="" id="stepper-create-project"
-            method="post">
+        <form class="nk-stepper stepper-init is-alter nk-stepper-s1" action="" id="stepper-create-project" method="post">
             <div class="nk-content-body">
                 <div class="nk-block-head">
 
@@ -30,7 +29,7 @@
                             <div class="col-md-12 col-xl-12">
                                 <div class="card-inner stepNumberCard">
                                     <ul class="nk-stepper-nav nk-stepper-nav-s1 stepper-nav is-vr">
-                                        <li>
+                                        <li class="defaultTab">
                                             <div class="step-item">
                                                 <div class="step-text">
                                                     <div class="lead-text">Time Schedule</div>
@@ -56,8 +55,7 @@
                                         </li>
 
 
-
-                                        <li>
+                                        <li class="domesticFormTab">
                                             <div class="step-item">
                                                 <div class="step-text">
                                                     <div class="lead-text"> Inspection, Test and Commissioning Report
@@ -65,10 +63,10 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="domesticFormTab">
+                                        <li class="nondomesticTab">
                                             <div class="step-item">
                                                 <div class="step-text">
-                                                    <div class="lead-text"> Inspection, Test and Commissioning Report </div>
+                                                    <div class="lead-text"> Inspection, Test and Commissioning Report NON</div>
 
                                                 </div>
                                             </div>
@@ -87,14 +85,12 @@
                                                     <div class="row ">
 
                                                         <div class="col-lg-6">
-                                                            <div class="form-group"><label class="form-label">Client
-                                                                    Type</label>
+                                                            <div class="form-group"><label class="form-label">Client Type</label>
                                                                 <div class="form-control-wrap">
-                                                                    <select class="form-select js-select2">
-                                                                        <option value="default_option">Select an Option
-                                                                        </option>
-                                                                        <option value="fv-gq">Domestic</option>
-                                                                        <option value="fv-tq">Non-Domestic</option>
+                                                                    <select class="form-select js-select2" name="client_type" onchange="getClient(this.value)" id="client_type">
+                                                                        <option value="">Select an Option</option>
+                                                                        <option value="1">Domestic</option>
+                                                                        <option value="2">Non-Domestic</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -104,33 +100,10 @@
                                                             <div class="form-group"><label class="form-label">Client
                                                                     Name</label>
                                                                 <div class="form-control-wrap">
-                                                                    <select class="form-select js-select2"
-                                                                        data-search="on">
-                                                                        <option value="default_option">Select an Option
-                                                                        </option>
-                                                                        <option value="john_doe">John Doe</option>
-                                                                        <option value="jane_smith">Jane Smith</option>
-                                                                        <option value="alice_johnson">Alice Johnson
-                                                                        </option>
-                                                                        <option value="michael_brown">Michael Brown
-                                                                        </option>
-                                                                        <option value="emily_davis">Emily Davis</option>
-                                                                        <option value="william_clark">William Clark
-                                                                        </option>
-                                                                        <option value="susan_thomas">Susan Thomas
-                                                                        </option>
-                                                                        <option value="david_martin">David Martin
-                                                                        </option>
-                                                                        <option value="linda_miller">Linda Miller
-                                                                        </option>
-                                                                        <option value="robert_anderson">Robert Anderson
-                                                                        </option>
-                                                                        <option value="patricia_jackson">Patricia
-                                                                            Jackson
-                                                                        </option>
-                                                                        <option value="christopher_thompson">Christopher
-                                                                            Thompson</option>
-                                                                        <option value="mary_white">Mary White</option>
+                                                                    <select class="form-select js-select2" data-search="on" name="cient_id" id="client_id">
+                                                                        <option value="">Select an Option</option>
+                                                                        {{-- <option value="john_doe">John Doe</option> --}}
+
                                                                     </select>
 
                                                                 </div>
@@ -142,32 +115,11 @@
                                                                     Staff</label>
                                                                 <div class="form-control-wrap">
                                                                     <select class="form-select js-select2"
-                                                                        data-search="on">
-                                                                        <option value="default_option">Select an Option
-                                                                        </option>
-                                                                        <option value="john_doe">John Doe</option>
-                                                                        <option value="jane_smith">Jane Smith</option>
-                                                                        <option value="alice_johnson">Alice Johnson
-                                                                        </option>
-                                                                        <option value="michael_brown">Michael Brown
-                                                                        </option>
-                                                                        <option value="emily_davis">Emily Davis</option>
-                                                                        <option value="william_clark">William Clark
-                                                                        </option>
-                                                                        <option value="susan_thomas">Susan Thomas
-                                                                        </option>
-                                                                        <option value="david_martin">David Martin
-                                                                        </option>
-                                                                        <option value="linda_miller">Linda Miller
-                                                                        </option>
-                                                                        <option value="robert_anderson">Robert Anderson
-                                                                        </option>
-                                                                        <option value="patricia_jackson">Patricia
-                                                                            Jackson
-                                                                        </option>
-                                                                        <option value="christopher_thompson">Christopher
-                                                                            Thompson</option>
-                                                                        <option value="mary_white">Mary White</option>
+                                                                        data-search="on" name="staff_id">
+                                                                        <option value="">Select an Option</option>
+                                                                        @foreach ($staffs as $staff)
+                                                                            <option value="{{ $staff->id }}">{{ $staff->name }}</option>
+                                                                        @endforeach
                                                                     </select>
 
                                                                 </div>
@@ -179,8 +131,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em
                                                                             class="icon ni ni-calendar-alt"></em></div>
-                                                                    <input type="text" class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy">
+                                                                    <input type="text" name="date" class="form-control date-picker" placeholder="mm/dd/yyyy">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -200,7 +151,7 @@
                                                                     for="fv-message">Address</label>
                                                                 <div class="form-control-wrap"><textarea
                                                                         class="form-control customtextarea form-control-sm"
-                                                                        id="fv-message" name="fv-message"
+                                                                        id="fv-message" name="address"
                                                                         placeholder="Write your Address"></textarea>
                                                                 </div>
                                                             </div>
@@ -211,7 +162,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        name="country">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -221,7 +172,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="fv-City"
-                                                                        name="fv-City">
+                                                                        name="city">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -230,8 +181,8 @@
                                                                     for="fv-Postal">Postal Code</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="input-group">
-                                                                        <div class="input-group-prepend"></div><input
-                                                                            type="text" class="form-control">
+                                                                        <div class="input-group-prepend"></div>
+                                                                        <input type="text" name="postal_code" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -255,8 +206,8 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        type="text" class="form-control" id="applicant_name"
+                                                                        name="applicant_name">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -266,8 +217,8 @@
                                                                     >Installation Address</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        type="text" class="form-control" id="installation_address"
+                                                                        name="installation_address">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -277,8 +228,8 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        type="text" class="form-control" id="installation_eircode"
+                                                                        name="installation_eircode">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -288,8 +239,8 @@
                                                                     > Installation MPRN</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        type="text" class="form-control" id="installation_mprn"
+                                                                        name="installation_mprn">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -313,8 +264,8 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control"
-                                                                        placeholder="kWp*" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        placeholder="kWp*" id="solar_pv_system_size"
+                                                                        name="solar_pv_system_size">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -326,8 +277,8 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control"
-                                                                        placeholder="kW/kWh" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        placeholder="kW/kWh" id="battery_storage"
+                                                                        name="battery_storage">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -338,8 +289,8 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control"
-                                                                        placeholder="kWh**" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        placeholder="kWh**" id="annual_estimated_yield"
+                                                                        name="annual_estimated_yield">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -350,8 +301,8 @@
                                                                     PV Syst) </label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        type="text" class="form-control" id="yield_calculation"
+                                                                        name="yield_calculation">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -362,8 +313,8 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control"
-                                                                        placeholder="Y/N?" id="fv-Country"
-                                                                        name="fv-Country">
+                                                                        placeholder="Y/N?" id="water_diverter"
+                                                                        name="water_diverter">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -392,7 +343,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" placeholder=""
-                                                                        id="fv-Country" name="fv-Country">
+                                                                        id="company_name" name="company_name">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -403,7 +354,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" placeholder=""
-                                                                        id="fv-Country" name="fv-Country">
+                                                                        id="company_number" name="company_number">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -415,7 +366,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" placeholder=""
-                                                                        id="fv-Country" name="fv-Country">
+                                                                        id="property_year_construction" name="property_year_construction">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -427,7 +378,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" placeholder="€"
-                                                                        id="fv-Country" name="fv-Country">
+                                                                        id="cost_installation" name="cost_installation">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -455,101 +406,101 @@
                                                                         <th>Solar PV Modules</th>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="pv-Make" name="pv-Make"></td>
+                                                                                id="pv_make" name="pv_make"></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="pv-Model" name="pv-Model"></td>
+                                                                                id="pv_model" name="pv_model"></td>
                                                                         <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="form-text-hint">
                                                                                     <span class="overline-title">Wp
                                                                                         at STC</span></div>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="default-05" placeholder="">
+                                                                                <input type="text" name="pv_rating" class="form-control"
+                                                                                    id="pv_rating" placeholder="">
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="pv-Quantity" name="pv-Quantity">
+                                                                                id="pv_quantity" name="pv_quantity">
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Mounting System</th>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="inverter-Make" name="inverter-Make">
+                                                                                id="ms_make" name="ms_make">
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="inverter-Model"
-                                                                                name="inverter-Model"></td>
+                                                                                id="ms_model"
+                                                                                name="ms_model"></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
-                                                                                id="inverter-Rating"
-                                                                                name="inverter-Rating" readonly
+                                                                                id="ms_rating"
+                                                                                name="ms_rating" readonly
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="inverter-Quantity"
-                                                                                name="inverter-Quantity"></td>
+                                                                                id="ms_quantity"
+                                                                                name="ms_quantity"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Inverter</th>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="battery-Make" name="battery-Make">
+                                                                                id="inverter_make" name="inverter_make">
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="battery-Model" name="battery-Model">
+                                                                                id="inverter_model" name="inverter_model">
                                                                         </td>
                                                                         <td class="nk-tb-col">
                                                                             <div class="form-control-wrap">
                                                                                 <div class="form-text-hint">
                                                                                     <span class="overline-title">
                                                                                         kW</span></div>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="default-05" placeholder="">
+                                                                                <input type="text" name="inverter_rating" class="form-control"
+                                                                                    id="inverter_rating" placeholder="">
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="battery-Quantity"
-                                                                                name="battery-Quantity"></td>
+                                                                                id="inverter_quantity"
+                                                                                name="inverter_quantity"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <th>Energy Meter </th>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id=""
-                                                                                name=""></td>
+                                                                                id="energy_make"
+                                                                                name="energy_make"></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id=""
-                                                                                name=""></td>
+                                                                                id="energy_model"
+                                                                                name="energy_model"></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
-                                                                                id=""
-                                                                                name="" readonly
+                                                                                id="energy_rating"
+                                                                                name="energy_rating" readonly
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id=""
-                                                                                name=""></td>
+                                                                                id="energy_quantity"
+                                                                                name="energy_quantity"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Battery Energy
                                                                             Storage System </th>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id=""
-                                                                                name=""></td>
+                                                                                id="battery_make"
+                                                                                name="battery_make"></td>
                                                                         <td class="nk-tb-col">
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox"
+                                                                                    <input type="checkbox" name="battery_dc"
                                                                                         class="custom-control-input"
                                                                                         ><label
                                                                                         class="custom-control-label"
@@ -559,9 +510,7 @@
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox"
-                                                                                        class="custom-control-input"
-                                                                                        ><label
+                                                                                    <input type="checkbox" class="custom-control-input" name="battery_ac" value="battery_ac" ><label
                                                                                         class="custom-control-label"
                                                                                         for="customCheck7">AC Connected
                                                                                     </label></div>
@@ -572,21 +521,21 @@
                                                                                 <div class="form-text-hint">
                                                                                     <span class="overline-title">
                                                                                         kW</span></div>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="default-05" placeholder="">
+                                                                                <input type="text" name="battery_rating_kw" value="{{ old('battery_rating') }}" class="form-control"
+                                                                                    id="battery_rating_kw" placeholder="">
                                                                             </div>
                                                                             <div class="form-control-wrap">
                                                                                 <div class="form-text-hint">
                                                                                     <span class="overline-title">
                                                                                         kWh</span></div>
-                                                                                <input type="text" class="form-control"
-                                                                                    id="default-05" placeholder="">
+                                                                                <input type="text" name="battery_rating_kwh" class="form-control"
+                                                                                    id="battery_rating_kwh" value="{{ old('battery_rating_kwh') }}" placeholder="">
                                                                             </div>
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
-                                                                                class="form-control" placeholder=""
+                                                                        <td class="nk-tb-col">
+                                                                            <input type="text" class="form-control" placeholder=""
 
-                                                                                name="controller-Quantity"></td>
+                                                                                name="battery_quantity"></td>
                                                                     </tr>
                                                                     <!-- Add more rows as needed -->
                                                                 </tbody>
@@ -1368,7 +1317,7 @@
 
 
 
-                                            <div class="nk-stepper-step">
+                                            <div class="nk-stepper-step domestiocFormTabContent" >
                                                 <div class="ForTitileMain">
                                                     <h1>Part 2 – Inspection, Test and Commissioning Report</h1>
                                                 </div>
@@ -2640,7 +2589,7 @@
 
                                             </div>
 
-                                            <div class="nk-stepper-step">
+                                            <div class="nk-stepper-step NondomestiocFormTabContent">
                                                 <div class="ForTitileMain">
                                                     <h1>Part 2 – Inspection, Test and Commissioning Report </h1>
                                                 </div>
@@ -4449,8 +4398,145 @@
 @endsection
 
 @push('push_script')
-<!-- submit trigger buttin page loader and redirection other page json_decode -->
 <script>
+    function getClient(client_type){
+        var domesticTab = $('.domesticFormTab');
+        var nodomesticTabs = $('.nondomesticTab');
+
+        if (client_type == 1) {
+            domesticTab.show();
+            nodomesticTabs.hide();
+        } else if (client_type == 2) {
+            domesticTab.hide();
+            nodomesticTabs.show();
+        }
+        // $(".loader").show();
+
+        $.ajax({
+            url: "{{ route('admin.get_client') }}",
+            type: 'POST',
+            data: {
+                client_type: client_type,
+                "_token": "{{ csrf_token() }}",
+             },
+            success: function(data) {
+                // $(".loader").hide();
+                // $('.error_clear').html('');
+
+                if (data.clientsOptions) {
+                    console.log(data.clientsOptions);
+                    $("#client_id").html(data.clientsOptions);
+                } else {
+                    console.log('No client options found.');
+                    $("#client_id").html('<option value="">Select an Option</option>');
+                }
+            },
+            error: function(xhr, status, error) {
+                $(".loader").hide();
+                console.error('An error occurred:', error);
+            }
+        });
+    }
+</script>
+
+{{-- <script>
+    function getClient(client_type) {
+        var domesticTabs = $('.domesticFormTab');
+        var nondomesticTabs = $('.nondomesticTab');
+        var domesticContent = $('.domestiocFormTabContent');
+        var nondomesticContent = $('.NondomestiocFormTabContent');
+
+        // Hide all tabs initially
+        domesticTabs.hide();
+        nondomesticTabs.hide();
+        domesticContent.hide();
+        nondomesticContent.hide();
+
+        // Setup the correct steps based on the client type
+        if (client_type == 1) {
+            domesticTabs.show();
+            domesticContent.show();
+            setupSteps(domesticContent);
+        } else if (client_type == 2) {
+            nondomesticTabs.show();
+            nondomesticContent.show();
+            setupSteps(nondomesticContent);
+        }
+    }
+
+    function setupSteps(content) {
+        const steps = content;
+        const prevButton = $('.step-prev button');
+        const nextButton = $('.step-next button');
+        const submitButton = $('.step-submit button');
+        let currentStep = 0;
+
+        function showStep(index) {
+            steps.hide();
+            steps.eq(index).show();
+
+            prevButton.closest('li').toggle(index > 0);
+            nextButton.closest('li').toggle(index < steps.length - 1);
+            submitButton.closest('li').toggle(index === steps.length - 1);
+        }
+
+        prevButton.off('click').on('click', function() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        nextButton.off('click').on('click', function() {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        $('form').off('submit').on('submit', function(event) {
+            const submitButton = $(this).find('button[type="submit"]');
+            if (submitButton) {
+                event.preventDefault();
+                showLoader(submitButton);
+                setTimeout(() => {
+                    hideLoader(submitButton);
+                    window.location.href = 'job-orders.php';
+                }, 2000);
+            }
+        });
+
+        function showLoader(button) {
+            button.data('original-text', button.html());
+            button.html('Processing <span class="loaderButton_custom"></span>');
+            button.prop('disabled', true);
+        }
+
+        function hideLoader(button) {
+            button.html(button.data('original-text'));
+            button.prop('disabled', false);
+        }
+
+        // Initialize the first step
+        showStep(currentStep);
+    }
+
+    $(document).ready(function() {
+        // Initialize with default content hidden
+        $('.defaultFormTabContent').show();
+        setupSteps($('.defaultFormTabContent'));
+
+        // Set initial tab visibility
+        $('.domesticFormTab').hide();
+        $('.nondomesticTab').hide();
+        $('.domestiocFormTabContent').hide();
+        $('.NondomestiocFormTabContent').hide();
+    });
+</script> --}}
+
+
+
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const forms = document.querySelectorAll('form');
         forms.forEach(form => {
@@ -4481,6 +4567,6 @@
             button.disabled = false; // Enable the button
         }
     });
-</script>
+</script> --}}
 <!-- submit trigger buttin page loader and redirection other page json_decode end-->
 @endpush

@@ -10,7 +10,7 @@
                     <div class="nk-block-head-content">
                         <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">All Staff List</h2>
                         <div class="nk-block-des text-soft">
-                            <p>You have total 104 Staff.</p>
+                            <p>You have total {{ count($staffs) }} Staff.</p>
                         </div>
                     </div>
                     <div class="nk-block-head-content">
@@ -77,9 +77,11 @@
                                         </td>
                                         <td class="nk-tb-col tb-col-md">
                                             @if($staff->status == 1)
-                                                <span class="tb-status text-success">Active</span>
+                                                <a href="javascript:void(0)" data-id="{{ $staff->id }}" onclick="changeStatus(this);" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Change Status"><span class="tb-status text-success">Active</span></a>
                                             @else
-                                                <span class="tb-status text-danger">Inactive</span>
+                                                <a href="javascript:void(0)" data-id="{{ $staff->id }}" onclick="changeStatus(this);" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Change Status"><span class="tb-status text-danger">Inactive</span></a>
                                             @endif
                                         </td>
                                         <td class="nk-tb-col tb-col-md">12</td>
@@ -89,7 +91,7 @@
 
                                                 <li>
                                                 <div class="actionFlexBtns">
-                                                        <a href="staff-all-job-orders.php" class="btn btn-secondary btn-trigger btn-icon"
+                                                        <a href="javascript:void(0)" class="btn btn-secondary btn-trigger btn-icon"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="View Orders"> <em class="icon ni ni-eye"></em></a>
 
@@ -98,11 +100,11 @@
                                                             title="Edit Staff Details"> <em
                                                                 class="icon ni ni-edit"></em></a>
 
-                                                        <button type="button" class="btn btn-secondary btn-trigger btn-icon eg-swal-av3"
+                                                        {{-- <button type="button" class="btn btn-secondary btn-trigger btn-icon eg-swal-av3"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             aria-label="Delete This Staff"
                                                             data-bs-original-title="Delete this staff"> <em
-                                                                class="icon ni ni-na"></em></button>
+                                                                class="icon ni ni-na"></em></button> --}}
                                                     </div>
                                                 </li>
                                             </ul>
@@ -111,57 +113,6 @@
                                     @endforeach
 
                                 @endisset
-
-                                {{-- <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-md"><span>#STF983</span></td>
-                                    <td class="nk-tb-col">
-                                        <div class="user-card">
-                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                <span>GH</span>
-                                            </div>
-                                            <div class="user-info">
-                                                <span class="tb-lead">George Harrison <span
-                                                        class="dot dot-success d-md-none ms-1"></span></span>
-                                                <span>george@example.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span>+811 847-4961</span></td>
-
-                                    <td class="nk-tb-col tb-col-lg">
-                                        <ul class="list-status">
-                                            <li><em class="icon text-success ni ni-check-circle"></em><span>03 Mar
-                                                    2021</span></li>
-                                        </ul>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span class="tb-status text-success">Active</span>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md">15</td>
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1">
-
-                                            <li>
-                                                <div class="actionFlexBtns">
-                                                    <a href="staff-all-job-orders.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="View Orders"> <em class="icon ni ni-eye"></em></a>
-
-                                                    <a href="edit-staff.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Edit Staff Details"> <em
-                                                            class="icon ni ni-edit"></em></a>
-
-                                                    <button type="button" class="btn btn-secondary btn-trigger btn-icon eg-swal-av3"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        aria-label="Delete This Staff"
-                                                        data-bs-original-title="Delete this staff"> <em
-                                                            class="icon ni ni-na"></em></button>
-                                                </div>
-
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr> --}}
 
                             </tbody>
                         </table>
@@ -174,3 +125,43 @@
 </div>
 
 @endsection
+@push('push_script')
+<script>
+    function changeStatus(element) {
+        const staffId = $(element).data('id');
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, change it!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('admin.staff-change-status') }}",
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: staffId
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire("Updated!", "Your status has been changed.", "success").then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire("Error!", "There was an issue changing the status.", "error");
+                        }
+                    },
+                    error: function() {
+                        Swal.fire("Error!", "There was an issue changing the status.", "error");
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+@endpush

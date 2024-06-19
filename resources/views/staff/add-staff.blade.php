@@ -170,45 +170,42 @@
 @endsection
 <!-- submit trigger buttin page loader and redirection other page json_decode -->
 @push('push_script')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const forms = document.querySelectorAll('form');
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const forms = document.querySelectorAll('form');
 
-            forms.forEach(form => {
-                form.addEventListener('submit', function(event) {
-                    const submitButton = form.querySelector('button[type="submit"]');
-                    if (!form.checkValidity()) {
-                        // If form is invalid, show validation errors
-                        event.preventDefault();
-                        form.reportValidity();
-                        return;
-                    }
-                    if (submitButton) {
-                        event.preventDefault(); // Prevent default form submission
-                        showLoader(submitButton);
+        forms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                const submitButton = form.querySelector('button[type="submit"]');
 
-                        // Simulate form submission for demonstration purposes
-                        setTimeout(() => {
-                            // hideLoader(submitButton);
-                            form.submit();
-                            // Redirect to another page after processing
-                            // window.location.href = 'all-staff.php'; // Change 'other-page.php' to your desired destination
-                        }, 2000); // Simulate a delay for form submission
-                    }
-                });
+                if (!form.checkValidity()) {
+                    // form.classList.add('was-validated');
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return;
+                }
+
+                if (submitButton) {
+                    showLoader(submitButton);
+
+                    setTimeout(() => {
+                        hideLoader(submitButton);
+                    }, 1000);
+                }
             });
-
-            function showLoader(button) {
-                button.dataset.originalText = button.innerHTML; // Save original button text
-                button.innerHTML = 'Processing <span class="loaderButton_custom"></span>';
-                button.disabled = true; // Disable the button to prevent multiple clicks
-            }
-
-            // function hideLoader(button) {
-            //     button.innerHTML = button.dataset.originalText; // Restore original button text
-            //     button.disabled = false; // Enable the button
-            // }
         });
-    </script>
+
+        function showLoader(button) {
+            button.dataset.originalText = button.innerHTML;
+            button.innerHTML = 'Processing <span class="loaderButton_custom"></span>';
+            button.disabled = true;
+        }
+
+        function hideLoader(button) {
+            button.innerHTML = button.dataset.originalText;
+            button.disabled = false;
+        }
+    });
+</script>
     <!-- submit trigger buttin page loader and redirection other page json_decode end-->
 @endpush
