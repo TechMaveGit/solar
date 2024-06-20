@@ -211,7 +211,7 @@
 
 
 
-                                            <div class="nk-stepper-step domestiocFormTabContent">
+                                            <div class="nk-stepper-step domestiocFormTabContent2">
                                                 <div class="ForTitileMain">
                                                     <h1>Part 2 – Inspection, Test and Commissioning Report</h1>
                                                 </div>
@@ -224,7 +224,7 @@
 
                                             </div>
 
-                                            <div class="nk-stepper-step NondomestiocFormTabContent">
+                                            <div class="nk-stepper-step NondomestiocFormTabContent2">
                                                 <div class="ForTitileMain">
                                                     <h1>Part 2 – Inspection, Test and Commissioning Report </h1>
                                                 </div>
@@ -332,8 +332,170 @@
     });
 </script>
 
-{{--
-by default active .defaultTab and form .defaultFormTabContent show only
-when i chose client_type ==1  active only .domesticFormTab and .domestiocFormTabContent tab pre next button work acodingly these tabs only
-when i chose client type ==2  active only .nondomesticTab and .NondomestiocFormTabContent pre next button work acodingly these tabs only
- --}}
+<script>
+    function getClient(client_type) {
+        var defaultContent = $('.defaultFormTabContent');
+        var domesticTabs = $('.domesticFormTab');
+        var nondomesticTabs = $('.nondomesticTab');
+        var domesticContent = $('.domestiocFormTabContent');
+        var nondomesticContent = $('.NondomestiocFormTabContent');
+
+        // Hide all tabs and content initially
+        defaultContent.show();
+        domesticTabs.hide();
+        nondomesticTabs.hide();
+        domesticContent.hide();
+        nondomesticContent.hide();
+
+        // Setup the correct steps based on the client type
+        if (client_type == 1) {
+            domesticTabs.show();
+            setupSteps(defaultContent.add(domesticContent));
+        } else if (client_type == 2) {
+            nondomesticTabs.show();
+            setupSteps(defaultContent.add(nondomesticContent));
+        }
+    }
+
+    function setupSteps(content) {
+        const steps = content;
+        const prevButton = $('.step-prev button');
+        const nextButton = $('.step-next button');
+        const submitButton = $('.step-submit button');
+        let currentStep = 0;
+
+        function showStep(index) {
+            steps.hide();
+            steps.eq(index).show();
+
+            prevButton.closest('li').toggle(index > 0);
+            nextButton.closest('li').toggle(index < steps.length - 1);
+            submitButton.closest('li').toggle(index === steps.length - 1);
+        }
+
+        prevButton.off('click').on('click', function() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        nextButton.off('click').on('click', function() {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        $('form').off('submit').on('submit', function(event) {
+            const submitButton = $(this).find('button[type="submit"]');
+            if (submitButton) {
+                event.preventDefault();
+                showLoader(submitButton);
+                setTimeout(() => {
+                    hideLoader(submitButton);
+                    window.location.href = 'job-orders.php';
+                }, 2000);
+            }
+        });
+
+        function showLoader(button) {
+            button.data('original-text', button.html());
+            button.html('Processing <span class="loaderButton_custom"></span>');
+            button.prop('disabled', true);
+        }
+
+        function hideLoader(button) {
+            button.html(button.data('original-text'));
+            button.prop('disabled', false);
+        }
+
+        // Initialize the first step
+        showStep(currentStep);
+    }
+
+    $(document).ready(function() {
+        // Set initial tab visibility
+        $('.domesticFormTab').hide();
+        $('.nondomesticTab').hide();
+        $('.domestiocFormTabContent').hide();
+        $('.NondomestiocFormTabContent').hide();
+
+        // Initialize the stepper with default tab content
+        setupSteps($('.defaultFormTabContent'));
+    });
+</script>
+
+
+Schema::create('job_orders', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->enum('client_type', ['1', '2'])->default('1')->comment('1=>Domestic, 2=>NonDomestic');
+    $table->unsignedBigInteger('client_id');
+    $table->unsignedBigInteger('staff_id');
+    $table->date('date')->nullable();
+    $table->time('time')->nullable();
+    $table->string('address')->nullable();
+    $table->string('country')->nullable();
+    $table->string('city')->nullable();
+    $table->string('postal_code')->nullable();
+    $table->enum('status', ['0', '1'])->default('0')->comment('0=>pending, 1=>completed');
+
+    // Installation Details
+    $table->string('applicant_name')->nullable();
+    $table->string('installation_address')->nullable();
+    $table->string('installation_eircode')->nullable();
+    $table->string('installation_mprn')->nullable();
+    // System Details 
+    $table->string('solar_pv_system_size')->nullable();
+    $table->string('battery_storage')->nullable();
+    $table->string('annual_estimated_yield')->nullable();
+    $table->string('yield_calculation')->nullable();
+    $table->string('yield_calculation')->nullable();
+    $table->string('water_diverter')->nullable();
+
+    // PV registered company
+    $table->string('company_name')->nullable();
+    $table->string('company_number')->nullable();
+    $table->string('property_year_construction')->nullable();
+    $table->string('cost_installation')->nullable();
+    //installer details
+    $table->string('installer_name')->nullable();
+    $table->string('installer_date')->nullable();
+    $table->string('installer_completed_date')->nullable();
+    $table->string('installer_sign')->nullable();
+    //Homeowner/Applicant Declaration
+    $table->string('owner_name')->nullable();
+    $table->string('owner_date')->nullable();
+    $table->string('owner_sign')->nullable();
+    //Part 2
+    //Customer
+    $table->string('customer_name')->nullable();
+    $table->string('customer_address')->nullable();
+    $table->string('customer_eircode')->nullable();
+    //Installation Contractor
+    $table->string('installer_company_name')->nullable();
+    $table->string('installer_company_representative')->nullable();
+    $table->string('installer_company_address')->nullable();
+    // PB System Description
+    $table->string('pv_manufacturer')->nullable();
+    $table->string('pv_model_type')->nullable();
+    $table->string('pv_model_performance')->nullable();
+    $table->string('pv_number_modules')->nullable();
+    $table->string('pv_short_circuit_current')->nullable();
+    $table->string('pv_mpp_current')->nullable();
+    $table->string('pv_open_circuit_voltage')->nullable();
+    $table->string('pv_mpp_voltage')->nullable();
+    //Electric Cert
+    $table->string('electric_cert_number')->nullable();
+    $table->string('electric_record_sheet')->nullable();
+    $table->string('electric_re')->nullable();
+    $table->string('electric_loop')->nullable();
+    $table->string('electric_rcdx1')->nullable();
+    $table->string('electric_rcdx5')->nullable();
+
+    $table->text('system_components')->nullable();
+    $table->text('pv_inverts')->nullable();
+
+    $table->timestamps();
+});
