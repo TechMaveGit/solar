@@ -163,15 +163,14 @@ class AuthController extends Controller
 
         try {
             // Invalidate the old token if it exists
-            $currentToken = JWTAuth::getToken();
-            if ($currentToken) {
-                JWTAuth::invalidate($currentToken);
-            }
+            // $currentToken = JWTAuth::getToken();
+            // if ($currentToken) {
+            //     JWTAuth::invalidate($currentToken);
+            // }
 
             // Generate a new token for the user
             $token = JWTAuth::fromUser($user);
 
-            // Return the new token
             return $this->respondWithToken($token, $user);
 
         } catch (JWTException $e) {
@@ -213,17 +212,32 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-     public function getjob(Request $request)
+    public function getjob(Request $request)
     {
 
-        $job = JobOrder::whereId('1')->first();
-        $job = json_decode($job->system_components);
+        $job = JobOrder::whereId(1)->first();
 
-        return response()->json([
-            'status' => true,
-            // 'message' => '',
-            'data' => $job,
-        ]);
+        if ($job) {
+            $decodedComponents = json_decode($job->system_components,true);
+            $jobArray = $job->toArray();
+
+            $mergedData = array_merge($jobArray, $decodedComponents);
+
+            unset($mergedData['system_components']);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Record Found',
+                'data' => $mergedData,
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Job order not found',
+                'data' => null,
+            ]);
+        }
+
     }
 
 }
