@@ -4,7 +4,8 @@
 
 <div class="nk-content nk-content-fluid">
     <div class="components-preview formMainContainer">
-        <form class="nk-stepper stepper-init is-alter nk-stepper-s1" action="" id="stepper-create-project" method="post">
+        <form class="nk-stepper stepper-init is-alter nk-stepper-s1" action="" enctype="multipart/form-data" id="stepper-create-project" method="post">
+            @csrf
             <div class="nk-content-body">
                 <div class="nk-block-head">
 
@@ -100,7 +101,7 @@
                                                             <div class="form-group"><label class="form-label">Client
                                                                     Name</label>
                                                                 <div class="form-control-wrap">
-                                                                    <select class="form-select js-select2" data-search="on" name="cient_id" id="client_id">
+                                                                    <select class="form-select js-select2" data-search="on" name="client_id" id="client_id">
                                                                         <option value="">Select an Option</option>
                                                                         {{-- <option value="john_doe">John Doe</option> --}}
 
@@ -4374,8 +4375,8 @@
                                             <li class="step-prev"><button class="btn btn-dim btn-primary">Prev</button>
                                             </li>
                                             <li class="step-next"><button class="btn btn-primary">Next</button></li>
-                                            <li class="step-submit"><button class="btn btn-primary"
-                                                    type="submit">Submit</button></li>
+                                            {{-- <li class="step-submit"><button class="btn btn-primary" type="submit">Submit</button></li> --}}
+                                            <li class="step-submit"><button class="btn btn-primary" onclick="Validatecheck()">Submit</button></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -4394,46 +4395,46 @@
 @endsection
 
 @push('push_script')
-{{-- <script>
-    function getClient(client_type){
-        var domesticTab = $('.domesticFormTab');
-        var nodomesticTabs = $('.nondomesticTab');
-
-        if (client_type == 1) {
-            domesticTab.show();
-            nodomesticTabs.hide();
-        } else if (client_type == 2) {
-            domesticTab.hide();
-            nodomesticTabs.show();
+<script>
+    function Validatecheck(){
+        var clientValue = $('#client_type').val();
+        if(clientValue==1){
+            $('.NondomestiocFormTabContent').html('');
+        }else{
+            $('.domestiocFormTabContent').html('');
         }
-        // $(".loader").show();
-
-        $.ajax({
-            url: "{{ route('admin.get_client') }}",
-            type: 'POST',
-            data: {
-                client_type: client_type,
-                "_token": "{{ csrf_token() }}",
-             },
-            success: function(data) {
-                // $(".loader").hide();
-                // $('.error_clear').html('');
-
-                if (data.clientsOptions) {
-                    console.log(data.clientsOptions);
-                    $("#client_id").html(data.clientsOptions);
-                } else {
-                    console.log('No client options found.');
-                    $("#client_id").html('<option value="">Select an Option</option>');
-                }
-            },
-            error: function(xhr, status, error) {
-                $(".loader").hide();
-                console.error('An error occurred:', error);
+        alert(clientValue);
+        var formData = new FormData($("#stepper-create-project")[0]);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        $(".loader").show();
+        $.ajax({
+
+            url: "{{ route('admin.create-job-order') }}",
+            type:'POST',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData:false,
+               success: function(data) {
+                  $(".loader").hide();
+                $('.error_clear').html('');
+
+                   if($.isEmptyObject(data.error)){
+                      // alert(data.success);
+                      window.location = "{{ route('admin.assigned-job-order') }}";
+                   }
+                //    else{
+                //        printErrorMsg(data.error);
+                //    }
+               },
+           });
+
     }
-</script> --}}
+</script>
 
 <script>
     function getClient(client_type) {
@@ -4521,17 +4522,17 @@
             }
         });
 
-        $('form').off('submit').on('submit', function(event) {
-            const submitButton = $(this).find('button[type="submit"]');
-            if (submitButton) {
-                event.preventDefault();
-                showLoader(submitButton);
-                setTimeout(() => {
-                    hideLoader(submitButton);
-                    window.location.href = 'job-orders.php';
-                }, 2000);
-            }
-        });
+        // $('form').off('submit').on('submit', function(event) {
+        //     const submitButton = $(this).find('button[type="submit"]');
+        //     if (submitButton) {
+        //         event.preventDefault();
+        //         showLoader(submitButton);
+        //         setTimeout(() => {
+        //             hideLoader(submitButton);
+        //             window.location.href = 'job-orders.php';
+        //         }, 2000);
+        //     }
+        // });
 
         function showLoader(button) {
             button.data('original-text', button.html());
