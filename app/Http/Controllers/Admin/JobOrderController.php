@@ -39,7 +39,6 @@ class JobOrderController extends Controller
         $jobOrder->country = $request->country;
         $jobOrder->city = $request->city;
         $jobOrder->postal_code = $request->postal_code;
-        // $jobOrder->status = $request->status;
 
         $jobOrder->system_components = json_encode($installation);
 
