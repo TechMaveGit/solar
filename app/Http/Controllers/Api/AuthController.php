@@ -190,7 +190,10 @@ class AuthController extends Controller
             $profile_image = $this->upload($profile_images,$folderName);
         }
         User::whereId(auth()->user()->id)->update(['profile_image' => $profile_image]);
-        return response()->json(['success' => 'Image uploaded successfully']);
+        return response()->json([
+            'status' => true,
+            'success' => 'Image uploaded successfully'
+        ]);
     }
 
     public static function upload($image,$folderName)
