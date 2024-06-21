@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('job_orders', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->enum('client_type', ['1', '2'])->default('1')->comment('1=>Domestic, 2=>NonDomestic');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('staff_id');
-            $table->date('date')->nullable();
-            $table->time('time')->nullable();
+            $table->string('date')->nullable();
+            $table->string('time')->nullable();
             $table->string('address')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
@@ -34,7 +33,6 @@ return new class extends Migration
             $table->string('solar_pv_system_size')->nullable();
             $table->string('battery_storage')->nullable();
             $table->string('annual_estimated_yield')->nullable();
-            $table->string('yield_calculation')->nullable();
             $table->string('yield_calculation')->nullable();
             $table->string('water_diverter')->nullable();
 
@@ -90,10 +88,10 @@ return new class extends Migration
             $table->string('test_notes')->nullable();
             $table->string('notes')->nullable();
 
-            $table->text('system_components')->nullable();
-            $table->text('pv_inverts')->nullable();
-            $table->text('design_and_installation')->nullable();
-            $table->text('test_report_grid')->nullable();
+            $table->json('system_components')->nullable();
+            $table->json('pv_inverts')->nullable();
+            $table->json('design_and_installation')->nullable();
+            $table->json('test_report_grid')->nullable();
 
             $table->timestamps();
         });

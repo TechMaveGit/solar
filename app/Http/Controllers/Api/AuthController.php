@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -208,5 +209,17 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+
+     public function getjob(Request $request)
+    {
+
+        $job = JobOrder::get();
+
+        return response()->json([
+            'status' => true,
+            // 'message' => '',
+            'user' => $job,
+        ]);
+    }
 
 }
