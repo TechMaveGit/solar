@@ -50,6 +50,7 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+
     /**
      * The attributes that should be cast.
      *

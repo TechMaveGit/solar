@@ -56,7 +56,7 @@ class AuthController extends Controller
     public function profile(Request $request)
     {
         $user = Auth::guard('admin')->user();
-        return view('Admin.Auth.profile',compact('user'));
+        return view('auth.profile',compact('user'));
     }
 
     public function update_profile(Request $request)
@@ -97,7 +97,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
-        return redirect()->route('auth.login');
+        return redirect()->route('admin.login');
     }
 
 
