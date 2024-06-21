@@ -213,12 +213,13 @@ class AuthController extends Controller
      public function getjob(Request $request)
     {
 
-        $job = JobOrder::get();
+        $job = JobOrder::whereId('1')->first();
+        $job = json_decode($job->system_components);
 
         return response()->json([
             'status' => true,
             // 'message' => '',
-            'user' => $job,
+            'data' => $job,
         ]);
     }
 
