@@ -53,6 +53,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'auth:admin'], func
 
     Route::get('assigned-job-order', [JobOrderController::class,'index'])->name('assigned-job-order');
     Route::get('create-job-order', [JobOrderController::class,'create'])->name('create-job-order');
+    Route::post('create-job-order', [JobOrderController::class,'store'])->name('create-job-order');
     Route::get('view-job-order', [JobOrderController::class,'show'])->name('view-job-order');
     Route::post('get_client', [JobOrderController::class,'getClient'])->name('get_client');
     Route::get('reports', [JobOrderController::class,'report'])->name('reports');
