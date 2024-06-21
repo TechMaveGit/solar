@@ -1042,8 +1042,8 @@
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="controller-Quantity"
-                                                                                name="controller-Quantity"></td>
+                                                                                id="controller_quantity"
+                                                                                name="controller_quantity"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Energy Meter </th>
@@ -1597,7 +1597,7 @@
                                                                                     class="custom-control-input"
                                                                                     id="inverter_test_reason" value="initial_inspection"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-card-1">Initial
+                                                                                    for="inverter_test_reason">Initial
                                                                                     inspection</label></div>
                                                                         </li>
                                                                         <li>
@@ -1607,7 +1607,7 @@
                                                                                     class="custom-control-input" value="retesting"
                                                                                     id="inverter_test2_reason"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-bitcoin-1">Retesting</label>
+                                                                                    for="inverter_test2_reason">Retesting</label>
                                                                             </div>
                                                                         </li>
 
@@ -1735,7 +1735,7 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result" value="no_defects"
+                                                                                <input type="checkbox" name="test_result" value="1"
                                                                                     class="custom-control-input"
                                                                                     id="pay-card-1"><label
                                                                                     class="custom-control-label"
@@ -1745,7 +1745,7 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result2" value="defects"
+                                                                                <input type="checkbox" name="test_result2" value="1"
                                                                                     class="custom-control-input"
                                                                                     id="pay-bitcoin-1"><label
                                                                                     class="custom-control-label"
@@ -1755,7 +1755,7 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result3" value="photovoltaic"
+                                                                                <input type="checkbox" name="test_result3" value="1"
                                                                                     class="custom-control-input"
                                                                                     id="pay-card-1"><label
                                                                                     class="custom-control-label"
@@ -3151,7 +3151,7 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result" value="no_defects"
+                                                                                <input type="checkbox" name="test_result" value="1"
                                                                                     class="custom-control-input"
                                                                                     id="pay-card-no"><label
                                                                                     class="custom-control-label"
@@ -3161,7 +3161,7 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result2" value="defects"
+                                                                                <input type="checkbox" name="test_result2" value="1"
                                                                                     class="custom-control-input"
                                                                                     id="pay-bitcoin-de"><label
                                                                                     class="custom-control-label"
@@ -3171,7 +3171,7 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result3" value="photovoltaic"
+                                                                                <input type="checkbox" name="test_result3" value="1"
                                                                                     class="custom-control-input"
                                                                                     id="pay-card-ph"><label
                                                                                     class="custom-control-label"
@@ -4305,8 +4305,6 @@
                                                                                 <td class="nk-tb-col"><input type="text"
                                                                                 name="loss_4"></td>
                                                                                 <td class="nk-tb-col"><input type="text"
-                                                                                name="loss_4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
                                                                                 name="loss_5"></td>
                                                                                 <td class="nk-tb-col"><input type="text"
                                                                                 name="loss_6"></td>
@@ -4316,6 +4314,8 @@
                                                                                 name="loss_8"></td>
                                                                                 <td class="nk-tb-col"><input type="text"
                                                                                 name="loss_9"></td>
+                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                name="loss_10"></td>
                                                                     </tr>
 
                                                                 </tbody>
@@ -4358,7 +4358,7 @@
                                                                 <div class="form-group">
                                                                     <div class="form-control-wrap"><textarea
                                                                             class="form-control form-control-sm"
-                                                                             name="fv-messagegd"
+                                                                             name="notes"
                                                                             placeholder="Write your message"
                                                                             ></textarea></div>
                                                                 </div>
@@ -4403,14 +4403,14 @@
         }else{
             $('.domestiocFormTabContent').html('');
         }
-        alert(clientValue);
+        // alert(clientValue);
         var formData = new FormData($("#stepper-create-project")[0]);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $(".loader").show();
+        // $(".loader").show();
         $.ajax({
 
             url: "{{ route('admin.create-job-order') }}",
@@ -4420,7 +4420,7 @@
             cache: false,
             processData:false,
                success: function(data) {
-                  $(".loader").hide();
+                //   $(".loader").hide();
                 $('.error_clear').html('');
 
                    if($.isEmptyObject(data.error)){
@@ -4534,16 +4534,16 @@
         //     }
         // });
 
-        function showLoader(button) {
-            button.data('original-text', button.html());
-            button.html('Processing <span class="loaderButton_custom"></span>');
-            button.prop('disabled', true);
-        }
+        // function showLoader(button) {
+        //     button.data('original-text', button.html());
+        //     button.html('Processing <span class="loaderButton_custom"></span>');
+        //     button.prop('disabled', true);
+        // }
 
-        function hideLoader(button) {
-            button.html(button.data('original-text'));
-            button.prop('disabled', false);
-        }
+        // function hideLoader(button) {
+        //     button.html(button.data('original-text'));
+        //     button.prop('disabled', false);
+        // }
 
         // Initialize the first step
         showStep(currentStep);
