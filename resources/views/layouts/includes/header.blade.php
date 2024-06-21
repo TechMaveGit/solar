@@ -35,9 +35,9 @@
                                 </div>
                                 <div class="dropdown-inner">
                                     <ul class="link-list">
-                                        <li><a href="profile.php"><em
+                                        {{-- <li><a href="{{ route('admin.profile') }}"><em
                                                     class="icon ni ni-user-alt"></em><span>View
-                                                    Profile</span></a></li>
+                                                    Profile</span></a></li> --}}
 
                                     </ul>
                                 </div>

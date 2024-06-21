@@ -10,7 +10,7 @@
                     <div class="nk-block-head-content">
                         <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">All Clients</h2>
                         <div class="nk-block-des text-soft">
-                            <p>You have total 210 Clients.</p>
+                            <p>You have total {{ count($clients) }} Clients.</p>
                         </div>
                     </div>
                     <div class="nk-block-head-content">
@@ -52,32 +52,46 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(count($clients)>0)
+                                @foreach ($clients as $client)
                                 <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-md"><span>#STF980</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span>{{ $client->id }}</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
                                             <div class="user-avatar bg-dim-primary d-none d-sm-flex">
                                                 <span>AB</span></div>
-                                            <div class="user-info"><span class="tb-lead">Abu Bin
-                                                    Ishtiyak <span
-                                                        class="dot dot-success d-md-none ms-1"></span></span><span>info@softnio.com</span>
+                                            <div class="user-info"><span class="tb-lead">{{ $client->name }}<span
+                                                        class="dot dot-success d-md-none ms-1"></span></span><span>{{ $client->email }}</span>
                                             </div>
                                         </div>
                                     </td>
 
-                                    <td class="nk-tb-col tb-col-md"><span>+811 847-4958</span></td>
-                                    <td class="nk-tb-col tb-col-md">456 Elm St, Town, Country</td>
+                                    <td class="nk-tb-col tb-col-md"><span>{{ $client->dial_code }} {{ $client->mobile }}</span></td>
+                                    <td class="nk-tb-col tb-col-md">{{ $client->address }}</td>
 
                                     <td class="nk-tb-col tb-col-lg">
                                         <ul class="list-status">
                                             <li><em class="icon text-success ni ni-check-circle"></em>
-                                                <span>05 Oct 2019</span></li>
+                                                <span>{{ $client->created_at->format('d M Y') }}</span></li>
 
                                         </ul>
                                     </td>
-                                    <td class="nk-tb-col tb-col-md"><span class="badge badge-dim bg-success">Domestic</span></td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        @if($client->client_type == 1)
+                                            <span class="badge badge-dim bg-success">Domestic</span>
+                                        @else
+                                            <span class="badge rounded-pill badge-dim bg-primary">Non-Domestic</span>
+                                        @endif
+                                    </td>
                                     <td class="nk-tb-col tb-col-md">2</td>
-                                    <td class="nk-tb-col tb-col-md"><span class="tb-status text-success">Active</span>
+                                    <td class="nk-tb-col tb-col-md">
+                                        @if($client->status == 1)
+                                            <a href="javascript:void(0)" data-id="{{ $client->id }}" onclick="changeStatus(this);" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Change Status"><span class="tb-status text-success">Active</span></a>
+                                        @else
+                                            <a href="javascript:void(0)" data-id="{{ $client->id }}" onclick="changeStatus(this);" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="Change Status"><span class="tb-status text-danger">Inactive</span></a>
+                                        @endif
                                     </td>
 
 
@@ -87,12 +101,12 @@
 
                                             <li>
                                             <div class="actionFlexBtns">
-                                                    <a href="client-job-orders.php" class="btn btn-secondary btn-trigger btn-icon"
+                                                    <a href="javascript:void(0)" class="btn btn-secondary btn-trigger btn-icon"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="View Orders"> <em
                                                             class="icon ni ni-eye"></em></a>
 
-                                                            <a href="edit-client.php" class="btn btn-secondary btn-trigger btn-icon"
+                                                            <a href="{{ route('admin.edit-client',base64_encode($client->id)) }}" class="btn btn-secondary btn-trigger btn-icon"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="Edit Client Details"> <em
                                                                       class="icon ni ni-edit"></em></a>
@@ -101,160 +115,8 @@
                                         </ul>
                                     </td>
                                 </tr>
-                                <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-md"><span>#STF981</span></td>
-                                    <td class="nk-tb-col">
-                                        <div class="user-card">
-                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                <span>CD</span>
-                                            </div>
-                                            <div class="user-info">
-                                                <span class="tb-lead">Chris Doe <span
-                                                        class="dot dot-success d-md-none ms-1"></span></span>
-                                                <span>chris@example.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span>+811 847-4959</span></td>
-                                    <td class="nk-tb-col tb-col-md">456 Elm St, Town, Country</td>
-                                    <td class="nk-tb-col tb-col-lg">
-                                        <ul class="list-status">
-                                            <li><em class="icon text-success ni ni-check-circle"></em><span>15 Nov
-                                                    2020</span></li>
-                                        </ul>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span class="badge badge-dim bg-success">Domestic</span></td>
-                                    <td class="nk-tb-col tb-col-md">1</td>
-                                    <td class="nk-tb-col tb-col-md"><span class="tb-status text-success">Active</span>
-                                    </td>
-
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1">
-
-
-                                            <li>
-                                            <div class="actionFlexBtns">
-                                                    <a href="client-job-orders.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="View Orders"> <em
-                                                            class="icon ni ni-eye"></em></a>
-
-                                                            <a href="edit-client.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Edit Client Details"> <em
-                                                                      class="icon ni ni-edit"></em></a>
-
-
-
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-md"><span>#STF982</span></td>
-                                    <td class="nk-tb-col">
-                                        <div class="user-card">
-                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                <span>EF</span>
-                                            </div>
-                                            <div class="user-info">
-                                                <span class="tb-lead">Emily Fisher <span
-                                                        class="dot dot-success d-md-none ms-1"></span></span>
-                                                <span>emily@example.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span>+811 847-4960</span></td>
-                                    <td class="nk-tb-col tb-col-md">456 Elm St, Town, Country</td>
-                                    <td class="nk-tb-col tb-col-lg">
-                                        <ul class="list-status">
-                                            <li><em class="icon text-success ni ni-check-circle"></em><span>20 Jan
-                                                    2021</span></li>
-                                        </ul>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span class="badge rounded-pill badge-dim bg-primary">Non-Domestic</span></td>
-                                    <td class="nk-tb-col tb-col-md">1</td>
-                                    <td class="nk-tb-col tb-col-md"><span class="tb-status text-success">Active</span>
-                                    </td>
-
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1">
-
-
-                                            <li>
-                                            <div class="actionFlexBtns">
-                                                    <a href="client-job-orders.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="View Orders"> <em
-                                                            class="icon ni ni-eye"></em></a>
-
-                                                            <a href="edit-client.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Edit Client Details"> <em
-                                                                      class="icon ni ni-edit"></em></a>
-
-
-
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-md"><span>#STF983</span></td>
-                                    <td class="nk-tb-col">
-                                        <div class="user-card">
-                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                <span>GH</span>
-                                            </div>
-                                            <div class="user-info">
-                                                <span class="tb-lead">George Harrison <span
-                                                        class="dot dot-success d-md-none ms-1"></span></span>
-                                                <span>george@example.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span>+811 847-4961</span></td>
-                                    <td class="nk-tb-col tb-col-md">123 Main St, City, Country</td>
-                                    <td class="nk-tb-col tb-col-lg">
-                                        <ul class="list-status">
-                                            <li><em class="icon text-success ni ni-check-circle"></em><span>03 Mar
-                                                    2021</span></li>
-                                        </ul>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span class="badge rounded-pill badge-dim bg-primary">Non-Domestic</span></td>
-                                    <td class="nk-tb-col tb-col-md">1</td>
-                                    <td class="nk-tb-col tb-col-md"><span class="tb-status text-success">Active</span>
-                                    </td>
-
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1">
-
-
-                                            <li>
-
-                                            <div class="actionFlexBtns">
-                                                    <a href="client-job-orders.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="View Orders"> <em
-                                                            class="icon ni ni-eye"></em></a>
-
-                                                            <a href="edit-client.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Edit Client Details"> <em
-                                                                      class="icon ni ni-edit"></em></a>
-
-
-
-                                                </div>
-
-
-
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                @endforeach
+                                @endif
 
                             </tbody>
                         </table>
@@ -267,3 +129,42 @@
 </div>
 
 @endsection
+@push('push_script')
+<script>
+    function changeStatus(element) {
+        const cliId = $(element).data('id');
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, change it!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('admin.client-change-status') }}",
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: cliId
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire("Updated!", "Your status has been changed.", "success").then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire("Error!", "There was an issue changing the status.", "error");
+                        }
+                    },
+                    error: function() {
+                        Swal.fire("Error!", "There was an issue changing the status.", "error");
+                    }
+                });
+            }
+        });
+    }
+</script>
+@endpush

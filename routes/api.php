@@ -29,7 +29,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'api'], function ($router) {
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
+    Route::get('profile', [AuthController::class, 'profile']);
+    Route::post('update-profile', [AuthController::class, 'updateProfile']);
+    Route::post('upload-profile', [AuthController::class, 'uploadProfile']);
 });

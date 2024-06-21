@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('user_type', ['1', '2'])->default('2')->comment('1=>Admin, 2=>Staff');
             $table->enum('gender', ['male', 'female','others'])->default('male');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('profile_image')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

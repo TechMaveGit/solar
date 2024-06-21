@@ -80,7 +80,7 @@
 
                                             <li>
                                                 <div class="actionFlexBtns">
-                                                    <a href="view-job-order.php" class="btn btn-secondary btn-trigger btn-icon"
+                                                    <a href="{{ route('admin.view-job-order') }}" class="btn btn-secondary btn-trigger btn-icon"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="View Job Order"> <em
                                                             class="icon ni ni-eye"></em></a>
