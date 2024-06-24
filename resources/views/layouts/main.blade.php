@@ -27,7 +27,7 @@
 <body class="nk-body bg-white has-sidebar ">
     <div class="nk-app-root">
         <div class="nk-main ">
-
+            @stack('push_styles')
             @include('layouts.includes.alerts')
             @include('layouts.includes.sidebar')
             @include('layouts.includes.header')

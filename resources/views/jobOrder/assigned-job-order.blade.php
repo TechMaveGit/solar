@@ -49,7 +49,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="nk-tb-item">
+
+                                {{-- <tr class="nk-tb-item">
                                     <td class="nk-tb-col tb-col-md"><span>#STF980</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
@@ -85,18 +86,58 @@
                                                         title="View Job Order"> <em
                                                             class="icon ni ni-eye"></em></a>
 
-                                                            <button type="button" class="btn btn-secondary btn-trigger btn-icon eg-swal-av3"
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr> --}}
+                                @if(count($jobOrders)>0)
+                                @foreach ($jobOrders as $jobOrder)
+                                <tr class="nk-tb-item">
+                                    <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->client)){{ $jobOrder->client->id }}@endif</span></td>
+                                    <td class="nk-tb-col">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>AB</span></div>
+                                            <div class="user-info"><span class="tb-lead">@if(isset($jobOrder->client)){{ $jobOrder->client->name }}@endif<span
+                                                        class="dot dot-success d-md-none ms-1"></span></span><span>@if(isset($jobOrder->client)){{ $jobOrder->client->email }}@endif</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md"><span>@if($jobOrder->client_type=='1'){{ 'Domestic' }}@elseif($jobOrder->client_type=='2'){{' Non-Domestic' }}@endif</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->staff)){{ $jobOrder->staff->id }}@endif</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->staff)){{ $jobOrder->staff->name }}@endif </span></td>
+
+                                    <td class="nk-tb-col tb-col-lg">
+                                        <ul class="list-status">
+                                            <li><em class="icon text-success ni ni-check-circle"></em>
+                                                <span>{{ $jobOrder->created_at->format('d F Y') }}</span></li>
+
+                                        </ul>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        @if($jobOrder->status=='0') <span class="tb-status text-danger">In-Complete</span> @elseif($jobOrder->status=='1')<span class="tb-status text-success">Completed</span>@endif
+                                    </td>
+
+                                    <td class="nk-tb-col nk-tb-col-tools">
+                                        <ul class="nk-tb-actions gx-1">
+
+                                            <li>
+                                                <div class="actionFlexBtns">
+                                                    {{-- <a href="{{ route('admin.view-job-order') }}" class="btn btn-secondary btn-trigger btn-icon"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="Delete This Job Order"> <em
-                                                            class="icon ni ni-na"></em></button>
-
-
+                                                        title="View Job Order"> <em class="icon ni ni-eye"></em></a> --}}
+                                                        <a href="#" class="btn btn-secondary btn-trigger btn-icon"
+                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                        title="View Job Order"> <em class="icon ni ni-eye"></em></a>
 
                                                 </div>
                                             </li>
                                         </ul>
                                     </td>
                                 </tr>
+                                @endforeach
+                                @endif
 
                             </tbody>
                         </table>
