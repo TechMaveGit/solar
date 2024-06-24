@@ -50,47 +50,6 @@
                             </thead>
                             <tbody>
 
-                                {{-- <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-md"><span>#STF980</span></td>
-                                    <td class="nk-tb-col">
-                                        <div class="user-card">
-                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                <span>AB</span></div>
-                                            <div class="user-info"><span class="tb-lead">Abu Bin
-                                                    Ishtiyak <span
-                                                        class="dot dot-success d-md-none ms-1"></span></span><span>info@softnio.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span>Domestic</span></td>
-                                    <td class="nk-tb-col tb-col-md"><span>#STF980</span></td>
-                                    <td class="nk-tb-col tb-col-md"><span>Chris Doe </span></td>
-
-                                    <td class="nk-tb-col tb-col-lg">
-                                        <ul class="list-status">
-                                            <li><em class="icon text-success ni ni-check-circle"></em>
-                                                <span>05 May 2024</span></li>
-
-                                        </ul>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span class="tb-status text-success">Active</span>
-                                    </td>
-
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1">
-
-                                            <li>
-                                                <div class="actionFlexBtns">
-                                                    <a href="{{ route('admin.view-job-order') }}" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="View Job Order"> <em
-                                                            class="icon ni ni-eye"></em></a>
-
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr> --}}
                                 @if(count($jobOrders)>0)
                                 @foreach ($jobOrders as $jobOrder)
                                 <tr class="nk-tb-item">
