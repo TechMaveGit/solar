@@ -212,32 +212,53 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function getjob(Request $request)
-    {
+     public function getjob(Request $request)
+     {
 
-        $job = JobOrder::whereId(1)->first();
+        $jobs = JobOrder::where('staff_id',auth()->user()->id)->orderBy('id','DESC')->get();
 
-        if ($job) {
-            $decodedComponents = json_decode($job->system_components,true);
-            $jobArray = $job->toArray();
+         return response()->json([
+            'status' => true,
+            'message' => 'Data get successfully.',
+            'data' => $jobs,
+        ]);
 
-            $mergedData = array_merge($jobArray, $decodedComponents);
+     }
+    //  public function getjob(Request $request)
+    //  {
+    //      $job = JobOrder::whereId(9)->first();
 
-            unset($mergedData['system_components']);
+    //      if ($job) {
+    //         $decoded_pv_inverts = json_decode($job->pv_inverts, true);
+    //         $decoded_system_components = json_decode($job->system_components, true);
+    //         $decoded_design_and_instt = json_decode($job->design_and_installation, true);
+    //         $decoded_test_report_grid = json_decode($job->test_report_grid, true);
+    //         if (!is_array($decoded_pv_inverts)) {
+    //             $decoded_pv_inverts = [];
+    //         }
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Record Found',
-                'data' => $mergedData,
-            ]);
-        } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Job order not found',
-                'data' => null,
-            ]);
-        }
+    //         $jobArray = $job->toArray();
+    //         $mergedData = array_merge($jobArray, $decoded_pv_inverts,$decoded_system_components,$decoded_design_and_instt,$decoded_test_report_grid);
 
-    }
+    //         unset(
+    //             $mergedData['pv_inverts'],
+    //             $mergedData['system_components'],
+    //             $mergedData['design_and_installation'],
+    //             $mergedData['test_report_grid']
+    //         );
+    //         return response()->json([
+    //             'status' => true,
+    //             'message' => 'Record Found',
+    //             'data' => $mergedData,
+    //         ]);
+    //      } else {
+    //          return response()->json([
+    //              'status' => false,
+    //              'message' => 'Job order not found',
+    //              'data' => null,
+    //          ]);
+    //      }
+    //  }
+
 
 }

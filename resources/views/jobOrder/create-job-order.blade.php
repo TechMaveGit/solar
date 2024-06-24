@@ -1,7 +1,57 @@
 @extends('layouts.main')
 @section('app-title', 'Create Job Order')
 @section('main-content')
+@push('push_styles')
+<style>
+    .loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    }
 
+    .loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
+    /* Styles to show loader */
+    .loader-wrapper.active {
+    opacity: 1;
+    visibility: visible;
+    }
+
+    .admin-panel {
+    display: none; /* Initially hide admin panel */
+    }
+
+    .admin-panel.show {
+    display: block; /* Show admin panel after loader */
+    }
+
+</style>
+@endpush
+<div class="loader-wrapper" id="loader">
+    <div class="loader"></div>
+</div>
 <div class="nk-content nk-content-fluid">
     <div class="components-preview formMainContainer">
         <form class="nk-stepper stepper-init is-alter nk-stepper-s1" action="" enctype="multipart/form-data" id="stepper-create-project" method="post">
@@ -86,34 +136,35 @@
                                                     <div class="row ">
 
                                                         <div class="col-lg-6">
-                                                            <div class="form-group"><label class="form-label">Client Type</label>
+                                                            <div class="form-group"><label class="form-label">Client Type<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
-                                                                    <select class="form-select js-select2" name="client_type" onchange="getClient(this.value)" id="client_type">
+                                                                    <select class="form-select js-select2" name="client_type" onchange="getClient(this.value)" id="client_type" required>
                                                                         <option value="">Select an Option</option>
                                                                         <option value="1">Domestic</option>
                                                                         <option value="2">Non-Domestic</option>
                                                                     </select>
+                                                                    <span class="error client_type_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="form-group"><label class="form-label">Client
-                                                                    Name</label>
+                                                                    Name <div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
-                                                                    <select class="form-select js-select2" data-search="on" name="client_id" id="client_id">
+                                                                    <select class="form-select js-select2" data-search="on" name="client_id" id="client_id" required>
                                                                         <option value="">Select an Option</option>
                                                                         {{-- <option value="john_doe">John Doe</option> --}}
 
                                                                     </select>
-
+                                                                    <span id="" class="error client_id_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-4">
                                                             <div class="form-group"><label class="form-label">Select
-                                                                    Staff</label>
+                                                                    Staff<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <select class="form-select js-select2"
                                                                         data-search="on" name="staff_id">
@@ -122,28 +173,31 @@
                                                                             <option value="{{ $staff->id }}">{{ $staff->name }}</option>
                                                                         @endforeach
                                                                     </select>
+                                                                    <span id="" class="error staff_id_err"></span>
 
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <div class="form-group"><label class="form-label">Select
-                                                                    Date</label>
+                                                                    Date<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em
                                                                             class="icon ni ni-calendar-alt"></em></div>
                                                                     <input type="text" name="date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                    <span id="" class="error date_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="cp1-project-name">Select Time</label>
+                                                                    for="cp1-project-name">Select Time<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <input type="text" name="time" value=""
                                                                         class="form-control time__pickers"
                                                                         id="timepicker" placeholder="Select Time"
                                                                         readonly="">
+                                                                        <span id="" class="error time_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -209,6 +263,8 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="applicant_name"
                                                                         name="applicant_name">
+                                                                        <span id="applicant_name_err" class="error applicant_name_err"></span>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -231,6 +287,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installation_eircode"
                                                                         name="installation_eircode">
+                                                                        <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -267,6 +324,7 @@
                                                                         type="text" class="form-control"
                                                                         placeholder="kWp*" id="solar_pv_system_size"
                                                                         name="solar_pv_system_size">
+                                                                        <span id="" class="error solar_pv_system_size_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -345,6 +403,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" placeholder=""
                                                                         id="company_name" name="company_name">
+                                                                        <span id="" class="error company_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -501,17 +560,17 @@
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox" name="battery_dc" value="battery_dc" class="custom-control-input"><label
+                                                                                    <input type="checkbox" name="battery_dc" value="DC Connected" class="custom-control-input" id="battery_dc1"><label
                                                                                         class="custom-control-label"
-                                                                                        for="customCheck7">DC
+                                                                                        for="battery_dc1">DC
                                                                                         Connected</label></div>
                                                                             </div>
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" name="battery_ac" value="battery_ac" ><label
+                                                                                    <input type="checkbox" class="custom-control-input" name="battery_ac" value="AC Connected" id="battery_ac1"><label
                                                                                         class="custom-control-label"
-                                                                                        for="customCheck7">AC Connected
+                                                                                        for="battery_ac1">AC Connected
                                                                                     </label></div>
                                                                             </div>
                                                                         </td>
@@ -737,6 +796,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="applicant_name"
                                                                         name="applicant_name">
+                                                                        <span id="" class="error applicant_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -759,6 +819,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installation_eircode"
                                                                         name="installation_eircode">
+                                                                        <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -873,6 +934,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" placeholder=""
                                                                         id="company_name" name="company_name">
+                                                                        <span id="" class="error company_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1076,20 +1138,17 @@
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox" name="battery_dc" value="battery_dc"
+                                                                                    <input type="checkbox" name="battery_dc" value="DC Connected"
                                                                                         class="custom-control-input"
-                                                                                        id="customCheck7"><label
-                                                                                        class="custom-control-label"
-                                                                                        for="customCheck7">DC
-                                                                                        Connected</label></div>
+                                                                                        id="battery_dc2"><label class="custom-control-label"
+                                                                                        for="battery_dc2">DC Connected</label></div>
                                                                             </div>
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox" name="battery_ac" value="battery_ac"
+                                                                                    <input type="checkbox" name="battery_ac" value="AC Connected"
                                                                                         class="custom-control-input"
-                                                                                        id="customCheck8"><label
-                                                                                        class="custom-control-label"
+                                                                                        id="customCheck8"><label class="custom-control-label"
                                                                                         for="customCheck8">AC Connected
                                                                                     </label></div>
                                                                             </div>
@@ -1333,6 +1392,8 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="customer_name"
                                                                         name="customer_name">
+                                                                        <span id="" class="error customer_name_err"></span>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1355,6 +1416,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="customer_eircode"
                                                                         name="customer_eircode">
+                                                                        <span id="" class="error customer_eircode_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1374,6 +1436,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_name"
                                                                         name="installer_company_name">
+                                                                        <span id="" class="error installer_company_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1396,6 +1459,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_address"
                                                                         name="installer_company_address">
+                                                                        <span id="" class="error installer_company_address_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1595,19 +1659,19 @@
                                                                                 class="custom-control custom-control-sm custom-checkbox">
                                                                                 <input type="checkbox" name="inverter_test_reason"
                                                                                     class="custom-control-input"
-                                                                                    id="inverter_test_reason" value="initial_inspection"><label
+                                                                                    id="inverter_test_reason_1" value="Initial inspection"><label
                                                                                     class="custom-control-label"
-                                                                                    for="inverter_test_reason">Initial
+                                                                                    for="inverter_test_reason_1">Initial
                                                                                     inspection</label></div>
                                                                         </li>
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
                                                                                 <input type="checkbox" name="inverter_test2_reason"
-                                                                                    class="custom-control-input" value="retesting"
-                                                                                    id="inverter_test2_reason"><label
+                                                                                    class="custom-control-input" value="Retesting"
+                                                                                    id="reasonFor"><label
                                                                                     class="custom-control-label"
-                                                                                    for="inverter_test2_reason">Retesting</label>
+                                                                                    for="reasonFor">Retesting</label>
                                                                             </div>
                                                                         </li>
 
@@ -1737,9 +1801,9 @@
                                                                                 class="custom-control custom-control-sm custom-checkbox">
                                                                                 <input type="checkbox" name="test_result" value="1"
                                                                                     class="custom-control-input"
-                                                                                    id="pay-card-1"><label
+                                                                                    id="pay-card1"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-card-1">No defects were
+                                                                                    for="pay-card1">No defects were
                                                                                     found</label></div>
                                                                         </li>
                                                                         <li>
@@ -1747,9 +1811,9 @@
                                                                                 class="custom-control custom-control-sm custom-checkbox">
                                                                                 <input type="checkbox" name="test_result2" value="1"
                                                                                     class="custom-control-input"
-                                                                                    id="pay-bitcoin-1"><label
+                                                                                    id="pay-bitcoin1"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-bitcoin-1">Defects were
+                                                                                    for="pay-bitcoin1">Defects were
                                                                                     found </label></div>
                                                                         </li>
                                                                         <li>
@@ -1757,9 +1821,9 @@
                                                                                 class="custom-control custom-control-sm custom-checkbox">
                                                                                 <input type="checkbox" name="test_result3" value="1"
                                                                                     class="custom-control-input"
-                                                                                    id="pay-card-1"><label
+                                                                                    id="pay-card2"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-card-1">The Photovoltaic
+                                                                                    for="pay-card2">The Photovoltaic
                                                                                     system complies with the standards
                                                                                     of electrical engineering</label>
                                                                             </div>
@@ -1864,11 +1928,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The DC system was generally
+                                                                            for="pay-card-d1">The DC system was generally
                                                                             designed, selected and set up in accordance
                                                                             with the
                                                                             requirements in DIN VDE 0100 (IEC 60364) and
@@ -1879,43 +1943,43 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The DC components were
+                                                                            for="pay-card-d2">The DC components were
                                                                             measured for DC operation </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The DC components are rated
+                                                                            for="pay-card-d3">The DC components are rated
                                                                             for the maximum current and maximum
                                                                             voltage</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Protection is provided by
+                                                                            for="pay-card-d4">Protection is provided by
                                                                             application of class II or equivalent
                                                                             insulation on the DC side</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_5" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d5"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">PV strand cables, PV
+                                                                            for="pay-card-d5">PV strand cables, PV
                                                                             generator cables and PV DC main cables have
                                                                             been selected and
                                                                             constructed so that the risk of earth faults
@@ -1926,11 +1990,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_6" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d6"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The wiring system has been
+                                                                            for="pay-card-d6">The wiring system has been
                                                                             selected and constructed so that it can
                                                                             withstand expected external
                                                                             influences such as wind, ice temperature and
@@ -1940,21 +2004,21 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_7" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d7"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">AC and DC cables are
+                                                                            for="pay-card-d7">AC and DC cables are
                                                                             physically separated</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_8" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d8"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Systems without strand
+                                                                            for="pay-card-d8">Systems without strand
                                                                             overcurrent protective device: Strand cables
                                                                             are designed so that they
                                                                             can take up the highest combined leakage
@@ -1964,11 +2028,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_9" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d9"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Systems with strand
+                                                                            for="pay-card-d9">Systems with strand
                                                                             overcurrent protective device: Overcurrent
                                                                             protective devices are set
                                                                             correctly according to local rules or
@@ -1979,11 +2043,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_10" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d10"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">There are DC load break
+                                                                            for="pay-card-d10">There are DC load break
                                                                             switches installed on the DC side of the
                                                                             inverter (DIN VDE 0100-712
                                                                             para.
@@ -2007,22 +2071,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-o1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The inverter has a simple
+                                                                            for="pay-card-o1">The inverter has a simple
                                                                             separation between the AC side and the DC
                                                                             side </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-o2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Alternatively: A residual
+                                                                            for="pay-card-o2">Alternatively: A residual
                                                                             device is installed in the circuit and
                                                                             corresponds to a type B RCD (DIN
                                                                             VDE 0100-712 para. 413.1.1.1.2) </label>
@@ -2031,22 +2095,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-o3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The area of wiring loops
+                                                                            for="pay-card-o3">The area of wiring loops
                                                                             was kept as small as possible (DIN VDE
                                                                             0100-712, para. 54) </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-o4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">If equipotential bonding
+                                                                            for="pay-card-o4">If equipotential bonding
                                                                             conductors are installed, they run in
                                                                             parallel and in as close contact as
                                                                             possible to the PV DC cables </label></div>
@@ -2068,22 +2132,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-sp1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Devices for disconnecting
+                                                                            for="pay-card-sp1">Devices for disconnecting
                                                                             the inverter are provided on the AC side
                                                                         </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-sp2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Separating and switching
+                                                                            for="pay-card-sp2">Separating and switching
                                                                             devices are connected so that the PV
                                                                             installation in connected on the
                                                                             “load”side and the public supply on the
@@ -2094,11 +2158,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-sp3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Protection settings of the
+                                                                            for="pay-card-sp3">Protection settings of the
                                                                             inverter are programmed according to local
                                                                             regulations</label></div>
                                                                 </div>
@@ -2119,22 +2183,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">All circuits, protection
+                                                                            for="pay-card-ml1">All circuits, protection
                                                                             devices, switches and terminals have
                                                                             appropriate markings</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">All DC connection boxes (PV
+                                                                            for="pay-card-ml2">All DC connection boxes (PV
                                                                             sub-generator connection box and PV
                                                                             generator connection box)
                                                                             bear a warning that the active parts present
@@ -2147,21 +2211,21 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The AC main switch has a
+                                                                            for="pay-card-ml3">The AC main switch has a
                                                                             clear inscription </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Warnings are present for
+                                                                            for="pay-card-ml4">Warnings are present for
                                                                             the double supply at the point of
                                                                             interconnection </label></div>
                                                                 </div>
@@ -2169,11 +2233,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_5" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml5"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The protection settings of
+                                                                            for="pay-card-ml5">The protection settings of
                                                                             the inverter and details of the installation
                                                                             are provided on site </label>
                                                                     </div>
@@ -2181,22 +2245,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_6" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml6"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The procedures for
+                                                                            for="pay-card-ml6">The procedures for
                                                                             emergency shutdown are provided on site
                                                                         </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_7" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml7"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">All signs and markings are
+                                                                            for="pay-card-ml7">All signs and markings are
                                                                             suitable and permanently attached. </label>
                                                                     </div>
                                                                 </div>
@@ -2217,11 +2281,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-gm1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Ventilation is provided
+                                                                            for="pay-card-gm1">Ventilation is provided
                                                                             behind the PV generator to prevent
                                                                             overheating/reduce the fire risk</label>
                                                                     </div>
@@ -2229,11 +2293,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-gm2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The frame and materials are
+                                                                            for="pay-card-gm2">The frame and materials are
                                                                             properly attached and stable; the roof
                                                                             fasteners are weather
                                                                             resistant </label>
@@ -2242,11 +2306,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-gm3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The cable routing is
+                                                                            for="pay-card-gm3">The cable routing is
                                                                             weather-resistant </label></div>
                                                                 </div>
 
@@ -2605,6 +2669,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="customer_name"
                                                                         name="customer_name">
+                                                                        <span id="" class="error customer_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2627,6 +2692,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="customer_eircode"
                                                                         name="customer_eircode">
+                                                                        <span id="" class="error customer_eircode_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2646,6 +2712,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_name"
                                                                         name="installer_company_name">
+                                                                        <span id="" class="error installer_company_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2668,6 +2735,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_address"
                                                                         name="installer_company_address">
+                                                                        <span id="" class="error installer_company_address_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3013,14 +3081,14 @@
                                                                     <ul class="custom-control-group g-3 align-center">
                                                                         <li>
                                                                             <div class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="inverter_test_reason" value="initial_inspection" class="custom-control-input"  id="pay-card-1">
-                                                                                <label class="custom-control-label" for="pay-card-1">Initial
+                                                                                <input type="checkbox" name="inverter_test_reason" value="Initial inspection" class="custom-control-input"  id="pay-card3">
+                                                                                <label class="custom-control-label" for="pay-card3">Initial
                                                                                     inspection</label></div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" class="custom-control-input" name="inverter_test2_reason" value="retesting" id="pay-bitcoin-1">
-                                                                                <label class="custom-control-label" for="pay-bitcoin-1">Retesting</label>
+                                                                                <input type="checkbox" class="custom-control-input" name="inverter_test2_reason" value="Retesting" id="pay-bitcoin3">
+                                                                                <label class="custom-control-label" for="pay-bitcoin3">Retesting</label>
                                                                             </div>
                                                                         </li>
 
@@ -3280,11 +3348,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n1"><label
+                                                                            id="pay-card-dn1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n1">The DC system was generally
+                                                                            for="pay-card-dn1">The DC system was generally
                                                                             designed, selected and set up in accordance
                                                                             with the
                                                                             requirements in DIN VDE 0100 (IEC 60364) and
@@ -3295,43 +3363,43 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n2"><label
+                                                                            id="pay-card-dn2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n2">The DC components were
+                                                                            for="pay-card-dn2">The DC components were
                                                                             measured for DC operation </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n3"><label
+                                                                            id="pay-card-dn3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n3">The DC components are rated
+                                                                            for="pay-card-dn3">The DC components are rated
                                                                             for the maximum current and maximum
                                                                             voltage</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n4"><label
+                                                                            id="pay-card-dn4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n4">Protection is provided by
+                                                                            for="pay-card-dn4">Protection is provided by
                                                                             application of class II or equivalent
                                                                             insulation on the DC side</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_5" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n5"><label
+                                                                            id="pay-card-dn5"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n5">PV strand cables, PV
+                                                                            for="pay-card-dn5">PV strand cables, PV
                                                                             generator cables and PV DC main cables have
                                                                             been selected and
                                                                             constructed so that the risk of earth faults
@@ -3342,11 +3410,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_6" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n6"><label
+                                                                            id="pay-card-dn6"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n6">The wiring system has been
+                                                                            for="pay-card-dn6">The wiring system has been
                                                                             selected and constructed so that it can
                                                                             withstand expected external
                                                                             influences such as wind, ice temperature and
@@ -3356,21 +3424,21 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_7" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n7"><label
+                                                                            id="pay-card-dn7"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n7">AC and DC cables are
+                                                                            for="pay-card-dn7">AC and DC cables are
                                                                             physically separated</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_8" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n8"><label
+                                                                            id="pay-card-dn8"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n8">Systems without strand
+                                                                            for="pay-card-dn8">Systems without strand
                                                                             overcurrent protective device: Strand cables
                                                                             are designed so that they
                                                                             can take up the highest combined leakage
@@ -3380,11 +3448,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_9" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n9"><label
+                                                                            id="pay-card-dn9"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n9">Systems with strand
+                                                                            for="pay-card-dn9">Systems with strand
                                                                             overcurrent protective device: Overcurrent
                                                                             protective devices are set
                                                                             correctly according to local rules or
@@ -3395,11 +3463,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_10" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n10"><label
+                                                                            id="pay-card-dn10"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n10">There are DC load break
+                                                                            for="pay-card-dn10">There are DC load break
                                                                             switches installed on the DC side of the
                                                                             inverter (DIN VDE 0100-712
                                                                             para.
@@ -3423,22 +3491,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m1"><label
+                                                                            id="pay-card-on1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m1">The inverter has a simple
+                                                                            for="pay-card-on1">The inverter has a simple
                                                                             separation between the AC side and the DC
                                                                             side </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m2"><label
+                                                                            id="pay-card-on2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m2">Alternatively: A residual
+                                                                            for="pay-card-on2">Alternatively: A residual
                                                                             device is installed in the circuit and
                                                                             corresponds to a type B RCD (DIN
                                                                             VDE 0100-712 para. 413.1.1.1.2) </label>
@@ -3447,22 +3515,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m3"><label
+                                                                            id="pay-card-on3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m3">The area of wiring loops
+                                                                            for="pay-card-on3">The area of wiring loops
                                                                             was kept as small as possible (DIN VDE
                                                                             0100-712, para. 54) </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m4"><label
+                                                                            id="pay-card-on4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m4">If equipotential bonding
+                                                                            for="pay-card-on4">If equipotential bonding
                                                                             conductors are installed, they run in
                                                                             parallel and in as close contact as
                                                                             possible to the PV DC cables </label></div>
@@ -3484,22 +3552,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m5"><label
+                                                                            id="pay-card-sfn1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m5">Devices for disconnecting
+                                                                            for="pay-card-sfn1">Devices for disconnecting
                                                                             the inverter are provided on the AC side
                                                                         </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m6"><label
+                                                                            id="pay-card-sfn2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m6">Separating and switching
+                                                                            for="pay-card-sfn2">Separating and switching
                                                                             devices are connected so that the PV
                                                                             installation in connected on the
                                                                             “load”side and the public supply on the
@@ -3510,11 +3578,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m7"><label
+                                                                            id="pay-card-sfn3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m7">Protection settings of the
+                                                                            for="pay-card-sfn3">Protection settings of the
                                                                             inverter are programmed according to local
                                                                             regulations</label></div>
                                                                 </div>
@@ -3535,22 +3603,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t1"><label
+                                                                            id="pay-card-mln1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t1">All circuits, protection
+                                                                            for="pay-card-mln1">All circuits, protection
                                                                             devices, switches and terminals have
                                                                             appropriate markings</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t2"><label
+                                                                            id="pay-card-mln2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t2">All DC connection boxes (PV
+                                                                            for="pay-card-mln2">All DC connection boxes (PV
                                                                             sub-generator connection box and PV
                                                                             generator connection box)
                                                                             bear a warning that the active parts present
@@ -3563,21 +3631,21 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t3"><label
+                                                                            id="pay-card-mln3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t3">The AC main switch has a
+                                                                            for="pay-card-mln3">The AC main switch has a
                                                                             clear inscription </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t4"><label
+                                                                            id="pay-card-mln4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t4">Warnings are present for
+                                                                            for="pay-card-mln4">Warnings are present for
                                                                             the double supply at the point of
                                                                             interconnection </label></div>
                                                                 </div>
@@ -3585,11 +3653,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_5" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t5"><label
+                                                                            id="pay-card-mln5"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t5">The protection settings of
+                                                                            for="pay-card-mln5">The protection settings of
                                                                             the inverter and details of the installation
                                                                             are provided on site </label>
                                                                     </div>
@@ -3597,22 +3665,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_6" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t6"><label
+                                                                            id="pay-card-mln6"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t6">The procedures for
+                                                                            for="pay-card-mln6">The procedures for
                                                                             emergency shutdown are provided on site
                                                                         </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_7" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t7"><label
+                                                                            id="pay-card-mln7"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t7">All signs and markings are
+                                                                            for="pay-card-mln7">All signs and markings are
                                                                             suitable and permanently attached. </label>
                                                                     </div>
                                                                 </div>
@@ -3633,11 +3701,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-g1"><label
+                                                                            id="pay-card-gnm1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-g1">Ventilation is provided
+                                                                            for="pay-card-gnm1">Ventilation is provided
                                                                             behind the PV generator to prevent
                                                                             overheating/reduce the fire risk</label>
                                                                     </div>
@@ -3645,11 +3713,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-g2"><label
+                                                                            id="pay-card-gnm2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-g2">The frame and materials are
+                                                                            for="pay-card-gnm2">The frame and materials are
                                                                             properly attached and stable; the roof
                                                                             fasteners are weather
                                                                             resistant </label>
@@ -3658,11 +3726,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-g3"><label
+                                                                            id="pay-card-gnm3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-g3">The cable routing is
+                                                                            for="pay-card-gnm3">The cable routing is
                                                                             weather-resistant </label></div>
                                                                 </div>
 
@@ -4397,20 +4465,14 @@
 @push('push_script')
 <script>
     function Validatecheck(){
-        var clientValue = $('#client_type').val();
-        if(clientValue==1){
-            $('.NondomestiocFormTabContent').html('');
-        }else{
-            $('.domestiocFormTabContent').html('');
-        }
-        // alert(clientValue);
+        // var clientValue = $('#client_type').val();
         var formData = new FormData($("#stepper-create-project")[0]);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        // $(".loader").show();
+        $('#loader').addClass('active');
         $.ajax({
 
             url: "{{ route('admin.create-job-order') }}",
@@ -4420,19 +4482,26 @@
             cache: false,
             processData:false,
                success: function(data) {
-                //   $(".loader").hide();
-                $('.error_clear').html('');
-
-                   if($.isEmptyObject(data.error)){
-                      // alert(data.success);
+                $('#loader').removeClass('active');
+                $('.error').html('');
+                   if($.isEmptyObject(data.errors)){
                       window.location = "{{ route('admin.assigned-job-order') }}";
                    }
-                //    else{
-                //        printErrorMsg(data.error);
-                //    }
+                   else{
+                       printErrorMsg(data.errors);
+                   }
                },
+               error: function(xhr, status, error) {
+                    $('#loader').removeClass('active');
+                }
            });
 
+    }
+    function printErrorMsg (msg) {
+           $.each( msg, function( key, value ) {
+            console.log(key);
+             $('.'+key+'_err').text(value);
+           });
     }
 </script>
 
@@ -4454,9 +4523,15 @@
         // Setup the correct steps based on the client type
         if (client_type == 1) {
             domesticTabs.show();
+            nondomesticContent.find(':input').prop('disabled', true);
+            domesticContent.show();
+            domesticContent.find(':input').prop('disabled', false);
             setupSteps(defaultContent.add(domesticContent));
         } else if (client_type == 2) {
             nondomesticTabs.show();
+            domesticContent.find(':input').prop('disabled', true);
+            nondomesticContent.show();
+            nondomesticContent.find(':input').prop('disabled', false);
             setupSteps(defaultContent.add(nondomesticContent));
         } else{
             const submitButton = $('.step-submit button');
@@ -4475,7 +4550,7 @@
                 // $('.error_clear').html('');
 
                 if (data.clientsOptions) {
-                    console.log(data.clientsOptions);
+                    // console.log(data.clientsOptions);
                     $("#client_id").html(data.clientsOptions);
                 } else {
                     console.log('No client options found.');
