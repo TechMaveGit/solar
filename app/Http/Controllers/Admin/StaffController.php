@@ -43,7 +43,7 @@ class StaffController extends Controller
                 'status'     => $request->status,
             ]);
             $details  = User::where('id', $user->id)->first();
-            return redirect()->back()->with('success','Register Successfully!');
+            return redirect()->route('admin.all-staff')->with('success','Register Successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');
         }
