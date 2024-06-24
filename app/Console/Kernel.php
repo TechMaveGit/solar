@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('backup:daily', ['--token' => config('backup.token')])->dailyAt("19:00");
     }
 
     /**
