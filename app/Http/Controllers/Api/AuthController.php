@@ -212,14 +212,22 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-     public function getjob(Request $request)
+     public function JobOrder(Request $request)
      {
 
         $jobs = JobOrder::where('staff_id',auth()->user()->id)->orderBy('id','DESC')->get();
 
-         return response()->json([
+        if ($jobs->isEmpty()) {
+            return response()->json([
+                'status' => true,
+                'message' => 'No job orders found.',
+                'data' => [],
+            ]);
+        }
+
+        return response()->json([
             'status' => true,
-            'message' => 'Data get successfully.',
+            'message' => 'Data retrieved successfully.',
             'data' => $jobs,
         ]);
 
