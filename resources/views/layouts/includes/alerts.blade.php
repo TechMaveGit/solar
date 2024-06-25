@@ -23,7 +23,7 @@
 
 @endif
 
-<style>
+{{-- <style>
     .text-success {
         color: #0a204a !important;
     }
@@ -31,7 +31,7 @@
         color: #ffffff !important;
         background-color: #0a204a !important;
     }
-</style>
+</style> --}}
 
 
 @isset($message_data)

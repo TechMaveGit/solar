@@ -83,7 +83,7 @@
 
                                             <li>
                                                 <div class="actionFlexBtns">
-                                                    {{-- <a href="{{ route('admin.view-job-order') }}" class="btn btn-secondary btn-trigger btn-icon"
+                                                    {{-- <a href="{{ route('admin.view-job-order',base64_encode($jobOrder->id)) }}" class="btn btn-secondary btn-trigger btn-icon"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="View Job Order"> <em class="icon ni ni-eye"></em></a> --}}
                                                         <a href="#" class="btn btn-secondary btn-trigger btn-icon"
