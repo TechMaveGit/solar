@@ -1,16 +1,20 @@
 @extends('layouts.main')
 @section('app-title', 'View Job Order')
 @section('main-content')
-
+@php
+    $system = json_decode($jobOrder->system_components);
+    $pv_invert = json_decode($jobOrder->pv_inverts);
+    $design_install = json_decode($jobOrder->design_and_installation);
+@endphp
 <div class="nk-content nk-content-fluid">
     <div class="components-preview formMainContainer">
-    <form class="nk-stepper stepper-init is-alter nk-stepper-s1" action="job-orders.php" id="stepper-create-project" method="post">
+
         <div class="nk-content-body">
             <div class="nk-block-head">
 
                 <div class="nk-block-between-md g-4">
                     <div class="nk-block-head-content">
-                        <h2 class="nk-block-title fw-normal customtitleBTMargin">Create Job Order</h2>
+                        <h2 class="nk-block-title fw-normal customtitleBTMargin">View Job Order</h2>
                         <div class="nk-block-des">
                             <p>Here, you can efficiently generate detailed job orders for your clients!</p>
                         </div>
@@ -66,7 +70,7 @@
                                     <li class="nondomesticTab">
                                         <div class="step-item">
                                             <div class="step-text">
-                                                <div class="lead-text"> Inspection, Test and Commissioning Report NON</div>
+                                                <div class="lead-text"> Inspection, Test and Commissioning Report</div>
 
                                             </div>
                                         </div>
@@ -85,12 +89,12 @@
                                                 <div class="row ">
 
                                                     <div class="col-lg-6">
-                                                        <div class="form-group"><label class="form-label">Client Type<div class="requiredField">*</div></label>
+                                                        <div class="form-group"><label class="form-label">Client Type<div class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
-                                                                <select class="form-select js-select2" name="client_type" onchange="getClient(this.value)" id="client_type" required>
+                                                                <select class="form-select js-select2" name="client_type" id="client_type" readonly disabled>
                                                                     <option value="">Select an Option</option>
-                                                                    <option value="1">Domestic</option>
-                                                                    <option value="2">Non-Domestic</option>
+                                                                    <option value="1" {{ $jobOrder->client_type==1 ? 'selected':'' }}>Domestic</option>
+                                                                    <option value="2" {{ $jobOrder->client_type==2 ? 'selected':'' }}>Non-Domestic</option>
                                                                 </select>
                                                                 <span class="error client_type_err"></span>
                                                             </div>
@@ -98,54 +102,42 @@
                                                     </div>
 
                                                     <div class="col-lg-6">
-                                                        <div class="form-group"><label class="form-label">Client
-                                                                Name <div class="requiredField">*</div></label>
+                                                        <div class="form-group"><label class="form-label">Client Name <div class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
-                                                                <select class="form-select js-select2" data-search="on" name="client_id" id="client_id" required>
-                                                                    <option value="">Select an Option</option>
-                                                                    {{-- <option value="john_doe">John Doe</option> --}}
-
-                                                                </select>
-                                                                <span id="" class="error client_id_err"></span>
+                                                                <div class="form-icon form-icon-right"></div>
+                                                                <input type="text" value="@if(isset($jobOrder->client->name)){{  $jobOrder->client->name }}@endif" class="form-control" id="fv-Country" readonly disabled>
                                                             </div>
+
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-4">
-                                                        <div class="form-group"><label class="form-label">Select
-                                                                Staff<div class="requiredField">*</div></label>
+                                                        <div class="form-group"><label class="form-label">Staff<div class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
-                                                                <select class="form-select js-select2"
-                                                                    data-search="on" name="staff_id">
-                                                                    <option value="">Select an Option</option>
-                                                                    {{-- @foreach ($staffs as $staff)
-                                                                        <option value="{{ $staff->id }}">{{ $staff->name }}</option>
-                                                                    @endforeach --}}
-                                                                </select>
-                                                                <span id="" class="error staff_id_err"></span>
-
+                                                                <div class="form-icon form-icon-right"></div>
+                                                                <input type="text" value="@if(isset($jobOrder->staff)){{  $jobOrder->staff->name }}@endif" class="form-control" id="fv-Country" readonly disabled>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
-                                                        <div class="form-group"><label class="form-label">Select
-                                                                Date<div class="requiredField">*</div></label>
+                                                        <div class="form-group"><label class="form-label">
+                                                                Date<div class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"><em
                                                                         class="icon ni ni-calendar-alt"></em></div>
-                                                                <input type="text" name="date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                <input type="text" name="date" value="{{ $jobOrder->date  }}" class="form-control date-picker" placeholder="mm/dd/yyyy" readonly disabled>
                                                                 <span id="" class="error date_err"></span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="cp1-project-name">Select Time<div class="requiredField">*</div></label>
+                                                                for="cp1-project-name"> Time<div class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
-                                                                <input type="text" name="time" value=""
+                                                                <input type="text" name="time" value="{{ $jobOrder->time }}"
                                                                     class="form-control time__pickers"
                                                                     id="timepicker" placeholder="Select Time"
-                                                                    readonly="">
+                                                                    readonly="" disabled>
                                                                     <span id="" class="error time_err"></span>
                                                             </div>
                                                         </div>
@@ -155,8 +147,8 @@
                                                                 for="fv-message">Address</label>
                                                             <div class="form-control-wrap"><textarea
                                                                     class="form-control customtextarea form-control-sm"
-                                                                    id="fv-message" name="address"
-                                                                    placeholder="Write your Address"></textarea>
+                                                                    id="fv-message" name="address" readonly disabled
+                                                                    placeholder="Write your Address">{{ $jobOrder->address }}</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -165,8 +157,8 @@
                                                                 >Country</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="text" class="form-control" id="fv-Country"
-                                                                    name="country">
+                                                                    type="text" class="form-control" value="{{ $jobOrder->country }}"
+                                                                    name="country" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -175,8 +167,7 @@
                                                                 for="fv-City">City</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="text" class="form-control" id="fv-City"
-                                                                    name="city">
+                                                                    type="text" class="form-control" name="city" value="{{ $jobOrder->city }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -186,7 +177,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend"></div>
-                                                                    <input type="text" name="postal_code" class="form-control">
+                                                                    <input type="text" name="postal_code" value="{{ $jobOrder->postal_code }}" class="form-control" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -207,11 +198,11 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
                                                                 >Applicant Name <div
-                                                                    class="requiredField">*</div></label>
+                                                                    class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="applicant_name"
-                                                                    name="applicant_name">
+                                                                    name="applicant_name" value="{{ $jobOrder->applicant_name }}" readonly>
                                                                     <span id="applicant_name_err" class="error applicant_name_err"></span>
 
                                                             </div>
@@ -224,19 +215,18 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installation_address"
-                                                                    name="installation_address">
+                                                                    name="installation_address" value="{{ $jobOrder->installation_address }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
                                                                 > Installation Eircode <div
-                                                                    class="requiredField">*</div></label>
+                                                                    class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installation_eircode"
-                                                                    name="installation_eircode">
-                                                                    <span id="" class="error installation_eircode_err"></span>
+                                                                    name="installation_eircode" value="{{ $jobOrder->installation_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -247,7 +237,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installation_mprn"
-                                                                    name="installation_mprn">
+                                                                    name="installation_mprn" value="{{ $jobOrder->installation_mprn }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -272,7 +262,7 @@
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control"
                                                                     placeholder="kWp*" id="solar_pv_system_size"
-                                                                    name="solar_pv_system_size">
+                                                                    name="solar_pv_system_size" value="{{ $jobOrder->solar_pv_system_size }}" readonly>
                                                                     <span id="" class="error solar_pv_system_size_err"></span>
                                                             </div>
                                                         </div>
@@ -286,7 +276,7 @@
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control"
                                                                     placeholder="kW/kWh" id="battery_storage"
-                                                                    name="battery_storage">
+                                                                    name="battery_storage" value="{{ $jobOrder->battery_storage }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -298,7 +288,7 @@
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control"
                                                                     placeholder="kWh**" id="annual_estimated_yield"
-                                                                    name="annual_estimated_yield">
+                                                                    name="annual_estimated_yield" value="{{ $jobOrder->annual_estimated_yield }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -310,7 +300,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="yield_calculation"
-                                                                    name="yield_calculation">
+                                                                    name="yield_calculation" value="{{ $jobOrder->yield_calculation }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -322,7 +312,7 @@
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control"
                                                                     placeholder="Y/N?" id="water_diverter"
-                                                                    name="water_diverter">
+                                                                    name="water_diverter" value="{{ $jobOrder->water_diverter }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -351,7 +341,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    id="company_name" name="company_name">
+                                                                    id="company_name" name="company_name" value="{{ $jobOrder->company_name }}" readonly>
                                                                     <span id="" class="error company_name_err"></span>
                                                             </div>
                                                         </div>
@@ -363,7 +353,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    id="company_number" name="company_number">
+                                                                    id="company_number" name="company_number" value="{{ $jobOrder->company_number }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -375,7 +365,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    id="property_year_construction" name="property_year_construction">
+                                                                     name="property_year_construction" value="{{ $jobOrder->property_year_construction }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -387,7 +377,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder="€"
-                                                                    id="cost_installation" name="cost_installation">
+                                                                    name="cost_installation" value="{{ $jobOrder->cost_installation }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -415,53 +405,51 @@
                                                                     <th>Solar PV Modules</th>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="pv_make" name="pv_make"></td>
+                                                                             name="pv_make" value="{{ $system->pv_make ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="pv_model" name="pv_model"></td>
+                                                                            name="pv_model" value="{{ $system->pv_model ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
                                                                             <div class="form-text-hint">
                                                                                 <span class="overline-title">Wp
                                                                                     at STC</span></div>
                                                                             <input type="text" name="pv_rating" class="form-control"
-                                                                                id="pv_rating" placeholder="">
+                                                                            value="{{ $system->pv_rating ?? '' }}" readonly>
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="pv_quantity" name="pv_quantity">
+                                                                            id="pv_quantity" name="pv_quantity" value="{{ $system->pv_quantity ?? '' }}" readonly>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Mounting System</th>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="ms_make" name="ms_make">
+                                                                            id="ms_make" name="ms_make" value="{{ $system->ms_make ?? '' }}" readonly>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
                                                                             id="ms_model"
-                                                                            name="ms_model"></td>
+                                                                            name="ms_model" value="{{ $system->ms_model ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder="N/A "
-                                                                            id="ms_rating"
-                                                                            name="ms_rating" readonly
+                                                                            name="ms_rating" value="{{ $system->ms_rating ?? '' }}" readonly
                                                                             disabled></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="ms_quantity"
-                                                                            name="ms_quantity"></td>
+                                                                            name="ms_quantity" value="{{ $system->ms_quantity ?? ''}}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Inverter</th>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="inverter_make" name="inverter_make">
+                                                                            id="inverter_make" name="inverter_make" value="{{ $system->inverter_make ?? ''}}" readonly>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="inverter_model" name="inverter_model">
+                                                                            id="inverter_model" name="inverter_model" value="{{ $system->inverter_model ?? ''}}" readonly>
                                                                     </td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
@@ -469,13 +457,12 @@
                                                                                 <span class="overline-title">
                                                                                     kW</span></div>
                                                                             <input type="text" name="inverter_rating" class="form-control"
-                                                                                id="inverter_rating" placeholder="">
+                                                                            value="{{ $system->inverter_rating ?? ''}}" readonly>
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="inverter_quantity"
-                                                                            name="inverter_quantity"></td>
+                                                                            name="inverter_quantity" value="{{ $system->inverter_quantity ?? ''}}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -483,43 +470,43 @@
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
                                                                             id="energy_make"
-                                                                            name="energy_make"></td>
+                                                                            name="energy_make" value="{{ $system->energy_make ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
                                                                             id="energy_model"
-                                                                            name="energy_model"></td>
+                                                                            name="energy_model" value="{{ $system->energy_model ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder="N/A "
-                                                                            id="energy_rating"
-                                                                            name="energy_rating" readonly
+                                                                            value="{{ $system->energy_rating ?? '' }}" readonly
+                                                                            name="energy_rating"
                                                                             disabled></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            class="form-control" placeholder=""
-                                                                            id="energy_quantity"
-                                                                            name="energy_quantity"></td>
+                                                                            class="form-control"
+                                                                            name="energy_quantity" value="{{ $system->energy_quantity ?? ''}}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Battery Energy
                                                                         Storage System </th>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            class="form-control" placeholder=""
-                                                                            id="battery_make"
-                                                                            name="battery_make"></td>
+                                                                            class="form-control"
+                                                                            name="battery_make" value="{{ $system->battery_make ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="g">
-                                                                            <div
-                                                                                class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="battery_dc" value="DC Connected" class="custom-control-input" id="battery_dc1"><label
-                                                                                    class="custom-control-label"
-                                                                                    for="battery_dc1">DC
-                                                                                    Connected</label></div>
+                                                                            <div class="custom-control custom-control-sm custom-checkbox">
+                                                                                <input type="checkbox" name="battery_dc" value="DC Connected"
+                                                                                    class="custom-control-input"
+                                                                                    id="battery_dc2" @checked($system->battery_dc != '') disabled><label class="custom-control-label"
+                                                                                    for="battery_dc2"
+                                                                                    >DC Connected</label></div>
                                                                         </div>
                                                                         <div class="g">
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" class="custom-control-input" name="battery_ac" value="AC Connected" id="battery_ac1"><label
-                                                                                    class="custom-control-label"
-                                                                                    for="battery_ac1">AC Connected
+                                                                                <input type="checkbox" name="battery_ac" value="AC Connected"
+                                                                                    class="custom-control-input"
+                                                                                    id="customCheck8" @checked($system->battery_ac != '') disabled><label class="custom-control-label"
+                                                                                    for="customCheck8"
+                                                                                    >AC Connected
                                                                                 </label></div>
                                                                         </div>
                                                                     </td>
@@ -528,21 +515,19 @@
                                                                             <div class="form-text-hint">
                                                                                 <span class="overline-title">
                                                                                     kW</span></div>
-                                                                            <input type="text" name="battery_rating_kw" value="{{ old('battery_rating_kw') }}" class="form-control"
-                                                                                id="battery_rating_kw" placeholder="">
+                                                                            <input type="text" name="battery_rating_kw" class="form-control"
+                                                                                value="{{ $system->battery_rating_kw ?? ''}}" readonly>
                                                                         </div>
                                                                         <div class="form-control-wrap">
                                                                             <div class="form-text-hint">
                                                                                 <span class="overline-title">
                                                                                     kWh</span></div>
                                                                             <input type="text" name="battery_rating_kwh" class="form-control"
-                                                                                id="battery_rating_kwh" value="{{ old('battery_rating_kwh') }}" placeholder="">
+                                                                                value="{{ $system->battery_rating_kwh ?? ''}}" readonly>
                                                                         </div>
                                                                     </td>
-                                                                    <td class="nk-tb-col">
-                                                                        <input type="text" class="form-control" placeholder=""
-
-                                                                            name="battery_quantity"></td>
+                                                                    <td class="nk-tb-col"><input type="text" class="form-control"
+                                                                            name="battery_quantity" value="{{ $system->battery_quantity ?? ''}}" readonly></td>
                                                                 </tr>
                                                                 <!-- Add more rows as needed -->
                                                             </tbody>
@@ -601,7 +586,7 @@
                                                                     <div class="form-control-wrap">
                                                                         <div class="form-icon form-icon-right">
                                                                         </div><input type="text"
-                                                                            class="form-control" id="" name="installer_name">
+                                                                            class="form-control" id="" name="installer_name" value="{{ $jobOrder->installer_name }}" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -612,7 +597,7 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text" name="installer_date"
+                                                                        <input type="text" name="installer_date" value="{{ $jobOrder->installer_date }}" readonly disabled
                                                                             class="form-control date-picker" placeholder="mm/dd/yyyy">
                                                                     </div>
                                                                 </div>
@@ -627,7 +612,7 @@
                                                                         </div>
                                                                         <input type="text" name="installer_completed_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" value="{{ $jobOrder->installer_completed_date }}" readonly disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -637,7 +622,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="installer_sign" class="form-control"
-                                                                            placeholder="">
+                                                                        value="{{ $jobOrder->installer_sign }}" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -686,7 +671,7 @@
                                                                         <div class="form-icon form-icon-right">
                                                                         </div><input type="text"
                                                                             class="form-control" id="owner_name"
-                                                                            name="owner_name">
+                                                                            name="owner_name" value="{{ $jobOrder->owner_name }}" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -697,8 +682,8 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text" name="owner_date"
-                                                                            class="form-control date-picker"
+                                                                        <input type="text" name="owner_date" value="{{ $jobOrder->owner_date }}" readonly
+                                                                            class="form-control"
                                                                             placeholder="mm/dd/yyyy">
                                                                     </div>
                                                                 </div>
@@ -709,7 +694,7 @@
                                                                         class="form-label">Signed: </label>
                                                                     <div class="form-control-wrap">
 
-                                                                        <input type="text" name="owner_sign" class="form-control"
+                                                                        <input type="text" name="owner_sign" value="{{ $jobOrder->owner_sign }}" readonly class="form-control"
                                                                             placeholder="">
                                                                     </div>
                                                                 </div>
@@ -740,12 +725,13 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
                                                                 >Applicant Name <div
-                                                                    class="requiredField">*</div></label>
+                                                                    class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="applicant_name"
-                                                                    name="applicant_name">
-                                                                    <span id="" class="error applicant_name_err"></span>
+                                                                    name="applicant_name" value="{{ $jobOrder->applicant_name }}" readonly>
+                                                                    <span id="applicant_name_err" class="error applicant_name_err"></span>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -756,19 +742,18 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installation_address"
-                                                                    name="installation_address">
+                                                                    name="installation_address" value="{{ $jobOrder->installation_address }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
                                                                 > Installation Eircode <div
-                                                                    class="requiredField">*</div></label>
+                                                                    class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installation_eircode"
-                                                                    name="installation_eircode">
-                                                                    <span id="" class="error installation_eircode_err"></span>
+                                                                    name="installation_eircode" value="{{ $jobOrder->installation_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -779,13 +764,13 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installation_mprn"
-                                                                    name="installation_mprn">
+                                                                    name="installation_mprn" value="{{ $jobOrder->installation_mprn }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="filedsNote">
-                                                        <p>*This will be the person claiming the SEAI NDMG grant
+                                                        <p>*This will be the person claiming the SEAI grant
                                                         </p>
                                                     </div>
 
@@ -804,7 +789,8 @@
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control"
                                                                     placeholder="kWp*" id="solar_pv_system_size"
-                                                                    name="solar_pv_system_size">
+                                                                    name="solar_pv_system_size" value="{{ $jobOrder->solar_pv_system_size }}" readonly>
+                                                                    <span id="" class="error solar_pv_system_size_err"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -817,7 +803,7 @@
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control"
                                                                     placeholder="kW/kWh" id="battery_storage"
-                                                                    name="battery_storage">
+                                                                    name="battery_storage" value="{{ $jobOrder->battery_storage }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -829,7 +815,7 @@
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control"
                                                                     placeholder="kWh**" id="annual_estimated_yield"
-                                                                    name="annual_estimated_yield">
+                                                                    name="annual_estimated_yield" value="{{ $jobOrder->annual_estimated_yield }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -841,7 +827,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="yield_calculation"
-                                                                    name="yield_calculation">
+                                                                    name="yield_calculation" value="{{ $jobOrder->yield_calculation }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -853,7 +839,7 @@
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control"
                                                                     placeholder="Y/N?" id="water_diverter"
-                                                                    name="water_diverter">
+                                                                    name="water_diverter" value="{{ $jobOrder->water_diverter }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -882,7 +868,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    id="company_name" name="company_name">
+                                                                    id="company_name" name="company_name" value="{{ $jobOrder->company_name }}" readonly>
                                                                     <span id="" class="error company_name_err"></span>
                                                             </div>
                                                         </div>
@@ -894,18 +880,19 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    id="company_number" name="company_number">
+                                                                    id="company_number" name="company_number" value="{{ $jobOrder->company_number }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group"><label class="form-label"
-                                                                > Property year of Construction
+                                                                > Property year of Construction (see
+                                                                BER Cert)
                                                                  </label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    id="property_year_construction" name="property_year_construction">
+                                                                     name="property_year_construction" value="{{ $jobOrder->property_year_construction }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -917,7 +904,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder="€"
-                                                                    id="cost_installation" name="cost_installation">
+                                                                    name="cost_installation" value="{{ $jobOrder->cost_installation }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -945,53 +932,51 @@
                                                                     <th>Solar PV Modules</th>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="pv_make" name="pv_make"></td>
+                                                                             name="pv_make" value="{{ $system->pv_make ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="pv_model" name="pv_model"></td>
+                                                                            name="pv_model" value="{{ $system->pv_model ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
                                                                             <div class="form-text-hint">
                                                                                 <span class="overline-title">Wp
                                                                                     at STC</span></div>
                                                                             <input type="text" name="pv_rating" class="form-control"
-                                                                                id="pv_rating" placeholder="">
+                                                                            value="{{ $system->pv_rating ?? ''}}" readonly>
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="pv_quantity" name="pv_quantity">
+                                                                            id="pv_quantity" name="pv_quantity" value="{{ $system->pv_quantity ?? ''}}" readonly>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Mounting System</th>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="ms_make" name="ms_make">
+                                                                            id="ms_make" name="ms_make" value="{{ $system->ms_make ?? '' }}" readonly>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
                                                                             id="ms_model"
-                                                                            name="ms_model"></td>
+                                                                            name="ms_model" value="{{ $system->ms_model ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder="N/A "
-                                                                            id="ms_rating"
-                                                                            name="ms_rating" readonly
+                                                                            name="ms_rating" value="{{ $system->ms_rating ?? '' }}" readonly
                                                                             disabled></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="ms_quantity"
-                                                                            name="ms_quantity"></td>
+                                                                            name="ms_quantity" value="{{ $system->ms_quantity ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Inverter 1 </th>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="inverter_make" name="inverter_make">
+                                                                            id="inverter_make" name="inverter_make" value="{{ $system->inverter_make ?? ''}}" readonly>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="inverter_model" name="inverter_model">
+                                                                            id="inverter_model" name="inverter_model" value="{{ $system->inverter_model ?? ''}}" readonly>
                                                                     </td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
@@ -999,106 +984,98 @@
                                                                                 <span class="overline-title">
                                                                                     kW</span></div>
                                                                             <input type="text" name="inverter_rating" class="form-control"
-                                                                                id="default-05" placeholder="">
+                                                                            value="{{ $system->inverter_rating ?? ''}}" readonly>
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="inverter_quantity"
-                                                                            name="inverter_quantity"></td>
+                                                                            name="inverter_quantity" value="{{ $system->inverter_quantity ?? ''}}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Inverter 2 (If App.) </th>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="inverter_make2" name="inverter_make2">
+                                                                            id="inverter_make2" name="inverter_make2" value="{{ $system->inverter_make2 ?? ''}}" readonly>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="inverter_model2"
-                                                                            name="inverter_model2"></td>
+                                                                            name="inverter_model2" value="{{ $system->inverter_model2 ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
                                                                             <div class="form-text-hint">
                                                                                 <span class="overline-title">
                                                                                     kW</span></div>
                                                                             <input type="text" name="inverter_rating2" class="form-control"
-                                                                                id="default-05" placeholder=""
-                                                                                disabled readonly>
+                                                                            value="{{ $system->inverter_rating2 ?? '' }}" disabled readonly>
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            class="form-control" placeholder=""
-                                                                            id="inverter_quantity2"
-                                                                            name="inverter_quantity2"></td>
+                                                                            class="form-control"
+                                                                            name="inverter_quantity2" value="{{ $system->inverter_quantity2 ?? ''}}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Inverter 3 (If App.) </th>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            class="form-control" placeholder=""
-                                                                            id="inverter_make3"
-                                                                            name="inverter_make3"></td>
+                                                                            class="form-control" name="inverter_make3"
+                                                                            value="{{ $system->inverter_make3 }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            class="form-control" placeholder=""
-                                                                            id="inverter_model3"
-                                                                            name="inverter_model3"></td>
+                                                                            class="form-control"
+                                                                            name="inverter_model3" value="{{ $system->inverter_model3 ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="form-control-wrap">
                                                                             <div class="form-text-hint">
                                                                                 <span class="overline-title">
                                                                                     kW</span></div>
                                                                             <input type="text" name="inverter_rating3" class="form-control"
-                                                                                id="default-05" placeholder="">
+                                                                            value="{{ $system->inverter_rating3 ?? ''}}" readonly>
                                                                         </div>
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
-                                                                            id="controller_quantity"
-                                                                            name="controller_quantity"></td>
+                                                                            name="inverter_quantity3" value="{{ $system->inverter_quantity3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Energy Meter </th>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
                                                                             id="energy_make"
-                                                                            name="energy_make"></td>
+                                                                            name="energy_make" value="{{ $system->energy_make ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder=""
                                                                             id="energy_model"
-                                                                            name="energy_model"></td>
+                                                                            name="energy_model" value="{{ $system->energy_model ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
                                                                             class="form-control" placeholder="N/A "
-                                                                            id="energy_rating"
-                                                                            name="energy_rating" readonly
+                                                                            value="{{ $system->energy_rating ?? '' }}" readonly
+                                                                            name="energy_rating"
                                                                             disabled></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            class="form-control" placeholder=""
-                                                                            id="energy_quantity"
-                                                                            name="energy_quantity"></td>
+                                                                            class="form-control"
+                                                                            name="energy_quantity" value="{{ $system->energy_quantity ?? ''}}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Battery Energy
                                                                         Storage System </th>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            class="form-control" placeholder=""
-                                                                            id="battery_make"
-                                                                            name="battery_make"></td>
+                                                                            class="form-control"
+                                                                            name="battery_make" value="{{ $system->battery_make ?? ''}}" readonly></td>
                                                                     <td class="nk-tb-col">
                                                                         <div class="g">
-                                                                            <div
-                                                                                class="custom-control custom-control-sm custom-checkbox">
+                                                                            <div class="custom-control custom-control-sm custom-checkbox">
                                                                                 <input type="checkbox" name="battery_dc" value="DC Connected"
                                                                                     class="custom-control-input"
-                                                                                    id="battery_dc2"><label class="custom-control-label"
-                                                                                    for="battery_dc2">DC Connected</label></div>
+                                                                                    id="battery_dc2" @checked($system->battery_dc != '') disabled><label class="custom-control-label"
+                                                                                    for="battery_dc2"
+                                                                                    >DC Connected</label></div>
                                                                         </div>
                                                                         <div class="g">
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
                                                                                 <input type="checkbox" name="battery_ac" value="AC Connected"
                                                                                     class="custom-control-input"
-                                                                                    id="customCheck8"><label class="custom-control-label"
-                                                                                    for="customCheck8">AC Connected
+                                                                                    id="customCheck8" @checked($system->battery_ac != '') disabled><label class="custom-control-label"
+                                                                                    for="customCheck8"
+                                                                                    >AC Connected
                                                                                 </label></div>
                                                                         </div>
                                                                     </td>
@@ -1108,20 +1085,18 @@
                                                                                 <span class="overline-title">
                                                                                     kW</span></div>
                                                                             <input type="text" name="battery_rating_kw" class="form-control"
-                                                                                id="default-05" placeholder="">
+                                                                                value="{{ $system->battery_rating_kw ?? ''}}" readonly>
                                                                         </div>
                                                                         <div class="form-control-wrap">
                                                                             <div class="form-text-hint">
                                                                                 <span class="overline-title">
                                                                                     kWh</span></div>
                                                                             <input type="text" name="battery_rating_kwh" class="form-control"
-                                                                                id="default-05" placeholder="">
+                                                                                value="{{ $system->battery_rating_kwh ?? ''}}" readonly>
                                                                         </div>
                                                                     </td>
-                                                                    <td class="nk-tb-col"><input type="text"
-                                                                            class="form-control" placeholder=""
-                                                                            id="battery_quantity"
-                                                                            name="battery_quantity"></td>
+                                                                    <td class="nk-tb-col"><input type="text" class="form-control"
+                                                                            name="battery_quantity" value="{{ $system->battery_quantity ?? ''}}" readonly></td>
                                                                 </tr>
                                                                 <!-- Add more rows as needed -->
                                                             </tbody>
@@ -1185,7 +1160,7 @@
                                                                     <div class="form-control-wrap">
                                                                         <div class="form-icon form-icon-right">
                                                                         </div><input type="text"
-                                                                            class="form-control" id="" name="installer_name">
+                                                                            class="form-control" id="" name="installer_name" value="{{ $jobOrder->installer_name }}" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1196,7 +1171,7 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text" name="installer_date"
+                                                                        <input type="text" name="installer_date" value="{{ $jobOrder->installer_date }}" readonly disabled
                                                                             class="form-control date-picker" placeholder="mm/dd/yyyy">
                                                                     </div>
                                                                 </div>
@@ -1211,7 +1186,7 @@
                                                                         </div>
                                                                         <input type="text" name="installer_completed_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" value="{{ $jobOrder->installer_completed_date }}" readonly disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1221,7 +1196,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="installer_sign" class="form-control"
-                                                                            placeholder="">
+                                                                        value="{{ $jobOrder->installer_sign }}" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1269,7 +1244,7 @@
                                                                         <div class="form-icon form-icon-right">
                                                                         </div><input type="text"
                                                                             class="form-control" id="owner_name"
-                                                                            name="owner_name">
+                                                                            name="owner_name" value="{{ $jobOrder->owner_name }}" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1280,8 +1255,8 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text" name="owner_date"
-                                                                            class="form-control date-picker"
+                                                                        <input type="text" name="owner_date" value="{{ $jobOrder->owner_date }}" readonly
+                                                                            class="form-control"
                                                                             placeholder="mm/dd/yyyy">
                                                                     </div>
                                                                 </div>
@@ -1292,7 +1267,7 @@
                                                                         class="form-label">Signed: </label>
                                                                     <div class="form-control-wrap">
 
-                                                                        <input type="text" name="owner_sign" class="form-control"
+                                                                        <input type="text" name="owner_sign" value="{{ $jobOrder->owner_sign }}" readonly class="form-control"
                                                                             placeholder="">
                                                                     </div>
                                                                 </div>
@@ -1339,10 +1314,8 @@
                                                                     class="requiredField">*</div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="text" class="form-control" id="customer_name"
-                                                                    name="customer_name">
-                                                                    <span id="" class="error customer_name_err"></span>
-
+                                                                    type="text" class="form-control"
+                                                                    name="customer_name" value="{{ $jobOrder->customer_name }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1353,7 +1326,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="customer_address"
-                                                                    name="customer_address">
+                                                                    name="customer_address" value="{{ $jobOrder->customer_address }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1363,9 +1336,8 @@
                                                                     class="requiredField">*</div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="text" class="form-control" id="customer_eircode"
-                                                                    name="customer_eircode">
-                                                                    <span id="" class="error customer_eircode_err"></span>
+                                                                    type="text" class="form-control"
+                                                                    name="customer_eircode" value="{{ $jobOrder->customer_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1384,8 +1356,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_name"
-                                                                    name="installer_company_name">
-                                                                    <span id="" class="error installer_company_name_err"></span>
+                                                                    name="installer_company_name" value="{{ $jobOrder->customer_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1396,7 +1367,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_representative"
-                                                                    name="installer_company_representative">
+                                                                    name="installer_company_representative" value="{{ $jobOrder->customer_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1407,8 +1378,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_address"
-                                                                    name="installer_company_address">
-                                                                    <span id="" class="error installer_company_address_err"></span>
+                                                                    name="installer_company_address" value="{{ $jobOrder->customer_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1430,7 +1400,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="pv_manufacturer" id="pv_manufacturer">
+                                                                    name="pv_manufacturer" value="{{ $jobOrder->pv_manufacturer }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1440,7 +1410,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="pv_model_type" id="pv_model_type">
+                                                                    name="pv_model_type" value="{{ $jobOrder->pv_model_type }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1450,7 +1420,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="pv_model_performance" id="pv_model_performance">
+                                                                    name="pv_model_performance" value="{{ $jobOrder->pv_model_performance }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1460,7 +1430,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_number_modules" id="pv_number_modules">
+                                                                    placeholder="" name="pv_number_modules" value="{{ $jobOrder->pv_number_modules }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1471,7 +1441,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_short_circuit_current" id="pv_short_circuit_current">
+                                                                    placeholder="" name="pv_short_circuit_current" value="{{ $jobOrder->pv_short_circuit_current }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1481,7 +1451,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_mpp_current" id="pv_mpp_current">
+                                                                    placeholder="" name="pv_mpp_current" value="{{ $jobOrder->pv_mpp_current }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1492,7 +1462,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_open_circuit_voltage" id="pv_open_circuit_voltage">
+                                                                    placeholder="" name="pv_open_circuit_voltage" value="{{ $jobOrder->pv_open_circuit_voltage }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1502,7 +1472,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_mpp_voltage" id="pv_mpp_voltage">
+                                                                    placeholder="" name="pv_mpp_voltage" value="{{ $jobOrder->pv_mpp_voltage }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1516,61 +1486,61 @@
 
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                >Manufacturer</label>
+                                                                for="fv-Country15">Manufacturer</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_manufacturer" id="inverter_manufacturer">
+                                                                    name="inverter_manufacturer" value="{{ $pv_invert->inverter_manufacturer ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                >Inverter Type</label>
+                                                                for="fv-Country16">Inverter Type</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_type" id="inverter_type">
+                                                                    name="inverter_type" value="{{ $pv_invert->inverter_type ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                >AC Nominal Power (W)</label>
+                                                                for="fv-Country17">AC Nominal Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_ac_nominal" id="inverter_ac_nominal">
+                                                                    name="inverter_ac_nominal" value="{{ $pv_invert->inverter_ac_nominal ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                >Inverter Quantity</label>
+                                                                for="fv-Country18">Inverter Quantity</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_inverter_quantity" id="pv_inverter_quantity">
+                                                                    placeholder="" name="pv_inverter_quantity" value="{{ $pv_invert->pv_inverter_quantity ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                >AC Maximum Power (W)</label>
+                                                                for="fv-Country19">AC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="inverter_ac_maximum" id="inverter_ac_maximum">
+                                                                    placeholder="" name="inverter_ac_maximum" value="{{ $pv_invert->inverter_ac_maximum ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                >DC Maximum Power (W)</label>
+                                                                for="fv-Country20">DC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="inverter_dc_maximum" id="inverter_dc_maximum">
+                                                                    placeholder="" name="inverter_dc_maximum" value="{{ $pv_invert->inverter_dc_maximum ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1578,11 +1548,10 @@
                                                         <div class="form-group"><label class="form-label">Test
                                                                 Date</label>
                                                             <div class="form-control-wrap">
-                                                                <div class="form-icon form-icon-right"><em
-                                                                        class="icon ni ni-calendar-alt"></em>
+                                                                <div class="form-icon form-icon-right"><em class="icon ni ni-calendar-alt"></em>
                                                                 </div>
-                                                                <input type="text" name="inverter_test_date" id="inverter_test_date" class="form-control date-picker"
-                                                                    placeholder="mm/dd/yyyy">
+                                                                <input type="text" name="inverter_test_date" class="form-control date-picker"
+                                                                placeholder="mm/dd/yyyy" value="{{ $pv_invert->inverter_test_date ?? ''}}" readonly disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1590,37 +1559,31 @@
                                                         <div class="form-group"><label class="form-label">Next Test
                                                                 Date</label>
                                                             <div class="form-control-wrap">
-                                                                <div class="form-icon form-icon-right"><em
-                                                                        class="icon ni ni-calendar-alt"></em>
+                                                                <div class="form-icon form-icon-right"><em class="icon ni ni-calendar-alt"></em>
                                                                 </div>
-                                                                <input type="text" name="inverter_next_test_date" id="inverter_next_test_date" class="form-control date-picker"
-                                                                    placeholder="mm/dd/yyyy">
+                                                                <input type="text" name="inverter_next_test_date" class="form-control date-picker"
+                                                                placeholder="mm/dd/yyyy" value="{{ $pv_invert->inverter_next_test_date ?? ''}}" readonly disabled>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="col-sm-4">
                                                         <div class="form-group"><label class="form-label">Test
                                                                 Reason</label>
                                                             <div class="form-control-wrap">
                                                                 <ul class="custom-control-group g-3 align-center">
                                                                     <li>
-                                                                        <div
-                                                                            class="custom-control custom-control-sm custom-checkbox">
-                                                                            <input type="checkbox" name="inverter_test_reason"
-                                                                                class="custom-control-input"
-                                                                                id="inverter_test_reason_1" value="Initial inspection"><label
-                                                                                class="custom-control-label"
-                                                                                for="inverter_test_reason_1">Initial
+                                                                        <div class="custom-control custom-control-sm custom-checkbox">
+                                                                            <input type="checkbox" name="inverter_test_reason" value="Initial inspection" class="custom-control-input"
+                                                                            id="pay-card3" @checked($pv_invert->inverter_test_reason ?? false) disabled>
+                                                                            <label class="custom-control-label" for="pay-card3">Initial
                                                                                 inspection</label></div>
                                                                     </li>
                                                                     <li>
-                                                                        <div
-                                                                            class="custom-control custom-control-sm custom-checkbox">
-                                                                            <input type="checkbox" name="inverter_test2_reason"
-                                                                                class="custom-control-input" value="Retesting"
-                                                                                id="reasonFor"><label
-                                                                                class="custom-control-label"
-                                                                                for="reasonFor">Retesting</label>
+                                                                        <div class="custom-control custom-control-sm custom-checkbox">
+                                                                            <input type="checkbox" class="custom-control-input" name="inverter_test2_reason" value="Retesting"
+                                                                            id="pay-bitcoin3" @checked($pv_invert->inverter_test2_reason ?? false) disabled>
+                                                                            <label class="custom-control-label" for="pay-bitcoin3">Retesting</label>
                                                                         </div>
                                                                     </li>
 
@@ -1642,7 +1605,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_cert_number">
+                                                                    name="electric_cert_number" value="{{ $jobOrder->electric_cert_number }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1653,7 +1616,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_record_sheet">
+                                                                    name="electric_record_sheet" value="{{ $jobOrder->electric_record_sheet }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1670,7 +1633,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_re">
+                                                                    name="electric_re" value="{{ $jobOrder->electric_re }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1680,7 +1643,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_loop">
+                                                                    name="electric_loop" value="{{ $jobOrder->electric_loop }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1690,7 +1653,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_rcdx1">
+                                                                    name="electric_rcdx1" value="{{ $jobOrder->electric_rcdx1 }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1700,7 +1663,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_rcdx5">
+                                                                    name="electric_rcdx5" value="{{ $jobOrder->electric_rcdx5 }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1750,7 +1713,7 @@
                                                                             class="custom-control custom-control-sm custom-checkbox">
                                                                             <input type="checkbox" name="test_result" value="1"
                                                                                 class="custom-control-input"
-                                                                                id="pay-card1"><label
+                                                                                id="pay-card1" @checked($jobOrder->test_result !='') disabled><label
                                                                                 class="custom-control-label"
                                                                                 for="pay-card1">No defects were
                                                                                 found</label></div>
@@ -1760,7 +1723,7 @@
                                                                             class="custom-control custom-control-sm custom-checkbox">
                                                                             <input type="checkbox" name="test_result2" value="1"
                                                                                 class="custom-control-input"
-                                                                                id="pay-bitcoin1"><label
+                                                                                id="pay-bitcoin1" @checked($jobOrder->test_result2 !='') disabled><label
                                                                                 class="custom-control-label"
                                                                                 for="pay-bitcoin1">Defects were
                                                                                 found </label></div>
@@ -1770,7 +1733,7 @@
                                                                             class="custom-control custom-control-sm custom-checkbox">
                                                                             <input type="checkbox" name="test_result3" value="1"
                                                                                 class="custom-control-input"
-                                                                                id="pay-card2"><label
+                                                                                id="pay-card2" @checked($jobOrder->test_result3 !='') disabled><label
                                                                                 class="custom-control-label"
                                                                                 for="pay-card2">The Photovoltaic
                                                                                 system complies with the standards
@@ -1788,7 +1751,7 @@
                                                                 <div class="form-control-wrap">
 
                                                                     <input type="text" name="tester_signature" class="form-control"
-                                                                        placeholder="">
+                                                                    value="{{ $jobOrder->tester_signature }}" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1801,7 +1764,7 @@
                                                                     </div>
                                                                     <input type="text" name="test_result_date"
                                                                         class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy">
+                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_result_date }}" readonly disabled>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1811,8 +1774,8 @@
                                                                 <div class="form-control-wrap"><textarea
                                                                         class="form-control form-control-sm"
                                                                         id="test_remark" name="test_remark"
-                                                                        placeholder="Write your message"
-                                                                        ></textarea></div>
+                                                                        placeholder="Write your message" readonly
+                                                                        >{{ $jobOrder->test_remark }}</textarea></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1839,8 +1802,8 @@
                                                                             class="icon ni ni-calendar-alt"></em>
                                                                     </div>
                                                                     <input type="text" name="test_date"
-                                                                        class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy">
+                                                                        class="form-control date-picker" disabled
+                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_date }}" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1851,7 +1814,7 @@
                                                                 <div class="form-control-wrap">
 
                                                                     <input type="text" name="test_signature" class="form-control"
-                                                                        placeholder="">
+                                                                    value="{{ $jobOrder->test_signature }}" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2587,7 +2550,7 @@
                                                                         class="form-control form-control-sm"
                                                                         id="fv-message" name="notes"
                                                                         placeholder="Write your message"
-                                                                        ></textarea></div>
+                                                                        >{{ $jobOrder->notes }}</textarea></div>
                                                             </div>
                                                         </div>
 
@@ -2612,36 +2575,34 @@
 
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country2">Customer Name<div
+                                                                >Customer Name<div
                                                                     class="requiredField">*</div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="text" class="form-control" id="customer_name"
-                                                                    name="customer_name">
-                                                                    <span id="" class="error customer_name_err"></span>
+                                                                    type="text" class="form-control"
+                                                                    name="customer_name" value="{{ $jobOrder->customer_name }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country3">Customer Address</label>
+                                                                >Customer Address</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="customer_address"
-                                                                    name="customer_address">
+                                                                    name="customer_address" value="{{ $jobOrder->customer_address }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country4"> Customer Eircode <div
+                                                                > Customer Eircode <div
                                                                     class="requiredField">*</div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="text" class="form-control" id="customer_eircode"
-                                                                    name="customer_eircode">
-                                                                    <span id="" class="error customer_eircode_err"></span>
+                                                                    type="text" class="form-control"
+                                                                    name="customer_eircode" value="{{ $jobOrder->customer_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2655,36 +2616,34 @@
 
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country5">Company Name<div
+                                                                >Company Name<div
                                                                     class="requiredField">*</div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_name"
-                                                                    name="installer_company_name">
-                                                                    <span id="" class="error installer_company_name_err"></span>
+                                                                    name="installer_company_name" value="{{ $jobOrder->customer_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country6">Company Representative</label>
+                                                                >Company Representative</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_representative"
-                                                                    name="installer_company_representative">
+                                                                    name="installer_company_representative" value="{{ $jobOrder->customer_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country7"> Company Address:<div
+                                                                > Company Address:<div
                                                                     class="requiredField">*</div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_address"
-                                                                    name="installer_company_address">
-                                                                    <span id="" class="error installer_company_address_err"></span>
+                                                                    name="installer_company_address" value="{{ $jobOrder->customer_eircode }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2702,83 +2661,83 @@
 
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country8">Manufacturer</label>
+                                                                >Manufacturer</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="pv_manufacturer">
+                                                                    name="pv_manufacturer" value="{{ $jobOrder->pv_manufacturer }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country9">Module Type</label>
+                                                                >Module Type</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="pv_model_type">
+                                                                    name="pv_model_type" value="{{ $jobOrder->pv_model_type }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country10">PV Module Performance</label>
+                                                                >PV Module Performance</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="pv_model_performance">
+                                                                    name="pv_model_performance" value="{{ $jobOrder->pv_model_performance }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country11">Number of Modules</label>
+                                                                >Number of Modules</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_number_modules">
+                                                                    placeholder="" name="pv_number_modules" value="{{ $jobOrder->pv_number_modules }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country12">Short Circuit Current Isc
+                                                                >Short Circuit Current Isc
                                                                 (A)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_short_circuit_current">
+                                                                    placeholder="" name="pv_short_circuit_current" value="{{ $jobOrder->pv_short_circuit_current }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country13">MPP Current (A)</label>
+                                                                >MPP Current (A)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="pv_mpp_current" name="">
+                                                                    placeholder="" name="pv_mpp_current" value="{{ $jobOrder->pv_mpp_current }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country14">Open Circuit Voltage Voc
+                                                                >Open Circuit Voltage Voc
                                                                 (V)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_open_circuit_voltage">
+                                                                    placeholder="" name="pv_open_circuit_voltage" value="{{ $jobOrder->pv_open_circuit_voltage }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Country15">MPP Voltage (V)</label>
+                                                                >MPP Voltage (V)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_mpp_voltage">
+                                                                    placeholder="" name="pv_mpp_voltage" value="{{ $jobOrder->pv_mpp_voltage }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2790,7 +2749,7 @@
                                                 <h5 class="title mb-3">PV Inverters</h5>
                                                 <div class="row ">
 
-                                                <div class="col-lg-12">
+                                                    <div class="col-lg-12">
                                                         <div class="innerfields_title">
                                                             <h2>Inverter Type 1</h2>
                                                         </div>
@@ -2802,7 +2761,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_manufacturer">
+                                                                    name="inverter_manufacturer" value="{{ $pv_invert->inverter_manufacturer ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2812,7 +2771,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_type" id="inverter_type">
+                                                                    name="inverter_type" value="{{ $pv_invert->inverter_type ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2822,7 +2781,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_ac_nominal" id="inverter_ac_nominal">
+                                                                    name="inverter_ac_nominal" value="{{ $pv_invert->inverter_ac_nominal ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2832,7 +2791,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_inverter_quantity" id="pv_inverter_quantity">
+                                                                    placeholder="" name="pv_inverter_quantity" value="{{ $pv_invert->pv_inverter_quantity ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2842,7 +2801,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="inverter_ac_maximum">
+                                                                    placeholder="" name="inverter_ac_maximum" value="{{ $pv_invert->inverter_ac_maximum ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2852,7 +2811,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="inverter_dc_maximum" id="inverter_dc_maximum">
+                                                                    placeholder="" name="inverter_dc_maximum" value="{{ $pv_invert->inverter_dc_maximum ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2875,7 +2834,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_manufacturer_2">
+                                                                    name="inverter_manufacturer_2" value="{{ $pv_invert->inverter_manufacturer_2 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2885,7 +2844,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_type_2" id="inverter_type_2">
+                                                                    name="inverter_type_2" value="{{ $pv_invert->inverter_type_2 }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2895,7 +2854,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_ac_nominal_2" id="inverter_ac_nominal_2">
+                                                                    name="inverter_ac_nominal_2" value="{{ $pv_invert->inverter_ac_nominal_2 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2905,7 +2864,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_inverter_quantity_2" id="pv_inverter_quantity_2">
+                                                                    placeholder="" name="pv_inverter_quantity_2" value="{{ $pv_invert->pv_inverter_quantity_2 }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2915,7 +2874,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="inverter_ac_maximum2">
+                                                                    placeholder="" name="inverter_ac_maximum2" value="{{ $pv_invert->inverter_ac_maximum2 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2925,7 +2884,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="inverter_dc_maximum2">
+                                                                    placeholder="" name="inverter_dc_maximum2" value="{{ $pv_invert->inverter_dc_maximum2 }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2947,7 +2906,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_manufacturer_3">
+                                                                    name="inverter_manufacturer_3" value="{{ $pv_invert->inverter_manufacturer_3 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2957,7 +2916,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_type_3" id="inverter_type_3">
+                                                                    name="inverter_type_3" value="{{ $pv_invert->inverter_type_3 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2967,7 +2926,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="inverter_ac_nominal_3" id="inverter_ac_nominal_3">
+                                                                    name="inverter_ac_nominal_3" id="inverter_ac_nominal_3" value="{{ $pv_invert->inverter_ac_nominal_3 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2977,7 +2936,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="pv_inverter_quantity_3" id="pv_inverter_quantity_3">
+                                                                    placeholder="" name="pv_inverter_quantity_3" value="{{ $pv_invert->pv_inverter_quantity_3 }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2987,7 +2946,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="inverter_ac_maximum3">
+                                                                    placeholder="" name="inverter_ac_maximum3" value="{{ $pv_invert->inverter_ac_maximum3 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2997,7 +2956,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="number" class="form-control"
-                                                                    placeholder="" name="inverter_dc_maximum3">
+                                                                    placeholder="" name="inverter_dc_maximum3" value="{{ $pv_invert->inverter_dc_maximum3 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3008,7 +2967,8 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"><em class="icon ni ni-calendar-alt"></em>
                                                                 </div>
-                                                                <input type="text" name="inverter_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                <input type="text" name="inverter_test_date" class="form-control date-picker"
+                                                                placeholder="mm/dd/yyyy" value="{{ $pv_invert->inverter_test_date ?? ''}}" readonly disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3018,7 +2978,8 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"><em class="icon ni ni-calendar-alt"></em>
                                                                 </div>
-                                                                <input type="text" name="inverter_next_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                <input type="text" name="inverter_next_test_date" class="form-control date-picker"
+                                                                placeholder="mm/dd/yyyy" value="{{ $pv_invert->inverter_next_test_date ?? ''}}" readonly disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3030,13 +2991,15 @@
                                                                 <ul class="custom-control-group g-3 align-center">
                                                                     <li>
                                                                         <div class="custom-control custom-control-sm custom-checkbox">
-                                                                            <input type="checkbox" name="inverter_test_reason" value="Initial inspection" class="custom-control-input"  id="pay-card3">
+                                                                            <input type="checkbox" name="inverter_test_reason" value="Initial inspection" class="custom-control-input"
+                                                                            id="pay-card3" @checked($pv_invert->inverter_test_reason ?? false) disabled>
                                                                             <label class="custom-control-label" for="pay-card3">Initial
                                                                                 inspection</label></div>
                                                                     </li>
                                                                     <li>
                                                                         <div class="custom-control custom-control-sm custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" name="inverter_test2_reason" value="Retesting" id="pay-bitcoin3">
+                                                                            <input type="checkbox" class="custom-control-input" name="inverter_test2_reason" value="Retesting"
+                                                                            id="pay-bitcoin3" @checked($pv_invert->inverter_test2_reason ?? false) disabled>
                                                                             <label class="custom-control-label" for="pay-bitcoin3">Retesting</label>
                                                                         </div>
                                                                     </li>
@@ -3062,7 +3025,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_cert_number">
+                                                                    name="electric_cert_number" value="{{ $jobOrder->electric_cert_number }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3073,7 +3036,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_record_sheet">
+                                                                    name="electric_record_sheet" value="{{ $jobOrder->electric_record_sheet }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3090,7 +3053,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_re">
+                                                                    name="electric_re" value="{{ $jobOrder->electric_re }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3100,7 +3063,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_loop">
+                                                                    name="electric_loop" value="{{ $jobOrder->electric_loop }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3110,7 +3073,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_rcdx1">
+                                                                    name="electric_rcdx1" value="{{ $jobOrder->electric_rcdx1 }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3120,7 +3083,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" placeholder=""
-                                                                    name="electric_rcdx5">
+                                                                    name="electric_rcdx5" value="{{ $jobOrder->electric_rcdx5 }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3170,9 +3133,9 @@
                                                                             class="custom-control custom-control-sm custom-checkbox">
                                                                             <input type="checkbox" name="test_result" value="1"
                                                                                 class="custom-control-input"
-                                                                                id="pay-card-no"><label
+                                                                                id="pay-card1" @checked($jobOrder->test_result !='') disabled><label
                                                                                 class="custom-control-label"
-                                                                                for="pay-card-no">No defects were
+                                                                                for="pay-card1">No defects were
                                                                                 found</label></div>
                                                                     </li>
                                                                     <li>
@@ -3180,9 +3143,9 @@
                                                                             class="custom-control custom-control-sm custom-checkbox">
                                                                             <input type="checkbox" name="test_result2" value="1"
                                                                                 class="custom-control-input"
-                                                                                id="pay-bitcoin-de"><label
+                                                                                id="pay-bitcoin1" @checked($jobOrder->test_result2 !='') disabled><label
                                                                                 class="custom-control-label"
-                                                                                for="pay-bitcoin-de">Defects were
+                                                                                for="pay-bitcoin1">Defects were
                                                                                 found </label></div>
                                                                     </li>
                                                                     <li>
@@ -3190,9 +3153,9 @@
                                                                             class="custom-control custom-control-sm custom-checkbox">
                                                                             <input type="checkbox" name="test_result3" value="1"
                                                                                 class="custom-control-input"
-                                                                                id="pay-card-ph"><label
+                                                                                id="pay-card2" @checked($jobOrder->test_result3 !='') disabled><label
                                                                                 class="custom-control-label"
-                                                                                for="pay-card-ph">The Photovoltaic
+                                                                                for="pay-card2">The Photovoltaic
                                                                                 system complies with the standards
                                                                                 of electrical engineering</label>
                                                                         </div>
@@ -3207,8 +3170,8 @@
                                                                     class="form-label">Signature/Tester </label>
                                                                 <div class="form-control-wrap">
 
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="">
+                                                                    <input type="text" name="tester_signature" class="form-control"
+                                                                    value="{{ $jobOrder->tester_signature }}" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3219,9 +3182,9 @@
                                                                     <div class="form-icon form-icon-right"><em
                                                                             class="icon ni ni-calendar-alt"></em>
                                                                     </div>
-                                                                    <input type="text"
+                                                                    <input type="text" name="test_result_date"
                                                                         class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy">
+                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_result_date }}" readonly disabled>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3230,9 +3193,9 @@
                                                                     for="fv-message">Remarks</label>
                                                                 <div class="form-control-wrap"><textarea
                                                                         class="form-control form-control-sm"
-                                                                        id="fv-message" name="fv-message"
-                                                                        placeholder="Write your message"
-                                                                        ></textarea></div>
+                                                                        id="test_remark" name="test_remark"
+                                                                        placeholder="Write your message" readonly
+                                                                        >{{ $jobOrder->test_remark }}</textarea></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -3259,8 +3222,8 @@
                                                                             class="icon ni ni-calendar-alt"></em>
                                                                     </div>
                                                                     <input type="text" name="test_date"
-                                                                        class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy">
+                                                                        class="form-control date-picker" disabled
+                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_date }}" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3271,7 +3234,7 @@
                                                                 <div class="form-control-wrap">
 
                                                                     <input type="text" name="test_signature" class="form-control"
-                                                                        placeholder="">
+                                                                    value="{{ $jobOrder->test_signature }}" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3299,7 +3262,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn1"><label
+                                                                        id="pay-card-dn1" @checked($design_install->design_installation_1 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn1">The DC system was generally
                                                                         designed, selected and set up in accordance
@@ -3314,7 +3277,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn2"><label
+                                                                        id="pay-card-dn2" @checked($design_install->design_installation_2 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn2">The DC components were
                                                                         measured for DC operation </label></div>
@@ -3324,7 +3287,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn3"><label
+                                                                        id="pay-card-dn3" @checked($design_install->design_installation_3 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn3">The DC components are rated
                                                                         for the maximum current and maximum
@@ -3335,7 +3298,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_4" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn4"><label
+                                                                        @checked($design_install->design_installation_4 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn4">Protection is provided by
                                                                         application of class II or equivalent
@@ -3346,7 +3309,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_5" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn5"><label
+                                                                        id="pay-card-dn5" @checked($design_install->design_installation_5 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn5">PV strand cables, PV
                                                                         generator cables and PV DC main cables have
@@ -3361,7 +3324,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_6" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn6"><label
+                                                                        id="pay-card-dn6" @checked($design_install->design_installation_6 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn6">The wiring system has been
                                                                         selected and constructed so that it can
@@ -3375,7 +3338,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_7" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn7"><label
+                                                                        id="pay-card-dn7" @checked($design_install->design_installation_7 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn7">AC and DC cables are
                                                                         physically separated</label></div>
@@ -3385,7 +3348,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_8" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn8"><label
+                                                                        id="pay-card-dn8" @checked($design_install->design_installation_8 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn8">Systems without strand
                                                                         overcurrent protective device: Strand cables
@@ -3399,7 +3362,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_9" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn9"><label
+                                                                        id="pay-card-dn9" @checked($design_install->design_installation_9 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn9">Systems with strand
                                                                         overcurrent protective device: Overcurrent
@@ -3414,7 +3377,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_10" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-dn10"><label
+                                                                        id="pay-card-dn10" @checked($design_install->design_installation_10 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-dn10">There are DC load break
                                                                         switches installed on the DC side of the
@@ -3442,7 +3405,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="overvoltage_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-on1"><label
+                                                                        id="pay-card-on1" @checked($design_install->overvoltage_1 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-on1">The inverter has a simple
                                                                         separation between the AC side and the DC
@@ -3453,7 +3416,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="overvoltage_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-on2"><label
+                                                                        id="pay-card-on2" @checked($design_install->overvoltage_2 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-on2">Alternatively: A residual
                                                                         device is installed in the circuit and
@@ -3466,7 +3429,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="overvoltage_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-on3"><label
+                                                                        id="pay-card-on3" @checked($design_install->overvoltage_3 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-on3">The area of wiring loops
                                                                         was kept as small as possible (DIN VDE
@@ -3477,7 +3440,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="overvoltage_4" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-on4"><label
+                                                                        id="pay-card-on4" @checked($design_install->overvoltage_4 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-on4">If equipotential bonding
                                                                         conductors are installed, they run in
@@ -3503,7 +3466,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="special_factor_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-sfn1"><label
+                                                                        id="pay-card-sfn1" @checked($design_install->special_factor_1 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-sfn1">Devices for disconnecting
                                                                         the inverter are provided on the AC side
@@ -3514,7 +3477,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="special_factor_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-sfn2"><label
+                                                                        id="pay-card-sfn2" @checked($design_install->special_factor_2 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-sfn2">Separating and switching
                                                                         devices are connected so that the PV
@@ -3529,7 +3492,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="special_factor_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-sfn3"><label
+                                                                        id="pay-card-sfn3" @checked($design_install->special_factor_3 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-sfn3">Protection settings of the
                                                                         inverter are programmed according to local
@@ -3554,7 +3517,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-mln1"><label
+                                                                        id="pay-card-mln1" @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln1">All circuits, protection
                                                                         devices, switches and terminals have
@@ -3565,7 +3528,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-mln2"><label
+                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln2">All DC connection boxes (PV
                                                                         sub-generator connection box and PV
@@ -3582,7 +3545,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-mln3"><label
+                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln3">The AC main switch has a
                                                                         clear inscription </label></div>
@@ -3592,7 +3555,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_4" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-mln4"><label
+                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln4">Warnings are present for
                                                                         the double supply at the point of
@@ -3604,7 +3567,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_5" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-mln5"><label
+                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln5">The protection settings of
                                                                         the inverter and details of the installation
@@ -3616,7 +3579,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_6" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-mln6"><label
+                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln6">The procedures for
                                                                         emergency shutdown are provided on site
@@ -3627,7 +3590,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_7" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-mln7"><label
+                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln7">All signs and markings are
                                                                         suitable and permanently attached. </label>
@@ -3652,7 +3615,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="general_installation_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-gnm1"><label
+                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-gnm1">Ventilation is provided
                                                                         behind the PV generator to prevent
@@ -3664,7 +3627,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="general_installation_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-gnm2"><label
+                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-gnm2">The frame and materials are
                                                                         properly attached and stable; the roof
@@ -3677,7 +3640,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="general_installation_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-gnm3"><label
+                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-gnm3">The cable routing is
                                                                         weather-resistant </label></div>
@@ -4375,9 +4338,9 @@
                                                             <div class="form-group">
                                                                 <div class="form-control-wrap"><textarea
                                                                         class="form-control form-control-sm"
-                                                                         name="notes"
+                                                                         name="notes" readonly
                                                                         placeholder="Write your message"
-                                                                        ></textarea></div>
+                                                                        >{{ $jobOrder->notes }}</textarea></div>
                                                             </div>
                                                         </div>
 
@@ -4393,7 +4356,6 @@
                                         </li>
                                         <li class="step-next"><button class="btn btn-primary">Next</button></li>
                                         {{-- <li class="step-submit"><button class="btn btn-primary" type="submit">Submit</button></li> --}}
-                                        <li class="step-submit"><button class="btn btn-primary" onclick="Validatecheck()">Submit</button></li>
                                     </ul>
                                 </div>
                             </div>
@@ -4404,7 +4366,6 @@
             </div>
 
         </div>
-        </form>
 
     </div>
 </div>
@@ -4413,7 +4374,6 @@
 
 @push('push_script')
 <script>
-    // function getClient(client_type) {
         var defaultContent = $('.defaultFormTabContent');
         var domesticTabs = $('.domesticFormTab');
         var nondomesticTabs = $('.nondomesticTab');
@@ -4430,22 +4390,20 @@
         // Setup the correct steps based on the client type
         if ({{ $jobOrder->client_type }} == 1) {
             domesticTabs.show();
-
             setupSteps(defaultContent.add(domesticContent));
         } else if ({{ $jobOrder->client_type }} == 2) {
             nondomesticTabs.show();
             setupSteps(defaultContent.add(nondomesticContent));
-        } else{
+        } else {
             // const submitButton = $('.step-submit button');
             // submitButton.hide();
         }
-    // }
 
     function setupSteps(content) {
         const steps = content;
         const prevButton = $('.step-prev button');
         const nextButton = $('.step-next button');
-        const submitButton = $('.step-submit button');
+        // const submitButton = $('.step-submit button');
         let currentStep = 0;
 
         function showStep(index) {
@@ -4453,10 +4411,14 @@
             steps.eq(index).show();
 
             prevButton.closest('li').toggle(index > 0);
-            nextButton.closest('li').toggle(index < steps.length - 1);
-            // if(index === steps.length - 1){
-            //     submitButton.show();
-            // }
+
+            // Show the next button only if the current step is not one of the last two steps
+            if (index < steps.length - 1) {
+                nextButton.closest('li').show();
+            } else {
+                nextButton.closest('li').hide();
+            }
+
             // submitButton.closest('li').toggle(index === steps.length - 1);
         }
 
@@ -4479,39 +4441,4 @@
     }
 
 </script>
-<!-- submit trigger buttin page loader and redirection other page json_decode -->
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-  const forms = document.querySelectorAll('form');
-
-  forms.forEach(form => {
-    form.addEventListener('submit', function(event) {
-      const submitButton = form.querySelector('button[type="submit"]');
-      if (submitButton) {
-        event.preventDefault(); // Prevent default form submission
-        showLoader(submitButton);
-
-        // Simulate form submission for demonstration purposes
-        setTimeout(() => {
-          hideLoader(submitButton);
-          // Redirect to another page after processing
-          window.location.href = 'job-orders.php'; // Change 'other-page.php' to your desired destination
-        }, 2000); // Simulate a delay for form submission
-      }
-    });
-  });
-
-  function showLoader(button) {
-    button.dataset.originalText = button.innerHTML; // Save original button text
-    button.innerHTML = 'Processing <span class="loaderButton_custom"></span>';
-    button.disabled = true; // Disable the button to prevent multiple clicks
-  }
-
-  function hideLoader(button) {
-    button.innerHTML = button.dataset.originalText; // Restore original button text
-    button.disabled = false; // Enable the button
-  }
-});
-</script> --}}
-<!-- submit trigger buttin page loader and redirection other page json_decode end-->
 @endpush

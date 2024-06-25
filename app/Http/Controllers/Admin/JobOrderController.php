@@ -48,6 +48,7 @@ class JobOrderController extends Controller
                     'pv_quantity' => $request->pv_quantity,
                     'ms_make' => $request->ms_make,
                     'ms_model' => $request->ms_model,
+                    'ms_rating' => $request->ms_rating,
                     'ms_quantity' => $request->ms_quantity,
                     'inverter_make' => $request->inverter_make,
                     'inverter_model' => $request->inverter_model,
@@ -55,13 +56,16 @@ class JobOrderController extends Controller
                     'inverter_quantity' => $request->inverter_quantity,
                     'inverter_make2' => $request->inverter_make2,
                     'inverter_model2' => $request->inverter_model2,
+                    'inverter_rating2' => $request->inverter_rating2,
                     'inverter_quantity2' => $request->inverter_quantity2,
                     'inverter_make3' => $request->inverter_make3,
                     'inverter_model3' => $request->inverter_model3,
                     'inverter_rating3' => $request->inverter_rating3,
-                    'controller_quantity' => $request->controller_quantity,
+                    'inverter_rating3' => $request->inverter_rating3,
+                    'inverter_quantity3' => $request->inverter_quantity3,
                     'energy_make' => $request->energy_make,
                     'energy_model' => $request->energy_model,
+                    'energy_rating' => $request->energy_rating,
                     'energy_quantity' => $request->energy_quantity,
                     'battery_make' => $request->battery_make,
                     'battery_dc' => $request->battery_dc,
@@ -98,6 +102,8 @@ class JobOrderController extends Controller
                     'inverter_dc_maximum3' => $request->inverter_dc_maximum3,
                     'inverter_test_date' => $request->inverter_test_date,
                     'inverter_next_test_date' => $request->inverter_next_test_date,
+                    'inverter_test_reason' => $request->inverter_test_reason,
+                    'inverter_test2_reason' => $request->inverter_test2_reason,
                 ];
                 $design_and_installation = [
                     "design_installation_1" => $request->design_installation_1,
@@ -481,7 +487,7 @@ class JobOrderController extends Controller
 
     public function show(Request $request){
         $id = base64_decode($request->id);
-        $jobOrder = JobOrder::whereId($id)->first();
+        $jobOrder = JobOrder::whereId($id)->with('client', 'staff')->first();
         if (!$jobOrder) {
             return redirect()->back()->with('error', 'Job Order not found or invalid.');
         }

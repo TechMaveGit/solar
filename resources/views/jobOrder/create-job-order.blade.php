@@ -117,7 +117,7 @@
                                         <li class="nondomesticTab">
                                             <div class="step-item">
                                                 <div class="step-text">
-                                                    <div class="lead-text"> Inspection, Test and Commissioning Report NON</div>
+                                                    <div class="lead-text"> Inspection, Test and Commissioning Report</div>
 
                                                 </div>
                                             </div>
@@ -1104,8 +1104,8 @@
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="controller_quantity"
-                                                                                name="controller_quantity"></td>
+                                                                                id="inverter_quantity3"
+                                                                                name="inverter_quantity3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Energy Meter </th>
