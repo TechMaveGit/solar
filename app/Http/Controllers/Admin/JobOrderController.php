@@ -480,6 +480,11 @@ class JobOrderController extends Controller
     }
 
     public function show(Request $request){
-        return view('jobOrder.view-job-order');
+        $id = base64_decode($request->id);
+        $jobOrder = JobOrder::whereId($id)->first();
+        if (!$jobOrder) {
+            return redirect()->back()->with('error', 'Job Order not found or invalid.');
+        }
+        return view('jobOrder.view-job-order',compact('jobOrder'));
     }
 }
