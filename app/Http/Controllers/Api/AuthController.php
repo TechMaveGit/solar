@@ -112,7 +112,8 @@ class AuthController extends Controller
             'access_token' => $token,
             'user_data' => $user,
             'token_type' => 'bearer',
-            'expires_in' => JWTAuth::factory()->getTTL() * 60, // Token expiry time in minutes
+            // 'expires_in' => JWTAuth::factory()->getTTL() * 60, // Token expiry time in minutes
+            'expires_in' => JWTAuth::factory()->getTTL() * 5, // Token expiry time in minutes
         ]);
     }
 
@@ -215,7 +216,7 @@ class AuthController extends Controller
      public function JobOrder(Request $request)
      {
 
-        $jobs = JobOrder::where('staff_id',auth()->user()->id)->orderBy('id','DESC')->get();
+        $jobs = JobOrder::where('staff_id',auth()->user()->id)->with('client')->orderBy('id','DESC')->get();
 
         if ($jobs->isEmpty()) {
             return response()->json([
