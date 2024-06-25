@@ -5,6 +5,7 @@
     $system = json_decode($jobOrder->system_components);
     $pv_invert = json_decode($jobOrder->pv_inverts);
     $design_install = json_decode($jobOrder->design_and_installation);
+    $test_report = json_decode($jobOrder->test_report_grid);
 @endphp
 <div class="nk-content nk-content-fluid">
     <div class="components-preview formMainContainer">
@@ -1790,47 +1791,6 @@
                                             </div>
 
                                             <div class="innerfieldsContainer card-bordered mt-3">
-                                                <h5 class="title mb-3">Testing</h5>
-                                                <div class="card-inner p-0">
-                                                    <div class="row">
-
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group"><label class="form-label">Test
-                                                                    Date</label>
-                                                                <div class="form-control-wrap">
-                                                                    <div class="form-icon form-icon-right"><em
-                                                                            class="icon ni ni-calendar-alt"></em>
-                                                                    </div>
-                                                                    <input type="text" name="test_date"
-                                                                        class="form-control date-picker" disabled
-                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_date }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group"><label
-                                                                    class="form-label">Signature/Tester </label>
-                                                                <div class="form-control-wrap">
-
-                                                                    <input type="text" name="test_signature" class="form-control"
-                                                                    value="{{ $jobOrder->test_signature }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="filedsNote">
-                                                            <p>Inspected circuits (fill out one sheet for large
-                                                                systems and for separate inspections per
-                                                                inspection):
-                                                            </p>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="innerfieldsContainer card-bordered mt-3">
                                                 <h5 class="title mb-3">Design and installation of the PV generator
                                                 </h5>
                                                 <div class="card-inner p-0">
@@ -1842,9 +1802,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d1"><label
+                                                                        id="pay-card-dn1" @checked($design_install->design_installation_1 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d1">The DC system was generally
+                                                                        for="pay-card-dn1">The DC system was generally
                                                                         designed, selected and set up in accordance
                                                                         with the
                                                                         requirements in DIN VDE 0100 (IEC 60364) and
@@ -1857,9 +1817,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d2"><label
+                                                                        id="pay-card-dn2" @checked($design_install->design_installation_2 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d2">The DC components were
+                                                                        for="pay-card-dn2">The DC components were
                                                                         measured for DC operation </label></div>
                                                             </div>
                                                             <div class="form-group">
@@ -1867,9 +1827,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d3"><label
+                                                                        id="pay-card-dn3" @checked($design_install->design_installation_3 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d3">The DC components are rated
+                                                                        for="pay-card-dn3">The DC components are rated
                                                                         for the maximum current and maximum
                                                                         voltage</label></div>
                                                             </div>
@@ -1878,9 +1838,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_4" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d4"><label
+                                                                        @checked($design_install->design_installation_4 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d4">Protection is provided by
+                                                                        for="pay-card-dn4">Protection is provided by
                                                                         application of class II or equivalent
                                                                         insulation on the DC side</label></div>
                                                             </div>
@@ -1889,9 +1849,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_5" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d5"><label
+                                                                        id="pay-card-dn5" @checked($design_install->design_installation_5 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d5">PV strand cables, PV
+                                                                        for="pay-card-dn5">PV strand cables, PV
                                                                         generator cables and PV DC main cables have
                                                                         been selected and
                                                                         constructed so that the risk of earth faults
@@ -1904,9 +1864,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_6" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d6"><label
+                                                                        id="pay-card-dn6" @checked($design_install->design_installation_6 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d6">The wiring system has been
+                                                                        for="pay-card-dn6">The wiring system has been
                                                                         selected and constructed so that it can
                                                                         withstand expected external
                                                                         influences such as wind, ice temperature and
@@ -1918,9 +1878,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_7" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d7"><label
+                                                                        id="pay-card-dn7" @checked($design_install->design_installation_7 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d7">AC and DC cables are
+                                                                        for="pay-card-dn7">AC and DC cables are
                                                                         physically separated</label></div>
                                                             </div>
                                                             <div class="form-group">
@@ -1928,9 +1888,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_8" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d8"><label
+                                                                        id="pay-card-dn8" @checked($design_install->design_installation_8 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d8">Systems without strand
+                                                                        for="pay-card-dn8">Systems without strand
                                                                         overcurrent protective device: Strand cables
                                                                         are designed so that they
                                                                         can take up the highest combined leakage
@@ -1942,9 +1902,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_9" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d9"><label
+                                                                        id="pay-card-dn9" @checked($design_install->design_installation_9 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d9">Systems with strand
+                                                                        for="pay-card-dn9">Systems with strand
                                                                         overcurrent protective device: Overcurrent
                                                                         protective devices are set
                                                                         correctly according to local rules or
@@ -1957,9 +1917,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="design_installation_10" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-d10"><label
+                                                                        id="pay-card-dn10" @checked($design_install->design_installation_10 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-d10">There are DC load break
+                                                                        for="pay-card-dn10">There are DC load break
                                                                         switches installed on the DC side of the
                                                                         inverter (DIN VDE 0100-712
                                                                         para.
@@ -1985,9 +1945,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="overvoltage_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-o1"><label
+                                                                        id="pay-card-on1" @checked($design_install->overvoltage_1 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-o1">The inverter has a simple
+                                                                        for="pay-card-on1">The inverter has a simple
                                                                         separation between the AC side and the DC
                                                                         side </label></div>
                                                             </div>
@@ -1996,9 +1956,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="overvoltage_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-o2"><label
+                                                                        id="pay-card-on2" @checked($design_install->overvoltage_2 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-o2">Alternatively: A residual
+                                                                        for="pay-card-on2">Alternatively: A residual
                                                                         device is installed in the circuit and
                                                                         corresponds to a type B RCD (DIN
                                                                         VDE 0100-712 para. 413.1.1.1.2) </label>
@@ -2009,9 +1969,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="overvoltage_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-o3"><label
+                                                                        id="pay-card-on3" @checked($design_install->overvoltage_3 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-o3">The area of wiring loops
+                                                                        for="pay-card-on3">The area of wiring loops
                                                                         was kept as small as possible (DIN VDE
                                                                         0100-712, para. 54) </label></div>
                                                             </div>
@@ -2020,9 +1980,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="overvoltage_4" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-o4"><label
+                                                                        id="pay-card-on4" @checked($design_install->overvoltage_4 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-o4">If equipotential bonding
+                                                                        for="pay-card-on4">If equipotential bonding
                                                                         conductors are installed, they run in
                                                                         parallel and in as close contact as
                                                                         possible to the PV DC cables </label></div>
@@ -2046,9 +2006,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="special_factor_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-sp1"><label
+                                                                        id="pay-card-sfn1" @checked($design_install->special_factor_1 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-sp1">Devices for disconnecting
+                                                                        for="pay-card-sfn1">Devices for disconnecting
                                                                         the inverter are provided on the AC side
                                                                     </label></div>
                                                             </div>
@@ -2057,9 +2017,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="special_factor_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-sp2"><label
+                                                                        id="pay-card-sfn2" @checked($design_install->special_factor_2 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-sp2">Separating and switching
+                                                                        for="pay-card-sfn2">Separating and switching
                                                                         devices are connected so that the PV
                                                                         installation in connected on the
                                                                         “load”side and the public supply on the
@@ -2072,9 +2032,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="special_factor_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-sp3"><label
+                                                                        id="pay-card-sfn3" @checked($design_install->special_factor_3 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-sp3">Protection settings of the
+                                                                        for="pay-card-sfn3">Protection settings of the
                                                                         inverter are programmed according to local
                                                                         regulations</label></div>
                                                             </div>
@@ -2097,9 +2057,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-ml1"><label
+                                                                        id="pay-card-mln1" @checked($design_install->marking_labelling_1 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-ml1">All circuits, protection
+                                                                        for="pay-card-mln1">All circuits, protection
                                                                         devices, switches and terminals have
                                                                         appropriate markings</label></div>
                                                             </div>
@@ -2108,9 +2068,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-ml2"><label
+                                                                        @checked($design_install->marking_labelling_2 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-ml2">All DC connection boxes (PV
+                                                                        for="pay-card-mln2">All DC connection boxes (PV
                                                                         sub-generator connection box and PV
                                                                         generator connection box)
                                                                         bear a warning that the active parts present
@@ -2125,9 +2085,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-ml3"><label
+                                                                        @checked($design_install->marking_labelling_3 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-ml3">The AC main switch has a
+                                                                        for="pay-card-mln3">The AC main switch has a
                                                                         clear inscription </label></div>
                                                             </div>
                                                             <div class="form-group">
@@ -2135,9 +2095,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_4" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-ml4"><label
+                                                                        @checked($design_install->marking_labelling_4 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-ml4">Warnings are present for
+                                                                        for="pay-card-mln4">Warnings are present for
                                                                         the double supply at the point of
                                                                         interconnection </label></div>
                                                             </div>
@@ -2147,9 +2107,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_5" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-ml5"><label
+                                                                        @checked($design_install->marking_labelling_5 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-ml5">The protection settings of
+                                                                        for="pay-card-mln5">The protection settings of
                                                                         the inverter and details of the installation
                                                                         are provided on site </label>
                                                                 </div>
@@ -2159,9 +2119,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_6" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-ml6"><label
+                                                                        @checked($design_install->marking_labelling_6 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-ml6">The procedures for
+                                                                        for="pay-card-mln6">The procedures for
                                                                         emergency shutdown are provided on site
                                                                     </label></div>
                                                             </div>
@@ -2170,9 +2130,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_7" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-ml7"><label
+                                                                        @checked($design_install->marking_labelling_7 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-ml7">All signs and markings are
+                                                                        for="pay-card-mln7">All signs and markings are
                                                                         suitable and permanently attached. </label>
                                                                 </div>
                                                             </div>
@@ -2195,9 +2155,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="general_installation_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-gm1"><label
+                                                                        @checked($design_install->general_installation_1 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-gm1">Ventilation is provided
+                                                                        for="pay-card-gnm1">Ventilation is provided
                                                                         behind the PV generator to prevent
                                                                         overheating/reduce the fire risk</label>
                                                                 </div>
@@ -2207,9 +2167,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="general_installation_2" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-gm2"><label
+                                                                        @checked($design_install->general_installation_2 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-gm2">The frame and materials are
+                                                                        for="pay-card-gnm2">The frame and materials are
                                                                         properly attached and stable; the roof
                                                                         fasteners are weather
                                                                         resistant </label>
@@ -2220,9 +2180,9 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="general_installation_3" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-gm3"><label
+                                                                        @checked($design_install->general_installation_3 ?? false) disabled><label
                                                                         class="custom-control-label"
-                                                                        for="pay-card-gm3">The cable routing is
+                                                                        for="pay-card-gnm3">The cable routing is
                                                                         weather-resistant </label></div>
                                                             </div>
 
@@ -2241,10 +2201,9 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <div class="form-control-wrap"><textarea name="test_notes"
-                                                                        class="form-control form-control-sm"
-                                                                        id="fv-message"
-                                                                        placeholder="Write your message"
-                                                                        ></textarea></div>
+                                                                        class="form-control form-control-sm" readonly
+                                                                        id="fv-message" placeholder="Write your message"
+                                                                        >{{ $jobOrder->test_notes }}</textarea></div>
                                                             </div>
                                                         </div>
 
@@ -2278,20 +2237,20 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Module</td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module1"></td>
+                                                                            name="pv_generator_module1" value="{{ $test_report->pv_generator_module1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module2"></td>
+                                                                            name="pv_generator_module2" value="{{ $test_report->pv_generator_module2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module3"></td>
+                                                                            name="pv_generator_module3" value="{{ $test_report->pv_generator_module3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Quantity</td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity1"></td>
+                                                                            name="pv_generator_quantity1" value="{{ $test_report->pv_generator_quantity1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity2"></td>
+                                                                            name="pv_generator_quantity2" value="{{ $test_report->pv_generator_quantity2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity3"></td>
+                                                                            name="pv_generator_quantity3" value="{{ $test_report->pv_generator_quantity3 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -2300,20 +2259,20 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Voc (STC)</td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc1"></td>
+                                                                            name="generator_parameters_voc1" value="{{ $test_report->generator_parameters_voc1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc2"></td>
+                                                                            name="generator_parameters_voc2" value="{{ $test_report->generator_parameters_voc2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc3"></td>
+                                                                            name="generator_parameters_voc3" value="{{ $test_report->generator_parameters_voc3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Isc (STC)</td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc1"></td>
+                                                                            name="generator_parameters_isc1" value="{{ $test_report->generator_parameters_isc1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc2"></td>
+                                                                            name="generator_parameters_isc2" value="{{ $test_report->generator_parameters_isc2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc3"></td>
+                                                                            name="generator_parameters_isc3" value="{{ $test_report->generator_parameters_isc3 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -2323,38 +2282,38 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Type </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device1"></td>
+                                                                            name="protection_device1" value="{{ $test_report->protection_device1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device2"></td>
+                                                                            name="protection_device2" value="{{ $test_report->protection_device2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device3"></td>
+                                                                            name="protection_device3" value="{{ $test_report->protection_device3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Rated Value (A) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value1"></td>
+                                                                            name="device_rated_value1" value="{{ $test_report->device_rated_value1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value2"></td>
+                                                                            name="device_rated_value2" value="{{ $test_report->device_rated_value2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value3"></td>
+                                                                            name="device_rated_value3" value="{{ $test_report->device_rated_value3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">DC rating (A) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating1"></td>
+                                                                            name="device_dc_rating1" value="{{ $test_report->device_dc_rating1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating2"></td>
+                                                                            name="device_dc_rating2" value="{{ $test_report->device_dc_rating2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating3"></td>
+                                                                            name="device_dc_rating3" value="{{ $test_report->device_dc_rating3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Capacity (kA) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity1"></td>
+                                                                            name="device_capacity1" value="{{ $test_report->device_capacity1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity2"></td>
+                                                                            name="device_capacity2" value="{{ $test_report->device_capacity2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity3"></td>
+                                                                            name="device_capacity3" value="{{ $test_report->device_capacity3 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -2362,31 +2321,31 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Type </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type1"></td>
+                                                                            name="wiring_type1" value="{{ $test_report->wiring_type1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type2"></td>
+                                                                            name="wiring_type2" value="{{ $test_report->wiring_type2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type3"></td>
+                                                                            name="wiring_type3" value="{{ $test_report->wiring_type3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Phase conductor (mm2)
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase1"></td>
+                                                                            name="wiring_phase1" value="{{ $test_report->wiring_phase1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase2"></td>
+                                                                            name="wiring_phase2" value="{{ $test_report->wiring_phase2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase3"></td>
+                                                                            name="wiring_phase3" value="{{ $test_report->wiring_phase3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Earth conductor (mm2)
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth1"></td>
+                                                                            name="wiring_earth1" value="{{ $test_report->wiring_earth1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth2"></td>
+                                                                            name="wiring_earth2" value="{{ $test_report->wiring_earth2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth3"></td>
+                                                                            name="wiring_earth3" value="{{ $test_report->wiring_earth3 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -2396,29 +2355,29 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Voc (V) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc1"></td>
+                                                                            name="tm_voc1" value="{{ $test_report->tm_voc1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc2"></td>
+                                                                            name="tm_voc2" value="{{ $test_report->tm_voc2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc3"></td>
+                                                                            name="tm_voc3" value="{{ $test_report->tm_voc3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Isc (A) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc1"></td>
+                                                                            name="tm_isc1" value="{{ $test_report->tm_isc1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc2"></td>
+                                                                            name="tm_isc2" value="{{ $test_report->tm_isc2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc3"></td>
+                                                                            name="tm_isc3" value="{{ $test_report->tm_isc3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Irradiance </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance1"></td>
+                                                                            name="tm_irradiance1" value="{{ $test_report->tm_irradiance1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance2"></td>
+                                                                            name="tm_irradiance2" value="{{ $test_report->tm_irradiance2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance3"></td>
+                                                                            name="tm_irradiance3" value="{{ $test_report->tm_irradiance3 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -2426,11 +2385,11 @@
                                                                         monitoring
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring1"></td>
+                                                                            name="polarity_monitoring1" value="{{ $test_report->polarity_monitoring1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring2"></td>
+                                                                            name="polarity_monitoring2" value="{{ $test_report->polarity_monitoring2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring3"></td>
+                                                                            name="polarity_monitoring3" value="{{ $test_report->polarity_monitoring3 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -2439,29 +2398,29 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Test Voltage (V) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage1"></td>
+                                                                            name="array_test_voltage1" value="{{ $test_report->array_test_voltage1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage2"></td>
+                                                                            name="array_test_voltage2" value="{{ $test_report->array_test_voltage2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage3"></td>
+                                                                            name="array_test_voltage3" value="{{ $test_report->array_test_voltage3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Pos – Earth (M ) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos1"></td>
+                                                                            name="array_pos1" value="{{ $test_report->array_pos1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos2"></td>
+                                                                            name="array_pos2" value="{{ $test_report->array_pos2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos3"></td>
+                                                                            name="array_pos3" value="{{ $test_report->array_pos3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Neg – Earth (M ) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg1"></td>
+                                                                            name="array_neg1" value="{{ $test_report->array_neg1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg2"></td>
+                                                                            name="array_neg2" value="{{ $test_report->array_neg2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg3"></td>
+                                                                            name="array_neg3" value="{{ $test_report->array_neg3 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -2469,11 +2428,11 @@
                                                                         continuity (where fitted)
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty1"></td>
+                                                                            name="earth_continuty1" value="{{ $test_report->earth_continuty1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty2"></td>
+                                                                            name="earth_continuty2" value="{{ $test_report->earth_continuty2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty3"></td>
+                                                                            name="earth_continuty3" value="{{ $test_report->earth_continuty3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Switchgear
@@ -2481,55 +2440,55 @@
                                                                         correctly
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning1"></td>
+                                                                            name="switchgear_functioning1" value="{{ $test_report->switchgear_functioning1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning2"></td>
+                                                                            name="switchgear_functioning2" value="{{ $test_report->switchgear_functioning2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning3"></td>
+                                                                            name="switchgear_functioning3" value="{{ $test_report->switchgear_functioning3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Inverter
                                                                         Make/Model
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make1"></td>
+                                                                            name="test_inverter_make1" value="{{ $test_report->test_inverter_make1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make2"></td>
+                                                                            name="test_inverter_make2" value="{{ $test_report->test_inverter_make2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make3"></td>
+                                                                            name="test_inverter_make3" value="{{ $test_report->test_inverter_make3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Inverter
                                                                         Serial Number
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no1"></td>
+                                                                            name="inverter_serial_no1" value="{{ $test_report->inverter_serial_no1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no2"></td>
+                                                                            name="inverter_serial_no2" value="{{ $test_report->inverter_serial_no2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no3"></td>
+                                                                            name="inverter_serial_no3" value="{{ $test_report->inverter_serial_no3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Inverter
                                                                         functioning correctly
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning1"></td>
+                                                                            name="inverter_functioning1" value="{{ $test_report->inverter_functioning1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning2"></td>
+                                                                            name="inverter_functioning2" value="{{ $test_report->inverter_functioning2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning3"></td>
+                                                                            name="inverter_functioning3" value="{{ $test_report->inverter_functioning3 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Loss of mains
                                                                         test
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_1"></td>
+                                                                            name="loss_1" value="{{ $test_report->loss_1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_2"></td>
+                                                                            name="loss_2" value="{{ $test_report->loss_2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_3"></td>
+                                                                            name="loss_3" value="{{ $test_report->loss_3 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                             </tbody>
@@ -3517,7 +3476,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_1" value="1"
                                                                         class="custom-control-input"
-                                                                        id="pay-card-mln1" @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        id="pay-card-mln1" @checked($design_install->marking_labelling_1 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln1">All circuits, protection
                                                                         devices, switches and terminals have
@@ -3528,7 +3487,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_2" value="1"
                                                                         class="custom-control-input"
-                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        @checked($design_install->marking_labelling_2 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln2">All DC connection boxes (PV
                                                                         sub-generator connection box and PV
@@ -3545,7 +3504,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_3" value="1"
                                                                         class="custom-control-input"
-                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        @checked($design_install->marking_labelling_3 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln3">The AC main switch has a
                                                                         clear inscription </label></div>
@@ -3555,7 +3514,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_4" value="1"
                                                                         class="custom-control-input"
-                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        @checked($design_install->marking_labelling_4 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln4">Warnings are present for
                                                                         the double supply at the point of
@@ -3567,7 +3526,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_5" value="1"
                                                                         class="custom-control-input"
-                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        @checked($design_install->marking_labelling_5 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln5">The protection settings of
                                                                         the inverter and details of the installation
@@ -3579,7 +3538,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_6" value="1"
                                                                         class="custom-control-input"
-                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        @checked($design_install->marking_labelling_6 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln6">The procedures for
                                                                         emergency shutdown are provided on site
@@ -3590,7 +3549,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="marking_labelling_7" value="1"
                                                                         class="custom-control-input"
-                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        @checked($design_install->marking_labelling_7 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-mln7">All signs and markings are
                                                                         suitable and permanently attached. </label>
@@ -3615,7 +3574,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="general_installation_1" value="1"
                                                                         class="custom-control-input"
-                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        @checked($design_install->general_installation_1 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-gnm1">Ventilation is provided
                                                                         behind the PV generator to prevent
@@ -3627,7 +3586,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="general_installation_2" value="1"
                                                                         class="custom-control-input"
-                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        @checked($design_install->general_installation_2 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-gnm2">The frame and materials are
                                                                         properly attached and stable; the roof
@@ -3640,7 +3599,7 @@
                                                                     class="custom-control custom-control-sm custom-checkbox">
                                                                     <input type="checkbox" name="general_installation_3" value="1"
                                                                         class="custom-control-input"
-                                                                        @checked($design_install->inverter_test_reason ?? false) disabled><label
+                                                                        @checked($design_install->general_installation_3 ?? false) disabled><label
                                                                         class="custom-control-label"
                                                                         for="pay-card-gnm3">The cable routing is
                                                                         weather-resistant </label></div>
@@ -3661,10 +3620,9 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <div class="form-control-wrap"><textarea name="test_notes"
-                                                                        class="form-control form-control-sm"
-                                                                        id="fv-message"
-                                                                        placeholder="Write your message"
-                                                                        ></textarea></div>
+                                                                        class="form-control form-control-sm" readonly
+                                                                        id="fv-message" placeholder="Write your message"
+                                                                        >{{ $jobOrder->test_notes }}</textarea></div>
                                                             </div>
                                                         </div>
 
@@ -3705,48 +3663,48 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Module</td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module1"></td>
+                                                                            name="pv_generator_module1" value="{{ $test_report->pv_generator_module1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module2"></td>
+                                                                            name="pv_generator_module2" value="{{ $test_report->pv_generator_module2 ?? '' }}" readonly ></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module3"></td>
+                                                                            name="pv_generator_module3" value="{{ $test_report->pv_generator_module3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module4"></td>
+                                                                            name="pv_generator_module4" value="{{ $test_report->pv_generator_module4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module5"></td>
+                                                                            name="pv_generator_module5" value="{{ $test_report->pv_generator_module5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module6"></td>
+                                                                            name="pv_generator_module6" value="{{ $test_report->pv_generator_module6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module7"></td>
+                                                                            name="pv_generator_module7" value="{{ $test_report->pv_generator_module7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module8"></td>
+                                                                            name="pv_generator_module8" value="{{ $test_report->pv_generator_module8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module9"></td>
+                                                                            name="pv_generator_module9" value="{{ $test_report->pv_generator_module9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_module10"></td>
+                                                                            name="pv_generator_module10" value="{{ $test_report->pv_generator_module10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Quantity</td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity1"></td>
+                                                                            name="pv_generator_quantity1" value="{{ $test_report->pv_generator_quantity1 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity2"></td>
+                                                                            name="pv_generator_quantity2" value="{{ $test_report->pv_generator_quantity2 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity3"></td>
+                                                                            name="pv_generator_quantity3" value="{{ $test_report->pv_generator_quantity3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity4"></td>
+                                                                            name="pv_generator_quantity4" value="{{ $test_report->pv_generator_quantity4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity5"></td>
+                                                                            name="pv_generator_quantity5" value="{{ $test_report->pv_generator_quantity5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity6"></td>
+                                                                            name="pv_generator_quantity6" value="{{ $test_report->pv_generator_quantity6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity7"></td>
+                                                                            name="pv_generator_quantity7" value="{{ $test_report->pv_generator_quantity7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity8"></td>
+                                                                            name="pv_generator_quantity8" value="{{ $test_report->pv_generator_quantity8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity9"></td>
+                                                                            name="pv_generator_quantity9" value="{{ $test_report->pv_generator_quantity9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="pv_generator_quantity10"></td>
+                                                                            name="pv_generator_quantity10" value="{{ $test_report->pv_generator_quantity10 ?? '' }}" readonly></td>
 
                                                                 </tr>
 
@@ -3756,49 +3714,49 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Voc (STC)</td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc1"></td>
+                                                                            name="generator_parameters_voc1" value="{{ $test_report->generator_parameters_voc1 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc2"></td>
+                                                                            name="generator_parameters_voc2" value="{{ $test_report->generator_parameters_voc2 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc3"></td>
+                                                                            name="generator_parameters_voc3" value="{{ $test_report->generator_parameters_voc3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc4"></td>
+                                                                            name="generator_parameters_voc4" value="{{ $test_report->generator_parameters_voc4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc5"></td>
+                                                                            name="generator_parameters_voc5" value="{{ $test_report->generator_parameters_voc5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc6"></td>
+                                                                            name="generator_parameters_voc6" value="{{ $test_report->generator_parameters_voc6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc7"></td>
+                                                                            name="generator_parameters_voc7" value="{{ $test_report->generator_parameters_voc7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc8"></td>
+                                                                            name="generator_parameters_voc8" value="{{ $test_report->generator_parameters_voc8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc9"></td>
+                                                                            name="generator_parameters_voc9" value="{{ $test_report->generator_parameters_voc9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_voc10"></td>
+                                                                            name="generator_parameters_voc10" value="{{ $test_report->generator_parameters_voc10 ?? '' }}" readonly></td>
 
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Isc (STC)</td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc1"></td>
+                                                                            name="generator_parameters_isc1" value="{{ $test_report->generator_parameters_isc1 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc2"></td>
+                                                                            name="generator_parameters_isc2" value="{{ $test_report->generator_parameters_isc2 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc3"></td>
+                                                                            name="generator_parameters_isc3" value="{{ $test_report->generator_parameters_isc3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc4"></td>
+                                                                            name="generator_parameters_isc4" value="{{ $test_report->generator_parameters_isc4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc5"></td>
+                                                                            name="generator_parameters_isc5" value="{{ $test_report->generator_parameters_isc5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc6"></td>
+                                                                            name="generator_parameters_isc6" value="{{ $test_report->generator_parameters_isc6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc7"></td>
+                                                                            name="generator_parameters_isc7" value="{{ $test_report->generator_parameters_isc7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc8"></td>
+                                                                            name="generator_parameters_isc8" value="{{ $test_report->generator_parameters_isc8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc9"></td>
+                                                                            name="generator_parameters_isc9" value="{{ $test_report->generator_parameters_isc9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="generator_parameters_isc10"></td>
+                                                                            name="generator_parameters_isc10" value="{{ $test_report->generator_parameters_isc10 ?? '' }}" readonly></td>
 
                                                                 </tr>
 
@@ -3809,94 +3767,94 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Type </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device1"></td>
+                                                                            name="protection_device1" value="{{ $test_report->protection_device1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device2"></td>
+                                                                            name="protection_device2" value="{{ $test_report->protection_device2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device3"></td>
+                                                                            name="protection_device3" value="{{ $test_report->protection_device3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device4"></td>
+                                                                            name="protection_device4" value="{{ $test_report->protection_device4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device5"></td>
+                                                                            name="protection_device5" value="{{ $test_report->protection_device5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device6"></td>
+                                                                            name="protection_device6" value="{{ $test_report->protection_device6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device7"></td>
+                                                                            name="protection_device7" value="{{ $test_report->protection_device7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device8"></td>
+                                                                            name="protection_device8" value="{{ $test_report->protection_device8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device9"></td>
+                                                                            name="protection_device9" value="{{ $test_report->protection_device9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="protection_device10"></td>
+                                                                            name="protection_device10" value="{{ $test_report->protection_device10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Rated Value (A) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value1"></td>
+                                                                            name="device_rated_value1" value="{{ $test_report->device_rated_value1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value2"></td>
+                                                                            name="device_rated_value2" value="{{ $test_report->device_rated_value2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value3"></td>
+                                                                            name="device_rated_value3" value="{{ $test_report->device_rated_value3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value4"></td>
+                                                                            name="device_rated_value4" value="{{ $test_report->device_rated_value4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value5"></td>
+                                                                            name="device_rated_value5" value="{{ $test_report->device_rated_value5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value6"></td>
+                                                                            name="device_rated_value6" value="{{ $test_report->device_rated_value6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value7"></td>
+                                                                            name="device_rated_value7" value="{{ $test_report->device_rated_value7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value8"></td>
+                                                                            name="device_rated_value8" value="{{ $test_report->device_rated_value8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value9"></td>
+                                                                            name="device_rated_value9" value="{{ $test_report->device_rated_value9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_rated_value10"></td>
+                                                                            name="device_rated_value10" value="{{ $test_report->device_rated_value10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">DC rating (A) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating1"></td>
+                                                                            name="device_dc_rating1" value="{{ $test_report->device_dc_rating1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating2"></td>
+                                                                            name="device_dc_rating2" value="{{ $test_report->device_dc_rating2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating3"></td>
+                                                                            name="device_dc_rating3" value="{{ $test_report->device_dc_rating3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating4"></td>
+                                                                            name="device_dc_rating4" value="{{ $test_report->device_dc_rating4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating5"></td>
+                                                                            name="device_dc_rating5" value="{{ $test_report->device_dc_rating5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating6"></td>
+                                                                            name="device_dc_rating6" value="{{ $test_report->device_dc_rating6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating7"></td>
+                                                                            name="device_dc_rating7" value="{{ $test_report->device_dc_rating7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating8"></td>
+                                                                            name="device_dc_rating8" value="{{ $test_report->device_dc_rating8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating9"></td>
+                                                                            name="device_dc_rating9" value="{{ $test_report->device_dc_rating9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_dc_rating10"></td>
+                                                                            name="device_dc_rating10" value="{{ $test_report->device_dc_rating10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Capacity (kA) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity1"></td>
+                                                                            name="device_capacity1" value="{{ $test_report->device_capacity1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity2"></td>
+                                                                            name="device_capacity2" value="{{ $test_report->device_capacity2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity3"></td>
+                                                                            name="device_capacity3" value="{{ $test_report->device_capacity3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity4"></td>
+                                                                            name="device_capacity4" value="{{ $test_report->device_capacity4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity5"></td>
+                                                                            name="device_capacity5" value="{{ $test_report->device_capacity5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity6"></td>
+                                                                            name="device_capacity6" value="{{ $test_report->device_capacity6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity7"></td>
+                                                                            name="device_capacity7" value="{{ $test_report->device_capacity7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity8"></td>
+                                                                            name="device_capacity8" value="{{ $test_report->device_capacity8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity9"></td>
+                                                                            name="device_capacity9" value="{{ $test_report->device_capacity9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="device_capacity10"></td>
+                                                                            name="device_capacity10" value="{{ $test_report->device_capacity10 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -3904,73 +3862,73 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Type </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type1"></td>
+                                                                            name="wiring_type1" value="{{ $test_report->wiring_type1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type2"></td>
+                                                                            name="wiring_type2" value="{{ $test_report->wiring_type2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type3"></td>
+                                                                            name="wiring_type3" value="{{ $test_report->wiring_type3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type4"></td>
+                                                                            name="wiring_type4" value="{{ $test_report->wiring_type4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type5"></td>
+                                                                            name="wiring_type5" value="{{ $test_report->wiring_type5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type6"></td>
+                                                                            name="wiring_type6" value="{{ $test_report->wiring_type6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type7"></td>
+                                                                            name="wiring_type7" value="{{ $test_report->wiring_type7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type8"></td>
+                                                                            name="wiring_type8" value="{{ $test_report->wiring_type8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type9"></td>
+                                                                            name="wiring_type9" value="{{ $test_report->wiring_type9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_type10"></td>
+                                                                            name="wiring_type10" value="{{ $test_report->wiring_type10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Phase conductor (mm2)
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase1"></td>
+                                                                            name="wiring_phase1" value="{{ $test_report->wiring_phase1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase2"></td>
+                                                                            name="wiring_phase2" value="{{ $test_report->wiring_phase2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase3"></td>
+                                                                            name="wiring_phase3" value="{{ $test_report->wiring_phase3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase4"></td>
+                                                                            name="wiring_phase4" value="{{ $test_report->wiring_phase4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase5"></td>
+                                                                            name="wiring_phase5" value="{{ $test_report->wiring_phase5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase6"></td>
+                                                                            name="wiring_phase6" value="{{ $test_report->wiring_phase6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase7"></td>
+                                                                            name="wiring_phase7" value="{{ $test_report->wiring_phase7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase8"></td>
+                                                                            name="wiring_phase8" value="{{ $test_report->wiring_phase8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase9"></td>
+                                                                            name="wiring_phase9" value="{{ $test_report->wiring_phase9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_phase10"></td>
+                                                                            name="wiring_phase10" value="{{ $test_report->wiring_phase10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Earth conductor (mm2)
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth1"></td>
+                                                                            name="wiring_earth1" value="{{ $test_report->wiring_earth1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth2"></td>
+                                                                            name="wiring_earth2" value="{{ $test_report->wiring_earth2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth3"></td>
+                                                                            name="wiring_earth3" value="{{ $test_report->wiring_earth3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth4"></td>
+                                                                            name="wiring_earth4" value="{{ $test_report->wiring_earth4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth5"></td>
+                                                                            name="wiring_earth5" value="{{ $test_report->wiring_earth5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth6"></td>
+                                                                            name="wiring_earth6" value="{{ $test_report->wiring_earth6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth7"></td>
+                                                                            name="wiring_earth7" value="{{ $test_report->wiring_earth7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth8"></td>
+                                                                            name="wiring_earth8" value="{{ $test_report->wiring_earth8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth9"></td>
+                                                                            name="wiring_earth9" value="{{ $test_report->wiring_earth9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="wiring_earth10"></td>
+                                                                            name="wiring_earth10" value="{{ $test_report->wiring_earth10 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -3980,71 +3938,71 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Voc (V) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc1"></td>
+                                                                            name="tm_voc1" value="{{ $test_report->tm_voc1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc2"></td>
+                                                                            name="tm_voc2" value="{{ $test_report->tm_voc2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc3"></td>
+                                                                            name="tm_voc3" value="{{ $test_report->tm_voc3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc4"></td>
+                                                                            name="tm_voc4" value="{{ $test_report->tm_voc4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc5"></td>
+                                                                            name="tm_voc5" value="{{ $test_report->tm_voc5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc6"></td>
+                                                                            name="tm_voc6" value="{{ $test_report->tm_voc6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc7"></td>
+                                                                            name="tm_voc7" value="{{ $test_report->tm_voc7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc8"></td>
+                                                                            name="tm_voc8" value="{{ $test_report->tm_voc8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc9"></td>
+                                                                            name="tm_voc9" value="{{ $test_report->tm_voc9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_voc10"></td>
+                                                                            name="tm_voc10" value="{{ $test_report->tm_voc10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Isc (A) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc1"></td>
+                                                                            name="tm_isc1" value="{{ $test_report->tm_isc1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc2"></td>
+                                                                            name="tm_isc2" value="{{ $test_report->tm_isc2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc3"></td>
+                                                                            name="tm_isc3" value="{{ $test_report->tm_isc3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc4"></td>
+                                                                            name="tm_isc4" value="{{ $test_report->tm_isc4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc5"></td>
+                                                                            name="tm_isc5" value="{{ $test_report->tm_isc5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc6"></td>
+                                                                            name="tm_isc6" value="{{ $test_report->tm_isc6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc7"></td>
+                                                                            name="tm_isc7" value="{{ $test_report->tm_isc7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc8"></td>
+                                                                            name="tm_isc8" value="{{ $test_report->tm_isc8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc9"></td>
+                                                                            name="tm_isc9" value="{{ $test_report->tm_isc9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_isc10"></td>
+                                                                            name="tm_isc10" value="{{ $test_report->tm_isc10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Irradiance </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance1"></td>
+                                                                            name="tm_irradiance1" value="{{ $test_report->tm_irradiance1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance2"></td>
+                                                                            name="tm_irradiance2" value="{{ $test_report->tm_irradiance2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance3"></td>
+                                                                            name="tm_irradiance3" value="{{ $test_report->tm_irradiance3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance4"></td>
+                                                                            name="tm_irradiance4" value="{{ $test_report->tm_irradiance4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance5"></td>
+                                                                            name="tm_irradiance5" value="{{ $test_report->tm_irradiance5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance6"></td>
+                                                                            name="tm_irradiance6" value="{{ $test_report->tm_irradiance6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance7"></td>
+                                                                            name="tm_irradiance7" value="{{ $test_report->tm_irradiance7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance8"></td>
+                                                                            name="tm_irradiance8" value="{{ $test_report->tm_irradiance8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance9"></td>
+                                                                            name="tm_irradiance9" value="{{ $test_report->tm_irradiance9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="tm_irradiance10"></td>
+                                                                            name="tm_irradiance10" value="{{ $test_report->tm_irradiance10 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -4052,25 +4010,25 @@
                                                                         monitoring
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring1"></td>
+                                                                            name="polarity_monitoring1" value="{{ $test_report->polarity_monitoring1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring2"></td>
+                                                                            name="polarity_monitoring2" value="{{ $test_report->polarity_monitoring2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring3"></td>
+                                                                            name="polarity_monitoring3" value="{{ $test_report->polarity_monitoring3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring4"></td>
+                                                                            name="polarity_monitoring4" value="{{ $test_report->polarity_monitoring4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring5"></td>
+                                                                            name="polarity_monitoring5" value="{{ $test_report->polarity_monitoring5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring6"></td>
+                                                                            name="polarity_monitoring6" value="{{ $test_report->polarity_monitoring6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring7"></td>
+                                                                            name="polarity_monitoring7" value="{{ $test_report->polarity_monitoring7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring8"></td>
+                                                                            name="polarity_monitoring8" value="{{ $test_report->polarity_monitoring8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring9"></td>
+                                                                            name="polarity_monitoring9" value="{{ $test_report->polarity_monitoring9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="polarity_monitoring10"></td>
+                                                                            name="polarity_monitoring10" value="{{ $test_report->polarity_monitoring10 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -4079,71 +4037,71 @@
                                                                     </td>
                                                                     <td class="nk-tb-col">Test Voltage (V) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage1"></td>
+                                                                            name="array_test_voltage1" value="{{ $test_report->array_test_voltage1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage2"></td>
+                                                                            name="array_test_voltage2" value="{{ $test_report->array_test_voltage2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage3"></td>
+                                                                            name="array_test_voltage3" value="{{ $test_report->array_test_voltage3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage4"></td>
+                                                                            name="array_test_voltage4" value="{{ $test_report->array_test_voltage4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage5"></td>
+                                                                            name="array_test_voltage5" value="{{ $test_report->array_test_voltage5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage6"></td>
+                                                                            name="array_test_voltage6" value="{{ $test_report->array_test_voltage6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage7"></td>
+                                                                            name="array_test_voltage7" value="{{ $test_report->array_test_voltage7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage8"></td>
+                                                                            name="array_test_voltage8" value="{{ $test_report->array_test_voltage8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage9"></td>
+                                                                            name="array_test_voltage9" value="{{ $test_report->array_test_voltage9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_test_voltage10"></td>
+                                                                            name="array_test_voltage10" value="{{ $test_report->array_test_voltage10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Pos – Earth (M ) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos1"></td>
+                                                                            name="array_pos1" value="{{ $test_report->array_pos1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos2"></td>
+                                                                            name="array_pos2" value="{{ $test_report->array_pos2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos3"></td>
+                                                                            name="array_pos3" value="{{ $test_report->array_pos3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos4"></td>
+                                                                            name="array_pos4" value="{{ $test_report->array_pos4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos5"></td>
+                                                                            name="array_pos5" value="{{ $test_report->array_pos5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos6"></td>
+                                                                            name="array_pos6" value="{{ $test_report->array_pos6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos7"></td>
+                                                                            name="array_pos7" value="{{ $test_report->array_pos7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos8"></td>
+                                                                            name="array_pos8" value="{{ $test_report->array_pos8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos9"></td>
+                                                                            name="array_pos9" value="{{ $test_report->array_pos9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_pos10"></td>
+                                                                            name="array_pos10" value="{{ $test_report->array_pos10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col">Neg – Earth (M ) </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg1"></td>
+                                                                            name="array_neg1" value="{{ $test_report->array_neg1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg2"></td>
+                                                                            name="array_neg2" value="{{ $test_report->array_neg2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg3"></td>
+                                                                            name="array_neg3" value="{{ $test_report->array_neg3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg4"></td>
+                                                                            name="array_neg4" value="{{ $test_report->array_neg4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg5"></td>
+                                                                            name="array_neg5" value="{{ $test_report->array_neg5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg6"></td>
+                                                                            name="array_neg6" value="{{ $test_report->array_neg6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg7"></td>
+                                                                            name="array_neg7" value="{{ $test_report->array_neg7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg8"></td>
+                                                                            name="array_neg8" value="{{ $test_report->array_neg8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg9"></td>
+                                                                            name="array_neg9" value="{{ $test_report->array_neg9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="array_neg10"></td>
+                                                                            name="array_neg10" value="{{ $test_report->array_neg10 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                                 <tr>
@@ -4151,25 +4109,25 @@
                                                                         continuity (where fitted)
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty1"></td>
+                                                                            name="earth_continuty1" value="{{ $test_report->earth_continuty1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty2"></td>
+                                                                            name="earth_continuty2" value="{{ $test_report->earth_continuty2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty3"></td>
+                                                                            name="earth_continuty3" value="{{ $test_report->earth_continuty3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty4"></td>
+                                                                            name="earth_continuty4" value="{{ $test_report->earth_continuty4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty5"></td>
+                                                                            name="earth_continuty5" value="{{ $test_report->earth_continuty5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty6"></td>
+                                                                            name="earth_continuty6" value="{{ $test_report->earth_continuty6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty7"></td>
+                                                                            name="earth_continuty7" value="{{ $test_report->earth_continuty7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty8"></td>
+                                                                            name="earth_continuty8" value="{{ $test_report->earth_continuty8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty9"></td>
+                                                                            name="earth_continuty9" value="{{ $test_report->earth_continuty9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="earth_continuty10"></td>
+                                                                            name="earth_continuty10" value="{{ $test_report->earth_continuty10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Switchgear
@@ -4177,125 +4135,125 @@
                                                                         correctly
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning1"></td>
+                                                                            name="switchgear_functioning1" value="{{ $test_report->switchgear_functioning1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning2"></td>
+                                                                            name="switchgear_functioning2" value="{{ $test_report->switchgear_functioning2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning3"></td>
+                                                                            name="switchgear_functioning3" value="{{ $test_report->switchgear_functioning3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning4"></td>
+                                                                            name="switchgear_functioning4" value="{{ $test_report->switchgear_functioning4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning5"></td>
+                                                                            name="switchgear_functioning5" value="{{ $test_report->switchgear_functioning5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning6"></td>
+                                                                            name="switchgear_functioning6" value="{{ $test_report->switchgear_functioning6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning7"></td>
+                                                                            name="switchgear_functioning7" value="{{ $test_report->switchgear_functioning7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning8"></td>
+                                                                            name="switchgear_functioning8" value="{{ $test_report->switchgear_functioning8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning9"></td>
+                                                                            name="switchgear_functioning9" value="{{ $test_report->switchgear_functioning9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="switchgear_functioning10"></td>
+                                                                            name="switchgear_functioning10" value="{{ $test_report->switchgear_functioning10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Inverter
                                                                         Make/Model
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make1"></td>
+                                                                            name="test_inverter_make1" value="{{ $test_report->test_inverter_make1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make2"></td>
+                                                                            name="test_inverter_make2" value="{{ $test_report->test_inverter_make2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make3"></td>
+                                                                            name="test_inverter_make3" value="{{ $test_report->test_inverter_make3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make4"></td>
+                                                                            name="test_inverter_make4" value="{{ $test_report->test_inverter_make4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make5"></td>
+                                                                            name="test_inverter_make5" value="{{ $test_report->test_inverter_make5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make6"></td>
+                                                                            name="test_inverter_make6" value="{{ $test_report->test_inverter_make6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make7"></td>
+                                                                            name="test_inverter_make7" value="{{ $test_report->test_inverter_make7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make8"></td>
+                                                                            name="test_inverter_make8" value="{{ $test_report->test_inverter_make8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make9"></td>
+                                                                            name="test_inverter_make9" value="{{ $test_report->test_inverter_make9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="test_inverter_make10"></td>
+                                                                            name="test_inverter_make10" value="{{ $test_report->test_inverter_make10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Inverter
                                                                         Serial Number
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no1"></td>
+                                                                            name="inverter_serial_no1" value="{{ $test_report->inverter_serial_no1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no2"></td>
+                                                                            name="inverter_serial_no2" value="{{ $test_report->inverter_serial_no2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no3"></td>
+                                                                            name="inverter_serial_no3" value="{{ $test_report->inverter_serial_no3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no4"></td>
+                                                                            name="inverter_serial_no4" value="{{ $test_report->inverter_serial_no4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no5"></td>
+                                                                            name="inverter_serial_no5" value="{{ $test_report->inverter_serial_no5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no6"></td>
+                                                                            name="inverter_serial_no6" value="{{ $test_report->inverter_serial_no6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no7"></td>
+                                                                            name="inverter_serial_no7" value="{{ $test_report->inverter_serial_no7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no8"></td>
+                                                                            name="inverter_serial_no8" value="{{ $test_report->inverter_serial_no8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no9"></td>
+                                                                            name="inverter_serial_no9" value="{{ $test_report->inverter_serial_no9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_serial_no10"></td>
+                                                                            name="inverter_serial_no10" value="{{ $test_report->inverter_serial_no10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Inverter
                                                                         functioning correctly
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning1"></td>
+                                                                            name="inverter_functioning1" value="{{ $test_report->inverter_functioning1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning2"></td>
+                                                                            name="inverter_functioning2" value="{{ $test_report->inverter_functioning2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning3"></td>
+                                                                            name="inverter_functioning3" value="{{ $test_report->inverter_functioning3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning4"></td>
+                                                                            name="inverter_functioning4" value="{{ $test_report->inverter_functioning4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning5"></td>
+                                                                            name="inverter_functioning5" value="{{ $test_report->inverter_functioning5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning6"></td>
+                                                                            name="inverter_functioning6" value="{{ $test_report->inverter_functioning6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning7"></td>
+                                                                            name="inverter_functioning7" value="{{ $test_report->inverter_functioning7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning8"></td>
+                                                                            name="inverter_functioning8" value="{{ $test_report->inverter_functioning8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning9"></td>
+                                                                            name="inverter_functioning9" value="{{ $test_report->inverter_functioning9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="inverter_functioning10"></td>
+                                                                            name="inverter_functioning10" value="{{ $test_report->inverter_functioning10 ?? '' }}" readonly></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="nk-tb-col" colspan="2">Loss of mains
                                                                         test
                                                                     </td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_1"></td>
+                                                                            name="loss_1" value="{{ $test_report->loss_1 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_2"></td>
+                                                                            name="loss_2" value="{{ $test_report->loss_2 ?? '' }}" readonly></td>
                                                                     <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_3"></td>
+                                                                            name="loss_3" value="{{ $test_report->loss_3 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_4"></td>
+                                                                            name="loss_4" value="{{ $test_report->loss_4 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_5"></td>
+                                                                            name="loss_5" value="{{ $test_report->loss_5 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_6"></td>
+                                                                            name="loss_6" value="{{ $test_report->loss_6 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_7"></td>
+                                                                            name="loss_7" value="{{ $test_report->loss_7 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_8"></td>
+                                                                            name="loss_8" value="{{ $test_report->loss_8 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_9"></td>
+                                                                            name="loss_9" value="{{ $test_report->loss_9 ?? '' }}" readonly></td>
                                                                             <td class="nk-tb-col"><input type="text"
-                                                                            name="loss_10"></td>
+                                                                            name="loss_10" value="{{ $test_report->loss_10 ?? '' }}" readonly></td>
                                                                 </tr>
 
                                                             </tbody>

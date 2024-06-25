@@ -4537,7 +4537,7 @@
             const submitButton = $('.step-submit button');
             submitButton.hide();
         }
-
+        $('#loader').addClass('active');
         $.ajax({
             url: "{{ route('admin.get_client') }}",
             type: 'POST',
@@ -4546,7 +4546,7 @@
                 "_token": "{{ csrf_token() }}",
              },
             success: function(data) {
-                // $(".loader").hide();
+                $('#loader').removeClass('active');
                 // $('.error_clear').html('');
 
                 if (data.clientsOptions) {
@@ -4558,7 +4558,7 @@
                 }
             },
             error: function(xhr, status, error) {
-                $(".loader").hide();
+                $('#loader').removeClass('active');
                 console.error('An error occurred:', error);
             }
         });
