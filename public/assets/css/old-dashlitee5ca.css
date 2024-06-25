@@ -16441,22 +16441,22 @@ svg {
 
 @media (min-width:1200px) {
     .wide-lg {
-        max-width: 100%;
-      }
+        max-width: 1200px !important;
+    }
 
-      .wide-lg {
-        max-width: 100%;
-      }
+    .wide-lg-fix {
+        max-width: 1200px !important;
+    }
 }
 
 @media (min-width:1280px) {
-    .wide-lg {
-        max-width: 100%;
-      }
+    .wide-xl {
+        max-width: 1240px !important
+    }
 
-      .wide-lg {
-        max-width: 100%;
-      }
+    .wide-xl-fix {
+        width: 1240px !important
+    }
 }
 
 .wide-xs-fix {
