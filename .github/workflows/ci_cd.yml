@@ -3,7 +3,7 @@ name: Laravel CI/CD
 on:
   push:
     branches:
-      - main
+      - production
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
     - name: Laravel CI/CD Action
       uses: basantsd/laravel-ci-cd@v1
       with:
-        production-branch: 'main'
+        production-branch: 'production'
         vps-host: ${{ secrets.VPS_HOST }}
         vps-username: ${{ secrets.VPS_USERNAME }}
         vps-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
