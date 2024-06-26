@@ -84,14 +84,14 @@
                                                     title="Change Status"><span class="tb-status text-danger">Inactive</span></a>
                                             @endif
                                         </td>
-                                        <td class="nk-tb-col tb-col-md">12</td>
+                                        <td class="nk-tb-col tb-col-md">{{ $staff->job_orders_count }}</td>
 
                                         <td class="nk-tb-col nk-tb-col-tools">
                                             <ul class="nk-tb-actions gx-1">
 
                                                 <li>
                                                 <div class="actionFlexBtns">
-                                                        <a href="javascript:void(0)" class="btn btn-secondary btn-trigger btn-icon"
+                                                        <a href="{{ route('admin.staff-job-orders',base64_encode($staff->id)) }}" class="btn btn-secondary btn-trigger btn-icon"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="View Orders"> <em class="icon ni ni-eye"></em></a>
 

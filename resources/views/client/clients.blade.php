@@ -83,7 +83,7 @@
                                             <span class="badge rounded-pill badge-dim bg-primary">Non-Domestic</span>
                                         @endif
                                     </td>
-                                    <td class="nk-tb-col tb-col-md">2</td>
+                                    <td class="nk-tb-col tb-col-md">{{ $client->job_orders_count }}</td>
                                     <td class="nk-tb-col tb-col-md">
                                         @if($client->status == 1)
                                             <a href="javascript:void(0)" data-id="{{ $client->id }}" onclick="changeStatus(this);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -101,7 +101,7 @@
 
                                             <li>
                                             <div class="actionFlexBtns">
-                                                    <a href="javascript:void(0)" class="btn btn-secondary btn-trigger btn-icon"
+                                                    <a href="{{ route('admin.client-job-orders',base64_encode($client->id)) }}" class="btn btn-secondary btn-trigger btn-icon"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="View Orders"> <em
                                                             class="icon ni ni-eye"></em></a>
