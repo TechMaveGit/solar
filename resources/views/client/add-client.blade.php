@@ -32,7 +32,7 @@
 
                     <div class="card card-bordered">
                         <div class="card-inner">
-                            <form action="{{ route('admin.add-client') }}" method="post" enctype="multipart/form-data" class="form-validate">
+                            <form action="{{ route('admin.add-client') }}" method="post" enctype="multipart/form-data" class="form-validate" id="client-form">
                                 <input type="hidden" name="dial_code" value="+353">
                                 <input type="hidden" name="action" id="form-action" value="save">
                                 @csrf
@@ -40,7 +40,11 @@
                                     <div class="col-md-4">
                                         <div class="form-group"><label class="form-label" for="fv-full-name">Full Name</label>
                                             <div class="form-control-wrap"><input type="text" class="form-control"
-                                                    id="fv-full-name" name="name" value="{{ old('name') }}" required></div>
+                                                    id="fv-full-name" name="name" value="{{ old('name') }}" required>
+                                            </div>
+                                            @error('name')
+                                            <span class="error">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -50,6 +54,9 @@
                                                 <div class="form-icon form-icon-right"><em class="icon ni ni-mail"></em>
                                                 </div><input type="email" name="email" value="{{ old('email') }}" class="form-control" id="fv-email"
                                                     name="fv-email" required>
+                                                    @error('email')
+                                                    <span class="error">{{ $message }}</span>
+                                                    @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -58,7 +65,11 @@
                                             <div class="form-control-wrap">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text"
-                                                            id="fv-phone">+353</span></div><input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control" required>
+                                                            id="fv-phone">+353</span></div>
+                                                            <input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control" required>
+                                                            @error('mobile')
+                                                            <span class="error">{{ $message }}</span>
+                                                            @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -170,6 +181,9 @@
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend"></div><input
                                                                         type="text" name="postal_code" value="{{ old('postal_code') }}"  class="form-control" required>
+                                                                        @error('postal_code')
+                                                                        <span class="error">{{ $message }}</span>
+                                                                        @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -177,19 +191,13 @@
 
                                     <div class="col-md-12">
                                         <div class="multibtns_flex">
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-lg btn-primary">Save Informations</button>
-                                            </div>
 
-                                            <div class="form-group btSecond">
-                                                <a href="{{ route('admin.create-job-order') }}" class="btn btn-lg btn-primary btntoproceed_jobOrder">Save Process for job Order</a>
-                                            </div>
-                                            {{-- <div class="form-group">
-                                                <button type="submit" class="btn btn-lg btn-primary" onclick="setFormAction('save')">Save Informations</button>
+                                            <div class="form-group">
+                                                <button class="btn btn-lg btn-primary" onclick="setFormAction('save')">Save Informations</button>
                                             </div>
                                             <div class="form-group btSecond">
-                                                <button type="submit" class="btn btn-lg btn-primary btntoproceed_jobOrder" onclick="setFormAction('save_and_process')">Save and Process for Job Order</button>
-                                            </div> --}}
+                                                <button class="btn btn-lg btn-primary btntoproceed_jobOrder" onclick="setFormAction('save_and_process')">Save and Process for Job Order</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -245,5 +253,6 @@
         }
     });
 </script>
+
 <!-- submit trigger buttin page loader and redirection other page json_decode end-->
 @endpush
