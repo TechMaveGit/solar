@@ -112,8 +112,8 @@ class AuthController extends Controller
             'access_token' => $token,
             'user_data' => $user,
             'token_type' => 'bearer',
-            // 'expires_in' => JWTAuth::factory()->getTTL() * 60, // Token expiry time in minutes
-            'expires_in' => JWTAuth::factory()->getTTL() * 5, // Token expiry time in minutes
+            'expires_in' => JWTAuth::factory()->getTTL() * 60, // Token expiry time in minutes
+            // 'expires_in' => JWTAuth::factory()->getTTL() * 5, // Token expiry time in minutes
         ]);
     }
 
@@ -122,12 +122,35 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    // public function profile()
+    // {
+
+    //     return response()->json(auth()->user());
+    // }
+
     public function profile()
     {
+        try {
+            $user = auth()->user();
+            if (!$user) {
+                return  response()->json([
+                    'status' => false,
+                    'message'=>'user not found'
+                ],403);
+            }
+        } catch (JWTException $e) {
+            return  response()->json([
+                'status' => false,
+                'message'=>$e->getMessage()
+            ],500);
+        }
 
-        return response()->json(auth()->user());
+        return  response()->json([
+            'status' => true,
+            'user'=>$user,
+            'image_root' => config('envoirment.IMAGE_API_PATH')
+        ]);
     }
-
     /**
      * Log the user out (Invalidate the token).
      *
@@ -233,40 +256,41 @@ class AuthController extends Controller
         ]);
 
      }
-    //  public function getjob(Request $request)
+    //  public function singleJobOrder(Request $request)
     //  {
-    //      $job = JobOrder::whereId(9)->first();
+    //     $id = $request->id;
+    //     $job = JobOrder::whereId(9)->first();
 
-    //      if ($job) {
-    //         $decoded_pv_inverts = json_decode($job->pv_inverts, true);
-    //         $decoded_system_components = json_decode($job->system_components, true);
-    //         $decoded_design_and_instt = json_decode($job->design_and_installation, true);
-    //         $decoded_test_report_grid = json_decode($job->test_report_grid, true);
-    //         if (!is_array($decoded_pv_inverts)) {
-    //             $decoded_pv_inverts = [];
-    //         }
+    //     if ($job) {
+    //     $decoded_pv_inverts = json_decode($job->pv_inverts, true);
+    //     $decoded_system_components = json_decode($job->system_components, true);
+    //     $decoded_design_and_instt = json_decode($job->design_and_installation, true);
+    //     $decoded_test_report_grid = json_decode($job->test_report_grid, true);
+    //     if (!is_array($decoded_pv_inverts)) {
+    //         $decoded_pv_inverts = [];
+    //     }
 
-    //         $jobArray = $job->toArray();
-    //         $mergedData = array_merge($jobArray, $decoded_pv_inverts,$decoded_system_components,$decoded_design_and_instt,$decoded_test_report_grid);
+    //     $jobArray = $job->toArray();
+    //     $mergedData = array_merge($jobArray, $decoded_pv_inverts,$decoded_system_components,$decoded_design_and_instt,$decoded_test_report_grid);
 
-    //         unset(
-    //             $mergedData['pv_inverts'],
-    //             $mergedData['system_components'],
-    //             $mergedData['design_and_installation'],
-    //             $mergedData['test_report_grid']
-    //         );
+    //     unset(
+    //         $mergedData['pv_inverts'],
+    //         $mergedData['system_components'],
+    //         $mergedData['design_and_installation'],
+    //         $mergedData['test_report_grid']
+    //     );
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'Record Found',
+    //         'data' => $mergedData,
+    //     ]);
+    //     } else {
     //         return response()->json([
-    //             'status' => true,
-    //             'message' => 'Record Found',
-    //             'data' => $mergedData,
+    //             'status' => false,
+    //             'message' => 'Job order not found',
+    //             'data' => null,
     //         ]);
-    //      } else {
-    //          return response()->json([
-    //              'status' => false,
-    //              'message' => 'Job order not found',
-    //              'data' => null,
-    //          ]);
-    //      }
+    //     }
     //  }
 
 

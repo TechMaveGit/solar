@@ -38,7 +38,7 @@
                                                         <li><a href="{{ route('admin.create-job-order') }}"><em
                                                                     class="icon ni ni-card-view"></em><span>Create
                                                                     job Order</span></a></li>
-                                                        <li><a href="add-staff.php"><em
+                                                        <li><a href="{{ route('admin.add-staff') }}"><em
                                                                     class="icon ni ni-users"></em><span>Add
                                                                     Staff</span></a></li>
                                                     </ul>
@@ -102,14 +102,14 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="card bg-light">
-                                            <div class="nk-wgw sm"><a class="nk-wgw-inner" href="javascript:void(0)">
+                                            <div class="nk-wgw sm"><a class="nk-wgw-inner" href="{{ route('admin.assigned-job-order') }}">
                                                     <div class="nk-wgw-name">
                                                         <div class="nk-wgw-icon"><em class="icon ni ni-card-view"></em>
                                                         </div>
                                                         <h5 class="nk-wgw-title title">Total Orders</h5>
                                                     </div>
                                                     <div class="nk-wgw-balance">
-                                                        <div class="amount">602</div>
+                                                        <div class="amount">{{ $totalJobOrders }}</div>
                                                     </div>
                                                 </a></div>
                                         </div>
@@ -128,7 +128,7 @@
                                         <div class="card-title">
                                             <h6 class="title">Recent Orders</h6>
                                         </div>
-                                        <div class="card-tools"><a href="#" class="link">View All Orders</a></div>
+                                        <div class="card-tools"><a href="{{ route('admin.assigned-job-order') }}" class="link">View All Orders</a></div>
                                     </div>
                                 </div>
                                 <div class="card-inner p-0">
@@ -143,18 +143,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="nk-tb-col"><a href="orders.php">#OD878</a></td>
-                                                <td class="nk-tb-col">#CST54</td>
-                                                <td class="nk-tb-col">2024-05-01</td>
-                                                <td class="nk-tb-col">123 Solar St, Sunshine City</td>
-                                                <td class="tb-tnx-info">
-                                                    <div class="tb-tnx-status">
-                                                        <span class="badge badge-dot text-warning">Pending</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
+                                            @if(count($pendingOrders)>0)
+                                            @foreach ($pendingOrders as $order)
+                                                <tr>
+                                                    <td class="nk-tb-col"><a href="{{ route('admin.view-job-order',base64_encode($order->id)) }}">{{ $order->id }}</a></td>
+                                                    <td class="nk-tb-col">{{ $order->client_id }}</td>
+                                                    <td class="nk-tb-col">{{ $order->date }}</td>
+                                                    <td class="nk-tb-col">{{ $order->installation_address }}</td>
+                                                    <td class="tb-tnx-info">
+                                                        <div class="tb-tnx-status">
+                                                            <span class="badge badge-dot text-warning">Pending</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            @endif
+                                            {{-- <tr>
                                                 <td class="nk-tb-col"><a href="orders.php">#OD896</a></td>
                                                 <td class="nk-tb-col">#CST21</td>
                                                 <td class="nk-tb-col">2024-05-03</td>
@@ -164,53 +168,7 @@
                                                         <span class="badge badge-dot text-warning">Pending</span>
                                                     </div>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="nk-tb-col"><a href="orders.php">#OD896</a></td>
-                                                <td class="nk-tb-col">#CST99</td>
-                                                <td class="nk-tb-col">2024-05-05</td>
-                                                <td class="nk-tb-col">789 Renewable Rd, Solar City</td>
-                                                <td class="tb-tnx-info">
-                                                    <div class="tb-tnx-status">
-                                                        <span class="badge badge-dot text-warning">Pending</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="nk-tb-col"><a href="orders.php">#OD848</a></td>
-                                                <td class="nk-tb-col">#CST39</td>
-                                                <td class="nk-tb-col">2024-05-07</td>
-                                                <td class="nk-tb-col">321 Green St, Eco City</td>
-                                                <td class="tb-tnx-info">
-                                                    <div class="tb-tnx-status">
-                                                        <span class="badge badge-dot text-warning">Pending</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="nk-tb-col"><a href="orders.php">#OD830</a></td>
-                                                <td class="nk-tb-col">#CST34</td>
-                                                <td class="nk-tb-col">2024-05-09</td>
-                                                <td class="nk-tb-col">654 Solar Blvd, Sunshine City</td>
-                                                <td class="tb-tnx-info">
-                                                    <div class="tb-tnx-status">
-                                                        <span class="badge badge-dot text-warning">Pending</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="nk-tb-col"><a href="orders.php">#OD810</a></td>
-                                                <td class="nk-tb-col">#CST90</td>
-                                                <td class="nk-tb-col">2024-05-11</td>
-                                                <td class="nk-tb-col">987 Renewable Rd, Solar City</td>
-                                                <td class="tb-tnx-info">
-                                                    <div class="tb-tnx-status">
-                                                        <span class="badge badge-dot text-warning">Pending</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-
+                                            </tr> --}}
                                         </tbody>
                                     </table>
                                 </div>

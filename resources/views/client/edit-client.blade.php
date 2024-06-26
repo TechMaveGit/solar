@@ -177,9 +177,9 @@
                                                     class="btn btn-lg btn-primary">Save
                                                     Informations</button></div>
 
-                                                    <div class="form-group btSecond"><a href="{{ route('admin.create-job-order') }}"
+                                                    {{-- <div class="form-group btSecond"><a href="{{ route('admin.create-job-order') }}"
                                                     class="btn btn-lg btn-primary btntoproceed_jobOrder">Save
-                                                    and Process for job Order</a></div></div>
+                                                    and Process for job Order</a></div></div> --}}
                                         </div>
                                     </div>
                                 </form>

@@ -70,12 +70,14 @@
                                     <td class="nk-tb-col tb-col-lg">
                                         <ul class="list-status">
                                             <li><em class="icon text-success ni ni-check-circle"></em>
-                                                <span>{{ $jobOrder->created_at->format('d F Y') }}</span></li>
+                                                <span>{{ \Carbon\Carbon::parse($jobOrder->date)->format('d F Y') }}</span></li>
 
                                         </ul>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
-                                        @if($jobOrder->status=='0') <span class="tb-status text-danger">In-Complete</span> @elseif($jobOrder->status=='1')<span class="tb-status text-success">Completed</span>@endif
+                                        @if($jobOrder->status=='0') <span class="tb-status text-warning">Pending</span>
+                                        @elseif($jobOrder->status=='1')<span class="tb-status text-success">Completed</span>
+                                        @endif
                                     </td>
 
                                     <td class="nk-tb-col nk-tb-col-tools">

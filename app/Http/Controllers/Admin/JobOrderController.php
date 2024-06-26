@@ -487,7 +487,7 @@ class JobOrderController extends Controller
 
     public function show(Request $request){
         $id = base64_decode($request->id);
-        $jobOrder = JobOrder::whereId($id)->with('client', 'staff')->first();
+        $jobOrder = JobOrder::whereId($id)->with(['client', 'staff'])->first();
         if (!$jobOrder) {
             return redirect()->back()->with('error', 'Job Order not found or invalid.');
         }

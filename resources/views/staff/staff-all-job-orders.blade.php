@@ -18,7 +18,7 @@
                             <div class="toggle-expand-content" data-content="pageMenu">
                                 <ul class="nk-block-tools">
 
-                                <a href="all-staff.php" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                <a href="{{ route('admin.all-staff') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
 
                                 </ul>
                             </div>
@@ -43,89 +43,54 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if(count($jobOrders)>0)
+                                @foreach ($jobOrders as $order)
                                 <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-md"><span>#STF980</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span>{{ $order->client_id }}</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
                                             <div class="user-avatar bg-dim-primary d-none d-sm-flex">
                                                 <span>AB</span></div>
-                                            <div class="user-info"><span class="tb-lead">Abu Bin
-                                                    Ishtiyak <span
-                                                        class="dot dot-success d-md-none ms-1"></span></span><span>info@softnio.com</span>
+                                            <div class="user-info"><span class="tb-lead">@if(isset($order->client)){{ $order->client->name }}@endif<span
+                                                        class="dot dot-success d-md-none ms-1"></span></span><span>@if(isset($order->client)){{ $order->client->email }}@endif</span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="nk-tb-col tb-col-md"><span>Domestic</span></td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        <span>
+                                            @if($order->client_type=='1'){{ 'Domestic' }}
+                                            @elseif($order->client_type=='2'){{' Non-Domestic' }}
+                                            @endif
+                                        </span>
+                                    </td>
 
                                     <td class="nk-tb-col tb-col-lg">
                                         <ul class="list-status">
                                             <li><em class="icon text-success ni ni-check-circle"></em>
-                                                <span>05 May 2024</span></li>
+                                                <span>{{ \Carbon\Carbon::parse($order->date)->format('d F Y') }}</</span></li>
 
                                         </ul>
                                     </td>
-                                    <td class="nk-tb-col tb-col-md"><span class="tb-status text-success">Completed</span>
+                                    <td class="nk-tb-col tb-col-md">
+                                        @if($order->status=='0') <span class="tb-status text-warning">Pending</span>
+                                        @elseif($order->status=='1')<span class="tb-status text-success">Completed</span>
+                                        @endif
                                     </td>
 
                                     <td class="nk-tb-col nk-tb-col-tools">
                                         <ul class="nk-tb-actions gx-1">
-
-
                                             <li>
-                                            <div class="actionFlexBtns">
-                                                    <a href="view-job-order.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="View Job Orders"> <em class="icon ni ni-eye"></em></a>
+                                                <div class="actionFlexBtns">
+                                                        <a href="{{ route('admin.view-job-order', base64_encode($order->id)) }}" class="btn btn-secondary btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="View Job Orders"> <em class="icon ni ni-eye"></em></a>
 
                                                 </div>
                                             </li>
                                         </ul>
                                     </td>
                                 </tr>
-
-                                <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-md"><span>#STF650</span></td>
-                                    <td class="nk-tb-col">
-                                        <div class="user-card">
-                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                <span>CD</span></div>
-                                            <div class="user-info"><span class="tb-lead">Chris Doe  <span
-                                                        class="dot dot-success d-md-none ms-1"></span></span><span>chris@example.com</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span>Domestic</span></td>
-
-                                    <td class="nk-tb-col tb-col-lg">
-                                        <ul class="list-status">
-                                            <li><em class="icon text-success ni ni-check-circle"></em>
-                                                <span>05 May 2024</span></li>
-
-                                        </ul>
-                                    </td>
-                                    <td class="nk-tb-col tb-col-md"><span class="tb-status text-success">Completed</span>
-                                    </td>
-
-                                    <td class="nk-tb-col nk-tb-col-tools">
-                                        <ul class="nk-tb-actions gx-1">
-
-
-                                            <li>
-
-                                            <div class="actionFlexBtns">
-                                                    <a href="view-job-order.php" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="View Job Orders"> <em class="icon ni ni-eye"></em></a>
-
-                                                </div>
-
-
-
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-
+                                @endforeach
+                                @endif
 
                             </tbody>
                         </table>

@@ -36,20 +36,23 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'auth:admin'], func
     // Route::match(['get','post'],'profile', [AdminAuthController::class,'profile'])->name('profile');
 
     Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
-
+    // ******* Staff Route
     Route::get('all-staff', [StaffController::class,'index'])->name('all-staff');
     Route::get('add-staff', [StaffController::class,'create'])->name('add-staff');
     Route::post('add-staff', [StaffController::class,'store'])->name('add-staff');
     Route::get('edit-staff/{id}', [StaffController::class,'edit'])->name('edit-staff');
     Route::post('staff-change-status', [StaffController::class,'changeStatus'])->name('staff-change-status');
     Route::post('update-staff', [StaffController::class,'update'])->name('update-staff');
+    Route::get('staff-job-orders/{id}', [StaffController::class,'jobOrders'])->name('staff-job-orders');
 
+    // ******* Client Route
     Route::get('all-client', [ClientController::class,'index'])->name('all-client');
     Route::get('add-client', [ClientController::class,'create'])->name('add-client');
     Route::post('add-client', [ClientController::class,'store'])->name('add-client');
     Route::get('edit-client/{id}', [ClientController::class,'edit'])->name('edit-client');
     Route::post('update-client', [ClientController::class,'update'])->name('update-client');
     Route::post('client-change-status', [ClientController::class,'changeStatus'])->name('client-change-status');
+    Route::get('client-job-orders/{id}', [ClientController::class,'jobOrders'])->name('client-job-orders');
 
     Route::get('assigned-job-order', [JobOrderController::class,'index'])->name('assigned-job-order');
     Route::get('create-job-order', [JobOrderController::class,'create'])->name('create-job-order');

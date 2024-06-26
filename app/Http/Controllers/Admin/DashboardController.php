@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\JobOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,10 @@ class DashboardController extends Controller
         $clients = Client::get();
         $totalClients = count($clients);
 
-        return view('dashboard.index',compact('totalStaff','totalClients'));
+        $jobOrders = JobOrder::orderBy('id', 'desc')->get();
+        $pendingOrders = $jobOrders->where('status','0');
+        $totalJobOrders = $jobOrders->count();
+
+        return view('dashboard.index',compact('totalStaff','totalClients','totalJobOrders','pendingOrders'));
     }
 }

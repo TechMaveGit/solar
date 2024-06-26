@@ -34,6 +34,7 @@
                         <div class="card-inner">
                             <form action="{{ route('admin.add-client') }}" method="post" enctype="multipart/form-data" class="form-validate">
                                 <input type="hidden" name="dial_code" value="+353">
+                                <input type="hidden" name="action" id="form-action" value="save">
                                 @csrf
                                 <div class="row ">
                                     <div class="col-md-4">
@@ -175,13 +176,21 @@
                                                     </div>
 
                                     <div class="col-md-12">
-                                   <div class="multibtns_flex">     <div class="form-group"><button type="submit"
-                                                class="btn btn-lg btn-primary">Save
-                                                Informations</button></div>
+                                        <div class="multibtns_flex">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-lg btn-primary">Save Informations</button>
+                                            </div>
 
-                                                <div class="form-group btSecond"><a href="{{ route('admin.create-job-order') }}"
-                                                class="btn btn-lg btn-primary btntoproceed_jobOrder">Save
-                                                and Process for job Order</a></div></div>
+                                            <div class="form-group btSecond">
+                                                <a href="{{ route('admin.create-job-order') }}" class="btn btn-lg btn-primary btntoproceed_jobOrder">Save Process for job Order</a>
+                                            </div>
+                                            {{-- <div class="form-group">
+                                                <button type="submit" class="btn btn-lg btn-primary" onclick="setFormAction('save')">Save Informations</button>
+                                            </div>
+                                            <div class="form-group btSecond">
+                                                <button type="submit" class="btn btn-lg btn-primary btntoproceed_jobOrder" onclick="setFormAction('save_and_process')">Save and Process for Job Order</button>
+                                            </div> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -198,6 +207,11 @@
 @endsection
 <!-- submit trigger buttin page loader and redirection other page json_decode -->
 @push('push_sripts')
+<script>
+    function setFormAction(action) {
+        document.getElementById('form-action').value = action;
+    }
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
