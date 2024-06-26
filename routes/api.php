@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\JobOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('profile', [AuthController::class, 'profile']);
     Route::post('update-profile', [AuthController::class, 'updateProfile']);
     Route::post('upload-profile', [AuthController::class, 'uploadProfile']);
-    Route::get('job-orders', [AuthController::class, 'JobOrders']);
-    Route::get('job-order', [AuthController::class, 'singleJobOrder']);
+
+    Route::get('job-orders', [JobOrderController::class, 'JobOrders']);
+    Route::get('view-order', [JobOrderController::class, 'singleJobOrder']);
 });

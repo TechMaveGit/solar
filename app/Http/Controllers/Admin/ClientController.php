@@ -20,7 +20,7 @@ class ClientController extends Controller
 
     public function store(Request $request){
 
-        // dd($request->all());
+        // dd($request->action);
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:clients,email',
