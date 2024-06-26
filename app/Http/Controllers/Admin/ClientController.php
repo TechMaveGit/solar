@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\JobOrder;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
     public function index(Request $request){
-        $clients = Client::orderBy('id','DESC')->get();
+        $clients = Client::withCount('jobOrders')->orderBy('id','DESC')->get();
         return view('client.clients',compact('clients'));
     }
 
@@ -42,7 +43,12 @@ class ClientController extends Controller
             $client->client_type = $request->client_type;
             $client->gender = $request->gender;
             if($client->save()){
-                return redirect()->route('admin.all-client')->with('success','Register Successfully!');
+                if($request->action == 'save_and_process') {
+                    return redirect()->route('admin.create-job-order')->with('success','Register Successfully!');
+                } else {
+                    return redirect()->route('admin.all-client')->with('success','Register Successfully!');
+                }
+                // return redirect()->route('admin.all-client')->with('success','Register Successfully!');
             }
 
         } catch (\Throwable $th) {
@@ -113,6 +119,15 @@ class ClientController extends Controller
 
     }
 
+    public function jobOrders(Request $request){
 
+        $id = base64_decode($request->id);
+
+        $jobOrders = JobOrder::where('client_id',$id)->with(['client', 'staff'])->orderBy('id','desc')->get();
+
+
+        return view('client.client-job-orders',compact('jobOrders'));
+
+    }
 
 }

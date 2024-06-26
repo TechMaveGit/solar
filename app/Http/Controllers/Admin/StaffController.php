@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +13,7 @@ class StaffController extends Controller
 
 
     public function index(Request $request){
-        $staffs = User::where('user_type','2')->orderBy('id','DESC')->get();
+        $staffs = User::where('user_type','2')->withCount('jobOrders')->orderBy('id','DESC')->get();
         return view('staff.all-staff',compact('staffs'));
     }
 
@@ -104,6 +105,17 @@ class StaffController extends Controller
         }
 
         return response()->json(['success' => false]);
+    }
+
+    public function jobOrders(Request $request){
+
+        $id = base64_decode($request->id);
+
+        $jobOrders = JobOrder::where('staff_id',$id)->with(['client', 'staff'])->orderBy('id','desc')->get();
+
+
+        return view('staff.staff-all-job-orders',compact('jobOrders'));
+
     }
 
 
