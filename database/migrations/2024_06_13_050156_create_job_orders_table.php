@@ -22,8 +22,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('postal_code')->nullable();
-            $table->enum('status', ['0', '1'])->default('0')->comment('0=>pending, 1=>completed');
-
+            $table->enum('status', ['0', '1','2','3'])->default('0')->comment('0=>Assigned, 1=>Started, 2=>Progress, 3=>Completed');
             // Installation Details
             $table->string('applicant_name')->nullable();
             $table->string('installation_address')->nullable();
