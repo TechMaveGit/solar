@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\BaseDocument;
 use App\Models\JobOrder;
+use App\Models\Notification;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -68,7 +69,7 @@ class JobOrderController extends Controller
 
     }
 
-    public function singleJobOrder(Request $request)
+    public function viewJobOrder(Request $request)
     {
 
         $job = JobOrder::where('id',$request->id)->with(['client','base_documents'])->first();
@@ -146,7 +147,9 @@ class JobOrderController extends Controller
                 'battry_label_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'diverter_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'certificate_image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'certificate_image' => 'required|array',
             ]);
+
             try {
                 if ($validator->passes()) {
 
@@ -615,7 +618,6 @@ class JobOrderController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'This Job order not found',
-                'data' => null,
             ],404);
         }
 
@@ -629,13 +631,59 @@ class JobOrderController extends Controller
     }
 
 
-    public function orderStatusChange(Request $request){
+    public function jobStatusChange(Request $request){
 
         $jobOrder = JobOrder::where(['id'=>$request->id,'staff_id'=>auth()->user()->id])->first();
         $status = $request->status;
+        if ($jobOrder) {
+            try{
+                $notification = new Notification();
+                $notification->status = $status;
+                $notification->job_order_id = $request->id;
+                $notification->staff_id = auth()->user()->id;
+                $notification->save();
 
-        $jobOrder->status = $status;
-        $jobOrder->save();
+                $jobOrder->status = $status;
+                $jobOrder->save();
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Status Change successfully!',
+                ],200);
+            }
+            catch (\Throwable $th) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $th->getMessage(),
+                ], 500);
+            }
+
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'This Job order not found',
+            ],404);
+        }
+
+    }
+
+    public function jobOrderHistory(Request $request)
+    {
+
+        $jobHistory = JobOrder::where(['staff_id'=>auth()->user()->id,'status'=>'3'])->with('client')->orderBy('id', 'DESC')->get();
+
+        if ($jobHistory->isEmpty()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'No job orders found.',
+            ],403);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data retrieved successfully.',
+            'all_job_orders' => $jobHistory,
+        ]);
 
     }
 
