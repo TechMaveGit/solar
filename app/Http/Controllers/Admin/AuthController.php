@@ -62,11 +62,12 @@ class AuthController extends Controller
     public function update_profile(Request $request)
     {
         $user = User::whereId(auth('admin')->user()->id)->first();
-        // dd($request->all());
         $request->validate([
             'email'         => 'required|email|unique:users,email,' . $user->id,
-            'mobile'        => 'required|numeric|digits_between:8,13|unique:users,mobile,' . $user->id,
+            // 'mobile'        => 'required|numeric|digits_between:8,13|unique:users,mobile,' . $user->id,
+            'mobile'        => 'required|numeric|unique:users,mobile,' . $user->id,
             'name'          => 'required',
+            'password' => 'nullable|string|min:6',
         ]);
         try {
             if($request->password !=''){
@@ -75,6 +76,7 @@ class AuthController extends Controller
             $user_data['name']          = $request->name;
             $user_data['email']         = $request->email;
             $user_data['mobile']        = $request->mobile;
+            $user_data['address']        = $request->address;
             User::whereId($user->id)->update($user_data);
             return redirect()->back()->with('success','Profile Updated Successfully');
         } catch (\Throwable $th) {
@@ -85,13 +87,19 @@ class AuthController extends Controller
 
     public function upload_profile(Request $request)
     {
-        $dateFolder = 'Admin-profile';
+        $dateFolder = 'admin_profile';
         if($request->hasFile('profile_image')){
             $profile_images = $request->file('profile_image');
-            $profile_image = ImageController::upload($profile_images,$dateFolder);
+            $profile_image = $this->upload($profile_images,$dateFolder);
         }
         User::whereId(auth('admin')->user()->id)->update(['profile_image' => $profile_image]);
         return response()->json(['success' => 'Image uploaded successfully']);
+    }
+    public static function upload($image,$folderName)
+    {
+        $fileName = 'image_' . now()->format('YmdHisu') . '.' . $image->getClientOriginalExtension();
+        $image->storeAs($folderName, $fileName, 'public');
+        return $folderName.'/'.$fileName;
     }
 
     public function logout(Request $request)

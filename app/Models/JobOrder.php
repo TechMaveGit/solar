@@ -20,6 +20,12 @@ class JobOrder extends Model
         return $this->hasOne(User::class, 'id', 'staff_id');
     }
 
+    public function base_documents()
+    {
+        return $this->hasMany(BaseDocument::class, 'order_id', 'id');
+    }
+
+
 }
 
 
