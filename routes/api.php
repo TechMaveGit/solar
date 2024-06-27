@@ -37,6 +37,8 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('upload-profile', [AuthController::class, 'uploadProfile']);
 
     Route::get('job-orders', [JobOrderController::class, 'JobOrders']);
-    Route::get('view-order/{id}', [JobOrderController::class, 'singleJobOrder']);
-    Route::post('update-order/{id}', [JobOrderController::class, 'updateJobOrder']);
+    Route::get('view-job-order/{id}', [JobOrderController::class, 'viewJobOrder']);
+    Route::post('update-job-order/{id}', [JobOrderController::class, 'updateJobOrder']);
+    Route::get('job-order-history', [JobOrderController::class, 'jobOrderHistory']);
+    Route::post('job-order-change-status', [JobOrderController::class, 'jobStatusChange']);
 });
