@@ -20,7 +20,7 @@
                                     <div class="user-avatar sm"><em class="icon ni ni-user-alt"></em></div>
                                     <div class="user-info d-none d-md-block">
                                         <div class="user-status">Admin</div>
-                                        <div class="user-name dropdown-indicator">George Harrison </div>
+                                        <div class="user-name dropdown-indicator">{{ Auth::user()->name }} </div>
                                     </div>
                                 </div>
                             </a>
@@ -28,16 +28,15 @@
                                 <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                     <div class="user-card">
                                         <div class="user-avatar"><span>GH</span></div>
-                                        <div class="user-info"><span class="lead-text">George
-                                                Harrison</span><span
-                                                class="sub-text">info@softnio.com</span></div>
+                                        <div class="user-info"><span class="lead-text"> {{ Auth::user()->name }}</span><span
+                                                class="sub-text">{{ Auth::user()->email }}</span></div>
                                     </div>
                                 </div>
                                 <div class="dropdown-inner">
                                     <ul class="link-list">
-                                        {{-- <li><a href="{{ route('admin.profile') }}"><em
+                                        <li><a href="{{ route('admin.profile') }}"><em
                                                     class="icon ni ni-user-alt"></em><span>View
-                                                    Profile</span></a></li> --}}
+                                                    Profile</span></a></li>
 
                                     </ul>
                                 </div>
