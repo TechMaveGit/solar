@@ -122,8 +122,8 @@ class JobOrderController extends Controller
         $jobOrder = JobOrder::where(['id'=>$request->id,'staff_id'=>auth()->user()->id])->first();
         if ($jobOrder) {
             $validator = Validator::make($request->all(), [
-                'client_type' => 'required',
-                'client_id' => 'required',
+                // 'client_type' => 'required',
+                // 'client_id' => 'required',
                 // 'staff_id' => 'required',
                 'date' => 'required',
                 'time' => 'required',
