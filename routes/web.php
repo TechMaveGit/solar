@@ -19,9 +19,10 @@ use App\Http\Controllers\Admin\ReportController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+Route::get('/', [AdminAuthController::class,'login'])->name('login');
 
 Route::group(['prefix'=>'admin','as'=>'admin.'], function(){
     Route::match(['get','post'],'login', [AdminAuthController::class,'login'])->name('admin');
