@@ -59,7 +59,18 @@
                                         <td class="nk-tb-col">
                                             <div class="user-card">
                                                 <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                    <span>AB</span></div>
+                                                    @php
+                                                    $formattedName = '';
+                                                    if(isset($staff->name)){
+                                                        $words = explode(' ', $staff->name);
+                                                        if (count($words) == 1) {
+                                                            $formattedName = $words[0][0] . substr($words[0], -1);
+                                                        } elseif (count($words) >= 2) {
+                                                            $formattedName = $words[0][0] . $words[1][0];
+                                                        }
+                                                    }
+                                                    @endphp
+                                                    <span class="text-uppercase">{{ $formattedName }}</span></div>
                                                 <div class="user-info"><span class="tb-lead">{{ $staff->name }} <span
                                                             class="dot dot-success d-md-none ms-1"></span></span><span>{{ $staff->email }}</span>
                                                 </div>

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\JobOrder;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class JobOrderController extends Controller
@@ -22,7 +24,7 @@ class JobOrderController extends Controller
     }
 
     public function store(Request $request){
-
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'client_type' => 'required',
             'client_id' => 'required',
@@ -38,8 +40,10 @@ class JobOrderController extends Controller
             'installer_company_name' => 'required',
             'installer_company_address' => 'required',
         ]);
-        try {
-            if ($validator->passes()) {
+        if ($validator->passes()) {
+
+            DB::beginTransaction();
+            try {
 
                 $system_components = [
                     'pv_make' => $request->pv_make,
@@ -454,20 +458,31 @@ class JobOrderController extends Controller
                 $jobOrder->test_report_grid = json_encode($test_report_grid);
 
                 $jobOrder->save();
-                if($jobOrder->save()){
-                    \Session::flash('success', 'Data recorded successfully.');
-                }
+                // dd($jobOrder->id);
+                $notification = new Notification();
+                $notification->status = '0';
+                $notification->job_order_id = $jobOrder->id;
+                $notification->staff_id = $request->staff_id;
+                $notification->save();
+
+                DB::commit();
+
+
+                \Session::flash('success', 'Data recorded successfully.');
+
                 return response()->json(['success'=>'Added new records.']);
+
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                \Session::flash('error', 'Something Went Wrong. Please Try Again!');
+                // return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');
             }
-            return response()->json([
-                'status' => false,
-                'message' => $validator->errors()->first(),
-                'errors' => $validator->errors(),
-            ]);
-        } catch (\Throwable $th) {
-            \Session::flash('error', 'Something Went Wrong. Please Try Again!');
-            // return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');
         }
+        return response()->json([
+            'status' => false,
+            'message' => $validator->errors()->first(),
+            'errors' => $validator->errors(),
+        ]);
     }
 
     public function getClient(Request $request){
@@ -481,9 +496,7 @@ class JobOrderController extends Controller
         return response()->json(['clientsOptions' => $clientsOptions]);
     }
 
-    public function report(Request $request){
-        return view('report.reports');
-    }
+
 
     public function show(Request $request){
         $id = base64_decode($request->id);

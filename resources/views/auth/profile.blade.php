@@ -56,9 +56,9 @@
                                         <div class="card-inner">
                                             <h6 class="overline-title mb-2">User Details</h6>
                                             <div class="row g-3">
-                                                <div class="col-sm-6 col-md-4 col-xl-12"><span class="sub-text">User
+                                                {{-- <div class="col-sm-6 col-md-4 col-xl-12"><span class="sub-text">User
                                                         ID:</span><span>UD003054</span>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-sm-6 col-md-4 col-xl-12"><span class="sub-text">
                                                         Email:</span><span>{{ Auth::user()->email }}</span></div>
                                                 <div class="col-sm-6 col-md-4 col-xl-12"><span class="sub-text">

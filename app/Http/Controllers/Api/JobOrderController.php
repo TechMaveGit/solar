@@ -10,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -125,8 +126,8 @@ class JobOrderController extends Controller
                 // 'client_type' => 'required',
                 // 'client_id' => 'required',
                 // 'staff_id' => 'required',
-                'date' => 'required',
-                'time' => 'required',
+                // 'date' => 'required',
+                // 'time' => 'required',
                 'applicant_name' => 'required',
                 'installation_eircode' => 'required',
                 'solar_pv_system_size' => 'required',
@@ -135,18 +136,18 @@ class JobOrderController extends Controller
                 'customer_eircode' => 'required',
                 'installer_company_name' => 'required',
                 'installer_company_address' => 'required',
-                'rail_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'panel_label_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'panel_roof_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'fireman_switch_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'inverter_label_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'inverter_install_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'fuseboard_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'meter_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'battry_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'battry_label_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'diverter_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'certificate_image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'rail_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'panel_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'panel_roof_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'fireman_switch_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'inverter_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'inverter_install_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'fuseboard_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'meter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'battry_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'battry_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'diverter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'certificate_image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'certificate_image' => 'required|array',
             ]);
 
@@ -489,15 +490,15 @@ class JobOrderController extends Controller
                         "loss_10" => $request->loss_10,
                     ];
 
-                    $jobOrder->client_type = $request->client_type;
-                    $jobOrder->client_id = $request->client_id;
-                    $jobOrder->staff_id = auth()->user()->id;
-                    $jobOrder->date = $request->date;
-                    $jobOrder->time = $request->time;
-                    $jobOrder->address = $request->address;
-                    $jobOrder->country = $request->country;
-                    $jobOrder->city = $request->city;
-                    $jobOrder->postal_code = $request->postal_code;
+                    // $jobOrder->client_type = $request->client_type;
+                    // $jobOrder->client_id = $request->client_id;
+                    // $jobOrder->staff_id = auth()->user()->id;
+                    // $jobOrder->date = $request->date;
+                    // $jobOrder->time = $request->time;
+                    // $jobOrder->address = $request->address;
+                    // $jobOrder->country = $request->country;
+                    // $jobOrder->city = $request->city;
+                    // $jobOrder->postal_code = $request->postal_code;
                     // Installation Details
                     $jobOrder->applicant_name = $request->applicant_name;
                     $jobOrder->installation_address = $request->installation_address;
@@ -636,6 +637,8 @@ class JobOrderController extends Controller
         $jobOrder = JobOrder::where(['id'=>$request->id,'staff_id'=>auth()->user()->id])->first();
         $status = $request->status;
         if ($jobOrder) {
+
+            DB::beginTransaction();
             try{
                 $notification = new Notification();
                 $notification->status = $status;
@@ -646,12 +649,15 @@ class JobOrderController extends Controller
                 $jobOrder->status = $status;
                 $jobOrder->save();
 
+                DB::commit();
+
                 return response()->json([
                     'status' => true,
                     'message' => 'Status Change successfully!',
                 ],200);
             }
             catch (\Throwable $th) {
+                DB::rollBack();
                 return response()->json([
                     'status' => false,
                     'message' => $th->getMessage(),

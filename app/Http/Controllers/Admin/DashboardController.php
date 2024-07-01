@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\JobOrder;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +24,8 @@ class DashboardController extends Controller
         $pendingOrders = $jobOrders->where('status','0');
         $totalJobOrders = $jobOrders->count();
 
-        return view('dashboard.index',compact('totalStaff','totalClients','totalJobOrders','pendingOrders'));
+        $notifications = Notification::orderBy('id', 'desc')->get();
+
+        return view('dashboard.index',compact('totalStaff','totalClients','totalJobOrders','pendingOrders','notifications'));
     }
 }
