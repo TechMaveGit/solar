@@ -3,6 +3,10 @@
 @section('main-content')
 @push('push_styles')
 <style>
+    .nk-content {
+        margin-top: 50px !important;
+        position: relative;
+    }
     .loader-wrapper {
     position: fixed;
     top: 0;
