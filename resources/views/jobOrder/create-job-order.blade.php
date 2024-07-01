@@ -497,7 +497,7 @@
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
                                                                                 id="ms_rating"
-                                                                                name="ms_rating" readonly
+                                                                                name="ms_rating"
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
@@ -542,7 +542,7 @@
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
                                                                                 id="energy_rating"
-                                                                                name="energy_rating" readonly
+                                                                                name="energy_rating"
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
@@ -1027,7 +1027,7 @@
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
                                                                                 id="ms_rating"
-                                                                                name="ms_rating" readonly
+                                                                                name="ms_rating"
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
@@ -1075,7 +1075,7 @@
                                                                                         kW</span></div>
                                                                                 <input type="text" name="inverter_rating2" class="form-control"
                                                                                     id="default-05" placeholder=""
-                                                                                    disabled readonly>
+                                                                                     >
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
@@ -1120,7 +1120,7 @@
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
                                                                                 id="energy_rating"
-                                                                                name="energy_rating" readonly
+                                                                                name="energy_rating"
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
