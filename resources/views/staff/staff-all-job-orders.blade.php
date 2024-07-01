@@ -72,8 +72,10 @@
                                         </ul>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
-                                        @if($order->status=='0') <span class="tb-status text-warning">Pending</span>
-                                        @elseif($order->status=='1')<span class="tb-status text-success">Completed</span>
+                                        @if($jobOrder->status=='0') <span class="tb-status text-warning">Assigned</span>
+                                        @elseif($jobOrder->status=='1')<span class="tb-status text-primary">Started</span>
+                                        @elseif($jobOrder->status=='2')<span class="tb-status text-pink">Progress</span>
+                                        @elseif($jobOrder->status=='3')<span class="tb-status text-success">Completed</span>
                                         @endif
                                     </td>
 
