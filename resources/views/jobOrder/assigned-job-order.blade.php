@@ -57,7 +57,18 @@
                                     <td class="nk-tb-col">
                                         <div class="user-card">
                                             <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                <span>AB</span></div>
+                                                @php
+                                                $formattedName = '';
+                                                if(isset($jobOrder->client->name)){
+                                                    $words = explode(' ', $jobOrder->client->name);
+                                                    if (count($words) == 1) {
+                                                        $formattedName = $words[0][0] . substr($words[0], -1);
+                                                    } elseif (count($words) >= 2) {
+                                                        $formattedName = $words[0][0] . $words[1][0];
+                                                    }
+                                                }
+                                                @endphp
+                                                <span class="text-uppercase">{{ $formattedName }}</span></div>
                                             <div class="user-info"><span class="tb-lead">@if(isset($jobOrder->client)){{ $jobOrder->client->name }}@endif<span
                                                         class="dot dot-success d-md-none ms-1"></span></span><span>@if(isset($jobOrder->client)){{ $jobOrder->client->email }}@endif</span>
                                             </div>
@@ -75,8 +86,10 @@
                                         </ul>
                                     </td>
                                     <td class="nk-tb-col tb-col-md">
-                                        @if($jobOrder->status=='0') <span class="tb-status text-warning">Pending</span>
-                                        @elseif($jobOrder->status=='1')<span class="tb-status text-success">Completed</span>
+                                        @if($jobOrder->status=='0') <span class="tb-status text-warning">Assigned</span>
+                                        @elseif($jobOrder->status=='1')<span class="tb-status text-primary">Started</span>
+                                        @elseif($jobOrder->status=='2')<span class="tb-status text-pink">Progress</span>
+                                        @elseif($jobOrder->status=='3')<span class="tb-status text-success">Completed</span>
                                         @endif
                                     </td>
 
@@ -88,9 +101,6 @@
                                                     <a href="{{ route('admin.view-job-order',base64_encode($jobOrder->id)) }}" class="btn btn-secondary btn-trigger btn-icon"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="View Job Order"> <em class="icon ni ni-eye"></em></a>
-                                                        {{-- <a href="#" class="btn btn-secondary btn-trigger btn-icon"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                        title="View Job Order"> <em class="icon ni ni-eye"></em></a> --}}
 
                                                 </div>
                                             </li>

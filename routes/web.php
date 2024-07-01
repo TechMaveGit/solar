@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JobOrderController;
 use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,5 +60,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'auth:admin'], func
     Route::post('create-job-order', [JobOrderController::class,'store'])->name('create-job-order');
     Route::get('view-job-order/{id}', [JobOrderController::class,'show'])->name('view-job-order');
     Route::post('get_client', [JobOrderController::class,'getClient'])->name('get_client');
-    Route::get('reports', [JobOrderController::class,'report'])->name('reports');
+
+    Route::get('reports', [ReportController::class,'report'])->name('reports');
+    Route::get('view-pictures/{id}', [ReportController::class,'viewPictures'])->name('view-pictures');
 });

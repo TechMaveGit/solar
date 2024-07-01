@@ -59,56 +59,32 @@
                                         class="sub-title nk-dropdown-title">Notifications</span></div>
                                 <div class="dropdown-body">
                                     <div class="nk-notification">
+                                        @if(count($notifications)>0)
+                                        @foreach ($notifications as $notify)
                                         <div class="nk-notification-item dropdown-inner">
                                             <div class="nk-notification-icon"><em
-                                                    class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
+                                                    class="icon icon-circle ni @if($notify->status=='0') bg-warning-dim ni-curve-down-right
+                                                        @elseif($notify->status=='1') bg-primary-dim ni-curve-down-right
+                                                        @elseif($notify->status=='2') bg-pink-dim ni-curve-down-right
+                                                        @elseif($notify->status=='3') bg-success-dim ni-curve-down-left @endif"></em>
                                             </div>
                                             <div class="nk-notification-content">
-                                                <div class="nk-notification-text">Order ID 1001 assigned to
-                                                    John</div>
-                                                <div class="nk-notification-time">2 hrs ago</div>
+                                                <div class="nk-notification-text">Order ID {{ $notify->job_order_id }}
+                                                    @if($notify->status=='0') assigned to @endif
+                                                    @if(isset($notify->staff)){{ $notify->staff->name }}@endif
+
+                                                    @if($notify->status=='0')
+                                                    @elseif($notify->status=='1') start the installation.
+                                                    @elseif($notify->status=='2') installation is in Progress.
+                                                    @elseif($notify->status=='3') installation completed.
+                                                    @endif
+
+                                                </div>
+                                                <div class="nk-notification-time">{{ \Carbon\Carbon::parse($notify->created_at)->diffForHumans() }}</div>
                                             </div>
                                         </div>
-                                        <div class="nk-notification-item dropdown-inner">
-                                            <div class="nk-notification-icon"><em
-                                                    class="icon icon-circle bg-success-dim ni ni-curve-down-left"></em>
-                                            </div>
-                                            <div class="nk-notification-content">
-                                                <div class="nk-notification-text">John Doe started
-                                                    installation for Order ID 1001</div>
-                                                <div class="nk-notification-time">2 hrs ago</div>
-                                            </div>
-                                        </div>
-                                        <div class="nk-notification-item dropdown-inner">
-                                            <div class="nk-notification-icon"><em
-                                                    class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
-                                            </div>
-                                            <div class="nk-notification-content">
-                                                <div class="nk-notification-text">50% of the installation
-                                                    completed for Order ID 1001.</div>
-                                                <div class="nk-notification-time">2 hrs ago</div>
-                                            </div>
-                                        </div>
-                                        <div class="nk-notification-item dropdown-inner">
-                                            <div class="nk-notification-icon"><em
-                                                    class="icon icon-circle bg-warning-dim ni ni-curve-down-right"></em>
-                                            </div>
-                                            <div class="nk-notification-content">
-                                                <div class="nk-notification-text">Order ID 1001 assigned to
-                                                    John</div>
-                                                <div class="nk-notification-time">2 hrs ago</div>
-                                            </div>
-                                        </div>
-                                        <div class="nk-notification-item dropdown-inner">
-                                            <div class="nk-notification-icon"><em
-                                                    class="icon icon-circle bg-success-dim ni ni-curve-down-left"></em>
-                                            </div>
-                                            <div class="nk-notification-content">
-                                                <div class="nk-notification-text">John Doe started
-                                                    installation for Order ID 1001</div>
-                                                <div class="nk-notification-time">2 hrs ago</div>
-                                            </div>
-                                        </div>
+                                        @endforeach
+                                        @endif
 
                                     </div>
                                 </div>
