@@ -203,42 +203,46 @@
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="fv-message">Address</label>
+                                                                    for="fv-message">Address<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap"><textarea
                                                                         class="form-control customtextarea form-control-sm"
                                                                         id="fv-message" name="address"
                                                                         placeholder="Write your Address"></textarea>
+                                                                        <span class="error address_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    >Country</label>
+                                                                    >Country<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="fv-Country"
                                                                         name="country">
+                                                                        <span class="error country_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="fv-City">City</label>
+                                                                    for="fv-City">City<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="fv-City"
                                                                         name="city">
+                                                                        <span class="error city_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="fv-Postal">Postal Code</label>
+                                                                    for="fv-Postal">Postal Code<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="input-group">
                                                                         <div class="input-group-prepend"></div>
                                                                         <input type="text" name="postal_code" class="form-control">
                                                                     </div>
+                                                                    <span class="error postal_code_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
