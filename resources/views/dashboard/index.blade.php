@@ -184,53 +184,65 @@
 
                                     </div>
                                 </div>
+
                                 <div class="card-inner">
                                     <div class="timeline">
-                                        <h6 class="timeline-head">November, 2019</h6>
-                                        <ul class="timeline-list">
-                                            <li class="timeline-item">
-                                                <div class="timeline-status bg-primary is-outline"></div>
-                                                <div class="timeline-date">22 May <em class="icon ni ni-alarm-alt"></em>
-                                                </div>
-                                                <div class="timeline-data">
-                                                    <h6 class="timeline-title">Order Assigned</h6>
-                                                    <div class="timeline-des">
-                                                        <p>Order ID 1001 assigned to John Doe for installation.</p>
-                                                        <span class="time">10:00am</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="timeline-item">
-                                                <div class="timeline-status bg-primary"></div>
-                                                <div class="timeline-date">23 May <em class="icon ni ni-alarm-alt"></em>
-                                                </div>
-                                                <div class="timeline-data">
-                                                    <h6 class="timeline-title">Installation Started</h6>
-                                                    <div class="timeline-des">
-                                                        <p>John Doe started installation for Order ID 1001 at 123 Solar St.
-                                                        </p>
-                                                        <span class="time">09:00am</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="timeline-item">
-                                                <div class="timeline-status bg-pink"></div>
-                                                <div class="timeline-date">23 May <em class="icon ni ni-alarm-alt"></em>
-                                                </div>
-                                                <div class="timeline-data">
-                                                    <h6 class="timeline-title">Installation Progress</h6>
-                                                    <div class="timeline-des">
-                                                        <p>50% of the installation completed for Order ID 1001.</p>
-                                                        <span class="time">01:00pm</span>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                        @php
+                                            $currentMonthYear = '';
+                                        @endphp
+                                        @if(count($notifications)>0)
+                                        @foreach ($notifications as $notify)
+                                            @php
+                                                $notifyMonthYear = \Carbon\Carbon::parse($notify->created_at)->format('F, Y');
+                                            @endphp
 
+                                            @if ($notifyMonthYear != $currentMonthYear)
+                                                <h6 class="timeline-head">{{ $notifyMonthYear }}</h6>
+                                                @php
+                                                    $currentMonthYear = $notifyMonthYear;
+                                                @endphp
+                                            @endif
 
-                                        </ul>
+                                            <ul class="timeline-list">
+                                                <li class="timeline-item">
+                                                    <div class="timeline-status @if($notify->status=='0') bg-primary is-outline
+                                                        @elseif($notify->status=='1') bg-primary
+                                                        @elseif($notify->status=='2') bg-pink
+                                                        @elseif($notify->status=='3') bg-success @endif">
+                                                    </div>
+                                                    <div class="timeline-date">{{ \Carbon\Carbon::parse($notify->created_at)->format('d M') }} <em class="icon ni ni-alarm-alt"></em></div>
+                                                    <div class="timeline-data">
+                                                        <h6 class="timeline-title">
+                                                            @if($notify->status=='0') Order Assigned
+                                                            @elseif($notify->status=='1') Installation Started
+                                                            @elseif($notify->status=='2') Installation Progress
+                                                            @elseif($notify->status=='3') Installation Completed
+                                                            @endif
+                                                        </h6>
+                                                        <div class="timeline-des">
+                                                            <p>Order ID {{ $notify->job_order_id }}
+                                                                @if($notify->status=='0') assigned to @endif
 
+                                                                @if(isset($notify->staff)){{ $notify->staff->name }}@endif
+
+                                                                @if($notify->status=='0') for installation.
+                                                                @elseif($notify->status=='1')start the installation.
+                                                                @elseif($notify->status=='2') installation is in Progress.
+                                                                @elseif($notify->status=='3') installation completed.
+                                                                @endif
+
+                                                            </p>
+                                                            <span class="time">{{ \Carbon\Carbon::parse($notify->created_at)->format('h:ia') }}</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        @endforeach
+                                        @endif
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 

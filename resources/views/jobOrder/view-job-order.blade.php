@@ -15,14 +15,14 @@
 
                 <div class="nk-block-between-md g-4">
                     <div class="nk-block-head-content">
-                        <h2 class="nk-block-title fw-normal customtitleBTMargin">View Job Order</h2>
+                        <h2 class="nk-block-title fw-normal customtitleBTMargin">View Job Order Details</h2>
                         <div class="nk-block-des">
-                            <p>Here, you can efficiently generate detailed job orders for your clients!</p>
+                            {{-- <p>Here, you can efficiently generate detailed job orders for your clients!</p> --}}
                         </div>
                     </div>
                     <div class="nk-block-head-content RightFilters">
                         <div class="rightfirmFlters">
-
+                            <a href="{{ url()->previous() }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
                         </div>
                     </div>
                 </div>
