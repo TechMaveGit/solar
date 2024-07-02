@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\StaffMail;
 use App\Models\JobOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class StaffController extends Controller
 {
@@ -43,7 +45,11 @@ class StaffController extends Controller
                 'gender'     => $request->gender,
                 'status'     => $request->status,
             ]);
-            $details  = User::where('id', $user->id)->first();
+            $data  = User::where('id', $user->id)->first();
+            $password = $request->password;
+
+            Mail::to($request->email)->send(new StaffMail($data, $password));
+
             return redirect()->route('admin.all-staff')->with('success','Register Successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');

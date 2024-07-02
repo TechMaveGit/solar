@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female','others'])->default('male');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('profile_image')->nullable();
+            $table->string('otp')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

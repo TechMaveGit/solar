@@ -1,7 +1,18 @@
 @extends('layouts.main')
 @section('app-title', 'Assigned Job Order')
 @section('main-content')
-
+@push('push_styles')
+<style>
+    .form-control-wrap {
+    display: flex;
+    align-items: center;
+    }
+    .form-control-wrap button{
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+</style>
+@endpush
 <div class="nk-content nk-content-fluid">
     <div class="container-xl wide-lg">
         <div class="nk-content-body">
@@ -11,25 +22,100 @@
                         <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">Assigned Job Orders</h2>
 
                     </div>
-                    <div class="nk-block-head-content">
-                        <div class="toggle-wrap nk-block-tools-toggle"><a href="#"
-                                class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em
-                                    class="icon ni ni-menu-alt-r"></em></a>
-                            <div class="toggle-expand-content" data-content="pageMenu">
-                                <ul class="nk-block-tools g-3">
-
-                                    <li>
-                                        <a href="{{ route('admin.create-job-order') }}"
-                                            class=" btn btn-primary d-none d-md-inline-flex pageaddbtn"><em
-                                                class="icon ni ni-plus"></em><span>Create New Job Order</span></a>
-                                    </li>
-
-                                </ul>
+                </div>
+            </div>
+            <div class="rportFilter">
+                <form id="date-range-form" action="{{ route('admin.assigned-job-order') }}" method="GET">
+                    <div class="form-control-wrap">
+                        <div class="col-lg-2 me-2">
+                            <div class="form-group"><label class="form-label text-muted">Select
+                                    Client<div class="requiredField"></div></label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select js-select2"
+                                        data-search="on" name="client_id">
+                                        <option value="">Select an Option</option>
+                                        @foreach ($clients as $client)
+                                            <option value="{{ $client->id }}" {{ $client_id && $client_id == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 me-2">
+                            <div class="form-group"><label class="form-label text-muted">Select
+                                    Staff<div class="requiredField"></div></label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select js-select2"
+                                        data-search="on" name="staff_id">
+                                        <option value="">Select an Option</option>
+                                        @foreach ($staffs as $staff)
+                                            <option value="{{ $staff->id }}" {{ $staff_id && $staff_id == $staff->id ? 'selected' : '' }}>{{ $staff->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="form-label">
+                            <div></div>&nbsp</label>
+                            <div class="form-control-wrap">
+                                <div class="input-daterange date-picker-range input-group">
+                                    <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="Work Order Report From ">
+                                    <div class="input-group-addon">TO</div>
+                                    <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="Work Order Report From To ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="form-label">
+                            <div></div>&nbsp</label>
+                            <div class="form-control-wrap">
+                                <div class="btnContainer">
+                                    <button type="submit" class=" btn btn-primary d-none d-md-inline-flex pageaddbtn">
+                                        <span>Filter</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="form-label">
+                            <div></div>&nbsp</label>
+                            <div class="form-control-wrap">
+                                <div class="btnContainer">
+                                    <a href="{{ route('admin.assigned-job-order') }}" class=" btn btn-secondary d-none d-md-inline-flex">
+                                        <span>Reset</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ms-1"><label class="form-label">
+                            <div></div>&nbsp</label>
+                            <div class="form-control-wrap">
+                                <div class="btnContainer">
+                                    <a href="{{ route('admin.create-job-order') }}" class=" btn btn-primary d-none d-md-inline-flex pageaddbtn">
+                                        <em class="icon ni ni-plus"></em><span>Create New Job Order</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                </form>
             </div>
+            {{-- <div class="nk-block-head-content">
+                <div class="toggle-wrap nk-block-tools-toggle"><a href="#"
+                        class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em
+                            class="icon ni ni-menu-alt-r"></em></a>
+                    <div class="toggle-expand-content" data-content="pageMenu">
+                        <ul class="nk-block-tools g-3">
+
+                            <li>
+                                <a href="{{ route('admin.create-job-order') }}"
+                                    class=" btn btn-primary d-none d-md-inline-flex pageaddbtn"><em
+                                        class="icon ni ni-plus"></em><span>Create New Job Order</span></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div> --}}
 
             <div class="nk-block nk-block-lg">
 
