@@ -48,10 +48,13 @@
 
                                         <div class="user-info"><span class="lead-text">
                                             @php
-                                                $documentType = $picture->document_type;
-                                                $documentType = str_replace('_image', '', $documentType);
-                                                $documentType = str_replace('_', ' ', $documentType);
-                                                $documentType = ucwords($documentType);
+                                                $documentType = '';
+                                                if(isset($picture->document_type)){
+                                                    $documentType = $picture->document_type;
+                                                    $documentType = str_replace('_image', '', $documentType);
+                                                    $documentType = str_replace('_', ' ', $documentType);
+                                                    $documentType = ucwords($documentType);
+                                                }
                                             @endphp
                                             {{ $documentType }}</span>
                                         </div>
