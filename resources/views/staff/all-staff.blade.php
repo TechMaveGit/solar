@@ -42,6 +42,7 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
+                                    <th hidden>Id</th>
                                     <th class="nk-tb-col"><span class="sub-text">Staff ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Staff Name</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></th>
@@ -53,8 +54,9 @@
                             </thead>
                             <tbody>
                                 @isset($staffs)
-                                    @foreach ($staffs as $staff)
+                                    @foreach ($staffs as $key => $staff)
                                     <tr class="nk-tb-item">
+                                        <td hidden>{{ $key+1 }}</td>
                                         <td class="nk-tb-col tb-col-md"><span>{{ $staff->id }}</span></td>
                                         <td class="nk-tb-col">
                                             <div class="user-card">

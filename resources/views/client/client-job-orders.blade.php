@@ -34,6 +34,7 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
+                                    <th hidden>Id</th>
                                     <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Type</span></th>
@@ -47,9 +48,10 @@
                             <tbody>
 
                                 @if(count($jobOrders)>0)
-                                @foreach ($jobOrders as $order)
+                                @foreach ($jobOrders as $key => $order)
 
                                     <tr class="nk-tb-item">
+                                        <td hidden>{{ $key+1 }}</td>
                                         <td class="nk-tb-col tb-col-md"><span>{{ $order->client_id }}</span></td>
                                         <td class="nk-tb-col">
                                             <div class="user-card">
@@ -79,10 +81,10 @@
                                             </ul>
                                         </td>
                                         <td class="nk-tb-col tb-col-md">
-                                            @if($jobOrder->status=='0') <span class="tb-status text-warning">Assigned</span>
-                                            @elseif($jobOrder->status=='1')<span class="tb-status text-primary">Started</span>
-                                            @elseif($jobOrder->status=='2')<span class="tb-status text-pink">Progress</span>
-                                            @elseif($jobOrder->status=='3')<span class="tb-status text-success">Completed</span>
+                                            @if($order->status=='0') <span class="tb-status text-warning">Assigned</span>
+                                            @elseif($order->status=='1')<span class="tb-status text-primary">Started</span>
+                                            @elseif($order->status=='2')<span class="tb-status text-pink">Progress</span>
+                                            @elseif($order->status=='3')<span class="tb-status text-success">Completed</span>
                                             @endif
                                         </td>
 

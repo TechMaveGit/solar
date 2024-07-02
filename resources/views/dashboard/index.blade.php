@@ -152,7 +152,7 @@
                                                     <td class="nk-tb-col">{{ $order->installation_address }}</td>
                                                     <td class="tb-tnx-info">
                                                         <div class="tb-tnx-status">
-                                                            <span class="badge badge-dot text-warning">Pending</span>
+                                                            <span class="badge badge-dot text-warning">Assigned</span>
                                                         </div>
                                                     </td>
                                                 </tr>
