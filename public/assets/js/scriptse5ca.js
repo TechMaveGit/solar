@@ -300,7 +300,8 @@
                             next: "Next",
                             previous: "Prev"
                         }
-                    }
+                    },
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
                 },
                 t = o ? u(a, o) : a,
                 t = !1 === e ? u(t, {

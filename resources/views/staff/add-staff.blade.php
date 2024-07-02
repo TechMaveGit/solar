@@ -2,6 +2,14 @@
 @section('app-title', 'Add Staff')
 @section('main-content')
 @include('layouts.includes.alerts')
+@push('push_styles')
+<style>
+    .nk-content {
+        margin-top: 50px !important;
+        position: relative;
+    }
+</style>
+@endpush
     <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
