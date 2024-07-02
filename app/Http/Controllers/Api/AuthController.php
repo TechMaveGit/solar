@@ -7,6 +7,9 @@ use App\Models\JobOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -21,7 +24,7 @@ class AuthController extends Controller
     public function __construct()
     {
 
-        $this->middleware('auth:api', ['except' => ['login','refresh']]);
+        // $this->middleware('auth:api', ['except' => ['login','refresh']]);
     }
 
     /**
@@ -224,6 +227,108 @@ class AuthController extends Controller
         $fileName = 'image_' . now()->format('YmdHisu') . '.' . $image->getClientOriginalExtension();
         $image->storeAs($folderName, $fileName, 'public');
         return $folderName.'/'.$fileName;
+    }
+
+
+    public function forgotPassword(Request $request)
+    {
+        try {
+            $request->validate(['email' => 'required']);
+            $otp = $this->generateOTP();
+            $this->storeOTP($request->email, $otp);
+            $this->sendOTPByEmail($request->email, $otp);
+            return response()->json([
+                'status' => true,
+                'success' => 'OTP sent to your email',
+                'opt' => $otp
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'error' =>'Something went Wrong!',
+            ], 503);
+        }
+    }
+
+    public function verifyOtp(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required',
+                'otp' => 'required',
+            ]);
+
+            if ($this->validateOTP($request->email, $request->otp)) {
+                return response()->json([
+                    'status' => true,
+                    'success' => 'OTP verified successfully',
+                ]);
+            }
+
+            return response()->json([
+                'status' => false,
+                'error' => 'Invalid OTP',
+            ],400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'error' =>'Something went Wrong!',
+            ], 503);
+        }
+    }
+
+    public function resetPassword(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required',
+                'password' => 'required|min:6',
+            ]);
+
+            $user = User::where('email', $request->email)->first();
+            $user->password = Hash::make($request->password);
+            $user->otp = null;
+            $user->save();
+            return response()->json([
+                'status' => true,
+                'success' =>'Password updated successfully',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'error' =>'Something went Wrong!',
+            ], 503);
+        }
+    }
+
+    private function generateOTP()
+    {
+        return str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+    }
+
+    private function storeOTP($email, $otp)
+    {
+        // Store OTP in database or cache
+        User::where('email', $email)->update(['otp' => $otp]);
+    }
+
+    private function sendOTPByEmail($email, $otp)
+    {
+
+        Mail::raw("Your OTP is: $otp", function ($message) use ($email) {
+            $message->to($email)
+                ->subject('OTP for Verification');
+        });
+    }
+
+    private function validateOTP($email, $otp)
+    {
+        // Validate OTP against stored OTP
+        $storedOTP = User::where('email', $email)->first();
+
+        return $storedOTP && $storedOTP->otp === $otp;
+
+        return true; // For demonstration purposes
     }
 
 

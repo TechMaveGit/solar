@@ -14,8 +14,33 @@ use Illuminate\Support\Facades\Validator;
 class JobOrderController extends Controller
 {
     public function index(Request $request){
-        $jobOrders = JobOrder::with('client','staff')->orderBy('id','DESC')->get();
-        return view('jobOrder.assigned-job-order',compact('jobOrders'));
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $client_id = $request->input('client_id');
+        $staff_id = $request->input('staff_id');
+
+        $query = JobOrder::with('client','staff')->orderBy('id','DESC');
+
+        if ($startDate && $endDate) {
+            $query->whereBetween('date', [$startDate, $endDate]);
+        }elseif ($startDate) {
+            $query->where('date', '>=', $startDate);
+        } elseif ($endDate) {
+            $query->where('date', '<=', $endDate);
+        }
+
+
+        if($client_id){
+            $query->where('client_id',$client_id);
+        }
+        if($staff_id){
+            $query->where('staff_id',$staff_id);
+        }
+        $jobOrders = $query->get();
+
+        $staffs = User::where(['user_type'=>'2'])->orderBy('id','DESC')->get();
+        $clients = Client::orderBy('id','DESC')->get();
+        return view('jobOrder.assigned-job-order',compact('jobOrders','startDate','endDate','staffs','clients','client_id','staff_id'));
     }
 
     public function create(Request $request){
@@ -29,7 +54,7 @@ class JobOrderController extends Controller
             'client_type' => 'required',
             'client_id' => 'required',
             'staff_id' => 'required',
-            'date' => 'required',
+            'date' => ['required', 'date_format:m/d/Y', 'after_or_equal:today'],
             'time' => 'required',
             'address' => 'required',
             'country' => 'required',

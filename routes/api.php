@@ -28,8 +28,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //,'prefix' => 'auth'
 
-Route::group(['middleware' => 'api'], function ($router) {
-    Route::post('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+
+Route::group(['middleware' => 'auth:api'], function ($router) {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('profile', [AuthController::class, 'profile']);
@@ -41,4 +45,6 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('update-job-order/{id}', [JobOrderController::class, 'updateJobOrder']);
     Route::get('job-order-history', [JobOrderController::class, 'jobOrderHistory']);
     Route::post('job-order-change-status', [JobOrderController::class, 'jobStatusChange']);
+
+
 });
