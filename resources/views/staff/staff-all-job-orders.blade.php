@@ -34,6 +34,7 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
+                                    <th hidden>Id</th>
                                     <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Type</span></th>
@@ -44,13 +45,25 @@
                             </thead>
                             <tbody>
                                 @if(count($jobOrders)>0)
-                                @foreach ($jobOrders as $order)
+                                @foreach ($jobOrders as $key => $order)
                                 <tr class="nk-tb-item">
+                                    <td hidden>{{ $key+1 }}</td>
                                     <td class="nk-tb-col tb-col-md"><span>{{ $order->client_id }}</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
                                             <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                <span>AB</span></div>
+                                                @php
+                                                    $formattedName = '';
+                                                    if(isset($order->client->name)){
+                                                        $words = explode(' ', $order->client->name);
+                                                        if (count($words) == 1) {
+                                                            $formattedName = $words[0][0] . substr($words[0], -1);
+                                                        } elseif (count($words) >= 2) {
+                                                            $formattedName = $words[0][0] . $words[1][0];
+                                                        }
+                                                    }
+                                                @endphp
+                                                <span class="text-uppercase">{{ $formattedName }}</span></div>
                                             <div class="user-info"><span class="tb-lead">@if(isset($order->client)){{ $order->client->name }}@endif<span
                                                         class="dot dot-success d-md-none ms-1"></span></span><span>@if(isset($order->client)){{ $order->client->email }}@endif</span>
                                             </div>

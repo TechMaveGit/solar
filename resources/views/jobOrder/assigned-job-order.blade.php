@@ -124,6 +124,7 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
+                                    <th hidden>Id</th>
                                     <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Type</span></th>
@@ -137,8 +138,9 @@
                             <tbody>
 
                                 @if(count($jobOrders)>0)
-                                @foreach ($jobOrders as $jobOrder)
+                                @foreach ($jobOrders as $key=>$jobOrder)
                                 <tr class="nk-tb-item">
+                                    <td hidden>{{ $key+1 }}</td>
                                     <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->client)){{ $jobOrder->client->id }}@endif</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
