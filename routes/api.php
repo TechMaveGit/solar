@@ -32,10 +32,10 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+Route::post('refresh', [AuthController::class, 'refresh']);
 
 Route::group(['middleware' => 'auth:api'], function ($router) {
     Route::get('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
     Route::get('profile', [AuthController::class, 'profile']);
     Route::post('update-profile', [AuthController::class, 'updateProfile']);
     Route::post('upload-profile', [AuthController::class, 'uploadProfile']);
