@@ -70,7 +70,7 @@
                             <div class="form-control-wrap">
                                 <div class="btnContainer">
                                     <button type="submit" class=" btn btn-primary d-none d-md-inline-flex pageaddbtn">
-                                        <span>Filter</span>
+                                        <span>Search</span>
                                     </button>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                                     <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Type</span></th>
-                                    <th class="nk-tb-col"><span class="sub-text">Staff ID</span></th>
+                                    {{-- <th class="nk-tb-col"><span class="sub-text">Staff ID</span></th> --}}
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Assigned Staff</span></th>
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Assigned Date</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
@@ -163,7 +163,7 @@
                                         </div>
                                     </td>
                                     <td class="nk-tb-col tb-col-md"><span>@if($jobOrder->client_type=='1'){{ 'Domestic' }}@elseif($jobOrder->client_type=='2'){{' Non-Domestic' }}@endif</span></td>
-                                    <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->staff)){{ $jobOrder->staff->id }}@endif</span></td>
+                                    {{-- <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->staff)){{ $jobOrder->staff->id }}@endif</span></td> --}}
                                     <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->staff)){{ $jobOrder->staff->name }}@endif </span></td>
 
                                     <td class="nk-tb-col tb-col-lg">
