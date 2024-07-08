@@ -4665,13 +4665,13 @@
         });
     }
 
-    $(document).ready(function() {
-        $('.date-picker').datepicker({
-            format: 'mm/dd/yyyy',
-            minDate: 0
-            autoclose: true
-        })
-    });
+    // $(document).ready(function() {
+    //     $('.date-picker').datepicker({
+    //         format: 'mm/dd/yyyy',
+    //         minDate: 0
+    //         autoclose: true
+    //     })
+    // });
 
 
 </script>
