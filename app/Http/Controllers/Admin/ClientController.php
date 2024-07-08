@@ -44,9 +44,9 @@ class ClientController extends Controller
             $client->gender = $request->gender;
             if($client->save()){
                 if($request->action == 'save_and_process') {
-                    return redirect()->route('admin.create-job-order')->with('success','Register Successfully!');
+                    return redirect()->route('admin.create-job-order')->with('success','Client Added Successfully!');
                 } else {
-                    return redirect()->route('admin.all-client')->with('success','Register Successfully!');
+                    return redirect()->route('admin.all-client')->with('success','Client Added Successfully!');
                 }
                 // return redirect()->route('admin.all-client')->with('success','Register Successfully!');
             }
@@ -94,7 +94,7 @@ class ClientController extends Controller
             $client->client_type = $request->client_type;
             $client->gender = $request->gender;
             if($client->save()){
-                return redirect()->route('admin.all-client')->with('success','Updated Successfully!');
+                return redirect()->route('admin.all-client')->with('success','Client Updated Successfully!');
             }
 
         } catch (\Throwable $th) {

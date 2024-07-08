@@ -188,7 +188,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em
                                                                             class="icon ni ni-calendar-alt"></em></div>
-                                                                    <input type="text" name="date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                    <input type="text" name="date" class="form-control date-picker" placeholder="mm/dd/yyyy" required>
                                                                     <span id="" class="error date_err"></span>
                                                                 </div>
                                                             </div>
@@ -200,7 +200,7 @@
                                                                     <input type="text" name="time" value=""
                                                                         class="form-control time__pickers"
                                                                         id="timepicker" placeholder="Select Time"
-                                                                        readonly="">
+                                                                        readonly="" required>
                                                                         <span id="" class="error time_err"></span>
                                                                 </div>
                                                             </div>
@@ -4450,9 +4450,9 @@
                                         <ul class="nk-stepper-pagination pt-4 gx-4 gy-2 stepper-pagination">
                                             <li class="step-prev"><button class="btn btn-dim btn-primary">Prev</button>
                                             </li>
-                                            <li class="step-next"><button class="btn btn-primary">Next</button></li>
+                                            <li class="step-next"><button type="button" class="btn btn-primary">Next</button></li>
                                             {{-- <li class="step-submit"><button class="btn btn-primary" type="submit">Submit</button></li> --}}
-                                            <li class="step-submit"><button class="btn btn-primary" onclick="Validatecheck()">Submit</button></li>
+                                            <li class="step-submit"><button type="button" class="btn btn-primary" onclick="Validatecheck()">Submit</button></li>
                                         </ul>
                                     </div>
                                 </div>
