@@ -497,7 +497,7 @@ class JobOrderController extends Controller
                 DB::commit();
 
 
-                \Session::flash('success', 'Data recorded successfully.');
+                \Session::flash('success', 'Job Assigned successfully.');
 
                 return response()->json(['success'=>'Added new records.']);
 

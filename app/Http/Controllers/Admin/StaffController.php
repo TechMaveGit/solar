@@ -50,7 +50,7 @@ class StaffController extends Controller
 
             Mail::to($request->email)->send(new StaffMail($data, $password));
 
-            return redirect()->route('admin.all-staff')->with('success','Register Successfully!');
+            return redirect()->route('admin.all-staff')->with('success','Staff Added Successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');
         }
@@ -92,7 +92,7 @@ class StaffController extends Controller
                 $staff->password = Hash::make($request->password);
             }
             $staff->save();
-            return redirect()->route('admin.all-staff')->with('success','Updated Successfully!');
+            return redirect()->route('admin.all-staff')->with('success','Staff Updated Successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');
         }
