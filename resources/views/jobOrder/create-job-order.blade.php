@@ -51,8 +51,25 @@
     display: block; /* Show admin panel after loader */
     }
 
+
+  /* Style for the scroll button */
+  .scroll-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
 </style>
 @endpush
+<button class="scroll-button" onclick="scrollToTop()">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
 <div class="loader-wrapper" id="loader">
     <div class="loader"></div>
 </div>
@@ -4471,7 +4488,12 @@
 @endsection
 
 @push('push_script')
+
 <script>
+    /////////////////// *************************** Validation Script//////////////////
+
+
+    /////////////////// ***************************Form Submission Script //////////////////
     function Validatecheck(){
         // var clientValue = $('#client_type').val();
         var formData = new FormData($("#stepper-create-project")[0]);
@@ -4511,9 +4533,8 @@
              $('.'+key+'_err').text(value);
            });
     }
-</script>
 
-<script>
+    /////////////////// *************************** Get Client Code//////////////////
     function getClient(client_type) {
         var defaultContent = $('.defaultFormTabContent');
         var domesticTabs = $('.domesticFormTab');
@@ -4572,6 +4593,7 @@
         });
     }
 
+    /////////////////// *************************** Steps Code//////////////////
     function setupSteps(content) {
         const steps = content;
         const prevButton = $('.step-prev button');
@@ -4605,29 +4627,6 @@
             }
         });
 
-        // $('form').off('submit').on('submit', function(event) {
-        //     const submitButton = $(this).find('button[type="submit"]');
-        //     if (submitButton) {
-        //         event.preventDefault();
-        //         showLoader(submitButton);
-        //         setTimeout(() => {
-        //             hideLoader(submitButton);
-        //             window.location.href = 'job-orders.php';
-        //         }, 2000);
-        //     }
-        // });
-
-        // function showLoader(button) {
-        //     button.data('original-text', button.html());
-        //     button.html('Processing <span class="loaderButton_custom"></span>');
-        //     button.prop('disabled', true);
-        // }
-
-        // function hideLoader(button) {
-        //     button.html(button.data('original-text'));
-        //     button.prop('disabled', false);
-        // }
-
         // Initialize the first step
         showStep(currentStep);
     }
@@ -4645,41 +4644,272 @@
         getClient(0);
     });
 
-</script>
+    // Get the scroll button element
+    const scrollButton = document.querySelector('.scroll-button');
 
+    // Add event listener to detect scroll position
+    window.addEventListener('scroll', function() {
+    // Show or hide the scroll button based on scroll position
+    if (window.scrollY > 100) { // Adjust 100 to your desired scroll position
+        scrollButton.style.display = 'block';
+    } else {
+        scrollButton.style.display = 'none';
+    }
+    });
 
-
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-            form.addEventListener('submit', function(event) {
-                const submitButton = form.querySelector('button[type="submit"]');
-                if (submitButton) {
-                    event.preventDefault(); // Prevent default form submission
-                    showLoader(submitButton);
-                    // Simulate form submission for demonstration purposes
-                    setTimeout(() => {
-                        hideLoader(submitButton);
-                        // Redirect to another page after processing
-                        window.location.href =
-                        'job-orders.php'; // Change 'other-page.php' to your desired destination
-                    }, 2000); // Simulate a delay for form submission
-                }
-            });
+    // Function to scroll to the top of the page
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
+    }
 
-        function showLoader(button) {
-            button.dataset.originalText = button.innerHTML; // Save original button text
-            button.innerHTML = 'Processing <span class="loaderButton_custom"></span>';
-            button.disabled = true; // Disable the button to prevent multiple clicks
-        }
+    // $(document).ready(function() {
+    //     $('.date-picker').datepicker({
+    //         format: 'mm/dd/yyyy',
+    //         minDate: 0
+    //         autoclose: true
+    //     })
+    // });
 
-        function hideLoader(button) {
-            button.innerHTML = button.dataset.originalText; // Restore original button text
-            button.disabled = false; // Enable the button
+
+</script>
+{{-- <script>
+   /////////////////// *************************** Validation Script//////////////////
+    document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('form');
+
+    forms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            if (!form.checkValidity()) {
+                event.stopPropagation();
+                return;
+            }
+
+            if (submitButton) {
+                showLoader(submitButton);
+
+                setTimeout(() => {
+                    hideLoader(submitButton);
+                }, 1000);
+            }
+        });
+    });
+
+    function showLoader(button) {
+        button.dataset.originalText = button.innerHTML;
+        button.innerHTML = 'Processing <span class="loaderButton_custom"></span>';
+        button.disabled = true;
+    }
+
+    function hideLoader(button) {
+        button.innerHTML = button.dataset.originalText;
+        button.disabled = false;
+    }
+
+    document.querySelector('.step-next button').addEventListener('click', function() {
+        if (validateForm()) {
+            showNextStep();
         }
     });
+
+    document.querySelector('.step-prev button').addEventListener('click', function() {
+        showPrevStep();
+    });
+
+    document.querySelector('.step-submit button').addEventListener('click', function() {
+        if (validateForm()) {
+            Validatecheck();
+        }
+    });
+
+    function validateForm() {
+        let isValid = true;
+        const currentStepFields = document.querySelectorAll('.step:visible [required]');
+
+        currentStepFields.forEach(field => {
+            const errorSpan = field.parentElement.querySelector('.error');
+            if (!field.value.trim()) {
+                isValid = false;
+                errorSpan.textContent = 'This field is required';
+            } else {
+                errorSpan.textContent = '';
+            }
+        });
+
+        return isValid;
+    }
+
+    function showNextStep() {
+        const currentStep = document.querySelector('.step:visible');
+        const nextStep = currentStep.nextElementSibling;
+
+        if (nextStep) {
+            currentStep.style.display = 'none';
+            nextStep.style.display = 'block';
+        }
+    }
+
+    function showPrevStep() {
+        const currentStep = document.querySelector('.step:visible');
+        const prevStep = currentStep.previousElementSibling;
+
+        if (prevStep) {
+            currentStep.style.display = 'none';
+            prevStep.style.display = 'block';
+        }
+    }
+    });
+
+    /////////////////// ***************************Form Submission Script //////////////////
+    function Validatecheck() {
+    var formData = new FormData($("#stepper-create-project")[0]);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $('#loader').addClass('active');
+    $.ajax({
+        url: "{{ route('admin.create-job-order') }}",
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data) {
+            $('#loader').removeClass('active');
+            $('.error').html('');
+            if ($.isEmptyObject(data.errors)) {
+                window.location = "{{ route('admin.assigned-job-order') }}";
+            } else {
+                printErrorMsg(data.errors);
+            }
+        },
+        error: function(xhr, status, error) {
+            $('#loader').removeClass('active');
+        }
+    });
+    }
+
+    function printErrorMsg(msg) {
+        $.each(msg, function(key, value) {
+            $('.' + key + '_err').text(value);
+        });
+    }
+
+    /////////////////// *************************** Get Client Code//////////////////
+    function getClient(client_type) {
+        var defaultContent = $('.defaultFormTabContent');
+        var domesticTabs = $('.domesticFormTab');
+        var nondomesticTabs = $('.nondomesticTab');
+        var domesticContent = $('.domestiocFormTabContent');
+        var nondomesticContent = $('.NondomestiocFormTabContent');
+
+        // Hide all tabs and content initially
+        defaultContent.show();
+        domesticTabs.hide();
+        nondomesticTabs.hide();
+        domesticContent.hide();
+        nondomesticContent.hide();
+
+        // Setup the correct steps based on the client type
+        if (client_type == 1) {
+            domesticTabs.show();
+            nondomesticContent.find(':input').prop('disabled', true);
+            domesticContent.show();
+            domesticContent.find(':input').prop('disabled', false);
+            setupSteps(defaultContent.add(domesticContent));
+        } else if (client_type == 2) {
+            nondomesticTabs.show();
+            domesticContent.find(':input').prop('disabled', true);
+            nondomesticContent.show();
+            nondomesticContent.find(':input').prop('disabled', false);
+            setupSteps(defaultContent.add(nondomesticContent));
+        } else {
+            const submitButton = $('.step-submit button');
+            submitButton.hide();
+        }
+        $('#loader').addClass('active');
+        $.ajax({
+            url: "{{ route('admin.get_client') }}",
+            type: 'POST',
+            data: {
+                client_type: client_type,
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function(data) {
+                $('#loader').removeClass('active');
+                // $('.error_clear').html('');
+
+                if (data.clientsOptions) {
+                    // console.log(data.clientsOptions);
+                    $("#client_id").html(data.clientsOptions);
+                } else {
+                    console.log('No client options found.');
+                    $("#client_id").html('<option value="">Select an Option</option>');
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#loader').removeClass('active');
+                console.error('An error occurred:', error);
+            }
+        });
+    }
+
+    /////////////////// *************************** Steps Code//////////////////
+    function setupSteps(content) {
+        const steps = content;
+        const prevButton = $('.step-prev button');
+        const nextButton = $('.step-next button');
+        const submitButton = $('.step-submit button');
+        let currentStep = 0;
+
+        function showStep(index) {
+            steps.hide();
+            steps.eq(index).show();
+
+            prevButton.closest('li').toggle(index > 0);
+            nextButton.closest('li').toggle(index < steps.length - 1);
+            submitButton.closest('li').toggle(index === steps.length - 1);
+        }
+
+        prevButton.off('click').on('click', function() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        nextButton.off('click').on('click', function() {
+            if (validateForm() && currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+
+        // Initialize the first step
+        showStep(currentStep);
+    }
+
+    $(document).ready(function() {
+        // Set initial tab visibility
+        $('.domesticFormTab').hide();
+        $('.nondomesticTab').hide();
+        $('.domestiocFormTabContent').hide();
+        $('.NondomestiocFormTabContent').hide();
+
+        // Initialize the stepper with default tab content
+        setupSteps($('.defaultFormTabContent'));
+        getClient(0);
+    });
+
+
 </script> --}}
+
 <!-- submit trigger buttin page loader and redirection other page json_decode end-->
 @endpush

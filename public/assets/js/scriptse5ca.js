@@ -590,7 +590,7 @@
             startView: 2,
             autoclose: !0,
             maxViewMode: 2,
-            minViewMode: 1
+            minViewMode: 1,
         })
     }, p.Addons.Init = function () {
         p.Knob.init(), p.Range.init(), p.Select2.init(), p.Dropzone.init(), p.Slider.init(), p.DataTable.init(), p.Tagify.init()
