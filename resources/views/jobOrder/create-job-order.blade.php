@@ -188,7 +188,7 @@
                                                                     Staff<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <select class="form-select js-select2"
-                                                                        data-search="on" name="staff_id">
+                                                                        data-search="on" name="staff_id" required>
                                                                         <option value="">Select an Option</option>
                                                                         @foreach ($staffs as $staff)
                                                                             <option value="{{ $staff->id }}">{{ $staff->name }}</option>
@@ -228,7 +228,7 @@
                                                                 <div class="form-control-wrap"><textarea
                                                                         class="form-control customtextarea form-control-sm"
                                                                         id="fv-message" name="address"
-                                                                        placeholder="Write your Address"></textarea>
+                                                                        placeholder="Write your Address" required></textarea>
                                                                         <span class="error address_err"></span>
                                                                 </div>
                                                             </div>
@@ -239,7 +239,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="fv-Country"
-                                                                        name="country">
+                                                                        name="country" required>
                                                                         <span class="error country_err"></span>
                                                                 </div>
                                                             </div>
@@ -250,7 +250,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="fv-City"
-                                                                        name="city">
+                                                                        name="city" required>
                                                                         <span class="error city_err"></span>
                                                                 </div>
                                                             </div>
@@ -261,7 +261,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="input-group">
                                                                         <div class="input-group-prepend"></div>
-                                                                        <input type="text" name="postal_code" class="form-control">
+                                                                        <input type="text" name="postal_code" class="form-control" required>
                                                                     </div>
                                                                     <span class="error postal_code_err"></span>
                                                                 </div>
@@ -287,7 +287,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="applicant_name"
-                                                                        name="applicant_name">
+                                                                        name="applicant_name" required>
                                                                         <span id="applicant_name_err" class="error applicant_name_err"></span>
 
                                                                 </div>
@@ -311,7 +311,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installation_eircode"
-                                                                        name="installation_eircode">
+                                                                        name="installation_eircode" required>
                                                                         <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
                                                             </div>
@@ -348,7 +348,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control"
                                                                         placeholder="kWp*" id="solar_pv_system_size"
-                                                                        name="solar_pv_system_size">
+                                                                        name="solar_pv_system_size" required>
                                                                         <span id="" class="error solar_pv_system_size_err"></span>
                                                                 </div>
                                                             </div>
@@ -427,7 +427,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" placeholder=""
-                                                                        id="company_name" name="company_name">
+                                                                        id="company_name" name="company_name" required>
                                                                         <span id="" class="error company_name_err"></span>
                                                                 </div>
                                                             </div>
@@ -820,7 +820,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="applicant_name"
-                                                                        name="applicant_name">
+                                                                        name="applicant_name" required>
                                                                         <span id="" class="error applicant_name_err"></span>
                                                                 </div>
                                                             </div>
@@ -843,7 +843,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installation_eircode"
-                                                                        name="installation_eircode">
+                                                                        name="installation_eircode" required>
                                                                         <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
                                                             </div>
@@ -880,7 +880,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control"
                                                                         placeholder="kWp*" id="solar_pv_system_size"
-                                                                        name="solar_pv_system_size">
+                                                                        name="solar_pv_system_size" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -958,7 +958,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" placeholder=""
-                                                                        id="company_name" name="company_name">
+                                                                        id="company_name" name="company_name" required>
                                                                         <span id="" class="error company_name_err"></span>
                                                                 </div>
                                                             </div>
@@ -1416,7 +1416,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="customer_name"
-                                                                        name="customer_name">
+                                                                        name="customer_name" required>
                                                                         <span id="" class="error customer_name_err"></span>
 
                                                                 </div>
@@ -1440,7 +1440,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="customer_eircode"
-                                                                        name="customer_eircode">
+                                                                        name="customer_eircode" required>
                                                                         <span id="" class="error customer_eircode_err"></span>
                                                                 </div>
                                                             </div>
@@ -1460,7 +1460,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_name"
-                                                                        name="installer_company_name">
+                                                                        name="installer_company_name" required>
                                                                         <span id="" class="error installer_company_name_err"></span>
                                                                 </div>
                                                             </div>
@@ -1483,7 +1483,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_address"
-                                                                        name="installer_company_address">
+                                                                        name="installer_company_address" required>
                                                                         <span id="" class="error installer_company_address_err"></span>
                                                                 </div>
                                                             </div>
@@ -2693,7 +2693,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="customer_name"
-                                                                        name="customer_name">
+                                                                        name="customer_name" required>
                                                                         <span id="" class="error customer_name_err"></span>
                                                                 </div>
                                                             </div>
@@ -2716,7 +2716,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="customer_eircode"
-                                                                        name="customer_eircode">
+                                                                        name="customer_eircode" required>
                                                                         <span id="" class="error customer_eircode_err"></span>
                                                                 </div>
                                                             </div>
@@ -2736,7 +2736,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_name"
-                                                                        name="installer_company_name">
+                                                                        name="installer_company_name" required>
                                                                         <span id="" class="error installer_company_name_err"></span>
                                                                 </div>
                                                             </div>
@@ -2759,7 +2759,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_address"
-                                                                        name="installer_company_address">
+                                                                        name="installer_company_address" required>
                                                                         <span id="" class="error installer_company_address_err"></span>
                                                                 </div>
                                                             </div>
@@ -4489,7 +4489,7 @@
 
 @push('push_script')
 
-<script>
+{{-- <script>
     /////////////////// *************************** Validation Script//////////////////
 
 
@@ -4674,8 +4674,38 @@
     // });
 
 
-</script>
-{{-- <script>
+</script> --}}
+<script>
+    function getVisibleRequiredFields() {
+        // Select all elements that match '.step [required]'
+        // var allRequiredFields = document.querySelectorAll('.nk-stepper-step [required]');
+        var allRequiredFields = Array.from(document.querySelectorAll('.nk-stepper-step [required]')).filter(field => !field.disabled);
+
+        // Convert NodeList to Array and filter out elements that are not visible
+        var visibleRequiredFields = Array.from(allRequiredFields).filter(function(element) {
+            return element.offsetParent !== null; // Check if element is visible
+        });
+
+        return visibleRequiredFields;
+    }
+    function validateForm() {
+        let isValid = true;
+        // const currentStepFields = document.querySelectorAll('.step:visible [required]');
+        var currentStepFields = getVisibleRequiredFields();
+        // console.log("validating =========================== ");
+        currentStepFields.forEach(field => {
+            const errorSpan = field.parentElement.querySelector('.error');
+            if (!field.value.trim()) {
+                isValid = false;
+                // errorSpan.textContent = 'This field is required';
+                // errorSpan.textContent = '';
+            } else {
+                // errorSpan.textContent = '';
+            }
+        });
+
+        return isValid;
+    }
    /////////////////// *************************** Validation Script//////////////////
     document.addEventListener('DOMContentLoaded', function() {
     const forms = document.querySelectorAll('form');
@@ -4690,26 +4720,10 @@
                 return;
             }
 
-            if (submitButton) {
-                showLoader(submitButton);
 
-                setTimeout(() => {
-                    hideLoader(submitButton);
-                }, 1000);
-            }
         });
     });
 
-    function showLoader(button) {
-        button.dataset.originalText = button.innerHTML;
-        button.innerHTML = 'Processing <span class="loaderButton_custom"></span>';
-        button.disabled = true;
-    }
-
-    function hideLoader(button) {
-        button.innerHTML = button.dataset.originalText;
-        button.disabled = false;
-    }
 
     document.querySelector('.step-next button').addEventListener('click', function() {
         if (validateForm()) {
@@ -4723,29 +4737,27 @@
 
     document.querySelector('.step-submit button').addEventListener('click', function() {
         if (validateForm()) {
-            Validatecheck();
+            // Validatecheck();
         }
     });
 
-    function validateForm() {
-        let isValid = true;
-        const currentStepFields = document.querySelectorAll('.step:visible [required]');
+    function getVisibleSteps() {
+        const stepperSteps = document.querySelectorAll('.nk-stepper-step');
 
-        currentStepFields.forEach(field => {
-            const errorSpan = field.parentElement.querySelector('.error');
-            if (!field.value.trim()) {
-                isValid = false;
-                errorSpan.textContent = 'This field is required';
-            } else {
-                errorSpan.textContent = '';
-            }
+        // Filter the elements to only include those that are visible
+        const visibleSteps = Array.from(stepperSteps).filter(step => {
+            return step.offsetParent !== null; // or use other checks for visibility
         });
 
-        return isValid;
-    }
-
+        // Do something with the visible steps
+        visibleSteps.forEach(step => {
+            console.log(step); // or any other operation you need to perform
+            return step;
+        });
+    };
     function showNextStep() {
-        const currentStep = document.querySelector('.step:visible');
+        // const currentStep = document.querySelector('.nk-stepper-step:visible');
+        const currentStep = getVisibleSteps();
         const nextStep = currentStep.nextElementSibling;
 
         if (nextStep) {
@@ -4755,7 +4767,8 @@
     }
 
     function showPrevStep() {
-        const currentStep = document.querySelector('.step:visible');
+        // const currentStep = document.querySelector('.nk-stepper-step:visible');
+        const currentStep = getVisibleSteps();
         const prevStep = currentStep.previousElementSibling;
 
         if (prevStep) {
@@ -4767,33 +4780,33 @@
 
     /////////////////// ***************************Form Submission Script //////////////////
     function Validatecheck() {
-    var formData = new FormData($("#stepper-create-project")[0]);
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $('#loader').addClass('active');
-    $.ajax({
-        url: "{{ route('admin.create-job-order') }}",
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(data) {
-            $('#loader').removeClass('active');
-            $('.error').html('');
-            if ($.isEmptyObject(data.errors)) {
-                window.location = "{{ route('admin.assigned-job-order') }}";
-            } else {
-                printErrorMsg(data.errors);
+        var formData = new FormData($("#stepper-create-project")[0]);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        },
-        error: function(xhr, status, error) {
-            $('#loader').removeClass('active');
-        }
-    });
+        });
+        $('#loader').addClass('active');
+        $.ajax({
+            url: "{{ route('admin.create-job-order') }}",
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                $('#loader').removeClass('active');
+                $('.error').html('');
+                if ($.isEmptyObject(data.errors)) {
+                    window.location = "{{ route('admin.assigned-job-order') }}";
+                } else {
+                    printErrorMsg(data.errors);
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#loader').removeClass('active');
+            }
+        });
     }
 
     function printErrorMsg(msg) {
@@ -4875,6 +4888,9 @@
 
             prevButton.closest('li').toggle(index > 0);
             nextButton.closest('li').toggle(index < steps.length - 1);
+            if(index === steps.length - 1){
+                submitButton.show();
+            }
             submitButton.closest('li').toggle(index === steps.length - 1);
         }
 
@@ -4908,8 +4924,22 @@
         getClient(0);
     });
 
-
-</script> --}}
+    // Get the scroll button element
+    const scrollButton = document.querySelector('.scroll-button');
+    window.addEventListener('scroll', function() {
+    if (window.scrollY > 100) { // Adjust 100 to your desired scroll position
+        scrollButton.style.display = 'block';
+    } else {
+        scrollButton.style.display = 'none';
+    }
+    });
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+</script>
 
 <!-- submit trigger buttin page loader and redirection other page json_decode end-->
 @endpush
