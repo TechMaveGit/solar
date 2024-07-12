@@ -143,7 +143,7 @@ class AuthController extends Controller
                 return  response()->json([
                     'status' => false,
                     'message'=>'user not found'
-                ],403);
+                ],200);
             }
         } catch (JWTException $e) {
             return  response()->json([
