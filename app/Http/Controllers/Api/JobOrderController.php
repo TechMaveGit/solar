@@ -59,7 +59,7 @@ class JobOrderController extends Controller
                 'status' => false,
                 'message' => 'No job orders found.',
                 'all_job_orders' => [],
-            ],403);
+            ],200);
         }
 
         return response()->json([
@@ -682,7 +682,7 @@ class JobOrderController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'No job orders found.',
-            ],403);
+            ],200);
         }
 
         return response()->json([
