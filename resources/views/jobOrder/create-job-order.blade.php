@@ -205,7 +205,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em
                                                                             class="icon ni ni-calendar-alt"></em></div>
-                                                                    <input type="text" name="date" class="form-control date-picker" placeholder="mm/dd/yyyy" required>
+                                                                    <input type="text" name="date" class="form-control date-pickerss" placeholder="mm/dd/yyyy" required>
                                                                     <span id="" class="error date_err"></span>
                                                                 </div>
                                                             </div>
@@ -4488,7 +4488,14 @@
 @endsection
 
 @push('push_script')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css"  />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+<script>
+     $(".date-pickerss").flatpickr({
+        dateFormat: "m/d/Y",
+        minDate: "today"
+    });
+</script>
 {{-- <script>
     /////////////////// *************************** Validation Script//////////////////
 
