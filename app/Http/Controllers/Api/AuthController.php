@@ -70,7 +70,11 @@ class AuthController extends Controller
         }
 
         // Authentication successful, respond with JWT token
-        return $this->respondWithToken($token, $user);
+        // return $this->respondWithToken($token, $user);
+        return $this->respondWithToken($token, [
+            'user' => $user,
+            'image_root' => config('envoirment.IMAGE_API_PATH')
+        ]);
     }
 
     public function updateProfile(Request $request)
