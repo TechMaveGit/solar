@@ -1357,7 +1357,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_name"
-                                                                    name="installer_company_name" value="{{ $jobOrder->customer_eircode }}" readonly>
+                                                                    name="installer_company_name" value="{{ $jobOrder->installer_company_name }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1368,7 +1368,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_representative"
-                                                                    name="installer_company_representative" value="{{ $jobOrder->customer_eircode }}" readonly>
+                                                                    name="installer_company_representative" value="{{ $jobOrder->installer_company_representative }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1379,7 +1379,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_address"
-                                                                    name="installer_company_address" value="{{ $jobOrder->customer_eircode }}" readonly>
+                                                                    name="installer_company_address" value="{{ $jobOrder->installer_company_address }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2580,7 +2580,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_name"
-                                                                    name="installer_company_name" value="{{ $jobOrder->customer_eircode }}" readonly>
+                                                                    name="installer_company_name" value="{{ $jobOrder->installer_company_name }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2591,7 +2591,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_representative"
-                                                                    name="installer_company_representative" value="{{ $jobOrder->customer_eircode }}" readonly>
+                                                                    name="installer_company_representative" value="{{ $jobOrder->installer_company_representative }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2602,7 +2602,7 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
                                                                     type="text" class="form-control" id="installer_company_address"
-                                                                    name="installer_company_address" value="{{ $jobOrder->customer_eircode }}" readonly>
+                                                                    name="installer_company_address" value="{{ $jobOrder->installer_company_address }}" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
