@@ -42,7 +42,10 @@ class JobOrderController extends Controller
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        $query = JobOrder::where('staff_id', auth()->user()->id)->with('client')->orderBy('id', 'DESC');
+        // $query = JobOrder::where('staff_id', auth()->user()->id)->with('client')->orderBy('id', 'DESC');
+        $query = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time'])
+        ->where('staff_id', auth()->user()->id)
+        ->with('client:id,name,country,city,postal_code')->orderBy('id', 'DESC');
 
         if ($startDate && $endDate) {
             $query->whereBetween('date', [$startDate, $endDate]);
