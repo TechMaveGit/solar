@@ -525,6 +525,14 @@ class JobOrderController extends Controller
         return response()->json(['clientsOptions' => $clientsOptions]);
     }
 
+    public function getClientDetails(Request $request){
+
+        $id = $request->client_id;
+        $client= Client::find($id);
+
+        return response()->json(['client'=>$client]);
+    }
+
 
 
     public function show(Request $request){

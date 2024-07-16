@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('postal_code')->nullable();
+            $table->string('eircode')->nullable();
             $table->enum('status', ['1', '2'])->default('1')->comment('1=>Active, 2=>Inactive');
             $table->enum('client_type', ['1', '2'])->default('1')->comment('1=>Domestic, 2=>NonDomestic');
             $table->enum('gender', ['male', 'female','others'])->default('male');
