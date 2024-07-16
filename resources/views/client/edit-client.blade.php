@@ -140,7 +140,7 @@
                                                         required="">{{$client->additional_information ?? old('additional_information') }}</textarea></div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group"><label class="form-label"
                                                     for="fv-Country">Country</label>
                                                 <div class="form-control-wrap">
@@ -150,7 +150,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                                             <div class="form-group"><label class="form-label"
                                                                     for="fv-City">City</label>
                                                                 <div class="form-control-wrap">
@@ -160,13 +160,24 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
                                                             <div class="form-group"><label class="form-label"
                                                                     for="fv-Postal">Postal Code</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="input-group">
                                                                         <div class="input-group-prepend"></div><input
                                                                             type="text" name="postal_code" value="{{$client->postal_code ?? old('postal_code') }}"  class="form-control" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="form-group"><label class="form-label"
+                                                                    for="fv-Postal">Eircode </label>
+                                                                <div class="form-control-wrap">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend"></div><input
+                                                                            type="text" name="eircode" value="{{$client->eircode ?? old('eircode') }}"  class="form-control" required>
                                                                     </div>
                                                                 </div>
                                                             </div>

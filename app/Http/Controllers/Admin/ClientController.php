@@ -39,6 +39,7 @@ class ClientController extends Controller
             $client->country = $request->country;
             $client->city = $request->city;
             $client->postal_code = $request->postal_code;
+            $client->eircode = $request->eircode;
             $client->status = $request->status;
             $client->client_type = $request->client_type;
             $client->gender = $request->gender;
@@ -90,6 +91,7 @@ class ClientController extends Controller
             $client->country = $request->country;
             $client->city = $request->city;
             $client->postal_code = $request->postal_code;
+            $client->eircode = $request->eircode;
             $client->status = $request->status;
             $client->client_type = $request->client_type;
             $client->gender = $request->gender;

@@ -286,7 +286,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="applicant_name"
+                                                                        type="text" class="form-control applicant_name" id=""
                                                                         name="applicant_name" required>
                                                                         <span id="applicant_name_err" class="error applicant_name_err"></span>
 
@@ -299,7 +299,7 @@
                                                                     >Installation Address</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installation_address"
+                                                                        type="text" class="form-control installation_address" id=""
                                                                         name="installation_address">
                                                                 </div>
                                                             </div>
@@ -310,7 +310,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installation_eircode"
+                                                                        type="text" class="form-control installation_eircode" id=""
                                                                         name="installation_eircode" required>
                                                                         <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
@@ -819,7 +819,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="applicant_name"
+                                                                        type="text" class="form-control applicant_name" id=""
                                                                         name="applicant_name" required>
                                                                         <span id="" class="error applicant_name_err"></span>
                                                                 </div>
@@ -831,7 +831,7 @@
                                                                     >Installation Address</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installation_address"
+                                                                        type="text" class="form-control installation_address" id=""
                                                                         name="installation_address">
                                                                 </div>
                                                             </div>
@@ -842,7 +842,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installation_eircode"
+                                                                        type="text" class="form-control installation_eircode" id=""
                                                                         name="installation_eircode" required>
                                                                         <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
@@ -4469,7 +4469,7 @@
                                             </li>
                                             <li class="step-next"><button type="button" class="btn btn-primary">Next</button></li>
                                             {{-- <li class="step-submit"><button class="btn btn-primary" type="submit">Submit</button></li> --}}
-                                            <li class="step-submit"><button type="button" class="btn btn-primary" onclick="Validatecheck()">Submit</button></li>
+                                            <li class="step-submit"><button type="button" class="btn btn-primary" >Submit</button></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -4496,101 +4496,35 @@
         minDate: "today"
     });
 </script>
-{{-- <script>
-    /////////////////// *************************** Validation Script//////////////////
+<script>
+    // $(document).ready(function() {
+    //     $('.js-select2').select2();
 
-
-    /////////////////// ***************************Form Submission Script //////////////////
-    function Validatecheck(){
-        // var clientValue = $('#client_type').val();
-        var formData = new FormData($("#stepper-create-project")[0]);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $('#loader').addClass('active');
+        $('#client_id').on('change', function() {
+            var client_id = $(this).val();
+            $('#loader').addClass('active');
         $.ajax({
-
-            url: "{{ route('admin.create-job-order') }}",
-            type:'POST',
-            data: formData,
-            contentType: false,
-            cache: false,
-            processData:false,
-               success: function(data) {
-                $('#loader').removeClass('active');
-                $('.error').html('');
-                   if($.isEmptyObject(data.errors)){
-                      window.location = "{{ route('admin.assigned-job-order') }}";
-                   }
-                   else{
-                       printErrorMsg(data.errors);
-                   }
-               },
-               error: function(xhr, status, error) {
-                    $('#loader').removeClass('active');
-                }
-           });
-
-    }
-    function printErrorMsg (msg) {
-           $.each( msg, function( key, value ) {
-            console.log(key);
-             $('.'+key+'_err').text(value);
-           });
-    }
-
-    /////////////////// *************************** Get Client Code//////////////////
-    function getClient(client_type) {
-        var defaultContent = $('.defaultFormTabContent');
-        var domesticTabs = $('.domesticFormTab');
-        var nondomesticTabs = $('.nondomesticTab');
-        var domesticContent = $('.domestiocFormTabContent');
-        var nondomesticContent = $('.NondomestiocFormTabContent');
-
-        // Hide all tabs and content initially
-        defaultContent.show();
-        domesticTabs.hide();
-        nondomesticTabs.hide();
-        domesticContent.hide();
-        nondomesticContent.hide();
-
-        // Setup the correct steps based on the client type
-        if (client_type == 1) {
-            domesticTabs.show();
-            nondomesticContent.find(':input').prop('disabled', true);
-            domesticContent.show();
-            domesticContent.find(':input').prop('disabled', false);
-            setupSteps(defaultContent.add(domesticContent));
-        } else if (client_type == 2) {
-            nondomesticTabs.show();
-            domesticContent.find(':input').prop('disabled', true);
-            nondomesticContent.show();
-            nondomesticContent.find(':input').prop('disabled', false);
-            setupSteps(defaultContent.add(nondomesticContent));
-        } else{
-            const submitButton = $('.step-submit button');
-            submitButton.hide();
-        }
-        $('#loader').addClass('active');
-        $.ajax({
-            url: "{{ route('admin.get_client') }}",
+            url: "{{ route('admin.get_client_details') }}",
             type: 'POST',
             data: {
-                client_type: client_type,
+                client_id: client_id,
                 "_token": "{{ csrf_token() }}",
-             },
+            },
             success: function(data) {
                 $('#loader').removeClass('active');
                 // $('.error_clear').html('');
 
-                if (data.clientsOptions) {
-                    // console.log(data.clientsOptions);
-                    $("#client_id").html(data.clientsOptions);
+                if (data.client) {
+                    var clint = data.client;
+                    // alert(data.client.name);
+                    $('.applicant_name').val(clint.name);
+                    $('.installation_address').val(clint.address +" "+ clint.city +" "+ clint.country);
+                    $('.installation_eircode').val(clint.eircode);
                 } else {
-                    console.log('No client options found.');
-                    $("#client_id").html('<option value="">Select an Option</option>');
+                    console.log('No client found.');
+                    $('.applicant_name').val('');
+                    $('.installation_address').val('');
+                    $('.installation_eircode').val('');
                 }
             },
             error: function(xhr, status, error) {
@@ -4598,90 +4532,11 @@
                 console.error('An error occurred:', error);
             }
         });
-    }
 
-    /////////////////// *************************** Steps Code//////////////////
-    function setupSteps(content) {
-        const steps = content;
-        const prevButton = $('.step-prev button');
-        const nextButton = $('.step-next button');
-        const submitButton = $('.step-submit button');
-        let currentStep = 0;
-
-        function showStep(index) {
-            steps.hide();
-            steps.eq(index).show();
-
-            prevButton.closest('li').toggle(index > 0);
-            nextButton.closest('li').toggle(index < steps.length - 1);
-            if(index === steps.length - 1){
-                submitButton.show();
-            }
-            submitButton.closest('li').toggle(index === steps.length - 1);
-        }
-
-        prevButton.off('click').on('click', function() {
-            if (currentStep > 0) {
-                currentStep--;
-                showStep(currentStep);
-            }
         });
-
-        nextButton.off('click').on('click', function() {
-            if (currentStep < steps.length - 1) {
-                currentStep++;
-                showStep(currentStep);
-            }
-        });
-
-        // Initialize the first step
-        showStep(currentStep);
-    }
-
-    $(document).ready(function() {
-
-        // Set initial tab visibility
-        $('.domesticFormTab').hide();
-        $('.nondomesticTab').hide();
-        $('.domestiocFormTabContent').hide();
-        $('.NondomestiocFormTabContent').hide();
-
-        // Initialize the stepper with default tab content
-        setupSteps($('.defaultFormTabContent'));
-        getClient(0);
-    });
-
-    // Get the scroll button element
-    const scrollButton = document.querySelector('.scroll-button');
-
-    // Add event listener to detect scroll position
-    window.addEventListener('scroll', function() {
-    // Show or hide the scroll button based on scroll position
-    if (window.scrollY > 100) { // Adjust 100 to your desired scroll position
-        scrollButton.style.display = 'block';
-    } else {
-        scrollButton.style.display = 'none';
-    }
-    });
-
-    // Function to scroll to the top of the page
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    // $(document).ready(function() {
-    //     $('.date-picker').datepicker({
-    //         format: 'mm/dd/yyyy',
-    //         minDate: 0
-    //         autoclose: true
-    //     })
     // });
+</script>
 
-
-</script> --}}
 <script>
     function getVisibleRequiredFields() {
         // Select all elements that match '.step [required]'
@@ -4699,6 +4554,7 @@
         let isValid = true;
         // const currentStepFields = document.querySelectorAll('.step:visible [required]');
         var currentStepFields = getVisibleRequiredFields();
+        let firstInvalidField = null;
         // console.log("validating =========================== ");
         currentStepFields.forEach(field => {
             const errorSpan = field.parentElement.querySelector('.error');
@@ -4706,10 +4562,17 @@
                 isValid = false;
                 // errorSpan.textContent = 'This field is required';
                 // errorSpan.textContent = '';
+                if (!firstInvalidField) {
+                    firstInvalidField = field;
+                }
             } else {
                 // errorSpan.textContent = '';
             }
         });
+        if (firstInvalidField) {
+            firstInvalidField.focus();
+            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
 
         return isValid;
     }
@@ -4744,7 +4607,7 @@
 
     document.querySelector('.step-submit button').addEventListener('click', function() {
         if (validateForm()) {
-            // Validatecheck();
+            Validatecheck();
         }
     });
 
@@ -4869,6 +4732,7 @@
                 if (data.clientsOptions) {
                     // console.log(data.clientsOptions);
                     $("#client_id").html(data.clientsOptions);
+                    // clients = data.clients;  // Assuming data.clients contains the client details
                 } else {
                     console.log('No client options found.');
                     $("#client_id").html('<option value="">Select an Option</option>');
