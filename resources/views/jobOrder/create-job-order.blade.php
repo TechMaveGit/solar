@@ -1415,7 +1415,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_name"
+                                                                        type="text" class="form-control applicant_name" id="customer_name"
                                                                         name="customer_name" required>
                                                                         <span id="" class="error customer_name_err"></span>
 
@@ -1428,7 +1428,7 @@
                                                                     >Customer Address</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_address"
+                                                                        type="text" class="form-control installation_address" id="customer_address"
                                                                         name="customer_address">
                                                                 </div>
                                                             </div>
@@ -1439,7 +1439,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_eircode"
+                                                                        type="text" class="form-control installation_eircode" id="customer_eircode"
                                                                         name="customer_eircode" required>
                                                                         <span id="" class="error customer_eircode_err"></span>
                                                                 </div>
@@ -2692,7 +2692,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_name"
+                                                                        type="text" class="form-control applicant_name" id="customer_name"
                                                                         name="customer_name" required>
                                                                         <span id="" class="error customer_name_err"></span>
                                                                 </div>
@@ -2704,7 +2704,7 @@
                                                                     for="fv-Country3">Customer Address</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_address"
+                                                                        type="text" class="form-control installation_address" id="customer_address"
                                                                         name="customer_address">
                                                                 </div>
                                                             </div>
@@ -2715,7 +2715,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_eircode"
+                                                                        type="text" class="form-control installation_eircode" id="customer_eircode"
                                                                         name="customer_eircode" required>
                                                                         <span id="" class="error customer_eircode_err"></span>
                                                                 </div>
@@ -4497,10 +4497,16 @@
     });
 </script>
 <script>
-    // $(document).ready(function() {
-    //     $('.js-select2').select2();
+    $(document).ready(function() {
+        $('#company_name').on('change', function() {
 
-        $('#client_id').on('change', function() {
+            var companyNameValue = $(this).val();
+
+            $('#installer_company_name').val(companyNameValue);
+        });
+    });
+// get client details for auto fill
+    $('#client_id').on('change', function() {
             var client_id = $(this).val();
             $('#loader').addClass('active');
         $.ajax({
@@ -4533,11 +4539,15 @@
             }
         });
 
-        });
-    // });
+    });
 </script>
 
 <script>
+    function scrollToTop() {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 'fast');
+    }
     function getVisibleRequiredFields() {
         // Select all elements that match '.step [required]'
         // var allRequiredFields = document.querySelectorAll('.nk-stepper-step [required]');
@@ -4597,11 +4607,13 @@
 
     document.querySelector('.step-next button').addEventListener('click', function() {
         if (validateForm()) {
+            scrollToTop();
             showNextStep();
         }
     });
 
     document.querySelector('.step-prev button').addEventListener('click', function() {
+        scrollToTop();
         showPrevStep();
     });
 
@@ -4804,12 +4816,7 @@
         scrollButton.style.display = 'none';
     }
     });
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
+
 </script>
 
 <!-- submit trigger buttin page loader and redirection other page json_decode end-->

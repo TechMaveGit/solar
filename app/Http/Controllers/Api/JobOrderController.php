@@ -41,6 +41,7 @@ class JobOrderController extends Controller
 
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
+        $Date = $request->input('date');
 
         // $query = JobOrder::where('staff_id', auth()->user()->id)->with('client')->orderBy('id', 'DESC');
         $query = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time'])
@@ -53,6 +54,9 @@ class JobOrderController extends Controller
             $query->where('date', '>=', $startDate);
         } elseif ($endDate) {
             $query->where('date', '<=', $endDate);
+        }
+        if($Date){
+            $query->where('date', '=', $Date);
         }
 
         $jobs = $query->get();

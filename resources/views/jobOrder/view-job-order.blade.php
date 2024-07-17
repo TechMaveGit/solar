@@ -4384,6 +4384,7 @@
             if (currentStep > 0) {
                 currentStep--;
                 showStep(currentStep);
+                scrollToTop();
             }
         });
 
@@ -4391,11 +4392,18 @@
             if (currentStep < steps.length - 1) {
                 currentStep++;
                 showStep(currentStep);
+                scrollToTop();
             }
         });
 
         // Initialize the first step
         showStep(currentStep);
+
+        function scrollToTop() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 'fast');
+        }
     }
 
 </script>
