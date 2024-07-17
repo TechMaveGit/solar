@@ -126,7 +126,8 @@ class JobOrderController extends Controller
     }
 
     public function updateJobOrder(Request $request){
-        // dd(auth()->user()->id);
+
+        // dd(request()->all());
         $jobOrder = JobOrder::where(['id'=>$request->id,'staff_id'=>auth()->user()->id])->first();
         if ($jobOrder) {
             $validator = Validator::make($request->all(), [
@@ -156,6 +157,10 @@ class JobOrderController extends Controller
                 'diverter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'certificate_image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'certificate_image' => 'required|array',
+                'installer_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'owner_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'tester_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'test_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             try {
@@ -573,6 +578,30 @@ class JobOrderController extends Controller
                     $jobOrder->design_and_installation = json_encode($design_and_installation);
                     $jobOrder->test_report_grid = json_encode($test_report_grid);
 
+                    if ($request->hasFile('installer_sign')) {
+                        $folderName = 'base_document';
+                        $sign_image = $request->file('installer_sign');
+                        $filePath = $this->upload($sign_image, $folderName);
+                        $jobOrder->installer_sign = $filePath;
+                    }
+                    if ($request->hasFile('owner_sign')) {
+                        $folderName = 'base_document';
+                        $sign_image = $request->file('owner_sign');
+                        $filePath = $this->upload($sign_image, $folderName);
+                        $jobOrder->owner_sign = $filePath;
+                    }
+                    if ($request->hasFile('tester_signature')) {
+                        $folderName = 'base_document';
+                        $sign_image = $request->file('tester_signature');
+                        $filePath = $this->upload($sign_image, $folderName);
+                        $jobOrder->tester_signature = $filePath;
+                    }
+                    if ($request->hasFile('test_signature')) {
+                        $folderName = 'base_document';
+                        $sign_image = $request->file('test_signature');
+                        $filePath = $this->upload($sign_image, $folderName);
+                        $jobOrder->test_signature = $filePath;
+                    }
                     $jobOrder->save();
 
                     $imagesToUpload = ['rail_image', 'panel_label_image',

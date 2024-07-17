@@ -617,13 +617,23 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-6">
+                                                            {{-- <div class="col-sm-6">
                                                                 <div class="form-group"><label
                                                                         class="form-label">Signed: </label>
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="installer_sign" class="form-control"
                                                                         value="{{ $jobOrder->installer_sign }}" readonly>
+                                                                    </div>
+                                                                </div>
+                                                            </div> --}}
+                                                            <div class="col-md-6">
+                                                                <div class="form-group"><label class="form-label"
+                                                                        for="fv-Postal">Signed:</label>
+                                                                    <div class="form-control-wrap">
+                                                                        <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->installer_sign }}">
+                                                                            <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->installer_sign }}" alt="" style="border: 1px solid #dbdfea;">
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -690,13 +700,23 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-12">
+                                                            {{-- <div class="col-sm-12">
                                                                 <div class="form-group"><label
                                                                         class="form-label">Signed: </label>
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="owner_sign" value="{{ $jobOrder->owner_sign }}" readonly class="form-control"
                                                                             placeholder="">
+                                                                    </div>
+                                                                </div>
+                                                            </div> --}}
+                                                            <div class="col-md-6">
+                                                                <div class="form-group"><label class="form-label"
+                                                                        for="fv-Postal">Signed:</label>
+                                                                    <div class="form-control-wrap">
+                                                                        <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->owner_sign }}">
+                                                                            <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->owner_sign }}" alt="" style="border: 1px solid #dbdfea;">
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1191,13 +1211,23 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-6">
+                                                            {{-- <div class="col-sm-6">
                                                                 <div class="form-group"><label
                                                                         class="form-label">Signed: </label>
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="installer_sign" class="form-control"
                                                                         value="{{ $jobOrder->installer_sign }}" readonly>
+                                                                    </div>
+                                                                </div>
+                                                            </div> --}}
+                                                            <div class="col-md-6">
+                                                                <div class="form-group"><label class="form-label"
+                                                                        for="fv-Postal">Signed:</label>
+                                                                    <div class="form-control-wrap">
+                                                                        <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->installer_sign }}">
+                                                                            <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->installer_sign }}" alt="" style="border: 1px solid #dbdfea;">
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1263,13 +1293,23 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-12">
+                                                            {{-- <div class="col-sm-12">
                                                                 <div class="form-group"><label
                                                                         class="form-label">Signed: </label>
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="owner_sign" value="{{ $jobOrder->owner_sign }}" readonly class="form-control"
                                                                             placeholder="">
+                                                                    </div>
+                                                                </div>
+                                                            </div> --}}
+                                                            <div class="col-md-6">
+                                                                <div class="form-group"><label class="form-label"
+                                                                        for="fv-Postal">Signed:</label>
+                                                                    <div class="form-control-wrap">
+                                                                        <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->owner_sign }}">
+                                                                            <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->owner_sign }}" alt="" style="border: 1px solid #dbdfea;">
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1745,17 +1785,6 @@
 
                                                             </ul>
                                                         </div>
-
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group"><label
-                                                                    class="form-label">Signature/Tester </label>
-                                                                <div class="form-control-wrap">
-
-                                                                    <input type="text" name="tester_signature" class="form-control"
-                                                                    value="{{ $jobOrder->tester_signature }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group"><label
                                                                     class="form-label">Date</label>
@@ -1769,6 +1798,27 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        {{-- <div class="col-sm-6">
+                                                            <div class="form-group"><label
+                                                                    class="form-label">Signature/Tester </label>
+                                                                <div class="form-control-wrap">
+
+                                                                    <input type="text" name="tester_signature" class="form-control"
+                                                                    value="{{ $jobOrder->tester_signature }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div> --}}
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label class="form-label"
+                                                                    for="fv-Postal">Signature/Tester</label>
+                                                                <div class="form-control-wrap">
+                                                                    <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->tester_signature }}">
+                                                                        <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->tester_signature }}" alt="" style="border: 1px solid #dbdfea;">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="col-md-12">
                                                             <div class="form-group"><label class="form-label"
                                                                     for="fv-message">Remarks</label>
@@ -3123,17 +3173,6 @@
 
                                                             </ul>
                                                         </div>
-
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group"><label
-                                                                    class="form-label">Signature/Tester </label>
-                                                                <div class="form-control-wrap">
-
-                                                                    <input type="text" name="tester_signature" class="form-control"
-                                                                    value="{{ $jobOrder->tester_signature }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group"><label
                                                                     class="form-label">Date</label>
@@ -3147,6 +3186,26 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        {{-- <div class="col-sm-6">
+                                                            <div class="form-group"><label
+                                                                    class="form-label">Signature/Tester </label>
+                                                                <div class="form-control-wrap">
+                                                                    <input type="text" name="tester_signature" class="form-control"
+                                                                    value="{{ $jobOrder->tester_signature }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div> --}}
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label class="form-label"
+                                                                    for="fv-Postal">Signature/Tester</label>
+                                                                <div class="form-control-wrap">
+                                                                    <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->tester_signature }}">
+                                                                        <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->tester_signature }}" alt="" style="border: 1px solid #dbdfea;">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="col-md-12">
                                                             <div class="form-group"><label class="form-label"
                                                                     for="fv-message">Remarks</label>
@@ -3187,7 +3246,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-sm-6">
+                                                        {{-- <div class="col-sm-6">
                                                             <div class="form-group"><label
                                                                     class="form-label">Signature/Tester </label>
                                                                 <div class="form-control-wrap">
@@ -3196,8 +3255,17 @@
                                                                     value="{{ $jobOrder->test_signature }}" readonly>
                                                                 </div>
                                                             </div>
+                                                        </div> --}}
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label class="form-label"
+                                                                    for="fv-Postal">Signature/Tester</label>
+                                                                <div class="form-control-wrap">
+                                                                    <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->test_signature }}">
+                                                                        <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->test_signature }}" alt="" style="border: 1px solid #dbdfea;">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
                                                         </div>
-
                                                         <div class="filedsNote">
                                                             <p>Inspected circuits (fill out one sheet for large
                                                                 systems and for separate inspections per

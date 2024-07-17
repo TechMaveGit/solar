@@ -426,8 +426,8 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" placeholder=""
-                                                                        id="company_name" name="company_name" required>
+                                                                        type="text" class="form-control company_name" placeholder=""
+                                                                        id="" name="company_name" required>
                                                                         <span id="" class="error company_name_err"></span>
                                                                 </div>
                                                             </div>
@@ -713,7 +713,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="installer_sign" class="form-control"
-                                                                                placeholder="">
+                                                                                placeholder="" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -786,7 +786,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="owner_sign" class="form-control"
-                                                                                placeholder="">
+                                                                                placeholder="" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -957,8 +957,8 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" placeholder=""
-                                                                        id="company_name" name="company_name" required>
+                                                                        type="text" class="form-control company_name" placeholder=""
+                                                                        id="" name="company_name" required>
                                                                         <span id="" class="error company_name_err"></span>
                                                                 </div>
                                                             </div>
@@ -1297,7 +1297,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="installer_sign" class="form-control"
-                                                                                placeholder="">
+                                                                                placeholder="" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1369,7 +1369,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="owner_sign" class="form-control"
-                                                                                placeholder="">
+                                                                                placeholder="" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1459,7 +1459,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installer_company_name"
+                                                                        type="text" class="form-control installer_company_name" id=""
                                                                         name="installer_company_name" required>
                                                                         <span id="" class="error installer_company_name_err"></span>
                                                                 </div>
@@ -1864,7 +1864,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="tester_signature" class="form-control"
-                                                                            placeholder="">
+                                                                            placeholder="" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1927,7 +1927,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="test_signature" class="form-control"
-                                                                            placeholder="">
+                                                                            placeholder="" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2735,7 +2735,7 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installer_company_name"
+                                                                        type="text" class="form-control installer_company_name" id=""
                                                                         name="installer_company_name" required>
                                                                         <span id="" class="error installer_company_name_err"></span>
                                                                 </div>
@@ -3283,8 +3283,8 @@
                                                                         class="form-label">Signature/Tester </label>
                                                                     <div class="form-control-wrap">
 
-                                                                        <input type="text" class="form-control"
-                                                                            placeholder="">
+                                                                        <input type="text" name="tester_signature" class="form-control"
+                                                                            placeholder="" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -3347,7 +3347,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="test_signature" class="form-control"
-                                                                            placeholder="">
+                                                                            placeholder="" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -4498,11 +4498,9 @@
 </script>
 <script>
     $(document).ready(function() {
-        $('#company_name').on('change', function() {
-
+        $('.company_name').on('change', function() {
             var companyNameValue = $(this).val();
-
-            $('#installer_company_name').val(companyNameValue);
+            $('.installer_company_name').val(companyNameValue);
         });
     });
 // get client details for auto fill
@@ -4633,7 +4631,7 @@
 
         // Do something with the visible steps
         visibleSteps.forEach(step => {
-            console.log(step); // or any other operation you need to perform
+            // console.log(step); // or any other operation you need to perform
             return step;
         });
     };
