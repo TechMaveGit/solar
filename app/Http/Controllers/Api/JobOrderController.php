@@ -515,66 +515,66 @@ class JobOrderController extends Controller
                     // $jobOrder->city = $jobOrderData['city'];
                     // $jobOrder->postal_code = $jobOrderData['postal_code'];
                     // Installation Details
-                    $jobOrder->applicant_name = $jobOrderData['applicant_name'];
-                    $jobOrder->installation_address = $jobOrderData['installation_address'];
-                    $jobOrder->installation_eircode = $jobOrderData['installation_eircode'];
-                    $jobOrder->installation_mprn = $jobOrderData['installation_mprn'];
+                    $jobOrder->applicant_name = $jobOrderData['applicant_name'] ?? null;
+                    $jobOrder->installation_address = $jobOrderData['installation_address'] ?? null;
+                    $jobOrder->installation_eircode = $jobOrderData['installation_eircode'] ?? null;
+                    $jobOrder->installation_mprn = $jobOrderData['installation_mprn'] ?? null;
                     // System Details
-                    $jobOrder->solar_pv_system_size = $jobOrderData['solar_pv_system_size'];
-                    $jobOrder->battery_storage = $jobOrderData['battery_storage'];
-                    $jobOrder->annual_estimated_yield = $jobOrderData['annual_estimated_yield'];
-                    $jobOrder->yield_calculation = $jobOrderData['yield_calculation'];
-                    $jobOrder->water_diverter = $jobOrderData['water_diverter'];
+                    $jobOrder->solar_pv_system_size = $jobOrderData['solar_pv_system_size'] ?? null;
+                    $jobOrder->battery_storage = $jobOrderData['battery_storage'] ?? null;
+                    $jobOrder->annual_estimated_yield = $jobOrderData['annual_estimated_yield'] ?? null;
+                    $jobOrder->yield_calculation = $jobOrderData['yield_calculation'] ?? null;
+                    $jobOrder->water_diverter = $jobOrderData['water_diverter'] ?? null;
                     // PV registered company
-                    $jobOrder->company_name = $jobOrderData['company_name'];
-                    $jobOrder->company_number = $jobOrderData['company_number'];
-                    $jobOrder->property_year_construction = $jobOrderData['property_year_construction'];
-                    $jobOrder->cost_installation = $jobOrderData['cost_installation'];
+                    $jobOrder->company_name = $jobOrderData['company_name'] ?? null;
+                    $jobOrder->company_number = $jobOrderData['company_number'] ?? null;
+                    $jobOrder->property_year_construction = $jobOrderData['property_year_construction'] ?? null;
+                    $jobOrder->cost_installation = $jobOrderData['cost_installation'] ?? null;
                     //installer declaration/ details
-                    $jobOrder->installer_name = $jobOrderData['installer_name'];
-                    $jobOrder->installer_date = $jobOrderData['installer_date'];
-                    $jobOrder->installer_completed_date = $jobOrderData['installer_completed_date'];
-                    // $jobOrder->installer_sign = $jobOrderData['installer_sign'];
+                    $jobOrder->installer_name = $jobOrderData['installer_name'] ?? null;
+                    $jobOrder->installer_date = $jobOrderData['installer_date'] ?? null;
+                    $jobOrder->installer_completed_date = $jobOrderData['installer_completed_date'] ?? null;
+                    // $jobOrder->installer_sign = $jobOrderData['installer_sign'] ?? null;
                     //Homeowner/Applicant Declaration
-                    $jobOrder->owner_name = $jobOrderData['owner_name'];
-                    $jobOrder->owner_date = $jobOrderData['owner_date'];
-                    // $jobOrder->owner_sign = $jobOrderData['owner_sign'];
+                    $jobOrder->owner_name = $jobOrderData['owner_name'] ?? null;
+                    $jobOrder->owner_date = $jobOrderData['owner_date'] ?? null;
+                    // $jobOrder->owner_sign = $jobOrderData['owner_sign'] ?? null;
                     //Customer
-                    $jobOrder->customer_name = $jobOrderData['customer_name'];
-                    $jobOrder->customer_address = $jobOrderData['customer_address'];
-                    $jobOrder->customer_eircode = $jobOrderData['customer_eircode'];
+                    $jobOrder->customer_name = $jobOrderData['customer_name'] ?? null;
+                    $jobOrder->customer_address = $jobOrderData['customer_address'] ?? null;
+                    $jobOrder->customer_eircode = $jobOrderData['customer_eircode'] ?? null;
                     //Installation Contractor
-                    $jobOrder->installer_company_name = $jobOrderData['installer_company_name'];
-                    $jobOrder->installer_company_representative = $jobOrderData['installer_company_representative'];
-                    $jobOrder->installer_company_address = $jobOrderData['installer_company_address'];
+                    $jobOrder->installer_company_name = $jobOrderData['installer_company_name'] ?? null;
+                    $jobOrder->installer_company_representative = $jobOrderData['installer_company_representative'] ?? null;
+                    $jobOrder->installer_company_address = $jobOrderData['installer_company_address'] ?? null;
                     // PB System Description
-                    $jobOrder->pv_manufacturer = $jobOrderData['pv_manufacturer'];
-                    $jobOrder->pv_model_type = $jobOrderData['pv_model_type'];
-                    $jobOrder->pv_model_performance = $jobOrderData['pv_model_performance'];
-                    $jobOrder->pv_number_modules = $jobOrderData['pv_number_modules'];
-                    $jobOrder->pv_short_circuit_current = $jobOrderData['pv_short_circuit_current'];
-                    $jobOrder->pv_mpp_current = $jobOrderData['pv_mpp_current'];
-                    $jobOrder->pv_open_circuit_voltage = $jobOrderData['pv_open_circuit_voltage'];
-                    $jobOrder->pv_mpp_voltage = $jobOrderData['pv_mpp_voltage'];
+                    $jobOrder->pv_manufacturer = $jobOrderData['pv_manufacturer'] ?? null;
+                    $jobOrder->pv_model_type = $jobOrderData['pv_model_type'] ?? null;
+                    $jobOrder->pv_model_performance = $jobOrderData['pv_model_performance'] ?? null;
+                    $jobOrder->pv_number_modules = $jobOrderData['pv_number_modules'] ?? null;
+                    $jobOrder->pv_short_circuit_current = $jobOrderData['pv_short_circuit_current'] ?? null;
+                    $jobOrder->pv_mpp_current = $jobOrderData['pv_mpp_current'] ?? null;
+                    $jobOrder->pv_open_circuit_voltage = $jobOrderData['pv_open_circuit_voltage'] ?? null;
+                    $jobOrder->pv_mpp_voltage = $jobOrderData['pv_mpp_voltage'] ?? null;
                     //Electric Cert
-                    $jobOrder->electric_cert_number = $jobOrderData['electric_cert_number'];
-                    $jobOrder->electric_record_sheet = $jobOrderData['electric_record_sheet'];
-                    $jobOrder->electric_re = $jobOrderData['electric_re'];
-                    $jobOrder->electric_loop = $jobOrderData['electric_loop'];
-                    $jobOrder->electric_rcdx1 = $jobOrderData['electric_rcdx1'];
-                    $jobOrder->electric_rcdx5 = $jobOrderData['electric_rcdx5'];
+                    $jobOrder->electric_cert_number = $jobOrderData['electric_cert_number'] ?? null;
+                    $jobOrder->electric_record_sheet = $jobOrderData['electric_record_sheet'] ?? null;
+                    $jobOrder->electric_re = $jobOrderData['electric_re'] ?? null;
+                    $jobOrder->electric_loop = $jobOrderData['electric_loop'] ?? null;
+                    $jobOrder->electric_rcdx1 = $jobOrderData['electric_rcdx1'] ?? null;
+                    $jobOrder->electric_rcdx5 = $jobOrderData['electric_rcdx5'] ?? null;
                     //Test Results
                     $jobOrder->test_result = $jobOrderData['test_result'] ?? null;
                     $jobOrder->test_result2 = $jobOrderData['test_result2'] ?? null;
                     $jobOrder->test_result3 = $jobOrderData['test_result3'] ?? null;
-                    // $jobOrder->tester_signature = $jobOrderData['tester_signature'];
-                    $jobOrder->test_result_date = $jobOrderData['test_result_date'];
-                    $jobOrder->test_remark = $jobOrderData['test_remark'];
+                    // $jobOrder->tester_signature = $jobOrderData['tester_signature'] ?? null;
+                    $jobOrder->test_result_date = $jobOrderData['test_result_date'] ?? null;
+                    $jobOrder->test_remark = $jobOrderData['test_remark'] ?? null;
 
-                    $jobOrder->test_date = $jobOrderData['test_date'];
-                    // $jobOrder->test_signature = $jobOrderData['test_signature'];
-                    $jobOrder->test_notes = $jobOrderData['test_notes'];
-                    $jobOrder->notes = $jobOrderData['notes'];
+                    $jobOrder->test_date = $jobOrderData['test_date'] ?? null;
+                    // $jobOrder->test_signature = $jobOrderData['test_signature'] ?? null;
+                    $jobOrder->test_notes = $jobOrderData['test_notes'] ?? null;
+                    $jobOrder->notes = $jobOrderData['notes'] ?? null;
 
                     $jobOrder->system_components = json_encode($system_components);
                     $jobOrder->pv_inverts = json_encode($pv_inverts);
