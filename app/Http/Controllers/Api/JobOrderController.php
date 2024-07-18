@@ -125,12 +125,13 @@ class JobOrderController extends Controller
         }
     }
     public function updateJobOrder(Request $request){
-        // dd($request->job_order['country']);
-        $jobOrderData = $request->input('job_order');
+        // dd($request->all());
+
+        $jobOrderData = json_decode($request->input('job_order'), true);
 
         $jobOrder = JobOrder::where(['id'=>$request->id,'staff_id'=>auth()->user()->id])->first();
         if ($jobOrder) {
-            // $validator = Validator::make($request->all(), [
+            $validator = Validator::make($request->all(), [
                 // 'job_order.client_type' => 'required',
                 // 'job_order.client_id' => 'required',
                 // 'job_order.staff_id' => 'required',
@@ -162,11 +163,12 @@ class JobOrderController extends Controller
                 // 'owner_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 // 'tester_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 // 'test_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // ]);
+                    'job_order' => 'required|json',
+            ]);
 
             try {
-                // if ($validator->passes()) {
-
+                if ($validator->passes()) {
+                    // dd($jobOrderData['installation_eircode']);
                     $system_components = [
                         'pv_make' => $jobOrderData['pv_make'] ?? null,
                         'pv_model' => $jobOrderData['pv_model'] ?? null,
@@ -640,12 +642,12 @@ class JobOrderController extends Controller
                         'status' => true,
                         'message' => 'Record updated successfully.',
                     ]);
-                // }
-                // return response()->json([
-                //     'status' => false,
-                //     'message' => $validator->errors()->first(),
-                //     'errors' => $validator->errors(),
-                // ]);
+                }
+                return response()->json([
+                    'status' => false,
+                    'message' => $validator->errors()->first(),
+                    'errors' => $validator->errors(),
+                ]);
             } catch (\Throwable $th) {
                 return response()->json([
                     'status' => false,
