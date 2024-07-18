@@ -124,9 +124,543 @@ class JobOrderController extends Controller
             ],404);
         }
     }
+    // public function updateJobOrder(Request $request){
+    //     // dd($request->all());
+    //     $jobOrderData = $request->input('job_order');
+
+    //     $jobOrder = JobOrder::where(['id'=>$request->id,'staff_id'=>auth()->user()->id])->first();
+    //     if ($jobOrder) {
+    //         // $validator = Validator::make($request->all(), [
+    //         //     // 'client_type' => 'required',
+    //         //     // 'client_id' => 'required',
+    //         //     // 'staff_id' => 'required',
+    //         //     // 'date' => 'required',
+    //         //     // 'time' => 'required',
+    //         //     'applicant_name' => 'required',
+    //         //     'installation_eircode' => 'required',
+    //         //     'solar_pv_system_size' => 'required',
+    //         //     'company_name' => 'required',
+    //         //     'customer_name' => 'required',
+    //         //     'customer_eircode' => 'required',
+    //         //     'installer_company_name' => 'required',
+    //         //     'installer_company_address' => 'required',
+    //         //     'rail_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'panel_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'panel_roof_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'fireman_switch_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'inverter_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'inverter_install_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'fuseboard_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'meter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'battry_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'battry_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'diverter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'certificate_image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'certificate_image' => 'required|array',
+    //         //     'installer_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'owner_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'tester_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         //     'test_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //         // ]);
+
+    //         try {
+    //             // if ($validator->passes()) {
+
+    //                 $system_components = [
+    //                     'pv_make' => $jobOrderData['pv_make'] ?? null,
+    //                     'pv_model' => $jobOrderData['pv_model'] ?? null,
+    //                     'pv_rating' => $jobOrderData['pv_rating'] ?? null,
+    //                     'pv_quantity' => $jobOrderData['pv_quantity'] ?? null,
+    //                     'ms_make' => $jobOrderData['ms_make'] ?? null,
+    //                     'ms_model' => $jobOrderData['ms_model'] ?? null,
+    //                     'ms_rating' => $jobOrderData['ms_rating'] ?? null,
+    //                     'ms_quantity' => $jobOrderData['ms_quantity'] ?? null,
+    //                     'inverter_make' => $jobOrderData['inverter_make'] ?? null,
+    //                     'inverter_model' => $jobOrderData['inverter_model'] ?? null,
+    //                     'inverter_rating' => $jobOrderData['inverter_rating'] ?? null,
+    //                     'inverter_quantity' => $jobOrderData['inverter_quantity'] ?? null,
+    //                     'inverter_make2' => $jobOrderData['inverter_make2'] ?? null,
+    //                     'inverter_model2' => $jobOrderData['inverter_model2'] ?? null,
+    //                     'inverter_rating2' => $jobOrderData['inverter_rating2'] ?? null,
+    //                     'inverter_quantity2' => $jobOrderData['inverter_quantity2'] ?? null,
+    //                     'inverter_make3' => $jobOrderData['inverter_make3'] ?? null,
+    //                     'inverter_model3' => $jobOrderData['inverter_model3'] ?? null,
+    //                     'inverter_rating3' => $jobOrderData['inverter_rating3'] ?? null,
+    //                     'inverter_rating3' => $jobOrderData['inverter_rating3'] ?? null,
+    //                     'inverter_quantity3' => $jobOrderData['inverter_quantity3'] ?? null,
+    //                     'energy_make' => $jobOrderData['energy_make'] ?? null,
+    //                     'energy_model' => $jobOrderData['energy_model'] ?? null,
+    //                     'energy_rating' => $jobOrderData['energy_rating'] ?? null,
+    //                     'energy_quantity' => $jobOrderData['energy_quantity'] ?? null,
+    //                     'battery_make' => $jobOrderData['battery_make'] ?? null,
+    //                     'battery_dc' => $jobOrderData['battery_dc'] ?? null,
+    //                     'battery_ac' => $jobOrderData['battery_ac'] ?? null,
+    //                     'battery_rating_kw' => $jobOrderData['battery_rating_kw'] ?? null,
+    //                     'battery_rating_kwh' => $jobOrderData['battery_rating_kwh'] ?? null,
+    //                     'battery_quantity' => $jobOrderData['battery_quantity'] ?? null,
+    //                 ];
+    //                 $pv_inverts = [
+    //                     'pv_manufacturer' => $jobOrderData['pv_manufacturer'] ?? null,
+    //                     'pv_model_type' => $jobOrderData['pv_model_type'] ?? null,
+    //                     'pv_model_performance' => $jobOrderData['pv_model_performance'] ?? null,
+    //                     'pv_number_modules' => $jobOrderData['pv_number_modules'] ?? null,
+    //                     'pv_short_circuit_current' => $jobOrderData['pv_short_circuit_current'] ?? null,
+    //                     'pv_open_circuit_voltage' => $jobOrderData['pv_open_circuit_voltage'] ?? null,
+    //                     'pv_mpp_voltage' => $jobOrderData['pv_mpp_voltage'] ?? null,
+    //                     'inverter_manufacturer' => $jobOrderData['inverter_manufacturer'] ?? null,
+    //                     'inverter_type' => $jobOrderData['inverter_type'] ?? null,
+    //                     'inverter_ac_nominal' => $jobOrderData['inverter_ac_nominal'] ?? null,
+    //                     'pv_inverter_quantity' => $jobOrderData['pv_inverter_quantity'] ?? null,
+    //                     'inverter_ac_maximum' => $jobOrderData['inverter_ac_maximum'] ?? null,
+    //                     'inverter_dc_maximum' => $jobOrderData['inverter_dc_maximum'] ?? null,
+    //                     'inverter_manufacturer_2' => $jobOrderData['inverter_manufacturer_2'] ?? null,
+    //                     'inverter_type_2' => $jobOrderData['inverter_type_2'] ?? null,
+    //                     'inverter_ac_nominal_2' => $jobOrderData['inverter_ac_nominal_2'] ?? null,
+    //                     'pv_inverter_quantity_2' => $jobOrderData['pv_inverter_quantity_2'] ?? null,
+    //                     'inverter_ac_maximum2' => $jobOrderData['inverter_ac_maximum2'] ?? null,
+    //                     'inverter_dc_maximum2' => $jobOrderData['inverter_dc_maximum2'] ?? null,
+    //                     'inverter_manufacturer_3' => $jobOrderData['inverter_manufacturer_3'] ?? null,
+    //                     'inverter_type_3' => $jobOrderData['inverter_type_3'] ?? null,
+    //                     'inverter_ac_nominal_3' => $jobOrderData['inverter_ac_nominal_3'] ?? null,
+    //                     'pv_inverter_quantity_3' => $jobOrderData['pv_inverter_quantity_3'] ?? null,
+    //                     'inverter_ac_maximum3' => $jobOrderData['inverter_ac_maximum3'] ?? null,
+    //                     'inverter_dc_maximum3' => $jobOrderData['inverter_dc_maximum3'] ?? null,
+    //                     'inverter_test_date' => $jobOrderData['inverter_test_date'] ?? null,
+    //                     'inverter_next_test_date' => $jobOrderData['inverter_next_test_date'] ?? null,
+    //                     'inverter_test_reason' => $jobOrderData['inverter_test_reason'] ?? null,
+    //                     'inverter_test2_reason' => $jobOrderData['inverter_test2_reason'] ?? null,
+    //                 ];
+    //                 $design_and_installation = [
+    //                     "design_installation_1" => $jobOrderData['design_installation_1'] ?? null,
+    //                     "design_installation_2" => $jobOrderData['design_installation_2'] ?? null,
+    //                     "design_installation_3" => $jobOrderData['design_installation_3'] ?? null,
+    //                     "design_installation_4" => $jobOrderData['design_installation_4'] ?? null,
+    //                     "design_installation_5" => $jobOrderData['design_installation_5'] ?? null,
+    //                     "design_installation_6" => $jobOrderData['design_installation_6'] ?? null,
+    //                     "design_installation_7" => $jobOrderData['design_installation_7'] ?? null,
+    //                     "design_installation_8" => $jobOrderData['design_installation_8'] ?? null,
+    //                     "design_installation_9" => $jobOrderData['design_installation_9'] ?? null,
+    //                     "design_installation_10" => $jobOrderData['design_installation_10'] ?? null,
+    //                     "overvoltage_1" => $jobOrderData['overvoltage_1'] ?? null,
+    //                     "overvoltage_2" => $jobOrderData['overvoltage_2'] ?? null,
+    //                     "overvoltage_3" => $jobOrderData['overvoltage_3'] ?? null,
+    //                     "overvoltage_4" => $jobOrderData['overvoltage_4'] ?? null,
+    //                     "special_factor_1" => $jobOrderData['special_factor_1'] ?? null,
+    //                     "special_factor_2" => $jobOrderData['special_factor_2'] ?? null,
+    //                     "special_factor_3" => $jobOrderData['special_factor_3'] ?? null,
+    //                     "marking_labelling_1" => $jobOrderData['marking_labelling_1'] ?? null,
+    //                     "marking_labelling_2" => $jobOrderData['marking_labelling_2'] ?? null,
+    //                     "marking_labelling_3" => $jobOrderData['marking_labelling_3'] ?? null,
+    //                     "marking_labelling_4" => $jobOrderData['marking_labelling_4'] ?? null,
+    //                     "marking_labelling_5" => $jobOrderData['marking_labelling_5'] ?? null,
+    //                     "marking_labelling_6" => $jobOrderData['marking_labelling_6'] ?? null,
+    //                     "marking_labelling_7" => $jobOrderData['marking_labelling_7'] ?? null,
+    //                     "general_installation_1" => $jobOrderData['general_installation_1'] ?? null,
+    //                     "general_installation_2" => $jobOrderData['general_installation_2'] ?? null,
+    //                     "general_installation_3" => $jobOrderData['general_installation_3'] ?? null,
+    //                 ];
+    //                 $test_report_grid = [
+    //                     "pv_generator_module1" => $jobOrderData['pv_generator_module1'] ?? null,
+    //                     "pv_generator_module2" => $jobOrderData['pv_generator_module2'] ?? null,
+    //                     "pv_generator_module3" => $jobOrderData['pv_generator_module3'] ?? null,
+    //                     "pv_generator_module4" => $jobOrderData['pv_generator_module4'] ?? null,
+    //                     "pv_generator_module5" => $jobOrderData['pv_generator_module5'] ?? null,
+    //                     "pv_generator_module6" => $jobOrderData['pv_generator_module6'] ?? null,
+    //                     "pv_generator_module7" => $jobOrderData['pv_generator_module7'] ?? null,
+    //                     "pv_generator_module8" => $jobOrderData['pv_generator_module8'] ?? null,
+    //                     "pv_generator_module9" => $jobOrderData['pv_generator_module9'] ?? null,
+    //                     "pv_generator_module10" => $jobOrderData['pv_generator_module10'] ?? null,
+    //                     "pv_generator_quantity1" => $jobOrderData['pv_generator_quantity1'] ?? null,
+    //                     "pv_generator_quantity2" => $jobOrderData['pv_generator_quantity2'] ?? null,
+    //                     "pv_generator_quantity3" => $jobOrderData['pv_generator_quantity3'] ?? null,
+    //                     "pv_generator_quantity4" => $jobOrderData['pv_generator_quantity4'] ?? null,
+    //                     "pv_generator_quantity5" => $jobOrderData['pv_generator_quantity5'] ?? null,
+    //                     "pv_generator_quantity6" => $jobOrderData['pv_generator_quantity6'] ?? null,
+    //                     "pv_generator_quantity7" => $jobOrderData['pv_generator_quantity7'] ?? null,
+    //                     "pv_generator_quantity8" => $jobOrderData['pv_generator_quantity8'] ?? null,
+    //                     "pv_generator_quantity9" => $jobOrderData['pv_generator_quantity9'] ?? null,
+    //                     "pv_generator_quantity10" => $jobOrderData['pv_generator_quantity10'] ?? null,
+    //                     "generator_parameters_voc1" => $jobOrderData['generator_parameters_voc1'] ?? null,
+    //                     "generator_parameters_voc2" => $jobOrderData['generator_parameters_voc2'] ?? null,
+    //                     "generator_parameters_voc3" => $jobOrderData['generator_parameters_voc3'] ?? null,
+    //                     "generator_parameters_voc4" => $jobOrderData['generator_parameters_voc4'] ?? null,
+    //                     "generator_parameters_voc5" => $jobOrderData['generator_parameters_voc5'] ?? null,
+    //                     "generator_parameters_voc6" => $jobOrderData['generator_parameters_voc6'] ?? null,
+    //                     "generator_parameters_voc7" => $jobOrderData['generator_parameters_voc7'] ?? null,
+    //                     "generator_parameters_voc8" => $jobOrderData['generator_parameters_voc8'] ?? null,
+    //                     "generator_parameters_voc9" => $jobOrderData['generator_parameters_voc9'] ?? null,
+    //                     "generator_parameters_voc10" => $jobOrderData['generator_parameters_voc10'] ?? null,
+    //                     "generator_parameters_isc1" => $jobOrderData['generator_parameters_isc1'] ?? null,
+    //                     "generator_parameters_isc2" => $jobOrderData['generator_parameters_isc2'] ?? null,
+    //                     "generator_parameters_isc3" => $jobOrderData['generator_parameters_isc3'] ?? null,
+    //                     "generator_parameters_isc4" => $jobOrderData['generator_parameters_isc4'] ?? null,
+    //                     "generator_parameters_isc5" => $jobOrderData['generator_parameters_isc5'] ?? null,
+    //                     "generator_parameters_isc6" => $jobOrderData['generator_parameters_isc6'] ?? null,
+    //                     "generator_parameters_isc7" => $jobOrderData['generator_parameters_isc7'] ?? null,
+    //                     "generator_parameters_isc8" => $jobOrderData['generator_parameters_isc8'] ?? null,
+    //                     "generator_parameters_isc9" => $jobOrderData['generator_parameters_isc9'] ?? null,
+    //                     "generator_parameters_isc10" => $jobOrderData['generator_parameters_isc10'] ?? null,
+    //                     "protection_device1" => $jobOrderData['protection_device1'] ?? null,
+    //                     "protection_device2" => $jobOrderData['protection_device2'] ?? null,
+    //                     "protection_device3" => $jobOrderData['protection_device3'] ?? null,
+    //                     "protection_device4" => $jobOrderData['protection_device4'] ?? null,
+    //                     "protection_device5" => $jobOrderData['protection_device5'] ?? null,
+    //                     "protection_device6" => $jobOrderData['protection_device6'] ?? null,
+    //                     "protection_device7" => $jobOrderData['protection_device7'] ?? null,
+    //                     "protection_device8" => $jobOrderData['protection_device8'] ?? null,
+    //                     "protection_device9" => $jobOrderData['protection_device9'] ?? null,
+    //                     "protection_device10" => $jobOrderData['protection_device10'] ?? null,
+    //                     "device_rated_value1" => $jobOrderData['device_rated_value1'] ?? null,
+    //                     "device_rated_value2" => $jobOrderData['device_rated_value2'] ?? null,
+    //                     "device_rated_value3" => $jobOrderData['device_rated_value3'] ?? null,
+    //                     "device_rated_value4" => $jobOrderData['device_rated_value4'] ?? null,
+    //                     "device_rated_value5" => $jobOrderData['device_rated_value5'] ?? null,
+    //                     "device_rated_value6" => $jobOrderData['device_rated_value6'] ?? null,
+    //                     "device_rated_value7" => $jobOrderData['device_rated_value7'] ?? null,
+    //                     "device_rated_value8" => $jobOrderData['device_rated_value8'] ?? null,
+    //                     "device_rated_value9" => $jobOrderData['device_rated_value9'] ?? null,
+    //                     "device_rated_value10" => $jobOrderData['device_rated_value10'] ?? null,
+    //                     "device_dc_rating1" => $jobOrderData['device_dc_rating1'] ?? null,
+    //                     "device_dc_rating2" => $jobOrderData['device_dc_rating2'] ?? null,
+    //                     "device_dc_rating3" => $jobOrderData['device_dc_rating3'] ?? null,
+    //                     "device_dc_rating4" => $jobOrderData['device_dc_rating4'] ?? null,
+    //                     "device_dc_rating5" => $jobOrderData['device_dc_rating5'] ?? null,
+    //                     "device_dc_rating6" => $jobOrderData['device_dc_rating6'] ?? null,
+    //                     "device_dc_rating7" => $jobOrderData['device_dc_rating7'] ?? null,
+    //                     "device_dc_rating8" => $jobOrderData['device_dc_rating8'] ?? null,
+    //                     "device_dc_rating9" => $jobOrderData['device_dc_rating9'] ?? null,
+    //                     "device_dc_rating10" => $jobOrderData['device_dc_rating10'] ?? null,
+    //                     "device_capacity1" => $jobOrderData['device_capacity1'] ?? null,
+    //                     "device_capacity2" => $jobOrderData['device_capacity2'] ?? null,
+    //                     "device_capacity3" => $jobOrderData['device_capacity3'] ?? null,
+    //                     "device_capacity4" => $jobOrderData['device_capacity4'] ?? null,
+    //                     "device_capacity5" => $jobOrderData['device_capacity5'] ?? null,
+    //                     "device_capacity6" => $jobOrderData['device_capacity6'] ?? null,
+    //                     "device_capacity7" => $jobOrderData['device_capacity7'] ?? null,
+    //                     "device_capacity8" => $jobOrderData['device_capacity8'] ?? null,
+    //                     "device_capacity9" => $jobOrderData['device_capacity9'] ?? null,
+    //                     "device_capacity10" => $jobOrderData['device_capacity10'] ?? null,
+    //                     "wiring_type1" => $jobOrderData['wiring_type1'] ?? null,
+    //                     "wiring_type2" => $jobOrderData['wiring_type2'] ?? null,
+    //                     "wiring_type3" => $jobOrderData['wiring_type3'] ?? null,
+    //                     "wiring_type4" => $jobOrderData['wiring_type4'] ?? null,
+    //                     "wiring_type5" => $jobOrderData['wiring_type5'] ?? null,
+    //                     "wiring_type6" => $jobOrderData['wiring_type6'] ?? null,
+    //                     "wiring_type7" => $jobOrderData['wiring_type7'] ?? null,
+    //                     "wiring_type8" => $jobOrderData['wiring_type8'] ?? null,
+    //                     "wiring_type9" => $jobOrderData['wiring_type9'] ?? null,
+    //                     "wiring_type10" => $jobOrderData['wiring_type10'] ?? null,
+    //                     "wiring_phase1" => $jobOrderData['wiring_phase1'] ?? null,
+    //                     "wiring_phase2" => $jobOrderData['wiring_phase2'] ?? null,
+    //                     "wiring_phase3" => $jobOrderData['wiring_phase3'] ?? null,
+    //                     "wiring_phase4" => $jobOrderData['wiring_phase4'] ?? null,
+    //                     "wiring_phase5" => $jobOrderData['wiring_phase5'] ?? null,
+    //                     "wiring_phase6" => $jobOrderData['wiring_phase6'] ?? null,
+    //                     "wiring_phase7" => $jobOrderData['wiring_phase7'] ?? null,
+    //                     "wiring_phase8" => $jobOrderData['wiring_phase8'] ?? null,
+    //                     "wiring_phase9" => $jobOrderData['wiring_phase9'] ?? null,
+    //                     "wiring_phase10" => $jobOrderData['wiring_phase10'] ?? null,
+    //                     "wiring_earth1" => $jobOrderData['wiring_earth1'] ?? null,
+    //                     "wiring_earth2" => $jobOrderData['wiring_earth2'] ?? null,
+    //                     "wiring_earth3" => $jobOrderData['wiring_earth3'] ?? null,
+    //                     "wiring_earth4" => $jobOrderData['wiring_earth4'] ?? null,
+    //                     "wiring_earth5" => $jobOrderData['wiring_earth5'] ?? null,
+    //                     "wiring_earth6" => $jobOrderData['wiring_earth6'] ?? null,
+    //                     "wiring_earth7" => $jobOrderData['wiring_earth7'] ?? null,
+    //                     "wiring_earth8" => $jobOrderData['wiring_earth8'] ?? null,
+    //                     "wiring_earth9" => $jobOrderData['wiring_earth9'] ?? null,
+    //                     "wiring_earth10" => $jobOrderData['wiring_earth10'] ?? null,
+    //                     "tm_voc1" => $jobOrderData['tm_voc1'] ?? null,
+    //                     "tm_voc2" => $jobOrderData['tm_voc2'] ?? null,
+    //                     "tm_voc3" => $jobOrderData['tm_voc3'] ?? null,
+    //                     "tm_voc4" => $jobOrderData['tm_voc4'] ?? null,
+    //                     "tm_voc5" => $jobOrderData['tm_voc5'] ?? null,
+    //                     "tm_voc6" => $jobOrderData['tm_voc6'] ?? null,
+    //                     "tm_voc7" => $jobOrderData['tm_voc7'] ?? null,
+    //                     "tm_voc8" => $jobOrderData['tm_voc8'] ?? null,
+    //                     "tm_voc9" => $jobOrderData['tm_voc9'] ?? null,
+    //                     "tm_voc10" => $jobOrderData['tm_voc10'] ?? null,
+    //                     "tm_isc1" => $jobOrderData['tm_isc1'] ?? null,
+    //                     "tm_isc2" => $jobOrderData['tm_isc2'] ?? null,
+    //                     "tm_isc3" => $jobOrderData['tm_isc3'] ?? null,
+    //                     "tm_isc4" => $jobOrderData['tm_isc4'] ?? null,
+    //                     "tm_isc5" => $jobOrderData['tm_isc5'] ?? null,
+    //                     "tm_isc6" => $jobOrderData['tm_isc6'] ?? null,
+    //                     "tm_isc7" => $jobOrderData['tm_isc7'] ?? null,
+    //                     "tm_isc8" => $jobOrderData['tm_isc8'] ?? null,
+    //                     "tm_isc9" => $jobOrderData['tm_isc9'] ?? null,
+    //                     "tm_isc10" => $jobOrderData['tm_isc10'] ?? null,
+    //                     "tm_irradiance1" => $jobOrderData['tm_irradiance1'] ?? null,
+    //                     "tm_irradiance2" => $jobOrderData['tm_irradiance2'] ?? null,
+    //                     "tm_irradiance3" => $jobOrderData['tm_irradiance3'] ?? null,
+    //                     "tm_irradiance4" => $jobOrderData['tm_irradiance4'] ?? null,
+    //                     "tm_irradiance5" => $jobOrderData['tm_irradiance5'] ?? null,
+    //                     "tm_irradiance6" => $jobOrderData['tm_irradiance6'] ?? null,
+    //                     "tm_irradiance7" => $jobOrderData['tm_irradiance7'] ?? null,
+    //                     "tm_irradiance8" => $jobOrderData['tm_irradiance8'] ?? null,
+    //                     "tm_irradiance9" => $jobOrderData['tm_irradiance9'] ?? null,
+    //                     "tm_irradiance10" => $jobOrderData['tm_irradiance10'] ?? null,
+    //                     "polarity_monitoring1" => $jobOrderData['polarity_monitoring1'] ?? null,
+    //                     "polarity_monitoring2" => $jobOrderData['polarity_monitoring2'] ?? null,
+    //                     "polarity_monitoring3" => $jobOrderData['polarity_monitoring3'] ?? null,
+    //                     "polarity_monitoring4" => $jobOrderData['polarity_monitoring4'] ?? null,
+    //                     "polarity_monitoring5" => $jobOrderData['polarity_monitoring5'] ?? null,
+    //                     "polarity_monitoring6" => $jobOrderData['polarity_monitoring6'] ?? null,
+    //                     "polarity_monitoring7" => $jobOrderData['polarity_monitoring7'] ?? null,
+    //                     "polarity_monitoring8" => $jobOrderData['polarity_monitoring8'] ?? null,
+    //                     "polarity_monitoring9" => $jobOrderData['polarity_monitoring9'] ?? null,
+    //                     "polarity_monitoring10" => $jobOrderData['polarity_monitoring10'] ?? null,
+    //                     "array_test_voltage1" => $jobOrderData['array_test_voltage1'] ?? null,
+    //                     "array_test_voltage2" => $jobOrderData['array_test_voltage2'] ?? null,
+    //                     "array_test_voltage3" => $jobOrderData['array_test_voltage3'] ?? null,
+    //                     "array_test_voltage4" => $jobOrderData['array_test_voltage4'] ?? null,
+    //                     "array_test_voltage5" => $jobOrderData['array_test_voltage5'] ?? null,
+    //                     "array_test_voltage6" => $jobOrderData['array_test_voltage6'] ?? null,
+    //                     "array_test_voltage7" => $jobOrderData['array_test_voltage7'] ?? null,
+    //                     "array_test_voltage8" => $jobOrderData['array_test_voltage8'] ?? null,
+    //                     "array_test_voltage9" => $jobOrderData['array_test_voltage9'] ?? null,
+    //                     "array_test_voltage10" => $jobOrderData['array_test_voltage10'] ?? null,
+    //                     "array_pos1" => $jobOrderData['array_pos1'] ?? null,
+    //                     "array_pos2" => $jobOrderData['array_pos2'] ?? null,
+    //                     "array_pos3" => $jobOrderData['array_pos3'] ?? null,
+    //                     "array_pos4" => $jobOrderData['array_pos4'] ?? null,
+    //                     "array_pos5" => $jobOrderData['array_pos5'] ?? null,
+    //                     "array_pos6" => $jobOrderData['array_pos6'] ?? null,
+    //                     "array_pos7" => $jobOrderData['array_pos7'] ?? null,
+    //                     "array_pos8" => $jobOrderData['array_pos8'] ?? null,
+    //                     "array_pos9" => $jobOrderData['array_pos9'] ?? null,
+    //                     "array_pos10" => $jobOrderData['array_pos10'] ?? null,
+    //                     "array_neg1" => $jobOrderData['array_neg1'] ?? null,
+    //                     "array_neg2" => $jobOrderData['array_neg2'] ?? null,
+    //                     "array_neg3" => $jobOrderData['array_neg3'] ?? null,
+    //                     "array_neg4" => $jobOrderData['array_neg4'] ?? null,
+    //                     "array_neg5" => $jobOrderData['array_neg5'] ?? null,
+    //                     "array_neg6" => $jobOrderData['array_neg6'] ?? null,
+    //                     "array_neg7" => $jobOrderData['array_neg7'] ?? null,
+    //                     "array_neg8" => $jobOrderData['array_neg8'] ?? null,
+    //                     "array_neg9" => $jobOrderData['array_neg9'] ?? null,
+    //                     "array_neg10" => $jobOrderData['array_neg10'] ?? null,
+    //                     "earth_continuty1" => $jobOrderData['earth_continuty1'] ?? null,
+    //                     "earth_continuty2" => $jobOrderData['earth_continuty2'] ?? null,
+    //                     "earth_continuty3" => $jobOrderData['earth_continuty3'] ?? null,
+    //                     "earth_continuty4" => $jobOrderData['earth_continuty4'] ?? null,
+    //                     "earth_continuty5" => $jobOrderData['earth_continuty5'] ?? null,
+    //                     "earth_continuty6" => $jobOrderData['earth_continuty6'] ?? null,
+    //                     "earth_continuty7" => $jobOrderData['earth_continuty7'] ?? null,
+    //                     "earth_continuty8" => $jobOrderData['earth_continuty8'] ?? null,
+    //                     "earth_continuty9" => $jobOrderData['earth_continuty9'] ?? null,
+    //                     "earth_continuty10" => $jobOrderData['earth_continuty10'] ?? null,
+    //                     "switchgear_functioning1" => $jobOrderData['switchgear_functioning1'] ?? null,
+    //                     "switchgear_functioning2" => $jobOrderData['switchgear_functioning2'] ?? null,
+    //                     "switchgear_functioning3" => $jobOrderData['switchgear_functioning3'] ?? null,
+    //                     "switchgear_functioning4" => $jobOrderData['switchgear_functioning4'] ?? null,
+    //                     "switchgear_functioning5" => $jobOrderData['switchgear_functioning5'] ?? null,
+    //                     "switchgear_functioning6" => $jobOrderData['switchgear_functioning6'] ?? null,
+    //                     "switchgear_functioning7" => $jobOrderData['switchgear_functioning7'] ?? null,
+    //                     "switchgear_functioning8" => $jobOrderData['switchgear_functioning8'] ?? null,
+    //                     "switchgear_functioning9" => $jobOrderData['switchgear_functioning9'] ?? null,
+    //                     "switchgear_functioning10" => $jobOrderData['switchgear_functioning10'] ?? null,
+    //                     "test_inverter_make1" => $jobOrderData['test_inverter_make1'] ?? null,
+    //                     "test_inverter_make2" => $jobOrderData['test_inverter_make2'] ?? null,
+    //                     "test_inverter_make3" => $jobOrderData['test_inverter_make3'] ?? null,
+    //                     "test_inverter_make4" => $jobOrderData['test_inverter_make4'] ?? null,
+    //                     "test_inverter_make5" => $jobOrderData['test_inverter_make5'] ?? null,
+    //                     "test_inverter_make6" => $jobOrderData['test_inverter_make6'] ?? null,
+    //                     "test_inverter_make7" => $jobOrderData['test_inverter_make7'] ?? null,
+    //                     "test_inverter_make8" => $jobOrderData['test_inverter_make8'] ?? null,
+    //                     "test_inverter_make9" => $jobOrderData['test_inverter_make9'] ?? null,
+    //                     "test_inverter_make10" => $jobOrderData['test_inverter_make10'] ?? null,
+    //                     "inverter_serial_no1" => $jobOrderData['inverter_serial_no1'] ?? null,
+    //                     "inverter_serial_no2" => $jobOrderData['inverter_serial_no2'] ?? null,
+    //                     "inverter_serial_no3" => $jobOrderData['inverter_serial_no3'] ?? null,
+    //                     "inverter_serial_no4" => $jobOrderData['inverter_serial_no4'] ?? null,
+    //                     "inverter_serial_no5" => $jobOrderData['inverter_serial_no5'] ?? null,
+    //                     "inverter_serial_no6" => $jobOrderData['inverter_serial_no6'] ?? null,
+    //                     "inverter_serial_no7" => $jobOrderData['inverter_serial_no7'] ?? null,
+    //                     "inverter_serial_no8" => $jobOrderData['inverter_serial_no8'] ?? null,
+    //                     "inverter_serial_no9" => $jobOrderData['inverter_serial_no9'] ?? null,
+    //                     "inverter_serial_no10" => $jobOrderData['inverter_serial_no10'] ?? null,
+    //                     "inverter_functioning1" => $jobOrderData['inverter_functioning1'] ?? null,
+    //                     "inverter_functioning2" => $jobOrderData['inverter_functioning2'] ?? null,
+    //                     "inverter_functioning3" => $jobOrderData['inverter_functioning3'] ?? null,
+    //                     "inverter_functioning4" => $jobOrderData['inverter_functioning4'] ?? null,
+    //                     "inverter_functioning5" => $jobOrderData['inverter_functioning5'] ?? null,
+    //                     "inverter_functioning6" => $jobOrderData['inverter_functioning6'] ?? null,
+    //                     "inverter_functioning7" => $jobOrderData['inverter_functioning7'] ?? null,
+    //                     "inverter_functioning8" => $jobOrderData['inverter_functioning8'] ?? null,
+    //                     "inverter_functioning9" => $jobOrderData['inverter_functioning9'] ?? null,
+    //                     "inverter_functioning10" => $jobOrderData['inverter_functioning10'] ?? null,
+    //                     "loss_1" => $jobOrderData['loss_1'] ?? null,
+    //                     "loss_2" => $jobOrderData['loss_2'] ?? null,
+    //                     "loss_3" => $jobOrderData['loss_3'] ?? null,
+    //                     "loss_4" => $jobOrderData['loss_4'] ?? null,
+    //                     "loss_5" => $jobOrderData['loss_5'] ?? null,
+    //                     "loss_6" => $jobOrderData['loss_6'] ?? null,
+    //                     "loss_7" => $jobOrderData['loss_7'] ?? null,
+    //                     "loss_8" => $jobOrderData['loss_8'] ?? null,
+    //                     "loss_9" => $jobOrderData['loss_9'] ?? null,
+    //                     "loss_10" => $jobOrderData['loss_10'] ?? null,
+    //                 ];
+
+    //                 // $jobOrder->client_type = $jobOrderData['client_type'];
+    //                 // $jobOrder->client_id = $jobOrderData['client_id'];
+    //                 // $jobOrder->staff_id = auth()->user()->id;
+    //                 // $jobOrder->date = $jobOrderData['date'];
+    //                 // $jobOrder->time = $jobOrderData['time'];
+    //                 // $jobOrder->address = $jobOrderData['address'];
+    //                 // $jobOrder->country = $jobOrderData['country'];
+    //                 // $jobOrder->city = $jobOrderData['city'];
+    //                 // $jobOrder->postal_code = $jobOrderData['postal_code'];
+    //                 // Installation Details
+    //                 $jobOrder->applicant_name = $jobOrderData['applicant_name'];
+    //                 $jobOrder->installation_address = $jobOrderData['installation_address'];
+    //                 $jobOrder->installation_eircode = $jobOrderData['installation_eircode'];
+    //                 $jobOrder->installation_mprn = $jobOrderData['installation_mprn'];
+    //                 // System Details
+    //                 $jobOrder->solar_pv_system_size = $jobOrderData['solar_pv_system_size'];
+    //                 $jobOrder->battery_storage = $jobOrderData['battery_storage'];
+    //                 $jobOrder->annual_estimated_yield = $jobOrderData['annual_estimated_yield'];
+    //                 $jobOrder->yield_calculation = $jobOrderData['yield_calculation'];
+    //                 $jobOrder->water_diverter = $jobOrderData['water_diverter'];
+    //                 // PV registered company
+    //                 $jobOrder->company_name = $jobOrderData['company_name'];
+    //                 $jobOrder->company_number = $jobOrderData['company_number'];
+    //                 $jobOrder->property_year_construction = $jobOrderData['property_year_construction'];
+    //                 $jobOrder->cost_installation = $jobOrderData['cost_installation'];
+    //                 //installer declaration/ details
+    //                 $jobOrder->installer_name = $jobOrderData['installer_name'];
+    //                 $jobOrder->installer_date = $jobOrderData['installer_date'];
+    //                 $jobOrder->installer_completed_date = $jobOrderData['installer_completed_date'];
+    //                 // $jobOrder->installer_sign = $jobOrderData['installer_sign'];
+    //                 //Homeowner/Applicant Declaration
+    //                 $jobOrder->owner_name = $jobOrderData['owner_name'];
+    //                 $jobOrder->owner_date = $jobOrderData['owner_date'];
+    //                 // $jobOrder->owner_sign = $jobOrderData['owner_sign'];
+    //                 //Customer
+    //                 $jobOrder->customer_name = $jobOrderData['customer_name'];
+    //                 $jobOrder->customer_address = $jobOrderData['customer_address'];
+    //                 $jobOrder->customer_eircode = $jobOrderData['customer_eircode'];
+    //                 //Installation Contractor
+    //                 $jobOrder->installer_company_name = $jobOrderData['installer_company_name'];
+    //                 $jobOrder->installer_company_representative = $jobOrderData['installer_company_representative'];
+    //                 $jobOrder->installer_company_address = $jobOrderData['installer_company_address'];
+    //                 // PB System Description
+    //                 $jobOrder->pv_manufacturer = $jobOrderData['pv_manufacturer'];
+    //                 $jobOrder->pv_model_type = $jobOrderData['pv_model_type'];
+    //                 $jobOrder->pv_model_performance = $jobOrderData['pv_model_performance'];
+    //                 $jobOrder->pv_number_modules = $jobOrderData['pv_number_modules'];
+    //                 $jobOrder->pv_short_circuit_current = $jobOrderData['pv_short_circuit_current'];
+    //                 $jobOrder->pv_mpp_current = $jobOrderData['pv_mpp_current'];
+    //                 $jobOrder->pv_open_circuit_voltage = $jobOrderData['pv_open_circuit_voltage'];
+    //                 $jobOrder->pv_mpp_voltage = $jobOrderData['pv_mpp_voltage'];
+    //                 //Electric Cert
+    //                 $jobOrder->electric_cert_number = $jobOrderData['electric_cert_number'];
+    //                 $jobOrder->electric_record_sheet = $jobOrderData['electric_record_sheet'];
+    //                 $jobOrder->electric_re = $jobOrderData['electric_re'];
+    //                 $jobOrder->electric_loop = $jobOrderData['electric_loop'];
+    //                 $jobOrder->electric_rcdx1 = $jobOrderData['electric_rcdx1'];
+    //                 $jobOrder->electric_rcdx5 = $jobOrderData['electric_rcdx5'];
+    //                 //Test Results
+    //                 $jobOrder->test_result = $jobOrderData['test_result'] ?? null;
+    //                 $jobOrder->test_result2 = $jobOrderData['test_result2'] ?? null;
+    //                 $jobOrder->test_result3 = $jobOrderData['test_result3'] ?? null;
+    //                 // $jobOrder->tester_signature = $jobOrderData['tester_signature'];
+    //                 $jobOrder->test_result_date = $jobOrderData['test_result_date'];
+    //                 $jobOrder->test_remark = $jobOrderData['test_remark'];
+
+    //                 $jobOrder->test_date = $jobOrderData['test_date'];
+    //                 // $jobOrder->test_signature = $jobOrderData['test_signature'];
+    //                 $jobOrder->test_notes = $jobOrderData['test_notes'];
+    //                 $jobOrder->notes = $jobOrderData['notes'];
+
+    //                 $jobOrder->system_components = json_encode($system_components);
+    //                 $jobOrder->pv_inverts = json_encode($pv_inverts);
+    //                 $jobOrder->design_and_installation = json_encode($design_and_installation);
+    //                 $jobOrder->test_report_grid = json_encode($test_report_grid);
+
+    //                 if ($request->hasFile('installer_sign')) {
+    //                     $folderName = 'base_document';
+    //                     $sign_image = $request->file('installer_sign');
+    //                     $filePath = $this->upload($sign_image, $folderName);
+    //                     $jobOrder->installer_sign = $filePath;
+    //                 }
+    //                 if ($request->hasFile('owner_sign')) {
+    //                     $folderName = 'base_document';
+    //                     $sign_image = $request->file('owner_sign');
+    //                     $filePath = $this->upload($sign_image, $folderName);
+    //                     $jobOrder->owner_sign = $filePath;
+    //                 }
+    //                 if ($request->hasFile('tester_signature')) {
+    //                     $folderName = 'base_document';
+    //                     $sign_image = $request->file('tester_signature');
+    //                     $filePath = $this->upload($sign_image, $folderName);
+    //                     $jobOrder->tester_signature = $filePath;
+    //                 }
+    //                 if ($request->hasFile('test_signature')) {
+    //                     $folderName = 'base_document';
+    //                     $sign_image = $request->file('test_signature');
+    //                     $filePath = $this->upload($sign_image, $folderName);
+    //                     $jobOrder->test_signature = $filePath;
+    //                 }
+    //                 $jobOrder->save();
+
+    //                 $imagesToUpload = ['rail_image', 'panel_label_image',
+    //                 'panel_roof_image','fireman_switch_image',
+    //                 'inverter_label_image','inverter_install_image',
+    //                 'fuseboard_image','meter_image','battry_image',
+    //                 'battry_label_image','diverter_image'
+    //                 ];
+    //                 foreach ($imagesToUpload as $field) {
+    //                     if ($request->hasFile($field)) {
+    //                         $folderName = 'base_document';
+    //                         $image = $request->file($field);
+    //                         $filePath = $this->upload($image, $folderName);
+
+    //                         $baseDocument = new BaseDocument();
+    //                         $baseDocument->document = $filePath;
+    //                         $baseDocument->document_type = $field;
+    //                         $baseDocument->order_id = $jobOrder->id;
+    //                         $baseDocument->save();
+    //                     }
+    //                 }
+    //                 if ($request->hasFile('certificate_image')) {
+    //                     foreach ($request->file('certificate_image') as $certificateImage) {
+    //                         $folderName = 'base_document';
+    //                         $filePath = $this->upload($certificateImage, $folderName);
+
+    //                         $baseDocument = new BaseDocument();
+    //                         $baseDocument->document = $filePath;
+    //                         $baseDocument->document_type = 'certificate_image';
+    //                         $baseDocument->order_id = $jobOrder->id;
+    //                         $baseDocument->save();
+    //                     }
+    //                 }
+    //                 return response()->json([
+    //                     'status' => true,
+    //                     'message' => 'Record updated successfully.',
+    //                 ]);
+    //             // }
+    //             // return response()->json([
+    //             //     'status' => false,
+    //             //     'message' => $validator->errors()->first(),
+    //             //     'errors' => $validator->errors(),
+    //             // ]);
+    //         } catch (\Throwable $th) {
+    //             return response()->json([
+    //                 'status' => false,
+    //                 'message' => $th->getMessage(),
+    //             ], 500);
+    //         }
+    //     } else {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'This Job order not found',
+    //         ],404);
+    //     }
+    // }
 
     public function updateJobOrder(Request $request){
-        // dd(auth()->user()->id);
+
         $jobOrder = JobOrder::where(['id'=>$request->id,'staff_id'=>auth()->user()->id])->first();
         if ($jobOrder) {
             $validator = Validator::make($request->all(), [
@@ -156,6 +690,10 @@ class JobOrderController extends Controller
                 'diverter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'certificate_image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'certificate_image' => 'required|array',
+                'installer_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'owner_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'tester_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'test_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             try {
@@ -500,12 +1038,12 @@ class JobOrderController extends Controller
                     // $jobOrder->client_type = $request->client_type;
                     // $jobOrder->client_id = $request->client_id;
                     // $jobOrder->staff_id = auth()->user()->id;
-                    // $jobOrder->date = $request->date;
-                    // $jobOrder->time = $request->time;
-                    // $jobOrder->address = $request->address;
-                    // $jobOrder->country = $request->country;
-                    // $jobOrder->city = $request->city;
-                    // $jobOrder->postal_code = $request->postal_code;
+                    $jobOrder->date = $request->date;
+                    $jobOrder->time = $request->time;
+                    $jobOrder->address = $request->address;
+                    $jobOrder->country = $request->country;
+                    $jobOrder->city = $request->city;
+                    $jobOrder->postal_code = $request->postal_code;
                     // Installation Details
                     $jobOrder->applicant_name = $request->applicant_name;
                     $jobOrder->installation_address = $request->installation_address;
@@ -526,11 +1064,11 @@ class JobOrderController extends Controller
                     $jobOrder->installer_name = $request->installer_name;
                     $jobOrder->installer_date = $request->installer_date;
                     $jobOrder->installer_completed_date = $request->installer_completed_date;
-                    $jobOrder->installer_sign = $request->installer_sign;
+                    // $jobOrder->installer_sign = $request->installer_sign;
                     //Homeowner/Applicant Declaration
                     $jobOrder->owner_name = $request->owner_name;
                     $jobOrder->owner_date = $request->owner_date;
-                    $jobOrder->owner_sign = $request->owner_sign;
+                    // $jobOrder->owner_sign = $request->owner_sign;
                     //Customer
                     $jobOrder->customer_name = $request->customer_name;
                     $jobOrder->customer_address = $request->customer_address;
@@ -559,12 +1097,12 @@ class JobOrderController extends Controller
                     $jobOrder->test_result = $request->test_result;
                     $jobOrder->test_result2 = $request->test_result2;
                     $jobOrder->test_result3 = $request->test_result3;
-                    $jobOrder->tester_signature = $request->tester_signature;
+                    // $jobOrder->tester_signature = $request->tester_signature;
                     $jobOrder->test_result_date = $request->test_result_date;
                     $jobOrder->test_remark = $request->test_remark;
 
                     $jobOrder->test_date = $request->test_date;
-                    $jobOrder->test_signature = $request->test_signature;
+                    // $jobOrder->test_signature = $request->test_signature;
                     $jobOrder->test_notes = $request->test_notes;
                     $jobOrder->notes = $request->notes;
 
@@ -573,6 +1111,30 @@ class JobOrderController extends Controller
                     $jobOrder->design_and_installation = json_encode($design_and_installation);
                     $jobOrder->test_report_grid = json_encode($test_report_grid);
 
+                    if ($request->hasFile('installer_sign')) {
+                        $folderName = 'base_document';
+                        $sign_image = $request->file('installer_sign');
+                        $filePath = $this->upload($sign_image, $folderName);
+                        $jobOrder->installer_sign = $filePath;
+                    }
+                    if ($request->hasFile('owner_sign')) {
+                        $folderName = 'base_document';
+                        $sign_image = $request->file('owner_sign');
+                        $filePath = $this->upload($sign_image, $folderName);
+                        $jobOrder->owner_sign = $filePath;
+                    }
+                    if ($request->hasFile('tester_signature')) {
+                        $folderName = 'base_document';
+                        $sign_image = $request->file('tester_signature');
+                        $filePath = $this->upload($sign_image, $folderName);
+                        $jobOrder->tester_signature = $filePath;
+                    }
+                    if ($request->hasFile('test_signature')) {
+                        $folderName = 'base_document';
+                        $sign_image = $request->file('test_signature');
+                        $filePath = $this->upload($sign_image, $folderName);
+                        $jobOrder->test_signature = $filePath;
+                    }
                     $jobOrder->save();
 
                     $imagesToUpload = ['rail_image', 'panel_label_image',
