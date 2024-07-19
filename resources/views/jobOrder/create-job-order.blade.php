@@ -226,7 +226,7 @@
                                                             <div class="form-group"><label class="form-label"
                                                                     for="fv-message">Address<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap"><textarea
-                                                                        class="form-control customtextarea form-control-sm"
+                                                                        class="form-control customtextarea form-control-sm installation_address"
                                                                         id="fv-message" name="address"
                                                                         placeholder="Write your Address" required></textarea>
                                                                         <span class="error address_err"></span>
@@ -238,7 +238,7 @@
                                                                     >Country<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="fv-Country"
+                                                                        type="text" class="form-control client_country" id="fv-Country"
                                                                         name="country" required>
                                                                         <span class="error country_err"></span>
                                                                 </div>
@@ -249,7 +249,7 @@
                                                                     for="fv-City">City<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="fv-City"
+                                                                        type="text" class="form-control client_city" id="fv-City"
                                                                         name="city" required>
                                                                         <span class="error city_err"></span>
                                                                 </div>
@@ -261,7 +261,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="input-group">
                                                                         <div class="input-group-prepend"></div>
-                                                                        <input type="text" name="postal_code" class="form-control" required>
+                                                                        <input type="text" name="postal_code" class="form-control installation_postalcode" required>
                                                                     </div>
                                                                     <span class="error postal_code_err"></span>
                                                                 </div>
@@ -4522,13 +4522,20 @@
                     var clint = data.client;
                     // alert(data.client.name);
                     $('.applicant_name').val(clint.name);
-                    $('.installation_address').val(clint.address +" "+ clint.city +" "+ clint.country);
+                    // $('.installation_address').val(clint.address +" "+ clint.city +" "+ clint.country);
+                    $('.installation_address').val(clint.address);
                     $('.installation_eircode').val(clint.eircode);
+                    $('.installation_postalcode').val(clint.postal_code);
+                    $('.client_country').val(clint.country);
+                    $('.client_city').val(clint.city);
                 } else {
                     console.log('No client found.');
                     $('.applicant_name').val('');
                     $('.installation_address').val('');
                     $('.installation_eircode').val('');
+                    $('.installation_postalcode').val('');
+                    $('.client_country').val('');
+                    $('.client_city').val('');
                 }
             },
             error: function(xhr, status, error) {
