@@ -641,6 +641,8 @@ class JobOrderController extends Controller
                     return response()->json([
                         'status' => true,
                         'message' => 'Record updated successfully.',
+                        'request_data' => $request->all(),
+                        'updated_data' => $jobOrder,
                     ]);
                 }
                 return response()->json([
