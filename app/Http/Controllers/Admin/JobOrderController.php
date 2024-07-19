@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BaseDocument;
 use App\Models\Client;
 use App\Models\JobOrder;
 use App\Models\Notification;
 use App\Models\User;
+// use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class JobOrderController extends Controller
@@ -543,4 +547,26 @@ class JobOrderController extends Controller
         }
         return view('jobOrder.view-job-order',compact('jobOrder'));
     }
+
+    // public function generatePDF()
+    // {
+
+    //     $data = ['title' => 'Job Order Document'];
+    //     $pdf = PDF::loadView('pdf.document', $data);
+
+        // return $pdf->stream('document.pdf');
+        // return $pdf->download('document.pdf');
+    // // Save the PDF to local storage
+        // $fileName = 'document_' . time() . '.pdf';
+        // Storage::put('public/base_document/' . $fileName, $pdf->output());
+
+        // // Save the file name to the database
+        // $baseDocument = new BaseDocument();
+        // $baseDocument->document = $fileName;
+        // $baseDocument->order_id = '3';
+        // $baseDocument->document_type = 'declaration_work';
+        // $baseDocument->save();
+
+    // }
+
 }

@@ -65,4 +65,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'auth:admin'], func
 
     Route::get('reports', [ReportController::class,'report'])->name('reports');
     Route::get('view-pictures/{id}', [ReportController::class,'viewPictures'])->name('view-pictures');
+
+    Route::get('/pdf', [JobOrderController::class, 'generatePDF'])->name('generate-pdf');
+
 });
