@@ -48,6 +48,7 @@ Route::middleware('throttle:120,1')->group(function () {
         Route::get('job-order-history', [JobOrderController::class, 'jobOrderHistory']);
         Route::post('job-order-change-status', [JobOrderController::class, 'jobStatusChange']);
 
+        Route::get('view-document/{id}', [JobOrderController::class, 'viewDocument']);
 
     });
 
