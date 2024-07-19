@@ -7,10 +7,12 @@ use App\Models\BaseDocument;
 use App\Models\JobOrder;
 use App\Models\Notification;
 use App\Models\User;
+use PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -124,6 +126,28 @@ class JobOrderController extends Controller
             ],404);
         }
     }
+
+    public function viewDocument(Request $request)
+    {
+
+        $document = BaseDocument::where(['order_id'=> $request->id,'document_type'=>'pdf'])->get();
+
+        if (count($document)>0) {
+            return response()->json([
+                'status' => true,
+                'message' => 'document Found',
+                'document' => $document,
+                'image_root' => config('envoirment.IMAGE_API_PATH')
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'document not found',
+                'document' => null,
+            ],200);
+        }
+    }
+
     public function updateJobOrder(Request $request){
         // dd($request->all());
 
@@ -613,8 +637,10 @@ class JobOrderController extends Controller
                     'fuseboard_image','meter_image','battry_image',
                     'battry_label_image','diverter_image'
                     ];
+                    $imagePaths = [];
                     foreach ($imagesToUpload as $field) {
                         if ($request->hasFile($field)) {
+                            BaseDocument::where('order_id', $jobOrder->id)->where('document_type', $field)->delete();
                             $folderName = 'base_document';
                             $image = $request->file($field);
                             $filePath = $this->upload($image, $folderName);
@@ -624,9 +650,14 @@ class JobOrderController extends Controller
                             $baseDocument->document_type = $field;
                             $baseDocument->order_id = $jobOrder->id;
                             $baseDocument->save();
+
+                            $imagePaths[$field] = $filePath;
                         }
                     }
+                    $certificateImagePaths = [];
                     if ($request->hasFile('certificate_image')) {
+                        //delete previous image file
+                        $document = BaseDocument::where('order_id', $jobOrder->id)->where('document_type', 'certificate_image')->delete();
                         foreach ($request->file('certificate_image') as $certificateImage) {
                             $folderName = 'base_document';
                             $filePath = $this->upload($certificateImage, $folderName);
@@ -636,8 +667,38 @@ class JobOrderController extends Controller
                             $baseDocument->document_type = 'certificate_image';
                             $baseDocument->order_id = $jobOrder->id;
                             $baseDocument->save();
+                            $certificateImagePaths[] = $filePath;
                         }
                     }
+                    // PDF generation and saving for each section
+                    $sections = [
+                        'system' => 'pdf.system',
+                        'company' => 'pdf.company',
+                        'images' => 'pdf.images',
+                        'certificate_images' => 'pdf.certificate_images'
+                    ];
+                    //delete previous generated pdf
+                    $document = BaseDocument::where('order_id', $jobOrder->id)->where('document_type', 'pdf')->delete();
+                    foreach ($sections as $section => $view) {
+                        $data = ['title' => ucfirst(str_replace('_', ' ', $section)), 'data' => $jobOrderData];
+                        if ($section == 'images') {
+                            $data['images'] = $imagePaths;
+                        } elseif ($section == 'certificate_images') {
+                            $data['certificate_images'] = $certificateImagePaths;
+                        }
+
+                        $pdf = PDF::loadView($view, $data);
+
+                        $fileName = $section . '_document_' . time() . '.pdf';
+                        Storage::put('public/base_document/' . $fileName, $pdf->output());
+
+                        $baseDocument = new BaseDocument();
+                        $baseDocument->document = "base_document/$fileName";
+                        $baseDocument->order_id = $jobOrder->id;
+                        $baseDocument->document_type = 'pdf';
+                        $baseDocument->save();
+                    }
+
                     return response()->json([
                         'status' => true,
                         'message' => 'Record updated successfully.',
