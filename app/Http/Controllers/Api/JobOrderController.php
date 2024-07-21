@@ -130,7 +130,7 @@ class JobOrderController extends Controller
     public function viewDocument(Request $request)
     {
 
-        $document = BaseDocument::where(['order_id'=> $request->id,'document_type'=>'pdf'])->get();
+        $document = BaseDocument::where(['order_id'=> $request->id,'document_name'=>'pdf'])->get();
 
         if (count($document)>0) {
             return response()->json([
