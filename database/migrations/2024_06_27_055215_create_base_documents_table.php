@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->string('document_type')->nullable();
+            $table->string('document_name')->nullable();
             $table->string('document')->nullable();
             $table->timestamps();
         });
