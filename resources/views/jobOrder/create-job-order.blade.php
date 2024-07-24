@@ -581,7 +581,7 @@
                                                                                 class="form-control" placeholder=""
                                                                                 id="battery_make"
                                                                                 name="battery_make"></td>
-                                                                        <td class="nk-tb-col">
+                                                                        {{-- <td class="nk-tb-col">
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
@@ -597,6 +597,20 @@
                                                                                         class="custom-control-label"
                                                                                         for="battery_ac1">AC Connected
                                                                                     </label></div>
+                                                                            </div>
+                                                                        </td> --}}
+                                                                        <td class="nk-tb-col">
+                                                                            <div class="g">
+                                                                                <div class="custom-control custom-control-sm custom-checkbox">
+                                                                                    <input type="checkbox" name="battery_dc" value="DC Connected" class="custom-control-input" id="battery_dc1">
+                                                                                    <label class="custom-control-label" for="battery_dc1">DC Connected</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="g">
+                                                                                <div class="custom-control custom-control-sm custom-checkbox">
+                                                                                    <input type="checkbox" name="battery_ac" value="AC Connected" class="custom-control-input" id="battery_ac1">
+                                                                                    <label class="custom-control-label" for="battery_ac1">AC Connected</label>
+                                                                                </div>
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col">
@@ -1159,7 +1173,7 @@
                                                                                 class="form-control" placeholder=""
                                                                                 id="battery_make"
                                                                                 name="battery_make"></td>
-                                                                        <td class="nk-tb-col">
+                                                                        {{-- <td class="nk-tb-col">
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
@@ -1176,6 +1190,20 @@
                                                                                         id="customCheck8"><label class="custom-control-label"
                                                                                         for="customCheck8">AC Connected
                                                                                     </label></div>
+                                                                            </div>
+                                                                        </td> --}}
+                                                                        <td class="nk-tb-col">
+                                                                            <div class="g">
+                                                                                <div class="custom-control custom-control-sm custom-checkbox">
+                                                                                    <input type="checkbox" name="battery_dc" value="DC Connected" class="custom-control-input" id="battery_dc2">
+                                                                                    <label class="custom-control-label" for="battery_dc2">DC Connected</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="g">
+                                                                                <div class="custom-control custom-control-sm custom-checkbox">
+                                                                                    <input type="checkbox" name="battery_ac" value="AC Connected" class="custom-control-input" id="battery_ac2">
+                                                                                    <label class="custom-control-label" for="battery_ac2">AC Connected</label>
+                                                                                </div>
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col">
@@ -3295,7 +3323,7 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text"
+                                                                        <input type="text" name="test_result_date"
                                                                             class="form-control date-picker"
                                                                             placeholder="mm/dd/yyyy">
                                                                     </div>
@@ -4495,6 +4523,37 @@
         dateFormat: "m/d/Y",
         minDate: "today"
     });
+    // Select all checkboxes by their IDs
+    const checkboxes = [
+    document.getElementById('battery_dc1'),
+    document.getElementById('battery_ac1')
+    ];
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkboxes.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            }
+        });
+    });
+
+    const Secheckboxes = [
+    document.getElementById('battery_dc2'),
+    document.getElementById('battery_ac2')
+    ];
+
+    Secheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                Secheckboxes.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            }
+        });
+    });
+
 </script>
 <script>
     $(document).ready(function() {
