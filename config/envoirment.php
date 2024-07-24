@@ -2,5 +2,5 @@
 
 return [
     'IMAGE_API_PATH' => 'https://techmavedev.com/solar/public/storage/',
-    // other configuration variables...
+    'SITE_LOGO' =>'https://techmavedev.com/solar/public/images/MUNSOLAR%201.png',
 ];

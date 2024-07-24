@@ -631,9 +631,14 @@
                                                                 <div class="form-group"><label class="form-label"
                                                                         for="fv-Postal">Signed:</label>
                                                                     <div class="form-control-wrap">
+                                                                        @if(isset($jobOrder->installer_sign) && strpos($jobOrder->installer_sign, 'base_document') !== false)
                                                                         <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->installer_sign }}">
                                                                             <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->installer_sign }}" alt="" style="border: 1px solid #dbdfea;">
                                                                         </a>
+                                                                        @else
+                                                                        <input type="text" name="installer_sign" class="form-control"
+                                                                        value="{{ $jobOrder->installer_sign }}" readonly>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -714,9 +719,14 @@
                                                                 <div class="form-group"><label class="form-label"
                                                                         for="fv-Postal">Signed:</label>
                                                                     <div class="form-control-wrap">
+                                                                        @if(isset($jobOrder->owner_sign) && strpos($jobOrder->owner_sign, 'base_document') !== false)
                                                                         <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->owner_sign }}">
                                                                             <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->owner_sign }}" alt="" style="border: 1px solid #dbdfea;">
                                                                         </a>
+                                                                        @else
+                                                                        <input type="text" name="owner_sign" value="{{ $jobOrder->owner_sign }}" readonly class="form-control"
+                                                                        placeholder="">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1225,9 +1235,14 @@
                                                                 <div class="form-group"><label class="form-label"
                                                                         for="fv-Postal">Signed:</label>
                                                                     <div class="form-control-wrap">
+                                                                        @if(isset($jobOrder->installer_sign) && strpos($jobOrder->installer_sign, 'base_document') !== false)
                                                                         <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->installer_sign }}">
                                                                             <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->installer_sign }}" alt="" style="border: 1px solid #dbdfea;">
                                                                         </a>
+                                                                        @else
+                                                                        <input type="text" name="installer_sign" class="form-control"
+                                                                        value="{{ $jobOrder->installer_sign ?? ''}}" readonly>
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1307,9 +1322,14 @@
                                                                 <div class="form-group"><label class="form-label"
                                                                         for="fv-Postal">Signed:</label>
                                                                     <div class="form-control-wrap">
+                                                                        @if(isset($jobOrder->owner_sign) && strpos($jobOrder->owner_sign, 'base_document') !== false)
                                                                         <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->owner_sign }}">
                                                                             <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->owner_sign }}" alt="" style="border: 1px solid #dbdfea;">
                                                                         </a>
+                                                                        @else
+                                                                        <input type="text" name="owner_sign" value="{{ $jobOrder->owner_sign }}" readonly class="form-control"
+                                                                        placeholder="">
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1811,11 +1831,18 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group"><label class="form-label"
                                                                     for="fv-Postal">Signature/Tester</label>
-                                                                <div class="form-control-wrap">
-                                                                    <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->tester_signature }}">
-                                                                        <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->tester_signature }}" alt="" style="border: 1px solid #dbdfea;">
-                                                                    </a>
-                                                                </div>
+                                                                    @if(isset($jobOrder->tester_signature) && strpos($jobOrder->tester_signature, 'base_document') !== false)
+                                                                    <div class="form-control-wrap">
+                                                                        <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->tester_signature }}">
+                                                                            <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->tester_signature }}" alt="" style="border: 1px solid #dbdfea;">
+                                                                        </a>
+                                                                    </div>
+                                                                    @else
+                                                                    <div class="form-control-wrap">
+                                                                        <input type="text" name="tester_signature" class="form-control"
+                                                                        value="{{ $jobOrder->tester_signature }}" readonly>
+                                                                    </div>
+                                                                    @endif
                                                             </div>
                                                         </div>
 
@@ -3199,9 +3226,14 @@
                                                             <div class="form-group"><label class="form-label"
                                                                     for="fv-Postal">Signature/Tester</label>
                                                                 <div class="form-control-wrap">
+                                                                    @if(isset($jobOrder->tester_signature) && strpos($jobOrder->tester_signature, 'base_document') !== false)
                                                                     <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->tester_signature }}">
                                                                         <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->tester_signature }}" alt="" style="border: 1px solid #dbdfea;">
                                                                     </a>
+                                                                    @else
+                                                                    <input type="text" name="tester_signature" class="form-control"
+                                                                    value="{{ $jobOrder->tester_signature }}" readonly>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3260,9 +3292,14 @@
                                                             <div class="form-group"><label class="form-label"
                                                                     for="fv-Postal">Signature/Tester</label>
                                                                 <div class="form-control-wrap">
+                                                                    @if(isset($jobOrder->test_signature) && strpos($jobOrder->test_signature, 'base_document') !== false)
                                                                     <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->test_signature }}">
                                                                         <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->test_signature }}" alt="" style="border: 1px solid #dbdfea;">
                                                                     </a>
+                                                                    @else
+                                                                    <input type="text" name="test_signature" class="form-control"
+                                                                    value="{{ $jobOrder->test_signature }}" readonly>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
