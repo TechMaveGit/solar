@@ -548,25 +548,25 @@ class JobOrderController extends Controller
         return view('jobOrder.view-job-order',compact('jobOrder'));
     }
 
-    // public function generatePDF()
-    // {
+    public function generatePDF()
+    {
 
-    //     $data = ['title' => 'Job Order Document'];
-    //     $pdf = PDF::loadView('pdf.document', $data);
+        // $data = ['title' => 'Job Order Document'];
+        // $pdf = PDF::loadView('pdf.document', $data);
 
         // return $pdf->stream('document.pdf');
         // return $pdf->download('document.pdf');
     // // Save the PDF to local storage
-        // $fileName = 'document_' . time() . '.pdf';
-        // Storage::put('public/base_document/' . $fileName, $pdf->output());
+    //     $fileName = 'document_' . time() . '.pdf';
+    //     Storage::put('public/base_document/' . $fileName, $pdf->output());
 
-        // // Save the file name to the database
-        // $baseDocument = new BaseDocument();
-        // $baseDocument->document = $fileName;
-        // $baseDocument->order_id = '3';
-        // $baseDocument->document_type = 'declaration_work';
-        // $baseDocument->save();
+    //     // Save the file name to the database
+    //     $baseDocument = new BaseDocument();
+    //     $baseDocument->document = $fileName;
+    //     $baseDocument->order_id = '3';
+    //     $baseDocument->document_type = 'declaration_work';
+    //     $baseDocument->save();
 
-    // }
+    }
 
 }

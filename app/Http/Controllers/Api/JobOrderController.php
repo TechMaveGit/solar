@@ -129,7 +129,7 @@ class JobOrderController extends Controller
 
     public function viewDocument(Request $request)
     {
-
+        $job = JobOrder::select('id', 'client_id', 'date', 'time')->where('id', $request->id)->with('client') ->first();
         $document = BaseDocument::where(['order_id'=> $request->id,'document_name'=>'pdf'])->get();
 
         if (count($document)>0) {
@@ -137,6 +137,7 @@ class JobOrderController extends Controller
                 'status' => true,
                 'message' => 'document Found',
                 'document' => $document,
+                'job_detail' =>$job,
                 'image_root' => config('envoirment.IMAGE_API_PATH')
             ]);
         } else {
@@ -170,29 +171,30 @@ class JobOrderController extends Controller
                 // 'job_order.installer_company_name' => 'required',
                 // 'job_order.installer_company_address' => 'required',
 
-                // 'rail_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'panel_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'panel_roof_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'fireman_switch_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'inverter_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'inverter_install_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'fuseboard_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'meter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'battry_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'battry_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'diverter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'certificate_image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'certificate_image' => 'required|array',
-                // 'installer_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'owner_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'tester_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                // 'test_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                    'job_order' => 'required|json',
+                'rail_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'panel_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'panel_roof_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'fireman_switch_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'inverter_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'inverter_install_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'fuseboard_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'meter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'battry_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'battry_label_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'diverter_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'certificate_image.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'certificate_image' => 'required|array',
+                'installer_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'owner_sign' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'tester_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'test_signature' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'job_order' => 'required|json',
             ]);
 
-            try {
-                if ($validator->passes()) {
-                    // dd($jobOrderData['installation_eircode']);
+            if ($validator->passes()) {
+                try {
+                    DB::beginTransaction();
+
                     $system_components = [
                         'pv_make' => $jobOrderData['pv_make'] ?? null,
                         'pv_model' => $jobOrderData['pv_model'] ?? null,
@@ -636,92 +638,28 @@ class JobOrderController extends Controller
 
                     // Generate the PDF after saving the job order
                     $this->generatePDF($jobOrder);
-                    // $imagesToUpload = ['rail_image', 'panel_label_image',
-                    // 'panel_roof_image','fireman_switch_image',
-                    // 'inverter_label_image','inverter_install_image',
-                    // 'fuseboard_image','meter_image','battry_image',
-                    // 'battry_label_image','diverter_image'
-                    // ];
-                    // $imagePaths = [];
-                    // foreach ($imagesToUpload as $field) {
-                    //     if ($request->hasFile($field)) {
-                    //         BaseDocument::where('order_id', $jobOrder->id)->where('document_type', $field)->delete();
-                    //         $folderName = 'base_document';
-                    //         $image = $request->file($field);
-                    //         $filePath = $this->upload($image, $folderName);
 
-                    //         $baseDocument = new BaseDocument();
-                    //         $baseDocument->document = $filePath;
-                    //         $baseDocument->document_type = $field;
-                    //         $baseDocument->order_id = $jobOrder->id;
-                    //         $baseDocument->save();
-
-                    //         $imagePaths[$field] = $filePath;
-                    //     }
-                    // }
-                    // $certificateImagePaths = [];
-                    // if ($request->hasFile('certificate_image')) {
-                    //     //delete previous image file
-                    //     $document = BaseDocument::where('order_id', $jobOrder->id)->where('document_type', 'certificate_image')->delete();
-                    //     foreach ($request->file('certificate_image') as $certificateImage) {
-                    //         $folderName = 'base_document';
-                    //         $filePath = $this->upload($certificateImage, $folderName);
-
-                    //         $baseDocument = new BaseDocument();
-                    //         $baseDocument->document = $filePath;
-                    //         $baseDocument->document_type = 'certificate_image';
-                    //         $baseDocument->order_id = $jobOrder->id;
-                    //         $baseDocument->save();
-                    //         $certificateImagePaths[] = $filePath;
-                    //     }
-                    // }
-                    // // PDF generation and saving for each section
-                    // $sections = [
-                    //     'system' => 'pdf.system',
-                    //     'company' => 'pdf.company',
-                    //     'images' => 'pdf.images',
-                    //     'certificate_images' => 'pdf.certificate_images'
-                    // ];
-                    // //delete previous generated pdf
-                    // $document = BaseDocument::where('order_id', $jobOrder->id)->where('document_type', 'pdf')->delete();
-                    // foreach ($sections as $section => $view) {
-                    //     $data = ['title' => ucfirst(str_replace('_', ' ', $section)), 'data' => $jobOrderData];
-                    //     if ($section == 'images') {
-                    //         $data['images'] = $imagePaths;
-                    //     } elseif ($section == 'certificate_images') {
-                    //         $data['certificate_images'] = $certificateImagePaths;
-                    //     }
-
-                    //     $pdf = PDF::loadView($view, $data);
-
-                    //     $fileName = $section . '_document_' . time() . '.pdf';
-                    //     Storage::put('public/base_document/' . $fileName, $pdf->output());
-
-                    //     $baseDocument = new BaseDocument();
-                    //     $baseDocument->document = "base_document/$fileName";
-                    //     $baseDocument->order_id = $jobOrder->id;
-                    //     $baseDocument->document_type = 'pdf';
-                    //     $baseDocument->save();
-                    // }
+                    DB::commit();
 
                     return response()->json([
                         'status' => true,
                         'message' => 'Record updated successfully.',
-                        'request_data' => $request->all(),
-                        'updated_data' => $jobOrder,
+                        // 'request_data' => $request->all(),
+                        // 'updated_data' => $jobOrder,
                     ]);
+                } catch (\Throwable $th) {
+                    DB::rollBack();
+                    return response()->json([
+                        'status' => false,
+                        'message' => $th->getMessage(),
+                    ], 500);
                 }
-                return response()->json([
-                    'status' => false,
-                    'message' => $validator->errors()->first(),
-                    'errors' => $validator->errors(),
-                ]);
-            } catch (\Throwable $th) {
-                return response()->json([
-                    'status' => false,
-                    'message' => $th->getMessage(),
-                ], 500);
             }
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ]);
         } else {
             return response()->json([
                 'status' => false,
@@ -731,7 +669,9 @@ class JobOrderController extends Controller
     }
 
     private function saveImages(Request $request, $jobOrder) {
-        $imagesToUpload = ['rail_image', 'panel_label_image', 'panel_roof_image', 'fireman_switch_image', 'inverter_label_image', 'inverter_install_image', 'fuseboard_image', 'meter_image', 'battry_image', 'battry_label_image', 'diverter_image'];
+        $imagesToUpload = ['rail_image', 'panel_label_image', 'panel_roof_image', 'fireman_switch_image',
+        'inverter_label_image', 'inverter_install_image', 'fuseboard_image', 'meter_image', 'battry_image',
+        'battry_label_image', 'diverter_image'];
         foreach ($imagesToUpload as $field) {
             if ($request->hasFile($field)) {
                 BaseDocument::where('order_id', $jobOrder->id)->where('document_type', $field)->delete();
@@ -762,7 +702,7 @@ class JobOrderController extends Controller
     }
 
     private function generatePDF($jobOrder) {
-        // Fetch the latest job order data along with related base documents
+
         // $jobOrder->load('base_documents');
 
         // PDF generation and saving for each section
@@ -780,7 +720,6 @@ class JobOrderController extends Controller
                 'data' => $jobOrder,
                 'base_documents' => $jobOrder->base_documents
             ];
-
             // if ($section == 'images' || $section == 'certificate') {
             //     $data[$section] = $jobOrder->base_documents->pluck('document')->toArray();
             //     dd($data['images']);
