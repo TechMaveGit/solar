@@ -28,18 +28,26 @@
                     Certificate 2
                 </td>
             </tr> --}}
-            @if (isset($base_documents))
-                @foreach ($base_documents as $document)
+
+        @if (isset($base_documents))
+            @php
+                // Chunk documents into pairs
+                $document_pairs = array_chunk($base_documents->toArray(), 2);
+            @endphp
+
+            @foreach ($document_pairs as $pair)
                 <tr>
-                    @if ($document->document_type == 'certificate_image')
-                        <td style="border: 2px solid;">
-                            <img src="{{ config('envoirment.IMAGE_API_PATH') . $document->document }}" alt="" style="width:100%">
-                        </td>
-                        {{-- <img src="{{ config('envoirment.IMAGE_API_PATH') . $document->document }}" alt="Certificate Image" style="width: 20%; max-width: 20%;"> --}}
-                    @endif
+                    @foreach ($pair as $document)
+                        @if ($document['document_type'] == 'certificate_image')
+                            <td style="border: 2px solid;">
+                                <img src="{{ config('envoirment.IMAGE_API_PATH') . $document['document'] }}" alt="" style="width:100%; height:250px; object-fit:contain">
+                            </td>
+                        @endif
+                    @endforeach
                 </tr>
-                @endforeach
-            @endif
+            @endforeach
+        @endif
+
 
         </table>
     </div>
