@@ -80,7 +80,7 @@
                                                             class="passcode-icon icon-show icon ni ni-eye"></em><em
                                                             class="passcode-icon icon-hide icon ni ni-eye-off"></em></a>
                                                     <input type="password" name="password" class="form-control" id="password"
-                                                        placeholder="Enter your passcode" required>
+                                                        placeholder="Enter your password" required>
                                                     </div>
                                                     @error('password')
                                                         <span class="error">{{ $message }}</span>
