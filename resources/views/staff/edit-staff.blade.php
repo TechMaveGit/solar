@@ -59,7 +59,7 @@
                                                             class="passcode-icon icon-show icon ni ni-eye"></em><em
                                                             class="passcode-icon icon-hide icon ni ni-eye-off"></em></a>
                                                     <input type="password" name="password" class="form-control" id="password"
-                                                        placeholder="Enter your passcode">
+                                                        placeholder="Enter your password">
                                                         @error('password')
                                                             <span class="error">{{ $message }}</span>
                                                         @enderror

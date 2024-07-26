@@ -113,6 +113,7 @@
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
                                     <th hidden>ID</th>
+                                    <th class="nk-tb-col"><span class="sub-text">Order ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Type</span></th>
@@ -129,6 +130,7 @@
                                 @foreach ($jobOrders as $key => $jobOrder)
                                 <tr class="nk-tb-item">
                                     <td hidden>{{ $key+1 }}</td>
+                                    <td class="nk-tb-col tb-col-md"><span>{{ $jobOrder->id }}</span></td>
                                     <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->client)){{ $jobOrder->client->id }}@endif</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
