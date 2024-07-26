@@ -598,8 +598,10 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text" name="installer_date" value="{{ $jobOrder->installer_date }}" readonly disabled
-                                                                            class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                        {{-- <input type="text" name="installer_date" value="{{ $jobOrder->installer_date }}" readonly disabled
+                                                                            class="form-control date-picker" placeholder="mm/dd/yyyy"> --}}
+                                                                            <input type="text" name="installer_date" value="{{ $jobOrder->installer_date ? \Carbon\Carbon::parse($jobOrder->installer_date)->format('m/d/Y') : '' }}"
+                                                                            readonly disabled class="form-control date-picker" placeholder="mm/dd/yyyy">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -613,7 +615,7 @@
                                                                         </div>
                                                                         <input type="text" name="installer_completed_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy" value="{{ $jobOrder->installer_completed_date }}" readonly disabled>
+                                                                            placeholder="mm/dd/yyyy" value="{{ $jobOrder->installer_completed_date ? \Carbon\Carbon::parse($jobOrder->installer_completed_date)->format('m/d/Y') : '' }}" readonly disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -698,7 +700,7 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text" name="owner_date" value="{{ $jobOrder->owner_date }}" readonly
+                                                                        <input type="text" name="owner_date" value="{{ $jobOrder->owner_date ? \Carbon\Carbon::parse($jobOrder->owner_date)->format('m/d/Y') : '' }}" readonly
                                                                             class="form-control"
                                                                             placeholder="mm/dd/yyyy">
                                                                     </div>
@@ -1202,7 +1204,7 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text" name="installer_date" value="{{ $jobOrder->installer_date }}" readonly disabled
+                                                                        <input type="text" name="installer_date" value="{{ $jobOrder->installer_date ? \Carbon\Carbon::parse($jobOrder->installer_date)->format('m/d/Y') : '' }}" readonly disabled
                                                                             class="form-control date-picker" placeholder="mm/dd/yyyy">
                                                                     </div>
                                                                 </div>
@@ -1217,7 +1219,7 @@
                                                                         </div>
                                                                         <input type="text" name="installer_completed_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy" value="{{ $jobOrder->installer_completed_date }}" readonly disabled>
+                                                                            placeholder="mm/dd/yyyy" value="{{ $jobOrder->installer_completed_date ? \Carbon\Carbon::parse($jobOrder->installer_completed_date)->format('m/d/Y') : '' }}" readonly disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1301,7 +1303,7 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text" name="owner_date" value="{{ $jobOrder->owner_date }}" readonly
+                                                                        <input type="text" name="owner_date" value="{{ $jobOrder->owner_date ? \Carbon\Carbon::parse($jobOrder->owner_date)->format('m/d/Y') : '' }}" readonly
                                                                             class="form-control"
                                                                             placeholder="mm/dd/yyyy">
                                                                     </div>
@@ -1490,7 +1492,7 @@
                                                                 >Number of Modules</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_number_modules" value="{{ $jobOrder->pv_number_modules }}" readonly>
                                                             </div>
                                                         </div>
@@ -1501,7 +1503,7 @@
                                                                 (A)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_short_circuit_current" value="{{ $jobOrder->pv_short_circuit_current }}" readonly>
                                                             </div>
                                                         </div>
@@ -1511,7 +1513,7 @@
                                                                 >MPP Current (A)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_mpp_current" value="{{ $jobOrder->pv_mpp_current }}" readonly>
                                                             </div>
                                                         </div>
@@ -1522,7 +1524,7 @@
                                                                 (V)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_open_circuit_voltage" value="{{ $jobOrder->pv_open_circuit_voltage }}" readonly>
                                                             </div>
                                                         </div>
@@ -1532,7 +1534,7 @@
                                                                 >MPP Voltage (V)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_mpp_voltage" value="{{ $jobOrder->pv_mpp_voltage }}" readonly>
                                                             </div>
                                                         </div>
@@ -1580,7 +1582,7 @@
                                                                 for="fv-Country18">Inverter Quantity</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_inverter_quantity" value="{{ $pv_invert->pv_inverter_quantity ?? ''}}" readonly>
                                                             </div>
                                                         </div>
@@ -1590,7 +1592,7 @@
                                                                 for="fv-Country19">AC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="inverter_ac_maximum" value="{{ $pv_invert->inverter_ac_maximum ?? ''}}" readonly>
                                                             </div>
                                                         </div>
@@ -1600,7 +1602,7 @@
                                                                 for="fv-Country20">DC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="inverter_dc_maximum" value="{{ $pv_invert->inverter_dc_maximum ?? ''}}" readonly>
                                                             </div>
                                                         </div>
@@ -1814,7 +1816,7 @@
                                                                     </div>
                                                                     <input type="text" name="test_result_date"
                                                                         class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_result_date }}" readonly disabled>
+                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_result_date ? \Carbon\Carbon::parse($jobOrder->test_result_date)->format('m/d/Y') : '' }}" readonly disabled>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2730,7 +2732,7 @@
                                                                 >Number of Modules</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_number_modules" value="{{ $jobOrder->pv_number_modules }}" readonly>
                                                             </div>
                                                         </div>
@@ -2741,7 +2743,7 @@
                                                                 (A)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_short_circuit_current" value="{{ $jobOrder->pv_short_circuit_current }}" readonly>
                                                             </div>
                                                         </div>
@@ -2751,7 +2753,7 @@
                                                                 >MPP Current (A)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_mpp_current" value="{{ $jobOrder->pv_mpp_current }}" readonly>
                                                             </div>
                                                         </div>
@@ -2762,7 +2764,7 @@
                                                                 (V)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_open_circuit_voltage" value="{{ $jobOrder->pv_open_circuit_voltage }}" readonly>
                                                             </div>
                                                         </div>
@@ -2772,7 +2774,7 @@
                                                                 >MPP Voltage (V)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_mpp_voltage" value="{{ $jobOrder->pv_mpp_voltage }}" readonly>
                                                             </div>
                                                         </div>
@@ -2826,7 +2828,7 @@
                                                                 for="fv-Country18">Inverter Quantity</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_inverter_quantity" value="{{ $pv_invert->pv_inverter_quantity ?? ''}}" readonly>
                                                             </div>
                                                         </div>
@@ -2836,7 +2838,7 @@
                                                                 for="fv-Country19">AC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="inverter_ac_maximum" value="{{ $pv_invert->inverter_ac_maximum ?? ''}}" readonly>
                                                             </div>
                                                         </div>
@@ -2846,7 +2848,7 @@
                                                                 for="fv-Country20">DC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="inverter_dc_maximum" value="{{ $pv_invert->inverter_dc_maximum ?? ''}}" readonly>
                                                             </div>
                                                         </div>
@@ -2899,7 +2901,7 @@
                                                                 for="fv-Country18">Inverter Quantity</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_inverter_quantity_2" value="{{ $pv_invert->pv_inverter_quantity_2 }}" readonly>
                                                             </div>
                                                         </div>
@@ -2909,7 +2911,7 @@
                                                                 for="fv-Country19">AC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="inverter_ac_maximum2" value="{{ $pv_invert->inverter_ac_maximum2 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
@@ -2919,7 +2921,7 @@
                                                                 for="fv-Country20">DC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="inverter_dc_maximum2" value="{{ $pv_invert->inverter_dc_maximum2 }}" readonly>
                                                             </div>
                                                         </div>
@@ -2971,7 +2973,7 @@
                                                                 for="fv-Country18">Inverter Quantity</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="pv_inverter_quantity_3" value="{{ $pv_invert->pv_inverter_quantity_3 }}" readonly>
                                                             </div>
                                                         </div>
@@ -2981,7 +2983,7 @@
                                                                 for="fv-Country19">AC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="inverter_ac_maximum3" value="{{ $pv_invert->inverter_ac_maximum3 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
@@ -2991,7 +2993,7 @@
                                                                 for="fv-Country20">DC Maximum Power (W)</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"></div><input
-                                                                    type="number" class="form-control"
+                                                                    type="text" class="form-control"
                                                                     placeholder="" name="inverter_dc_maximum3" value="{{ $pv_invert->inverter_dc_maximum3 ?? ''}}" readonly>
                                                             </div>
                                                         </div>
@@ -3209,7 +3211,7 @@
                                                                     </div>
                                                                     <input type="text" name="test_result_date"
                                                                         class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_result_date }}" readonly disabled>
+                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_result_date ? \Carbon\Carbon::parse($jobOrder->test_result_date)->format('m/d/Y') : '' }}" readonly disabled>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3273,7 +3275,7 @@
                                                                     </div>
                                                                     <input type="text" name="test_date"
                                                                         class="form-control date-picker" disabled
-                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_date }}" readonly>
+                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_date ? \Carbon\Carbon::parse($jobOrder->test_date)->format('m/d/Y') : '' }}" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
