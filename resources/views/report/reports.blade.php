@@ -18,9 +18,9 @@
     <div class="container-xl wide-lg">
         <div class="nk-content-body">
             <div class="nk-block-head nk-block-head-sm">
-                <div class="nk-block-between">
+                <div class="nk-block-between d-block">
                     <div class="nk-block-head-content">
-                        <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">Reports</h2>
+                        <h2 class="nk-block-title fw-normal customtitleBTMargin">Reports</h2>
 
                     </div>
                     <div class="nk-block-head-content">
@@ -28,9 +28,9 @@
                                 class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em
                                     class="icon ni ni-menu-alt-r"></em></a>
                             <div class="toggle-expand-content" data-content="pageMenu">
-                                <ul class="nk-block-tools g-3">
+                                <ul class="nk-block-tools g-3 d-block">
 
-                                    <div class="rportFilter">
+                                    <div class="rportFilter d-block">
                                         <form id="date-range-form" action="{{ route('admin.reports') }}" method="GET">
                                             <div class="form-control-wrap">
                                                 <div class="col-md-3 me-2">
@@ -66,9 +66,9 @@
                                                     <div></div>&nbsp</label>
                                                     <div class="form-control-wrap">
                                                         <div class="input-daterange date-picker-range input-group">
-                                                            <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="Work Order Report From ">
+                                                            <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="Report From Date">
                                                             <div class="input-group-addon">TO</div>
-                                                            <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="Work Order Report From To ">
+                                                            <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="Report To Date">
                                                         </div>
                                                     </div>
                                                 </div>
