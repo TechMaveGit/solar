@@ -1,7 +1,18 @@
 @extends('layouts.main')
 @section('app-title', 'Dashboard')
 @section('main-content')
-
+@push('push_styles')
+<style>
+    .scrollable-notifications {
+        max-height: 380px;
+        overflow-y: auto;
+    }
+    .scrollable-orders {
+        max-height: 380px;
+        overflow-y: auto;
+    }
+</style>
+@endpush
     <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
@@ -131,7 +142,7 @@
                                         <div class="card-tools"><a href="{{ route('admin.assigned-job-order') }}" class="link">View All Orders</a></div>
                                     </div>
                                 </div>
-                                <div class="card-inner p-0">
+                                <div class="card-inner p-0 scrollable-orders">
                                     <table class="table table-tranx">
                                         <thead>
                                             <tr class="tb-tnx-head">
@@ -185,7 +196,7 @@
                                     </div>
                                 </div>
 
-                                <div class="card-inner">
+                                <div class="card-inner scrollable-notifications">
                                     <div class="timeline">
                                         @php
                                             $currentMonthYear = '';
