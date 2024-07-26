@@ -34737,7 +34737,7 @@ body.nav-shown {
     }
 
     .nk-sidebar+.nk-wrap>.nk-header-fixed {
-        left: 400px
+        left: 280px;
     }
 
     .nk-sidebar .nk-sidebar-head {

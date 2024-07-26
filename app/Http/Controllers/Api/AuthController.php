@@ -51,6 +51,11 @@ class AuthController extends Controller
                 'status' => false,
                 'message' => 'User Not Found.',
             ], 422);
+        }elseif (!User::where(['user_type' => '2', 'email' => $request->email, 'status' =>'1'])->exists()) {
+            return response()->json([
+                'status' => false,
+                'message' => "You Don't Have Access For Login.",
+            ], 422);
         }
 
         $user = User::where('email', $request->input('email'))->where('user_type', '2')->first();
