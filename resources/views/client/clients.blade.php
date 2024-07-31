@@ -49,7 +49,7 @@
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Client Type</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Orders Count</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-end"></th>
+                                    <th class="nk-tb-col nk-tb-col-tools text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,7 +57,7 @@
                                 @foreach ($clients as $key => $client)
                                 <tr class="nk-tb-item">
                                     <td hidden>{{ $key+1 }}</td>
-                                    <td class="nk-tb-col tb-col-md"><span>{{ $client->id }}</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span>{{ $client->client_id }}</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
                                             <div class="user-avatar bg-dim-primary d-none d-sm-flex">
@@ -96,7 +96,7 @@
                                             <span class="badge rounded-pill badge-dim bg-primary">Non-Domestic</span>
                                         @endif
                                     </td>
-                                    <td class="nk-tb-col tb-col-md">{{ $client->job_orders_count }}</td>
+                                    <td class="nk-tb-col tb-col-md"><a href="{{ route('admin.client-job-orders',base64_encode($client->id)) }}" title="View Order" data-bs-toggle="tooltip" data-bs-placement="top"> {{ $client->job_orders_count }} </a></td>
                                     <td class="nk-tb-col tb-col-md">
                                         @if($client->status == 1)
                                             <a href="javascript:void(0)" data-id="{{ $client->id }}" onclick="changeStatus(this);" data-bs-toggle="tooltip" data-bs-placement="top"

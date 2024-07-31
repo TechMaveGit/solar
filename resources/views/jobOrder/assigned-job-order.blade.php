@@ -18,9 +18,19 @@
         <div class="nk-content-body">
             <div class="nk-block-head nk-block-head-sm">
                 <div class="nk-block-between">
-                    <div class="nk-block-head-content">
-                        <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">Assigned Job Orders</h2>
-
+                    <div class="nk-block-head-content d-flex">
+                        <div>
+                            <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">Job Orders</h2>
+                        </div>
+                        {{-- <div class="form-group ms-1">
+                            <div class="form-control-wrap">
+                                <div class="btnContainer">
+                                    <a href="{{ route('admin.create-job-order') }}" class=" btn btn-primary d-none d-md-inline-flex pageaddbtn">
+                                        <em class="icon ni ni-plus"></em><span>Create New Job Order</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -56,7 +66,7 @@
                             </div>
                         </div>
                         <div class="form-group"><label class="form-label">
-                            <div></div>&nbsp</label>
+                            <div></div>Assigned Date</label>
                             <div class="form-control-wrap">
                                 <div class="input-daterange date-picker-range input-group">
                                     <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="Work Order Report From ">

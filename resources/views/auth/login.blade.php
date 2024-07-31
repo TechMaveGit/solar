@@ -33,7 +33,7 @@
                                     <div class="nk-block-head-content">
                                         <h4 class="nk-block-title">Sign-In</h4>
                                         <div class="nk-block-des">
-                                            <p>Access the Munster Solar Admin panel using your email and passcode.</p>
+                                            <p>Access the Munster Solar Admin panel using your email and password.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -52,14 +52,14 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <div class="form-label-group"><label class="form-label" for="password">Passcode</label>
+                                        <div class="form-label-group"><label class="form-label" for="password">password</label>
                                         </div>
                                         <div class="form-control-wrap"><a href="#" class="form-icon form-icon-right passcode-switch lg"
                                                 data-target="password"><em
                                                     class="passcode-icon icon-show icon ni ni-eye"></em><em
                                                     class="passcode-icon icon-hide icon ni ni-eye-off"></em></a>
                                                     <input type="password" name="password" class="form-control form-control-lg" id="password"
-                                                placeholder="Enter your passcode">
+                                                placeholder="Enter your password">
                                         </div>
                                         @error('password')
                                             <span class="text-danger">{{$message}}</span>

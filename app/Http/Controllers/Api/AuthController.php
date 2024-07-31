@@ -54,7 +54,7 @@ class AuthController extends Controller
         }elseif (!User::where(['user_type' => '2', 'email' => $request->email, 'status' =>'1'])->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => "You Don't Have Access For Login.",
+                'message' => "Your account has been deactivated",
             ], 422);
         }
 
