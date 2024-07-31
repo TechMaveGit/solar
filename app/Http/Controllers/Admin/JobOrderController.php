@@ -77,6 +77,10 @@ class JobOrderController extends Controller
 
             DB::beginTransaction();
             try {
+                $order = JobOrder::latest()->first();
+                $latest_id = $order ? $order->id : 0;
+                $new_id = $latest_id + 1;
+                $order_id = 'OD'.$new_id;
 
                 $system_components = [
                     'pv_make' => $request->pv_make,
@@ -414,6 +418,7 @@ class JobOrderController extends Controller
                     "loss_10" => $request->loss_10,
                 ];
                 $jobOrder = new JobOrder();
+                $jobOrder->order_id = $order_id;
                 $jobOrder->client_type = $request->client_type;
                 $jobOrder->client_id = $request->client_id;
                 $jobOrder->staff_id = $request->staff_id;

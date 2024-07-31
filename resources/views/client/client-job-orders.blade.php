@@ -35,14 +35,14 @@
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
                                     <th hidden>Id</th>
-                                    <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
+                                    {{-- <th class="nk-tb-col"><span class="sub-text">Client ID</span></th> --}}
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Type</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Staff ID</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Assigned Staff</span></th>
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Assigned Date</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-end"></th>
+                                    <th class="nk-tb-col nk-tb-col-tools text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,7 +52,7 @@
 
                                     <tr class="nk-tb-item">
                                         <td hidden>{{ $key+1 }}</td>
-                                        <td class="nk-tb-col tb-col-md"><span>{{ $order->client_id }}</span></td>
+                                        {{-- <td class="nk-tb-col tb-col-md"><span>{{ $order->client_id }}</span></td> --}}
                                         <td class="nk-tb-col">
                                             <div class="user-card">
                                                 <div class="user-avatar bg-dim-primary d-none d-sm-flex">
@@ -69,7 +69,7 @@
                                                 @endif
                                             </span>
                                         </td>
-                                        <td class="nk-tb-col tb-col-md"><span>{{ $order->staff_id }}</span></td>
+                                        <td class="nk-tb-col tb-col-md"><span>@if(isset($order->staff)){{ $order->staff->staff_id }}@endif</span></td>
                                         <td class="nk-tb-col tb-col-md"><span>@if(isset($order->staff)){{ $order->staff->name }}@endif </span></td>
 
 

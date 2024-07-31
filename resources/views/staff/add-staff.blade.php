@@ -80,7 +80,7 @@
                                                             class="passcode-icon icon-show icon ni ni-eye"></em><em
                                                             class="passcode-icon icon-hide icon ni ni-eye-off"></em></a>
                                                     <input type="password" name="password" class="form-control" id="password"
-                                                        placeholder="Enter your password" required>
+                                                        placeholder="" required>
                                                     </div>
                                                     @error('password')
                                                         <span class="error">{{ $message }}</span>
@@ -93,7 +93,7 @@
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text"
                                                                 id="fv-phone">+353</span></div><input type="text"
-                                                            name="mobile" value="{{ old('mobile') }}" class="form-control" required>
+                                                            name="mobile" value="{{ old('mobile') }}" class="form-control phoneNumber" required>
                                                     </div>
                                                     @error('mobile')
                                                     <span class="error">{{ $message }}</span>
@@ -145,7 +145,6 @@
                                                 <div class="form-control-wrap "><select class="form-select js-select2"
                                                         id="fv-topics" name="status"
                                                         data-placeholder="Select a option" required>
-                                                        <option label="empty" value=""></option>
                                                         <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
                                                         <option value="2" {{ old('status') == '2' ? 'selected' : '' }}>Inactive</option>
                                                     </select>

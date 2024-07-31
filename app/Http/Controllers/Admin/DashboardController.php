@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $clients = Client::get();
         $totalClients = count($clients);
 
-        $jobOrders = JobOrder::orderBy('id', 'desc')->get();
+        $jobOrders = JobOrder::with('client')->orderBy('id', 'desc')->get();
         $pendingOrders = $jobOrders->where('status','0');
         $totalJobOrders = $jobOrders->count();
 

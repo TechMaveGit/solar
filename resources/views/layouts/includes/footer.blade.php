@@ -32,6 +32,13 @@
         $(document).ready(function() {
             $('.time__pickers').mdtimepicker(); //Initializes the time picker
         });
+
+        $(document).ready(function(){
+            $('.phoneNumber').on('input', function(){
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+
     </script>
 
 <script>
