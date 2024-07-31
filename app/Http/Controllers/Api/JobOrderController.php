@@ -601,6 +601,7 @@ class JobOrderController extends Controller
                     // $jobOrder->test_signature = $jobOrderData['test_signature'] ?? null;
                     $jobOrder->test_notes = $jobOrderData['test_notes'] ?? null;
                     $jobOrder->notes = $jobOrderData['notes'] ?? null;
+                    $jobOrder->completed_date = date('m/d/Y');
 
                     $jobOrder->system_components = json_encode($system_components);
                     $jobOrder->pv_inverts = json_encode($pv_inverts);

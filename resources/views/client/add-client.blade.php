@@ -66,7 +66,7 @@
                                                 <div class="input-group">
                                                     <div class="input-group-prepend"><span class="input-group-text"
                                                         id="fv-phone">+353</span></div>
-                                                        <input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control" required>
+                                                        <input type="text" name="mobile" value="{{ old('mobile') }}" class="form-control phoneNumber" required>
                                                 </div>
                                                 @error('mobile')
                                                 <span class="error">{{ $message }}</span>

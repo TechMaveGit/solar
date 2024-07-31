@@ -29,7 +29,13 @@ class ClientController extends Controller
         ]);
 
         try {
+            $Clint = JobOrder::latest()->first();
+            $latest_id = $Clint ? $Clint->id : 0;
+            $new_id = $latest_id + 1;
+            $client_id = 'CST'.$new_id;
+
             $client = new Client();
+            $client->client_id = $client_id;
             $client->name = $request->name;
             $client->email = $request->email;
             $client->mobile = $request->mobile;

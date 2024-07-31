@@ -147,7 +147,7 @@
                                         <thead>
                                             <tr class="tb-tnx-head">
                                                 <th>Order ID</th>
-                                                <th>Customer ID</th>
+                                                <th>Client ID</th>
                                                 <th>Order Date</th>
                                                 <th>Installation Address</th>
                                                 <th>Order Status</th>
@@ -157,10 +157,10 @@
                                             @if(count($pendingOrders)>0)
                                             @foreach ($pendingOrders as $order)
                                                 <tr>
-                                                    <td class="nk-tb-col"><a href="{{ route('admin.view-job-order',base64_encode($order->id)) }}">{{ $order->id }}</a></td>
-                                                    <td class="nk-tb-col">{{ $order->client_id }}</td>
+                                                    <td class="nk-tb-col"><a href="{{ route('admin.view-job-order',base64_encode($order->id)) }}">{{ $order->order_id }}</a></td>
+                                                    <td class="nk-tb-col">@if(isset($order->client)){{ $order->client->client_id }}@endif</td>
                                                     <td class="nk-tb-col">{{ $order->date }}</td>
-                                                    <td class="nk-tb-col">{{ $order->installation_address }}</td>
+                                                    <td class="nk-tb-col">{{ $order->installation_address }} {{ $order->city }} {{ $order->state }} {{ $order->country }}, {{ $order->postal_code }}</td>
                                                     <td class="tb-tnx-info">
                                                         <div class="tb-tnx-status">
                                                             <span class="badge badge-dot text-warning">Assigned</span>
@@ -215,7 +215,7 @@
                                             @endif
 
                                             <ul class="timeline-list">
-                                                <li class="timeline-item">
+                                                <li class="timeline-item pb-2">
                                                     <div class="timeline-status @if($notify->status=='0') bg-primary is-outline
                                                         @elseif($notify->status=='1') bg-primary
                                                         @elseif($notify->status=='2') bg-pink
