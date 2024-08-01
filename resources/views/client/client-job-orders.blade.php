@@ -34,7 +34,7 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
-                                    <th hidden>Id</th>
+                                    <th hidden>Sr. No.</th>
                                     {{-- <th class="nk-tb-col"><span class="sub-text">Client ID</span></th> --}}
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Type</span></th>

@@ -33,7 +33,7 @@
                                     <div class="rportFilter d-block">
                                         <form id="date-range-form" action="{{ route('admin.reports') }}" method="GET">
                                             <div class="form-control-wrap">
-                                                <div class="col-md-3 me-2">
+                                                <div class="col-md-2 me-2">
                                                     <div class="form-group"><label class="form-label text-muted">Select
                                                             Client<div class="requiredField"></div></label>
                                                         <div class="form-control-wrap">
@@ -47,7 +47,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 me-2">
+                                                <div class="col-lg-2 me-2">
                                                     <div class="form-group"><label class="form-label text-muted">Select
                                                             Staff<div class="requiredField"></div></label>
                                                         <div class="form-control-wrap">
@@ -62,13 +62,23 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group"><label class="form-label">
-                                                    <div></div>&nbsp</label>
+                                                <div class="form-group me-2"><label class="form-label text-muted">
+                                                    <div></div>Assigned Date</label>
                                                     <div class="form-control-wrap">
                                                         <div class="input-daterange date-picker-range input-group">
-                                                            <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="Report From Date">
+                                                            <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="From Date" readonly>
                                                             <div class="input-group-addon">TO</div>
-                                                            <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="Report To Date">
+                                                            <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="To Date" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group"><label class="form-label text-muted">
+                                                    <div></div>Completed Date</label>
+                                                    <div class="form-control-wrap">
+                                                        <div class="input-daterange date-picker-range input-group">
+                                                            <input type="text" name="s_complete_date" value="{{ $s_complete_date ?? ''}}" class="form-control" id="s_complete_date" autocomplete="off" placeholder="From Date" readonly>
+                                                            <div class="input-group-addon">TO</div>
+                                                            <input type="text" name="e_complete_date" value="{{ $e_complete_date ?? ''}}" class="form-control" id="e_complete_date" autocomplete="off" placeholder="To Date" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -112,7 +122,7 @@
                         <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
-                                    <th hidden>ID</th>
+                                    <th hidden>Sr. No.</th>
                                     <th class="nk-tb-col"><span class="sub-text">Order ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
@@ -120,6 +130,7 @@
                                     {{-- <th class="nk-tb-col"><span class="sub-text">Staff ID</span></th> --}}
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Assigned Staff</span></th>
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Assigned Date</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Completed Date</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Job Order Form</span></th>
                                     <th class="nk-tb-col "><span class="sub-text"> Pictures</span></th>
@@ -130,8 +141,8 @@
                                 @foreach ($jobOrders as $key => $jobOrder)
                                 <tr class="nk-tb-item">
                                     <td hidden>{{ $key+1 }}</td>
-                                    <td class="nk-tb-col tb-col-md"><span>{{ $jobOrder->id }}</span></td>
-                                    <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->client)){{ $jobOrder->client->id }}@endif</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span>{{ $jobOrder->order_id }}</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->client)){{ $jobOrder->client->client_id }}@endif</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
                                             <div class="user-avatar bg-dim-primary d-none d-sm-flex">
@@ -160,6 +171,13 @@
                                         <ul class="list-status">
                                             <li><em class="icon text-success ni ni-check-circle"></em>
                                                 <span>{{ \Carbon\Carbon::parse($jobOrder->date)->format('d F Y') }}</span></li>
+
+                                        </ul>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-lg">
+                                        <ul class="list-status">
+                                            @if(isset($jobOrder->completed_date))<li><em class="icon text-success ni ni-check-circle"></em>
+                                                <span>{{ \Carbon\Carbon::parse($jobOrder->completed_date)->format('d F Y') }}</</span></li> @endif
 
                                         </ul>
                                     </td>

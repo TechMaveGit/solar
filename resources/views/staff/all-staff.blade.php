@@ -42,7 +42,7 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
-                                    <th hidden>Id</th>
+                                    <th hidden>Sr. No.</th>
                                     <th class="nk-tb-col"><span class="sub-text">Staff ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Staff Name</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></th>

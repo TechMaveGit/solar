@@ -499,7 +499,7 @@
                 </td>
                 <td
                     style="width:118pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p class="s1" style="padding-left: 94pt;padding-right: 2pt;text-indent: 5pt;text-align: right;">{{ $system->battery_rating_kw ?? ''}}</p>
+                    <p class="s1" style="padding-left: 94pt;padding-right: 2pt;text-indent: 5pt;text-align: right;">{{ isset($system->battery_rating_kw) ? $system->battery_rating_kw . ' (kw)' : '(kw)' }}<br/>{{ isset($system->battery_rating_kwh) ? $system->battery_rating_kwh . ' (kwh)' : '(kwh)' }}</p>
                 </td>
                 <td
                     style="width:56pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
