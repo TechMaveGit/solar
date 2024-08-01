@@ -13,4 +13,10 @@ class Notification extends Model
     {
         return $this->hasOne(User::class, 'id', 'staff_id');
     }
+
+    public function job()
+    {
+        return $this->hasOne(JobOrder::class, 'id', 'job_order_id');
+    }
+
 }

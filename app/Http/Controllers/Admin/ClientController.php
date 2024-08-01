@@ -51,7 +51,9 @@ class ClientController extends Controller
             $client->gender = $request->gender;
             if($client->save()){
                 if($request->action == 'save_and_process') {
-                    return redirect()->route('admin.create-job-order')->with('success','Client Added Successfully!');
+                    return redirect()->route('admin.create-job-order')
+                    // ->with('success','Client Added Successfully!')
+                    ->with('client', $client);
                 } else {
                     return redirect()->route('admin.all-client')->with('success','Client Added Successfully!');
                 }

@@ -42,7 +42,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td style="font-family:'Josefin Sans', Arial, Helvetica, sans-serif;font-size: 20px;color: #282828;font-weight: 500;"
-                                                                                align="center">Dear {{ $data->name ?? '' }}</td>
+                                                                                align="center">Dear @if(isset($jobOrder->staff)) {{ $jobOrder->staff->name }} @endif</td>
                                                                         </tr>
 
                                                                         <tr>
@@ -51,25 +51,23 @@
                                                                         <tr>
                                                                             <td
                                                                                 style="font-family:'Open Sans', Arial, Helvetica, sans-serif;font-size: 14px;color: #282828;line-height: 22px;">
-                                                                                We hope this email finds you well. We are excited to have you on board and look forward to working together.
+                                                                                I hope this message finds you well.
                                                                                 <br>
                                                                                 <br>
-
-                                                                                Below are your login credentials to access Munster solar app:<br><br>
-                                                                                <strong>Email:</strong> {{ $data->email ?? '' }}<br>
-                                                                                <strong>Password:</strong> {{ $password ?? '' }}<br>
-                                                                                <br>
-                                                                                Please follow these steps to access your app account:
+                                                                                We are pleased to inform you that a new job order has been assigned to you. Below are the details of the job order:
                                                                                 <br>
                                                                                 <br>
-                                                                                Go to the play store/apple store & install the Munster solar app. <br>
-                                                                                Enter your username & password as mentioned above.
+                                                                                <strong>Job Order ID:</strong> {{ $jobOrder->order_id ?? '' }}<br>
+                                                                                <strong>Installation Address:</strong> {{ $jobOrder->address ?? '' }} {{ $jobOrder->city ?? '' }} {{ $jobOrder->country ?? '' }}, {{ $jobOrder->postal_code ?? '' }}<br>
+                                                                                <strong>Scheduled Date & Time:</strong> {{ $jobOrder->date ?? '' }} {{ $jobOrder->time ?? '' }}<<br>
+                                                                                <strong>Client Name:</strong> @if(isset($jobOrder->client->name)){{ $jobOrder->client->name }} @endif<br>
+                                                                                <strong>Client Mobile Number:</strong> @if(isset($jobOrder->client->dial_code)) {{ $jobOrder->client->dial_code }}{{ $jobOrder->client->mobile }} @endif<br>
+                                                                                <br>
+                                                                                Please review the job order details. If you have any questions or require further information, do not hesitate to reach out to
+                                                                                your supervisor or the project manager.
                                                                                 <br>
                                                                                 <br>
-                                                                                If you encounter any issues or have any questions, feel free to contact our support team at {{ env('mail_from_address') }}
-                                                                                <br>
-                                                                                <br>
-                                                                                Thank you for being a part of Munster solar. We look forward to your active participation and success on our platform.
+                                                                                We are confident in your abilities and are looking forward to your excellent contribution to this project.
                                                                                 <br>
                                                                                 <br>
                                                                                 Best regards,<br>

@@ -73,9 +73,9 @@
                                 <div></div>Assigned Date</label>
                                 <div class="form-control-wrap">
                                     <div class="input-daterange date-picker-range input-group">
-                                        <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="From  date ">
+                                        <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="From  date " readonly>
                                         <div class="input-group-addon">TO</div>
-                                        <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="To  date">
+                                        <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="To  date" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -85,9 +85,9 @@
                                 <div></div>Completed Date</label>
                                 <div class="form-control-wrap">
                                     <div class="input-daterange date-picker-range input-group">
-                                        <input type="text" name="s_complete_date" value="{{ $s_complete_date ?? ''}}" class="form-control" id="s_complete_date" autocomplete="off" placeholder="From date ">
+                                        <input type="text" name="s_complete_date" value="{{ $s_complete_date ?? ''}}" class="form-control" id="s_complete_date" autocomplete="off" placeholder="From date " readonly>
                                         <div class="input-group-addon">TO</div>
-                                        <input type="text" name="e_complete_date" value="{{ $e_complete_date ?? ''}}" class="form-control" id="e_complete_date" autocomplete="off" placeholder="To date">
+                                        <input type="text" name="e_complete_date" value="{{ $e_complete_date ?? ''}}" class="form-control" id="e_complete_date" autocomplete="off" placeholder="To date" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
-                                    <th hidden>Id</th>
+                                    <th hidden>Sr. No.</th>
                                     <th class="nk-tb-col"><span class="sub-text">Order ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>

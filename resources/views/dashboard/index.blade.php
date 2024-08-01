@@ -231,7 +231,7 @@
                                                             @endif
                                                         </h6>
                                                         <div class="timeline-des">
-                                                            <p>Order ID {{ $notify->job_order_id }}
+                                                            <p>Order ID @if(isset($notify->job)){{ $notify->job->order_id }}@endif
                                                                 @if($notify->status=='0') assigned to @endif
 
                                                                 @if(isset($notify->staff)){{ $notify->staff->name }}@endif
