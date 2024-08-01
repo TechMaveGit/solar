@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\JobAssignedMail;
 
 class JobOrderController extends Controller
 {
@@ -22,6 +24,9 @@ class JobOrderController extends Controller
         $endDate = $request->input('end_date');
         $client_id = $request->input('client_id');
         $staff_id = $request->input('staff_id');
+        $status = $request->input('status');
+        $s_complete_date = $request->input('s_complete_date');
+        $e_complete_date = $request->input('e_complete_date');
 
         $query = JobOrder::with('client','staff')->orderBy('id','DESC');
 
@@ -33,6 +38,13 @@ class JobOrderController extends Controller
             $query->where('date', '<=', $endDate);
         }
 
+        if ($s_complete_date && $e_complete_date) {
+            $query->whereBetween('completed_date', [$s_complete_date, $e_complete_date]);
+        }elseif ($s_complete_date) {
+            $query->where('completed_date', '>=', $s_complete_date);
+        } elseif ($e_complete_date) {
+            $query->where('completed_date', '<=', $e_complete_date);
+        }
 
         if($client_id){
             $query->where('client_id',$client_id);
@@ -40,11 +52,14 @@ class JobOrderController extends Controller
         if($staff_id){
             $query->where('staff_id',$staff_id);
         }
+        if($status){
+            $query->where('status',$status);
+        }
         $jobOrders = $query->get();
 
         $staffs = User::where(['user_type'=>'2'])->orderBy('id','DESC')->get();
         $clients = Client::orderBy('id','DESC')->get();
-        return view('jobOrder.assigned-job-order',compact('jobOrders','startDate','endDate','staffs','clients','client_id','staff_id'));
+        return view('jobOrder.assigned-job-order',compact('jobOrders','startDate','endDate','staffs','clients','client_id','staff_id','status','s_complete_date','e_complete_date'));
     }
 
     public function create(Request $request){
@@ -505,6 +520,11 @@ class JobOrderController extends Controller
 
                 DB::commit();
 
+                $staff = $jobOrder->staff;
+
+                $staffEmail = $staff->email;
+
+                Mail::to($staffEmail)->send(new JobAssignedMail($jobOrder));
 
                 \Session::flash('success', 'Job Assigned successfully.');
 

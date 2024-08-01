@@ -69,7 +69,7 @@
                                                         @elseif($notify->status=='3') bg-success-dim ni-curve-down-left @endif"></em>
                                             </div>
                                             <div class="nk-notification-content">
-                                                <div class="nk-notification-text">Order ID {{ $notify->job_order_id }}
+                                                <div class="nk-notification-text">Order ID @if(isset($notify->job)){{ $notify->job->order_id }}@endif
                                                     @if($notify->status=='0') assigned to @endif
                                                     @if(isset($notify->staff)){{ $notify->staff->name }}@endif
 

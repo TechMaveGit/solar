@@ -86,9 +86,35 @@
                                     <div class="nk-stepper-steps stepper-steps">
                                         <div class="nk-stepper-step defaultFormTabContent">
                                             <div class="innerfieldsContainer card-bordered">
-                                                <h5 class="title mb-3">Add Time Schedule for this Job Order</h5>
+                                                <h5 class="title mb-3">Time Schedule for this Job Order</h5>
                                                 <div class="row ">
-
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group"><label class="form-label">Order ID<div class="requiredField"></div></label>
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-icon form-icon-right"></div>
+                                                                <input type="text" value="{{ $jobOrder->order_id }}" class="form-control" id="fv-Country" readonly disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group"><label class="form-label">Status<div class="requiredField"></div></label>
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-icon form-icon-right"></div>
+                                                                <input type="text" value="@if($jobOrder->status=='0'){{ 'Assigned' }}@elseif($jobOrder->status=='1'){{ 'Started' }}@elseif($jobOrder->status=='3'){{ 'Completed' }}@endif" class="form-control" id="fv-Country" readonly disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="form-group"><label class="form-label">
+                                                                Completed Date<div class="requiredField"></div></label>
+                                                            <div class="form-control-wrap">
+                                                                <div class="form-icon form-icon-right"><em
+                                                                        class="icon ni ni-calendar-alt"></em></div>
+                                                                <input type="text" name="completed_date" value="{{ $jobOrder->completed_date ? \Carbon\Carbon::parse($jobOrder->completed_date)->format('m/d/Y') : '' }}" class="form-control date-picker" placeholder="mm/dd/yyyy" readonly disabled>
+                                                                <span id="" class="error date_err"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group"><label class="form-label">Client Type<div class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
@@ -126,20 +152,20 @@
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"><em
                                                                         class="icon ni ni-calendar-alt"></em></div>
-                                                                <input type="text" name="date" value="{{ $jobOrder->date  }}" class="form-control date-picker" placeholder="mm/dd/yyyy" readonly disabled>
+                                                                <input type="text" name="date" value="{{ $jobOrder->date ? \Carbon\Carbon::parse($jobOrder->date)->format('m/d/Y') : '' }}" class="form-control date-picker" placeholder="mm/dd/yyyy" readonly disabled>
                                                                 <span id="" class="error date_err"></span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="cp1-project-name"> Time<div class="requiredField"></div></label>
+                                                            for="cp1-project-name"> Time<div class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
                                                                 <input type="text" name="time" value="{{ $jobOrder->time }}"
-                                                                    class="form-control time__pickers"
-                                                                    id="timepicker" placeholder="Select Time"
-                                                                    readonly="" disabled>
-                                                                    <span id="" class="error time_err"></span>
+                                                                class="form-control time__pickers"
+                                                                id="timepicker" placeholder="Select Time"
+                                                                readonly="" disabled>
+                                                                <span id="" class="error time_err"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1868,7 +1894,60 @@
                                                 <p>according to EN 62446, Annex B
                                                 </p>
                                             </div>
+                                            <div class="innerfieldsContainer card-bordered mt-3">
+                                                <h5 class="title mb-3">Testing</h5>
+                                                <div class="card-inner p-0">
+                                                    <div class="row">
 
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group"><label class="form-label">Test
+                                                                    Date</label>
+                                                                <div class="form-control-wrap">
+                                                                    <div class="form-icon form-icon-right"><em
+                                                                            class="icon ni ni-calendar-alt"></em>
+                                                                    </div>
+                                                                    <input type="text" name="test_date"
+                                                                        class="form-control date-picker" disabled
+                                                                        placeholder="mm/dd/yyyy" value="{{ $jobOrder->test_date ? \Carbon\Carbon::parse($jobOrder->test_date)->format('m/d/Y') : '' }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {{-- <div class="col-sm-6">
+                                                            <div class="form-group"><label
+                                                                    class="form-label">Signature/Tester </label>
+                                                                <div class="form-control-wrap">
+
+                                                                    <input type="text" name="test_signature" class="form-control"
+                                                                    value="{{ $jobOrder->test_signature }}" readonly>
+                                                                </div>
+                                                            </div>
+                                                        </div> --}}
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label class="form-label"
+                                                                    for="fv-Postal">Signature/Tester</label>
+                                                                <div class="form-control-wrap">
+                                                                    @if(isset($jobOrder->test_signature) && strpos($jobOrder->test_signature, 'base_document') !== false)
+                                                                    <a class="gallery-image popup-image" href="{{ env('STORE_FILE_URL') .$jobOrder->test_signature }}">
+                                                                        <img class="w-40 h-30 rounded-top " src="{{ env('STORE_FILE_URL') . $jobOrder->test_signature }}" alt="" style="border: 1px solid #dbdfea;">
+                                                                    </a>
+                                                                    @else
+                                                                    <input type="text" name="test_signature" class="form-control"
+                                                                    value="{{ $jobOrder->test_signature }}" readonly>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="filedsNote">
+                                                            <p>Inspected circuits (fill out one sheet for large
+                                                                systems and for separate inspections per
+                                                                inspection):
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="innerfieldsContainer card-bordered mt-3">
                                                 <h5 class="title mb-3">Design and installation of the PV generator
                                                 </h5>

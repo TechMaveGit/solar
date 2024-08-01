@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\JobCompletedMail;
 
 class JobOrderController extends Controller
 {
@@ -257,7 +259,7 @@ class JobOrderController extends Controller
                         'inverter_test_date' => $jobOrderData['inverter_test_date'] ?? null,
                         'inverter_next_test_date' => $jobOrderData['inverter_next_test_date'] ?? null,
                         'inverter_test_reason' => $jobOrderData['inverter_test_reason'] ?? null,
-                        'inverter_test2_reason' => $jobOrderData['inverter_test2_reason'] ?? null,
+                        'inverter_test2_reason' => $jobOrderData['inverter_test2_reason'] ?? null
                     ];
                     $design_and_installation = [
                         "design_installation_1" => $jobOrderData['design_installation_1'] ?? null,
@@ -641,6 +643,11 @@ class JobOrderController extends Controller
                     $this->generatePDF($jobOrder);
 
                     DB::commit();
+
+                    $admin = User::where('user_type', '1')->first();
+                    $adminMail = $admin->email;
+                    // send mail to the admin
+                    Mail::to($adminMail)->send(new JobCompletedMail($jobOrder));
 
                     return response()->json([
                         'status' => true,
@@ -1315,7 +1322,7 @@ class JobOrderController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => 'This Job order not found',
-            ],404);
+            ],403);
         }
 
     }

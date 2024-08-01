@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class StaffMail extends Mailable
+class JobCompletedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,13 +17,12 @@ class StaffMail extends Mailable
      * Create a new message instance.
      */
 
-    public $data;
-    public $password;
+    public $jobOrder;
 
-    public function __construct($data, $password)
+
+    public function __construct($jobOrder)
     {
-        $this->data = $data;
-        $this->password = $password;
+        $this->jobOrder = $jobOrder;
     }
 
     /**
@@ -32,7 +31,7 @@ class StaffMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your Login Details for Munster solar app',
+            subject: "Job Order {$this->jobOrder->order_id} Completed"
         );
     }
 
@@ -42,7 +41,7 @@ class StaffMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail_template.registration_mail',
+            view: 'mail_template.completed_job_mail',
         );
     }
 

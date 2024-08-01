@@ -17,12 +17,12 @@
     <div class="container-xl wide-lg">
         <div class="nk-content-body">
             <div class="nk-block-head nk-block-head-sm">
-                <div class="nk-block-between">
-                    <div class="nk-block-head-content d-flex">
+                <div class="nk-block-between d-block">
+                    <div class="nk-block-head-content d-flex" style="justify-content:space-between;">
                         <div>
                             <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">Job Orders</h2>
                         </div>
-                        {{-- <div class="form-group ms-1">
+                        <div class="form-group ms-1">
                             <div class="form-control-wrap">
                                 <div class="btnContainer">
                                     <a href="{{ route('admin.create-job-order') }}" class=" btn btn-primary d-none d-md-inline-flex pageaddbtn">
@@ -30,14 +30,14 @@
                                     </a>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="rportFilter">
                 <form id="date-range-form" action="{{ route('admin.assigned-job-order') }}" method="GET">
                     <div class="form-control-wrap">
-                        <div class="col-lg-2 me-2">
+                        <div class="col-lg-2 me-1">
                             <div class="form-group"><label class="form-label text-muted">Select
                                     Client<div class="requiredField"></div></label>
                                 <div class="form-control-wrap">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 me-2">
+                        <div class="col-lg-2 me-1">
                             <div class="form-group"><label class="form-label text-muted">Select
                                     Staff<div class="requiredField"></div></label>
                                 <div class="form-control-wrap">
@@ -65,13 +65,37 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group"><label class="form-label">
+                        <div class="col-lg-1 me-1">
+                            <div class="form-group"><label class="form-label text-muted">Select
+                                    Status<div class="requiredField"></div></label>
+                                <div class="form-control-wrap">
+                                    <select class="form-select js-select2"
+                                        data-search="on" name="status">
+                                        <option value="" selected>Select Status</option>
+                                        <option value="0" {{ $status == '0' ? 'selected' : '' }}>Assigned</option>
+                                        <option value="1" {{ $status == '1' ? 'selected' : '' }}>Started</option>
+                                        <option value="3" {{ $status == '3' ? 'selected' : '' }}>Completed</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group me-1"><label class="form-label text-muted">
                             <div></div>Assigned Date</label>
                             <div class="form-control-wrap">
                                 <div class="input-daterange date-picker-range input-group">
-                                    <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="Work Order Report From ">
+                                    <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="From Date " readonly>
                                     <div class="input-group-addon">TO</div>
-                                    <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="Work Order Report From To ">
+                                    <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="To Date" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="form-label text-muted">
+                            <div></div>Completed Date</label>
+                            <div class="form-control-wrap">
+                                <div class="input-daterange date-picker-range input-group">
+                                    <input type="text" name="s_complete_date" value="{{ $s_complete_date ?? ''}}" class="form-control" id="s_complete_date" autocomplete="off" placeholder="From Date " readonly>
+                                    <div class="input-group-addon">TO</div>
+                                    <input type="text" name="e_complete_date" value="{{ $e_complete_date ?? ''}}" class="form-control" id="e_complete_date" autocomplete="off" placeholder="To Date" readonly>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +119,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group ms-1"><label class="form-label">
+                        {{-- <div class="form-group ms-1"><label class="form-label">
                             <div></div>&nbsp</label>
                             <div class="form-control-wrap">
                                 <div class="btnContainer">
@@ -104,7 +128,7 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                 </form>
@@ -134,7 +158,7 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
-                                    <th hidden>Id</th>
+                                    <th hidden>Sr. No.</th>
                                     <th class="nk-tb-col"><span class="sub-text">Order ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
@@ -142,8 +166,9 @@
                                     {{-- <th class="nk-tb-col"><span class="sub-text">Staff ID</span></th> --}}
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Assigned Staff</span></th>
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Assigned Date</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Completed Date</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-end"></th>
+                                    <th class="nk-tb-col nk-tb-col-tools text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -152,8 +177,8 @@
                                 @foreach ($jobOrders as $key=>$jobOrder)
                                 <tr class="nk-tb-item">
                                     <td hidden>{{ $key+1 }}</td>
-                                    <td class="nk-tb-col tb-col-md"><span>{{ $jobOrder->id }}</span></td>
-                                    <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->client)){{ $jobOrder->client->id }}@endif</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span>{{ $jobOrder->order_id }}</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span>@if(isset($jobOrder->client)){{ $jobOrder->client->client_id }}@endif</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
                                             <div class="user-avatar bg-dim-primary d-none d-sm-flex">
@@ -182,6 +207,13 @@
                                         <ul class="list-status">
                                             <li><em class="icon text-success ni ni-check-circle"></em>
                                                 <span>{{ \Carbon\Carbon::parse($jobOrder->date)->format('d F Y') }}</span></li>
+
+                                        </ul>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-lg">
+                                        <ul class="list-status">
+                                            @if(isset($jobOrder->completed_date))<li><em class="icon text-success ni ni-check-circle"></em>
+                                                <span>{{ \Carbon\Carbon::parse($jobOrder->completed_date)->format('d F Y') }}</</span></li> @endif
 
                                         </ul>
                                     </td>

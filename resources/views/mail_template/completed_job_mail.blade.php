@@ -42,7 +42,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td style="font-family:'Josefin Sans', Arial, Helvetica, sans-serif;font-size: 20px;color: #282828;font-weight: 500;"
-                                                                                align="center">Dear {{ $data->name ?? '' }}</td>
+                                                                                align="center">Dear Admin</td>
                                                                         </tr>
 
                                                                         <tr>
@@ -51,29 +51,19 @@
                                                                         <tr>
                                                                             <td
                                                                                 style="font-family:'Open Sans', Arial, Helvetica, sans-serif;font-size: 14px;color: #282828;line-height: 22px;">
-                                                                                We hope this email finds you well. We are excited to have you on board and look forward to working together.
+                                                                                I hope this message finds you well.
                                                                                 <br>
                                                                                 <br>
-
-                                                                                Below are your login credentials to access Munster solar app:<br><br>
-                                                                                <strong>Email:</strong> {{ $data->email ?? '' }}<br>
-                                                                                <strong>Password:</strong> {{ $password ?? '' }}<br>
-                                                                                <br>
-                                                                                Please follow these steps to access your app account:
+                                                                                We are pleased to inform you that Job Order {{ $jobOrder->order_id ?? '' }} has been successfully completed by @if(isset($jobOrder->staff))[{{ $jobOrder->staff->name }} {{ $jobOrder->staff->staff_id }}] @endif. <br>
+                                                                                Below are the details of the completed job order:
                                                                                 <br>
                                                                                 <br>
-                                                                                Go to the play store/apple store & install the Munster solar app. <br>
-                                                                                Enter your username & password as mentioned above.
-                                                                                <br>
-                                                                                <br>
-                                                                                If you encounter any issues or have any questions, feel free to contact our support team at {{ env('mail_from_address') }}
-                                                                                <br>
-                                                                                <br>
-                                                                                Thank you for being a part of Munster solar. We look forward to your active participation and success on our platform.
-                                                                                <br>
-                                                                                <br>
-                                                                                Best regards,<br>
-                                                                                Team Munster solar
+                                                                                Job Order Details: <br>
+                                                                                <strong>Job Order ID:</strong> {{ $jobOrder->order_id ?? '' }}<br>
+                                                                                <strong>Client Name:</strong> @if(isset($jobOrder->client->name)){{ $jobOrder->client->name }} @endif<br>
+                                                                                <strong>Assigned Staff:</strong> @if(isset($jobOrder->staff->name)) {{ $jobOrder->staff->name }} @endif<br>
+                                                                                <strong>Assigned Date:</strong> {{ $jobOrder->date ?? '' }}<br>
+                                                                                <strong>Date Completed:</strong> {{ $jobOrder->completed_date ?? '' }}<br>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>

@@ -703,7 +703,7 @@
                                                                                     class="icon ni ni-calendar-alt"></em>
                                                                             </div>
                                                                             <input type="text" name="installer_date"
-                                                                                class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                                class="form-control date-picker" placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -717,7 +717,7 @@
                                                                             </div>
                                                                             <input type="text" name="installer_completed_date"
                                                                                 class="form-control date-picker"
-                                                                                placeholder="mm/dd/yyyy">
+                                                                                placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -727,7 +727,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="installer_sign" class="form-control"
-                                                                                placeholder="" readonly>
+                                                                                placeholder="">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -789,7 +789,7 @@
                                                                             </div>
                                                                             <input type="text" name="owner_date"
                                                                                 class="form-control date-picker"
-                                                                                placeholder="mm/dd/yyyy">
+                                                                                placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -800,7 +800,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="owner_sign" class="form-control"
-                                                                                placeholder="" readonly>
+                                                                                placeholder="" >
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1301,7 +1301,7 @@
                                                                                     class="icon ni ni-calendar-alt"></em>
                                                                             </div>
                                                                             <input type="text" name="installer_date"
-                                                                                class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                                class="form-control date-picker" placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1315,7 +1315,7 @@
                                                                             </div>
                                                                             <input type="text" name="installer_completed_date"
                                                                                 class="form-control date-picker"
-                                                                                placeholder="mm/dd/yyyy">
+                                                                                placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1325,7 +1325,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="installer_sign" class="form-control"
-                                                                                placeholder="" readonly>
+                                                                                placeholder="" >
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1386,7 +1386,7 @@
                                                                             </div>
                                                                             <input type="text" name="owner_date"
                                                                                 class="form-control date-picker"
-                                                                                placeholder="mm/dd/yyyy">
+                                                                                placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1397,7 +1397,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="owner_sign" class="form-control"
-                                                                                placeholder="" readonly>
+                                                                                placeholder="" >
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1686,7 +1686,7 @@
                                                                             class="icon ni ni-calendar-alt"></em>
                                                                     </div>
                                                                     <input type="text" name="inverter_test_date" id="inverter_test_date" class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy">
+                                                                        placeholder="mm/dd/yyyy" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1698,7 +1698,7 @@
                                                                             class="icon ni ni-calendar-alt"></em>
                                                                     </div>
                                                                     <input type="text" name="inverter_next_test_date" id="inverter_next_test_date" class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy">
+                                                                        placeholder="mm/dd/yyyy" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1892,7 +1892,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="tester_signature" class="form-control"
-                                                                            placeholder="" readonly>
+                                                                            placeholder="" >
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1905,7 +1905,7 @@
                                                                         </div>
                                                                         <input type="text" name="test_result_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1944,7 +1944,7 @@
                                                                         </div>
                                                                         <input type="text" name="test_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1955,7 +1955,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="test_signature" class="form-control"
-                                                                            placeholder="" readonly>
+                                                                            placeholder="" >
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -3112,7 +3112,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em class="icon ni ni-calendar-alt"></em>
                                                                     </div>
-                                                                    <input type="text" name="inverter_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                    <input type="text" name="inverter_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3122,7 +3122,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em class="icon ni ni-calendar-alt"></em>
                                                                     </div>
-                                                                    <input type="text" name="inverter_next_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                    <input type="text" name="inverter_next_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3312,7 +3312,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="tester_signature" class="form-control"
-                                                                            placeholder="" readonly>
+                                                                            placeholder="" >
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -3325,7 +3325,7 @@
                                                                         </div>
                                                                         <input type="text" name="test_result_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -3364,7 +3364,7 @@
                                                                         </div>
                                                                         <input type="text" name="test_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -3375,7 +3375,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="test_signature" class="form-control"
-                                                                            placeholder="" readonly>
+                                                                            placeholder="">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -4518,6 +4518,32 @@
 @push('push_script')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css"  />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+@if (session('client'))
+    @php
+        $client = session('client');
+    @endphp
+    <script>
+        $(document).ready(function() {
+            // Pre-fill the form fields with the client data
+            // $('.applicant_name').val('{{ $client->name }}');
+            // $('.installation_address').val('{{ $client->address }}');
+            // $('.client_country').val('{{ $client->country }}');
+            // $('.client_city').val('{{ $client->city }}');
+            // $('.installation_postalcode').val('{{ $client->postal_code }}');
+            // $('.installation_eircode').val('{{ $client->eircode }}');
+            var clientType = '{{ $client->client_type }}';
+            var clientId = '{{ $client->id }}';
+            $('#client_type').val(clientType).trigger('change');
+            // getClient(clientType);
+            // $("#client_id").html('<option value="' + clientId + '">' + '{{ $client->name }}' + '</option>');
+            getClient(clientType, function() {
+                $("#client_id").val(clientId).trigger('change');
+            });
+
+        });
+    </script>
+@endif
+
 <script>
      $(".date-pickerss").flatpickr({
         dateFormat: "m/d/Y",
@@ -4562,7 +4588,7 @@
             $('.installer_company_name').val(companyNameValue);
         });
     });
-// get client details for auto fill
+    // get client details for auto fill
     $('#client_id').on('change', function() {
             var client_id = $(this).val();
             $('#loader').addClass('active');
@@ -4741,7 +4767,7 @@
             cache: false,
             processData: false,
             success: function(data) {
-                $('#loader').removeClass('active');
+                // $('#loader').removeClass('active');
                 $('.error').html('');
                 if ($.isEmptyObject(data.errors)) {
                     window.location = "{{ route('admin.assigned-job-order') }}";
@@ -4762,7 +4788,7 @@
     }
 
     /////////////////// *************************** Get Client Code//////////////////
-    function getClient(client_type) {
+    function getClient(client_type, callback) {
         var defaultContent = $('.defaultFormTabContent');
         var domesticTabs = $('.domesticFormTab');
         var nondomesticTabs = $('.nondomesticTab');
@@ -4808,6 +4834,9 @@
                 if (data.clientsOptions) {
                     // console.log(data.clientsOptions);
                     $("#client_id").html(data.clientsOptions);
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
                     // clients = data.clients;  // Assuming data.clients contains the client details
                 } else {
                     console.log('No client options found.');
@@ -4859,17 +4888,19 @@
         showStep(currentStep);
     }
 
-    $(document).ready(function() {
-        // Set initial tab visibility
-        $('.domesticFormTab').hide();
-        $('.nondomesticTab').hide();
-        $('.domestiocFormTabContent').hide();
-        $('.NondomestiocFormTabContent').hide();
+    @unless (session('client'))
+        $(document).ready(function() {
+            // Set initial tab visibility
+            $('.domesticFormTab').hide();
+            $('.nondomesticTab').hide();
+            $('.domestiocFormTabContent').hide();
+            $('.NondomestiocFormTabContent').hide();
 
-        // Initialize the stepper with default tab content
-        setupSteps($('.defaultFormTabContent'));
-        getClient(0);
-    });
+            // Initialize the stepper with default tab content
+            setupSteps($('.defaultFormTabContent'));
+            getClient(0);
+        });
+    @endunless
 
     // Get the scroll button element
     const scrollButton = document.querySelector('.scroll-button');
