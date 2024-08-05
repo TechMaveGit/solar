@@ -39,13 +39,24 @@ class JobOrderController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    private function normalizeDate($date) {
+        if (!$date) {
+            return null;
+        }
+
+        try {
+            return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return null; // or handle the invalid date format as needed
+        }
+    }
 
     public function JobOrders(Request $request)
     {
 
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
-        $Date = $request->input('date');
+        $startDate = $this->normalizeDate($request->input('start_date'));
+        $endDate = $this->normalizeDate($request->input('end_date'));
+        $Date = $this->normalizeDate($request->input('date'));
 
         // $query = JobOrder::where('staff_id', auth()->user()->id)->with('client')->orderBy('id', 'DESC');
         $query = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time'])
@@ -603,7 +614,7 @@ class JobOrderController extends Controller
                     // $jobOrder->test_signature = $jobOrderData['test_signature'] ?? null;
                     $jobOrder->test_notes = $jobOrderData['test_notes'] ?? null;
                     $jobOrder->notes = $jobOrderData['notes'] ?? null;
-                    $jobOrder->completed_date = date('m/d/Y');
+                    $jobOrder->completed_date = date('Y-m-d');
 
                     $jobOrder->system_components = json_encode($system_components);
                     $jobOrder->pv_inverts = json_encode($pv_inverts);

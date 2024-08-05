@@ -137,7 +137,7 @@
                                 <div class="card-inner border-bottom">
                                     <div class="card-title-group">
                                         <div class="card-title">
-                                            <h6 class="title">Recent Orders</h6>
+                                            <h6 class="title">Recent Assigned Orders</h6>
                                         </div>
                                         <div class="card-tools"><a href="{{ route('admin.assigned-job-order') }}" class="link">View All Orders</a></div>
                                     </div>
