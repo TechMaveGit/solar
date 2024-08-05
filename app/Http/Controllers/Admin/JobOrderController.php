@@ -16,17 +16,19 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\JobAssignedMail;
+use Carbon\Carbon;
 
 class JobOrderController extends Controller
 {
     public function index(Request $request){
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        $startDate = $this->normalizeDate($request->input('start_date'));
+        $endDate = $this->normalizeDate($request->input('end_date'));
         $client_id = $request->input('client_id');
         $staff_id = $request->input('staff_id');
         $status = $request->input('status');
-        $s_complete_date = $request->input('s_complete_date');
-        $e_complete_date = $request->input('e_complete_date');
+        $s_complete_date = $this->normalizeDate($request->input('s_complete_date'));
+        $e_complete_date = $this->normalizeDate($request->input('e_complete_date'));
+
 
         $query = JobOrder::with('client','staff')->orderBy('id','DESC');
 
@@ -61,6 +63,19 @@ class JobOrderController extends Controller
         $clients = Client::orderBy('id','DESC')->get();
         return view('jobOrder.assigned-job-order',compact('jobOrders','startDate','endDate','staffs','clients','client_id','staff_id','status','s_complete_date','e_complete_date'));
     }
+
+    private function normalizeDate($date) {
+        if (!$date) {
+            return null;
+        }
+
+        try {
+            return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return null; // or handle the invalid date format as needed
+        }
+    }
+
 
     public function create(Request $request){
         $staffs = User::where(['user_type'=>'2','status'=>'1'])->get();
@@ -437,7 +452,10 @@ class JobOrderController extends Controller
                 $jobOrder->client_type = $request->client_type;
                 $jobOrder->client_id = $request->client_id;
                 $jobOrder->staff_id = $request->staff_id;
-                $jobOrder->date = $request->date;
+                if ($request->filled('date')) {
+                    $formattedDate = Carbon::createFromFormat('m/d/Y', $request->date)->format('Y-m-d');
+                    $jobOrder->date = $formattedDate;
+                }
                 $jobOrder->time = $request->time;
                 $jobOrder->address = $request->address;
                 $jobOrder->country = $request->country;

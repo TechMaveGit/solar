@@ -66,9 +66,9 @@
                                                     <div></div>Assigned Date</label>
                                                     <div class="form-control-wrap">
                                                         <div class="input-daterange date-picker-range input-group">
-                                                            <input type="text" name="start_date" value="{{ $startDate ?? ''}}" class="form-control" id="start_date" autocomplete="off" placeholder="From Date" readonly>
+                                                            <input type="text" name="start_date" value="{{ $startDate ? \Carbon\Carbon::parse($startDate)->format('m/d/Y') : '' }}" class="form-control" id="start_date" autocomplete="off" placeholder="From Date" readonly>
                                                             <div class="input-group-addon">TO</div>
-                                                            <input type="text" name="end_date" value="{{ $endDate ?? ''}}" class="form-control" id="end_date" autocomplete="off" placeholder="To Date" readonly>
+                                                            <input type="text" name="end_date" value="{{ $endDate ? \Carbon\Carbon::parse($endDate)->format('m/d/Y') : '' }}" class="form-control" id="end_date" autocomplete="off" placeholder="To Date" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -76,9 +76,9 @@
                                                     <div></div>Completed Date</label>
                                                     <div class="form-control-wrap">
                                                         <div class="input-daterange date-picker-range input-group">
-                                                            <input type="text" name="s_complete_date" value="{{ $s_complete_date ?? ''}}" class="form-control" id="s_complete_date" autocomplete="off" placeholder="From Date" readonly>
+                                                            <input type="text" name="s_complete_date" value="{{ $s_complete_date ? \Carbon\Carbon::parse($s_complete_date)->format('m/d/Y') : '' }}" class="form-control" id="s_complete_date" autocomplete="off" placeholder="From Date" readonly>
                                                             <div class="input-group-addon">TO</div>
-                                                            <input type="text" name="e_complete_date" value="{{ $e_complete_date ?? ''}}" class="form-control" id="e_complete_date" autocomplete="off" placeholder="To Date" readonly>
+                                                            <input type="text" name="e_complete_date" value="{{ $e_complete_date ? \Carbon\Carbon::parse($e_complete_date)->format('m/d/Y') : '' }}" class="form-control" id="e_complete_date" autocomplete="off" placeholder="To Date" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
