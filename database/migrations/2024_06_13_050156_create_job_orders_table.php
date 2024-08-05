@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('client_type', ['1', '2'])->default('1')->comment('1=>Domestic, 2=>NonDomestic');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('staff_id');
-            $table->string('date')->nullable();
+            $table->date('date')->nullable();
             $table->string('time')->nullable();
             $table->string('address')->nullable();
             $table->string('country')->nullable();
@@ -92,7 +92,7 @@ return new class extends Migration
             $table->json('pv_inverts')->nullable();
             $table->json('design_and_installation')->nullable();
             $table->json('test_report_grid')->nullable();
-            $table->string('completed_date')->nullable();
+            $table->date('completed_date')->nullable();
 
             $table->timestamps();
         });

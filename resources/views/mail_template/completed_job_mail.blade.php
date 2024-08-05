@@ -62,8 +62,8 @@
                                                                                 <strong>Job Order ID:</strong> {{ $jobOrder->order_id ?? '' }}<br>
                                                                                 <strong>Client Name:</strong> @if(isset($jobOrder->client->name)){{ $jobOrder->client->name }} @endif<br>
                                                                                 <strong>Assigned Staff:</strong> @if(isset($jobOrder->staff->name)) {{ $jobOrder->staff->name }} @endif<br>
-                                                                                <strong>Assigned Date:</strong> {{ $jobOrder->date ?? '' }}<br>
-                                                                                <strong>Date Completed:</strong> {{ $jobOrder->completed_date ?? '' }}<br>
+                                                                                <strong>Assigned Date:</strong> {{ $jobOrder->date ? \Carbon\Carbon::parse($jobOrder->date)->format('m/d/Y') : '' }}<br>
+                                                                                <strong>Date Completed:</strong> {{ $jobOrder->completed_date ? \Carbon\Carbon::parse($jobOrder->completed_date)->format('m/d/Y') : '' }}<br>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>

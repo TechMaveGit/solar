@@ -7,6 +7,7 @@ use App\Mail\StaffMail;
 use App\Models\Client;
 use App\Models\JobOrder;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -126,12 +127,12 @@ class StaffController extends Controller
 
         // dd($request->all());
         $id = base64_decode($request->id);
-        $startDate = $request->input('start_date');
-        $endDate = $request->input('end_date');
+        $startDate = $this->normalizeDate($request->input('start_date'));
+        $endDate = $this->normalizeDate($request->input('end_date'));
         $client_id = $request->input('client_id');
         $status = $request->input('status');
-        $s_complete_date = $request->input('s_complete_date');
-        $e_complete_date = $request->input('e_complete_date');
+        $s_complete_date = $this->normalizeDate($request->input('s_complete_date'));
+        $e_complete_date = $this->normalizeDate($request->input('e_complete_date'));
 
         // $query = JobOrder::with('client','staff')->orderBy('id','DESC');
         $query = JobOrder::where('staff_id',$id)->with(['client', 'staff'])->orderBy('id','desc');
@@ -164,6 +165,18 @@ class StaffController extends Controller
 
         return view('staff.staff-all-job-orders',compact('jobOrders', 'clients','client_id','id','startDate','endDate','status','s_complete_date','e_complete_date'));
 
+    }
+
+    private function normalizeDate($date) {
+        if (!$date) {
+            return null;
+        }
+
+        try {
+            return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return null; // or handle the invalid date format as needed
+        }
     }
 
 
