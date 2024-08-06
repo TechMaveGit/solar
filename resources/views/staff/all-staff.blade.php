@@ -49,7 +49,7 @@
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Added Date</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Assigned Orders</span></th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-end"></th>
+                                    <th class="nk-tb-col nk-tb-col-tools text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
