@@ -268,7 +268,7 @@
                 <td>Signature/Tester:</td>
                 <td style="" colspan="10">
                     @if(isset($data['tester_signature']) && strpos($data['tester_signature'], 'base_document') !== false)
-                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['tester_signature'] }}" alt="">
+                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['tester_signature'] }}" alt="" style="width: 100%">
 
                     @else
                     <p style="text-indent: 0pt;text-align: left; font-size:16px; padding-bottom:2pt; margin:0">
@@ -314,7 +314,7 @@
                 <td colspan="2">
                     <td style="" colspan="10">
                         @if(isset($data['test_signature']) && strpos($data['test_signature'], 'base_document') !== false)
-                        <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['test_signature'] }}" alt="">
+                        <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['test_signature'] }}" alt="" style="width: 100%">
                         @else
                         <p style="text-indent: 0pt;text-align: left; font-size:16px; margin:0; padding-bottom:2pt">
                             <br /> {{ $data['test_signature'] ?? ''}}

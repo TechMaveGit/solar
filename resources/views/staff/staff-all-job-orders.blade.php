@@ -19,7 +19,7 @@
             <div class="nk-block-head nk-block-head-sm">
                 <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                        <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">@if(isset($jobOrders[0]->staff)) ({{ $jobOrders[0]->staff_id}}) {{ $jobOrders[0]->staff->name }} @endif Staff Job Orders</h2>
+                        <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">@if(isset($jobOrders[0]->staff)) {{ $jobOrders[0]->staff->name }} @endif Staff Job Orders ({{ $jobOrders[0]->staff->staff_id ?? ''}})</h2>
 
                     </div>
                     <div class="nk-block-head-content">
