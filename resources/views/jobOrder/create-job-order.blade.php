@@ -3134,14 +3134,14 @@
                                                                     <ul class="custom-control-group g-3 align-center">
                                                                         <li>
                                                                             <div class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="inverter_test_reason" value="Initial inspection" class="custom-control-input"  id="pay-card3">
-                                                                                <label class="custom-control-label" for="pay-card3">Initial
+                                                                                <input type="checkbox" name="inverter_test_reason" value="Initial inspection" class="custom-control-input"  id="test_reason_b">
+                                                                                <label class="custom-control-label" for="test_reason_b">Initial
                                                                                     inspection</label></div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" class="custom-control-input" name="inverter_test2_reason" value="Retesting" id="pay-bitcoin3">
-                                                                                <label class="custom-control-label" for="pay-bitcoin3">Retesting</label>
+                                                                                <input type="checkbox" class="custom-control-input" name="inverter_test2_reason" value="Retesting" id="test_reason_c">
+                                                                                <label class="custom-control-label" for="test_reason_c">Retesting</label>
                                                                             </div>
                                                                         </li>
 
@@ -4574,6 +4574,35 @@
         checkbox.addEventListener('change', function() {
             if (this.checked) {
                 Secheckboxes.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            }
+        });
+    });
+
+    const test_checkbox = [
+    document.getElementById('inverter_test_reason_1'),
+    document.getElementById('reasonFor')
+    ];
+
+    test_checkbox.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                test_checkbox.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            }
+        });
+    });
+    const test2_checkbox = [
+    document.getElementById('test_reason_b'),
+    document.getElementById('test_reason_c')
+    ];
+
+    test2_checkbox.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                test2_checkbox.forEach(cb => {
                     if (cb !== this) cb.checked = false;
                 });
             }

@@ -603,7 +603,7 @@
                 <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
                     colspan="17">
                     @if(isset($data['installer_sign']) && strpos($data['installer_sign'], 'base_document') !== false)
-                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['installer_sign'] }}" alt="">
+                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['installer_sign'] }}" alt="" style="width: 100%">
                     @else
                     <p style="text-indent: 0pt;text-align: left; font-size:16px; padding-bottom:2pt"><br />{{ $data['installer_sign'] ?? '' }}</p>
                     @endif
@@ -692,7 +692,7 @@
                 <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
                     colspan="17">
                     @if(isset($data['owner_sign']) && strpos($data['owner_sign'], 'base_document') !== false)
-                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['owner_sign'] }}" alt="">
+                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['owner_sign'] }}" alt="" style="width: 100%">
                     @else
                     <p style="text-indent: 0pt;text-align: left; font-size:16px; padding-bottom:2pt"><br />{{ $data['owner_sign'] ?? '' }}</p>
                     @endif
