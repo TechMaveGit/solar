@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dashlitee5ca.css?ver=3.2.3')}}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('assets/css/themee5ca.css?ver=3.2.3')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flatpickr.css')}}">
+
 
 </head>
 

@@ -59,7 +59,7 @@ class JobOrderController extends Controller
         $Date = $this->normalizeDate($request->input('date'));
 
         // $query = JobOrder::where('staff_id', auth()->user()->id)->with('client')->orderBy('id', 'DESC');
-        $query = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time'])
+        $query = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time','installation_address'])
         ->where('staff_id', auth()->user()->id)->where('status','!=','3')
         ->with('client:id,name,country,city,postal_code,address')->orderBy('id', 'DESC');
 
@@ -142,7 +142,7 @@ class JobOrderController extends Controller
 
     public function viewDocument(Request $request)
     {
-        $job = JobOrder::select('id', 'client_id', 'date', 'time')->where('id', $request->id)->with('client') ->first();
+        $job = JobOrder::select('id', 'client_id', 'date', 'time','installation_address')->where('id', $request->id)->with('client') ->first();
         $document = BaseDocument::where(['order_id'=> $request->id,'document_name'=>'pdf'])->get();
 
         if (count($document)>0) {
@@ -1341,7 +1341,7 @@ class JobOrderController extends Controller
     public function jobOrderHistory(Request $request)
     {
 
-        $jobHistory = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time','completed_date'])
+        $jobHistory = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time','completed_date','installation_address'])
         ->where('staff_id', auth()->user()->id)->where('status','3')
         ->with('client:id,name,country,city,postal_code,address')->orderBy('id', 'DESC')->get();
         // $jobHistory = JobOrder::where(['staff_id'=>auth()->user()->id,'status'=>'3'])->with('client')->orderBy('id', 'DESC')->get();

@@ -59,7 +59,7 @@
                                                                                 <br>
                                                                                 <strong>Job Order ID:</strong> {{ $jobOrder->order_id ?? '' }}<br>
                                                                                 <strong>Installation Address:</strong> {{ $jobOrder->address ?? '' }} {{ $jobOrder->city ?? '' }} {{ $jobOrder->country ?? '' }}, {{ $jobOrder->postal_code ?? '' }}<br>
-                                                                                <strong>Scheduled Date & Time:</strong> {{ $jobOrder->date ? \Carbon\Carbon::parse($jobOrder->date)->format('m/d/Y') : '' }} {{ $jobOrder->time ?? '' }}<<br>
+                                                                                <strong>Scheduled Date & Time:</strong> {{ $jobOrder->date ? \Carbon\Carbon::parse($jobOrder->date)->format('m/d/Y') : '' }} {{ $jobOrder->time ?? '' }}<br>
                                                                                 <strong>Client Name:</strong> @if(isset($jobOrder->client->name)){{ $jobOrder->client->name }} @endif<br>
                                                                                 <strong>Client Mobile Number:</strong> @if(isset($jobOrder->client->dial_code)) {{ $jobOrder->client->dial_code }}{{ $jobOrder->client->mobile }} @endif<br>
                                                                                 <br>
@@ -144,7 +144,7 @@
                                                                                 align="center">
                                                                                 <br>
                                                                                 For any questions please send to
-                                                                                <a href="mailto:{{ env('mail_from_address') ?? '' }}">{{ env('mail_from_address') ?? '' }}</a>
+                                                                                <a href="mailto:info@solar.com">info@solar.com</a>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>

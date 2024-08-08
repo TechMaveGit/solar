@@ -127,12 +127,28 @@ class StaffController extends Controller
 
         // dd($request->all());
         $id = base64_decode($request->id);
-        $startDate = $this->normalizeDate($request->input('start_date'));
-        $endDate = $this->normalizeDate($request->input('end_date'));
+        // $startDate = $this->normalizeDate($request->input('start_date'));
+        // $endDate = $this->normalizeDate($request->input('end_date'));
+        // $s_complete_date = $this->normalizeDate($request->input('s_complete_date'));
+        // $e_complete_date = $this->normalizeDate($request->input('e_complete_date'));
+        $startDate= '';
+        $endDate= '';
+        $s_complete_date = '';
+        $e_complete_date = '';
+        $assigndate = $request->input('assigndate');
+        $complete_date = $request->input('complete_date');
+        if(isset($assigndate)){
+            [$startDateString, $endDateString] = explode(' to ', $assigndate);
+            $startDate = Carbon::createFromFormat('Y-m-d', trim($startDateString))->startOfDay();
+            $endDate = Carbon::createFromFormat('Y-m-d', trim($endDateString))->endOfDay();
+        }
+        if(isset($complete_date)){
+            [$startComString, $endComString] = explode(' to ', $complete_date);
+            $s_complete_date = Carbon::createFromFormat('Y-m-d', trim($startComString))->startOfDay();
+            $e_complete_date = Carbon::createFromFormat('Y-m-d', trim($endComString))->endOfDay();
+        }
         $client_id = $request->input('client_id');
         $status = $request->input('status');
-        $s_complete_date = $this->normalizeDate($request->input('s_complete_date'));
-        $e_complete_date = $this->normalizeDate($request->input('e_complete_date'));
 
         // $query = JobOrder::with('client','staff')->orderBy('id','DESC');
         $query = JobOrder::where('staff_id',$id)->with(['client', 'staff'])->orderBy('id','desc');
@@ -163,7 +179,7 @@ class StaffController extends Controller
 
         $clients = Client::orderBy('id','DESC')->get();
 
-        return view('staff.staff-all-job-orders',compact('jobOrders', 'clients','client_id','id','startDate','endDate','status','s_complete_date','e_complete_date'));
+        return view('staff.staff-all-job-orders',compact('jobOrders', 'clients','client_id','id','assigndate','status','complete_date'));
 
     }
 

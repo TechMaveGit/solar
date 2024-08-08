@@ -54,11 +54,10 @@
                                                                                 I hope this message finds you well.
                                                                                 <br>
                                                                                 <br>
-                                                                                We are pleased to inform you that Job Order {{ $jobOrder->order_id ?? '' }} has been successfully completed by @if(isset($jobOrder->staff))[{{ $jobOrder->staff->name }} {{ $jobOrder->staff->staff_id }}] @endif. <br>
+                                                                                We are pleased to inform you that Job Order {{ $jobOrder->order_id ?? '' }} has been successfully completed by @if(isset($jobOrder->staff)) {{ $jobOrder->staff->name }} [{{ $jobOrder->staff->staff_id }}] @endif. <br>
                                                                                 Below are the details of the completed job order:
                                                                                 <br>
                                                                                 <br>
-                                                                                Job Order Details: <br>
                                                                                 <strong>Job Order ID:</strong> {{ $jobOrder->order_id ?? '' }}<br>
                                                                                 <strong>Client Name:</strong> @if(isset($jobOrder->client->name)){{ $jobOrder->client->name }} @endif<br>
                                                                                 <strong>Assigned Staff:</strong> @if(isset($jobOrder->staff->name)) {{ $jobOrder->staff->name }} @endif<br>
@@ -136,7 +135,7 @@
                                                                                 align="center">
                                                                                 <br>
                                                                                 For any questions please send to
-                                                                                <a href="mailto:{{ env('mail_from_address') ?? '' }}">{{ env('mail_from_address') ?? '' }}</a>
+                                                                                <a href="mailto:info@solar.com">info@solar.com</a>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
