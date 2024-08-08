@@ -58,7 +58,7 @@
                                                                                 <br>
                                                                                 <br>
                                                                                 <strong>Job Order ID:</strong> {{ $jobOrder->order_id ?? '' }}<br>
-                                                                                <strong>Installation Address:</strong> {{ $jobOrder->address ?? '' }} {{ $jobOrder->city ?? '' }} {{ $jobOrder->country ?? '' }}, {{ $jobOrder->postal_code ?? '' }}<br>
+                                                                                <strong>Installation Address:</strong> {{ $jobOrder->installation_address ?? '' }}<br>
                                                                                 <strong>Scheduled Date & Time:</strong> {{ $jobOrder->date ? \Carbon\Carbon::parse($jobOrder->date)->format('m/d/Y') : '' }} {{ $jobOrder->time ?? '' }}<br>
                                                                                 <strong>Client Name:</strong> @if(isset($jobOrder->client->name)){{ $jobOrder->client->name }} @endif<br>
                                                                                 <strong>Client Mobile Number:</strong> @if(isset($jobOrder->client->dial_code)) {{ $jobOrder->client->dial_code }}{{ $jobOrder->client->mobile }} @endif<br>
