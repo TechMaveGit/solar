@@ -27,7 +27,7 @@
                             <div class="dropdown-menu dropdown-menu-md dropdown-menu-end dropdown-menu-s1">
                                 <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                     <div class="user-card">
-                                        <div class="user-avatar"><span>GH</span></div>
+                                        {{-- <div class="user-avatar"><span>GH</span></div> --}}
                                         <div class="user-info"><span class="lead-text"> {{ Auth::user()->name }}</span><span
                                                 class="sub-text">{{ Auth::user()->email }}</span></div>
                                     </div>
@@ -71,12 +71,12 @@
                                             <div class="nk-notification-content">
                                                 <div class="nk-notification-text">Order ID @if(isset($notify->job)){{ $notify->job->order_id }}@endif
                                                     @if($notify->status=='0') assigned to @endif
-                                                    @if(isset($notify->staff)){{ $notify->staff->name }}@endif
+                                                    @if($notify->status !='3') @if(isset($notify->staff)){{ $notify->staff->name }}@endif @endif
 
                                                     @if($notify->status=='0')
                                                     @elseif($notify->status=='1') start the installation.
                                                     @elseif($notify->status=='2') installation is in Progress.
-                                                    @elseif($notify->status=='3') installation completed.
+                                                    @elseif($notify->status=='3') installation completed by {{ $notify->staff->name ?? ''}}.
                                                     @endif
 
                                                 </div>
