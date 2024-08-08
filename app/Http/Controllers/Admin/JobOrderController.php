@@ -119,7 +119,7 @@ class JobOrderController extends Controller
             'city' => 'required',
             'postal_code' => 'required',
             'applicant_name' => 'required',
-            'installation_eircode' => 'required',
+            // 'installation_eircode' => 'required',
             'solar_pv_system_size' => 'required',
             'company_name' => 'required',
             'customer_name' => 'required',
