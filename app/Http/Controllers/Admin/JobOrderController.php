@@ -21,13 +21,29 @@ use Carbon\Carbon;
 class JobOrderController extends Controller
 {
     public function index(Request $request){
-        $startDate = $this->normalizeDate($request->input('start_date'));
-        $endDate = $this->normalizeDate($request->input('end_date'));
+        $startDate= '';
+        $endDate= '';
+        $s_complete_date = '';
+        $e_complete_date = '';
+        $assigndate = $request->input('assigndate');
+        $complete_date = $request->input('complete_date');
+        if(isset($assigndate)){
+            [$startDateString, $endDateString] = explode(' to ', $assigndate);
+            $startDate = Carbon::createFromFormat('Y-m-d', trim($startDateString))->startOfDay();
+            $endDate = Carbon::createFromFormat('Y-m-d', trim($endDateString))->endOfDay();
+        }
+        if(isset($complete_date)){
+            [$startComString, $endComString] = explode(' to ', $complete_date);
+            $s_complete_date = Carbon::createFromFormat('Y-m-d', trim($startComString))->startOfDay();
+            $e_complete_date = Carbon::createFromFormat('Y-m-d', trim($endComString))->endOfDay();
+        }
+        // $startDate = $this->normalizeDate($request->input('start_date'));
+        // $endDate = $this->normalizeDate($request->input('end_date'));
+        // $s_complete_date = $this->normalizeDate($request->input('s_complete_date'));
+        // $e_complete_date = $this->normalizeDate($request->input('e_complete_date'));
         $client_id = $request->input('client_id');
         $staff_id = $request->input('staff_id');
         $status = $request->input('status');
-        $s_complete_date = $this->normalizeDate($request->input('s_complete_date'));
-        $e_complete_date = $this->normalizeDate($request->input('e_complete_date'));
 
 
         $query = JobOrder::with('client','staff')->orderBy('id','DESC');
@@ -61,7 +77,7 @@ class JobOrderController extends Controller
 
         $staffs = User::where(['user_type'=>'2'])->orderBy('id','DESC')->get();
         $clients = Client::orderBy('id','DESC')->get();
-        return view('jobOrder.assigned-job-order',compact('jobOrders','startDate','endDate','staffs','clients','client_id','staff_id','status','s_complete_date','e_complete_date'));
+        return view('jobOrder.assigned-job-order',compact('jobOrders','assigndate','staffs','clients','client_id','staff_id','status','complete_date'));
     }
 
     private function normalizeDate($date) {

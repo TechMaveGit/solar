@@ -200,7 +200,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <div class="form-group"><label class="form-label">Select
+                                                            <div class="form-group"><label class="form-label">Schedule
                                                                     Date<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em
@@ -212,11 +212,11 @@
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="cp1-project-name">Select Time<div class="requiredField">*</div></label>
+                                                                    for="cp1-project-name">Schedule Time<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <input type="text" name="time" value=""
                                                                         class="form-control time__pickers"
-                                                                        id="timepicker" placeholder="Select Time"
+                                                                        id="timepicker" placeholder="Schedule Time"
                                                                         readonly="" required>
                                                                         <span id="" class="error time_err"></span>
                                                                 </div>
@@ -296,22 +296,22 @@
 
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    >Installation Address</label>
+                                                                    >Installation Address<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control installation_address" id=""
-                                                                        name="installation_address">
+                                                                        type="text" class="form-control installation_address_all" id=""
+                                                                        name="installation_address" required>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
                                                                     > Installation Eircode <div
-                                                                        class="requiredField">*</div></label>
+                                                                        class="requiredField"></div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control installation_eircode" id=""
-                                                                        name="installation_eircode" required>
+                                                                        name="installation_eircode">
                                                                         <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
                                                             </div>
@@ -842,22 +842,22 @@
 
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    >Installation Address</label>
+                                                                    >Installation Address<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control installation_address" id=""
-                                                                        name="installation_address">
+                                                                        type="text" class="form-control installation_address_all" id=""
+                                                                        name="installation_address" required>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
                                                                     > Installation Eircode <div
-                                                                        class="requiredField">*</div></label>
+                                                                        class="requiredField"></div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control installation_eircode" id=""
-                                                                        name="installation_eircode" required>
+                                                                        name="installation_eircode">
                                                                         <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
                                                             </div>
@@ -4516,8 +4516,6 @@
 @endsection
 
 @push('push_script')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css"  />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
 @if (session('client'))
     @php
         $client = session('client');
@@ -4545,10 +4543,7 @@
 @endif
 
 <script>
-     $(".date-pickerss").flatpickr({
-        dateFormat: "m/d/Y",
-        minDate: "today"
-    });
+
     // Select all checkboxes by their IDs
     const checkboxes = [
     document.getElementById('battery_dc1'),
@@ -4636,7 +4631,7 @@
                     var clint = data.client;
                     // alert(data.client.name);
                     $('.applicant_name').val(clint.name);
-                    // $('.installation_address').val(clint.address +" "+ clint.city +" "+ clint.country);
+                    $('.installation_address_all').val(clint.address +" "+ clint.city +", "+ clint.country +", "+ clint.postal_code);
                     $('.installation_address').val(clint.address);
                     $('.installation_eircode').val(clint.eircode);
                     $('.installation_postalcode').val(clint.postal_code);
