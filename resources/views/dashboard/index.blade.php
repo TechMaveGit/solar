@@ -148,7 +148,7 @@
                                             <tr class="tb-tnx-head">
                                                 <th>Order ID</th>
                                                 <th>Client ID</th>
-                                                <th>Order Date</th>
+                                                <th>Assigned Date</th>
                                                 <th>Installation Address</th>
                                                 <th>Order Status</th>
                                             </tr>

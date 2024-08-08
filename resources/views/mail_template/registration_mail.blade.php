@@ -146,7 +146,7 @@
                                                                                 align="center">
                                                                                 <br>
                                                                                 For any questions please send to
-                                                                                <a href="mailto:{{ env('mail_from_address') ?? '' }}">{{ env('mail_from_address') ?? '' }}</a>
+                                                                                <a href="mailto:info@solar.com">info@solar.com</a>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
