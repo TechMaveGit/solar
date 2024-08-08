@@ -142,7 +142,7 @@ class JobOrderController extends Controller
 
     public function viewDocument(Request $request)
     {
-        $job = JobOrder::select('id', 'client_id', 'date', 'time','installation_address')->where('id', $request->id)->with('client') ->first();
+        $job = JobOrder::select('id', 'client_id', 'date', 'time','completed_date','installation_address')->where('id', $request->id)->with('client') ->first();
         $document = BaseDocument::where(['order_id'=> $request->id,'document_name'=>'pdf'])->get();
 
         if (count($document)>0) {
