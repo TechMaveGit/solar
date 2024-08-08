@@ -148,7 +148,7 @@
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group"><label class="form-label">
-                                                                Date<div class="requiredField"></div></label>
+                                                            Schedule Date<div class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-right"><em
                                                                         class="icon ni ni-calendar-alt"></em></div>
@@ -159,7 +159,7 @@
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="form-group"><label class="form-label"
-                                                            for="cp1-project-name"> Time<div class="requiredField"></div></label>
+                                                            for="cp1-project-name">Schedule Time<div class="requiredField"></div></label>
                                                             <div class="form-control-wrap">
                                                                 <input type="text" name="time" value="{{ $jobOrder->time }}"
                                                                 class="form-control time__pickers"
