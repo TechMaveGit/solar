@@ -1341,7 +1341,7 @@ class JobOrderController extends Controller
     public function jobOrderHistory(Request $request)
     {
 
-        $jobHistory = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time'])
+        $jobHistory = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time','completed_date'])
         ->where('staff_id', auth()->user()->id)->where('status','3')
         ->with('client:id,name,country,city,postal_code,address')->orderBy('id', 'DESC')->get();
         // $jobHistory = JobOrder::where(['staff_id'=>auth()->user()->id,'status'=>'3'])->with('client')->orderBy('id', 'DESC')->get();
