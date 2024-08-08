@@ -1,7 +1,13 @@
 @extends('layouts.main')
 @section('app-title', 'View Picture')
 @section('main-content')
-
+@push('push_styles')
+<style>
+    .mfp-img{
+        max-height: 800px !important;
+    }
+</style>
+@endpush
 <div class="nk-content nk-content-fluid">
     <div class="container-xl wide-lg">
         <div class="nk-content-body">
