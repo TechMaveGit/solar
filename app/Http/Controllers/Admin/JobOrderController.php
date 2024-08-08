@@ -28,14 +28,22 @@ class JobOrderController extends Controller
         $assigndate = $request->input('assigndate');
         $complete_date = $request->input('complete_date');
         if(isset($assigndate)){
-            [$startDateString, $endDateString] = explode(' to ', $assigndate);
-            $startDate = Carbon::createFromFormat('Y-m-d', trim($startDateString))->startOfDay();
-            $endDate = Carbon::createFromFormat('Y-m-d', trim($endDateString))->endOfDay();
+            $dateParts = explode(' to ', $assigndate);
+            if (count($dateParts) === 1) {
+            $startDate = Carbon::createFromFormat('Y-m-d', trim($dateParts[0]))->startOfDay();
+            }elseif(count($dateParts) === 2){
+                $startDate = Carbon::createFromFormat('Y-m-d', trim($dateParts[0]))->startOfDay();
+                $endDate = Carbon::createFromFormat('Y-m-d', trim($dateParts[1]))->endOfDay();
+            }
         }
         if(isset($complete_date)){
-            [$startComString, $endComString] = explode(' to ', $complete_date);
-            $s_complete_date = Carbon::createFromFormat('Y-m-d', trim($startComString))->startOfDay();
-            $e_complete_date = Carbon::createFromFormat('Y-m-d', trim($endComString))->endOfDay();
+            $completeDateParts = explode(' to ', $complete_date);
+            if (count($completeDateParts) === 1) {
+                $s_complete_date = Carbon::createFromFormat('Y-m-d', trim($completeDateParts[0]))->startOfDay();
+            }elseif(count($completeDateParts) === 2){
+                $s_complete_date = Carbon::createFromFormat('Y-m-d', trim($completeDateParts[0]))->startOfDay();
+                $e_complete_date = Carbon::createFromFormat('Y-m-d', trim($completeDateParts[1]))->endOfDay();
+            }
         }
         // $startDate = $this->normalizeDate($request->input('start_date'));
         // $endDate = $this->normalizeDate($request->input('end_date'));
@@ -51,17 +59,17 @@ class JobOrderController extends Controller
         if ($startDate && $endDate) {
             $query->whereBetween('date', [$startDate, $endDate]);
         }elseif ($startDate) {
-            $query->where('date', '>=', $startDate);
+            $query->where('date', '=', $startDate);
         } elseif ($endDate) {
-            $query->where('date', '<=', $endDate);
+            $query->where('date', '=', $endDate);
         }
 
         if ($s_complete_date && $e_complete_date) {
             $query->whereBetween('completed_date', [$s_complete_date, $e_complete_date]);
         }elseif ($s_complete_date) {
-            $query->where('completed_date', '>=', $s_complete_date);
+            $query->where('completed_date', '=', $s_complete_date);
         } elseif ($e_complete_date) {
-            $query->where('completed_date', '<=', $e_complete_date);
+            $query->where('completed_date', '=', $e_complete_date);
         }
 
         if($client_id){

@@ -1343,7 +1343,7 @@ class JobOrderController extends Controller
 
         $jobHistory = JobOrder::select(['id', 'client_id', 'staff_id', 'date', 'time','completed_date','installation_address'])
         ->where('staff_id', auth()->user()->id)->where('status','3')
-        ->with('client:id,name,country,city,postal_code,address')->orderBy('id', 'DESC')->get();
+        ->with('client:id,name,country,city,postal_code,address')->orderBy('completed_date', 'DESC')->get();
         // $jobHistory = JobOrder::where(['staff_id'=>auth()->user()->id,'status'=>'3'])->with('client')->orderBy('id', 'DESC')->get();
 
         if ($jobHistory->isEmpty()) {

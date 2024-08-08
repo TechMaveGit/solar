@@ -42,7 +42,7 @@
                         <div class="col-sm-6 col-lg-4">
                             <div class="gallery card card-bordered"><a class="gallery-image popup-image"
                                     href="{{ env('STORE_FILE_URL') . $picture->document }}"><img class="w-100 rounded-top" src="{{ env('STORE_FILE_URL') . $picture->document }}"
-                                        alt=""></a>
+                                        alt="" style="max-height: 780px;"></a>
                                 <div class="gallery-body card-inner align-center justify-between flex-wrap g-2">
                                     <div class="user-card">
 
@@ -64,6 +64,10 @@
                             </div>
                         </div>
                     @endforeach
+                    @else
+                    <div class="col-sm-12 col-lg-12 text-center">
+                        <h5 class="text-center">No Record Found</h5>
+                    </div>
                     @endif
                 </div>
             </div>
