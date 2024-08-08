@@ -234,12 +234,12 @@
                                                             <p>Order ID @if(isset($notify->job)){{ $notify->job->order_id }}@endif
                                                                 @if($notify->status=='0') assigned to @endif
 
-                                                                @if(isset($notify->staff)){{ $notify->staff->name }}@endif
+                                                                @if($notify->status !='3') @if(isset($notify->staff)){{ $notify->staff->name }}@endif @endif
 
                                                                 @if($notify->status=='0') for installation.
                                                                 @elseif($notify->status=='1')start the installation.
                                                                 @elseif($notify->status=='2') installation is in Progress.
-                                                                @elseif($notify->status=='3') installation completed.
+                                                                @elseif($notify->status=='3') installation completed by {{ $notify->staff->name ?? '' }}.
                                                                 @endif
 
                                                             </p>
