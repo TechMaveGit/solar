@@ -92,7 +92,7 @@ return new class extends Migration
             $table->json('pv_inverts')->nullable();
             $table->json('design_and_installation')->nullable();
             $table->json('test_report_grid')->nullable();
-            $table->date('completed_date')->nullable();
+            $table->timestamp('completed_date')->nullable();
 
             $table->timestamps();
         });
