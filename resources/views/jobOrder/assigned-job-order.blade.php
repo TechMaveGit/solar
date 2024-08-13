@@ -71,7 +71,7 @@
                                 <div class="form-control-wrap">
                                     <select class="form-select js-select2"
                                         data-search="on" name="status">
-                                        <option value="" selected>Select Status</option>
+                                        <option value="" >Select Status</option>
                                         <option value="0" {{ $status == '0' ? 'selected' : '' }}>Assigned</option>
                                         <option value="1" {{ $status == '1' ? 'selected' : '' }}>Started</option>
                                         <option value="3" {{ $status == '3' ? 'selected' : '' }}>Completed</option>

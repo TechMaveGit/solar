@@ -4,7 +4,7 @@
 @push('push_styles')
 <style>
     .mfp-img{
-        max-height: 800px !important;
+        max-height: 665px !important;
     }
 </style>
 @endpush
