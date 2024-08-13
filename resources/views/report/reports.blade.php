@@ -12,6 +12,7 @@
         margin-left: 5px;
         margin-right: 5px;
     }
+
 </style>
 @endpush
 <div class="nk-content nk-content-fluid">
@@ -115,7 +116,7 @@
 
                 <div class="card card-bordered card-preview">
                     <div class="card-inner">
-                        <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
+                        <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist dataTables_wrapper" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
                                     <th hidden>Sr. No.</th>
@@ -205,5 +206,8 @@
 
 @endsection
 @push('push_script')
+<script>
 
+
+</script>
 @endpush
