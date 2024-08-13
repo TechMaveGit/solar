@@ -78,7 +78,7 @@ class JobOrderController extends Controller
         if($staff_id){
             $query->where('staff_id',$staff_id);
         }
-        if($status){
+        if(isset($status)){
             $query->where('status',$status);
         }
         $jobOrders = $query->get();
