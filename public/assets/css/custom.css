@@ -18,9 +18,10 @@
 .nk-wgw.sm .nk-wgw-balance .amount {
 	font-size: 23px;
 }
-.viewneworder_linked{
-	font-size: 19px !important;
-	color: #364a63 !important;
+.viewneworder_linked {
+    font-size: 18px !important;
+    color: #364a63 !important;
+    padding-top: 7px;
 }
 .nk-tb-col {
 	padding-top: 1.125rem !important;
@@ -385,7 +386,17 @@
 .NotesPointLi ul li{
 	list-style-type: disc !important;
 }
-
+.dashboardCard {
+    width: 20%;
+}
+.DasboardCardMain {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.completedJobOrders .dt-export-buttons {
+    display: none !important;
+}
 @media (min-width: 1540px) {
     .nk-sidebar {
       width: 400px;
