@@ -66,7 +66,10 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'auth:admin'], func
     Route::get('reports', [ReportController::class,'report'])->name('reports');
     Route::get('view-pictures/{id}', [ReportController::class,'viewPictures'])->name('view-pictures');
 
-    Route::get('/pdf', [JobOrderController::class, 'generatePDF'])->name('generate-pdf');
+    Route::get('/pdf/{id?}', [JobOrderController::class, 'generatePDF'])->name('generate-pdf');
+    Route::get('/dom/{id?}', [JobOrderController::class, 'generateDom'])->name('generateDom');
+    Route::get('/image/{id?}', [JobOrderController::class, 'generateIma'])->name('generateIma');
+    Route::get('/certificate/{id?}', [JobOrderController::class, 'certificate'])->name('certificate');
     Route::view('/welcome', 'welcome')->name('welcome');
 
 

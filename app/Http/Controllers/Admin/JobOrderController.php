@@ -615,13 +615,16 @@ class JobOrderController extends Controller
         return view('jobOrder.view-job-order',compact('jobOrder'));
     }
 
-    public function generatePDF()
+    public function generatePDF(Request $request)
     {
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'data' => $jobOrder,
+                ];
+        $pdf = PDF::loadView('pdf.commissioning_report', $data);
 
-        // $data = ['title' => 'Job Order Document'];
-        // $pdf = PDF::loadView('pdf.document', $data);
-
-        // return $pdf->stream('document.pdf');
+        return $pdf->stream('document.pdf');
         // return $pdf->download('document.pdf');
     // // Save the PDF to local storage
     //     $fileName = 'document_' . time() . '.pdf';
@@ -633,6 +636,46 @@ class JobOrderController extends Controller
     //     $baseDocument->order_id = '3';
     //     $baseDocument->document_type = 'declaration_work';
     //     $baseDocument->save();
+
+    }
+
+    public function generateDom(Request $request)
+    {
+
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'data' => $jobOrder,
+                ];
+        $pdf = PDF::loadView('pdf.declaration_of_works', $data);
+
+        return $pdf->stream('dof_work.pdf');
+
+    }
+    public function generateIma(Request $request)
+    {
+
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'base_documents' => $jobOrder->base_documents
+                ];
+        $pdf = PDF::loadView('pdf.images', $data);
+
+        return $pdf->stream('images.pdf');
+
+    }
+    public function certificate(Request $request)
+    {
+
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'base_documents' => $jobOrder->base_documents
+                ];
+        $pdf = PDF::loadView('pdf.certificate', $data);
+
+        return $pdf->stream('certificate.pdf');
 
     }
 
