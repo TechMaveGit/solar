@@ -257,11 +257,11 @@
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="fv-Postal">Postal Code<div class="requiredField">*</div></label>
+                                                                    for="fv-Postal">Eircode<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="input-group">
                                                                         <div class="input-group-prepend"></div>
-                                                                        <input type="text" name="postal_code" class="form-control installation_postalcode" required>
+                                                                        <input type="text" name="postal_code" class="form-control installation_eircode" required>
                                                                     </div>
                                                                     <span class="error postal_code_err"></span>
                                                                 </div>
@@ -4631,7 +4631,7 @@
                     var clint = data.client;
                     // alert(data.client.name);
                     $('.applicant_name').val(clint.name);
-                    $('.installation_address_all').val(clint.address +" "+ clint.city +", "+ clint.country +", "+ clint.postal_code);
+                    $('.installation_address_all').val(clint.address +" "+ clint.city +", "+ clint.country +", "+ clint.eircode);
                     $('.installation_address').val(clint.address);
                     $('.installation_eircode').val(clint.eircode);
                     $('.installation_postalcode').val(clint.postal_code);
