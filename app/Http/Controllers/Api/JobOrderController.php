@@ -1362,5 +1362,57 @@ class JobOrderController extends Controller
 
     }
 
+    public function generateReport(Request $request)
+    {
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'data' => $jobOrder,
+                ];
+        $pdf = PDF::loadView('pdf.commissioning_report', $data);
+        return $pdf->stream('inspection_test_report.pdf');
+
+    }
+
+    public function generateDom(Request $request)
+    {
+
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'data' => $jobOrder,
+                ];
+        $pdf = PDF::loadView('pdf.declaration_of_works', $data);
+
+        return $pdf->stream('declaration_of_works.pdf');
+
+    }
+    public function generateIma(Request $request)
+    {
+
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'base_documents' => $jobOrder->base_documents
+                ];
+        $pdf = PDF::loadView('pdf.images', $data);
+
+        return $pdf->stream('images.pdf');
+
+    }
+    public function certificate(Request $request)
+    {
+
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'base_documents' => $jobOrder->base_documents
+                ];
+        $pdf = PDF::loadView('pdf.certificate', $data);
+
+        return $pdf->stream('certificate.pdf');
+
+    }
+
 
 }
