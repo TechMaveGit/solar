@@ -20,12 +20,20 @@ class DashboardController extends Controller
         $clients = Client::get();
         $totalClients = count($clients);
 
-        $jobOrders = JobOrder::with('client')->orderBy('id', 'desc')->get();
+        $jobOrders = JobOrder::with('client','staff','base_documents')->orderBy('id', 'desc')->get();
+
         $pendingOrders = $jobOrders->where('status','0');
+
+        $completeOrders = $jobOrders->where('status','3')->sortByDesc('completed_date');
+        $DomesticcompleteOrders = $completeOrders->where('client_type','1');
+        $NONcompleteOrders = $completeOrders->where('client_type','2');
+        // dd($DomesticcompleteOrders);
         $totalJobOrders = $jobOrders->count();
+        $CountcompleteOrders = $completeOrders->count();
+        $CountpendingOrders = $pendingOrders->count();
 
         $notifications = Notification::orderBy('id', 'desc')->get();
 
-        return view('dashboard.index',compact('totalStaff','totalClients','totalJobOrders','pendingOrders','notifications'));
+        return view('dashboard.index',compact('totalStaff','totalClients','totalJobOrders','pendingOrders','notifications','CountcompleteOrders','CountpendingOrders','DomesticcompleteOrders','NONcompleteOrders'));
     }
 }
