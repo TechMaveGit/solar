@@ -69,9 +69,9 @@
                         <div class="col-lg-12 col-xl-12">
                             <div class="nk-block">
 
-                                <div class="row g-2">
+                                <div class="DasboardCardMain">
 
-                                    <div class="col-sm-3">
+                                    <div class="dashboardCard">
                                         <div class="card bg-light">
                                             <div class="nk-wgw sm"><a class="nk-wgw-inner" href="{{ route('admin.assigned-job-order') }}">
                                                     <div class="nk-wgw-name">
@@ -85,7 +85,8 @@
                                                 </a></div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                   
+                                    <div class="dashboardCard">
                                         <div class="card bg-light">
                                             <div class="nk-wgw sm"><a class="nk-wgw-inner" href="{{ route('admin.all-client') }}">
                                                     <div class="nk-wgw-name">
@@ -98,7 +99,20 @@
                                                 </a></div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="dashboardCard">
+                                        <div class="card bg-light">
+                                            <div class="nk-wgw sm"><a class="nk-wgw-inner" href="{{ route('admin.all-client') }}">
+                                                    <div class="nk-wgw-name">
+                                                        <div class="nk-wgw-icon"><iconify-icon icon="fluent-mdl2:completed" class="icon"></iconify-icon></div>
+                                                        <h5 class="nk-wgw-title title">Total Completed orders</h5>
+                                                    </div>
+                                                    <div class="nk-wgw-balance">
+                                                        <div class="amount">{{ $totalClients }}</div>
+                                                    </div>
+                                                </a></div>
+                                        </div>
+                                    </div>
+                                    <div class="dashboardCard">
                                         <div class="card bg-light">
                                             <div class="nk-wgw sm"><a class="nk-wgw-inner" href="{{ route('admin.all-staff') }}">
                                                     <div class="nk-wgw-name">
@@ -111,7 +125,7 @@
                                                 </a></div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+                                    <div class="dashboardCard">
                                         <div class="card bg-light">
                                             <div class="nk-wgw sm"><a class="nk-wgw-inner" href="{{ route('admin.assigned-job-order') }}">
                                                     <div class="nk-wgw-name">
@@ -258,6 +272,306 @@
                         </div>
 
                     </div>
+
+                   <div class="row g-gs OrderdashRow mt-1">
+                   <div class="col-lg-12">
+                        <div class="card card-bordered">
+                            <div class="card-inner border-bottom">
+                                <div class="card-title-group">
+                                    <div class="card-title">
+                                        <h6 class="title">Completed Job Order (Domestic)</h6>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-inner border-bottom completedJobOrders">
+                            <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
+                            <thead>
+                                <tr class="nk-tb-item nk-tb-head">
+                                    <th class="nk-tb-col"><span class="sub-text">Order ID</span></th>
+                                    <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
+                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Assigned Staff</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Completed Date</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Declaration of works</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Inspection</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="nk-tb-item">
+                                    <td class="nk-tb-col tb-col-md"><span><a href="#">OD47</a></span></td>
+                                    <td class="nk-tb-col">
+                                        <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>AB</span></div>
+                                            <div class="user-info"><span class="tb-lead">Abu Bin
+                                                    Ishtiyak <span
+                                                        class="dot dot-success d-md-none ms-1"></span></span><span>info@softnio.com</span>
+                                            </div>
+                                        </div>
+                                        </a>
+                                      
+                                    </td>
+
+                                    <td class="nk-tb-col tb-col-md"><span>Arman</span></td>
+                                    <td class="nk-tb-col tb-col-lg">
+                                        <ul class="list-status">
+                                            <li><em class="icon text-success ni ni-check-circle"></em>
+                                                <span>05 Oct 2019</span></li>
+
+                                        </ul>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                    <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</td>
+                                   
+                                   
+
+                       
+                                </tr>
+                                
+                            <tr class="nk-tb-item">
+                                <td class="nk-tb-col tb-col-md"><span><a href="#">OD48</a></span></td>
+                                <td class="nk-tb-col">
+                                    <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>CD</span></div>
+                                            <div class="user-info"><span class="tb-lead">Carol Danvers <span class="dot dot-success d-md-none ms-1"></span></span><span>carol@example.com</span></div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><span>Robin</span></td>
+                                <td class="nk-tb-col tb-col-lg">
+                                    <ul class="list-status">
+                                        <li><em class="icon text-success ni ni-check-circle"></em><span>12 Nov 2019</span></li>
+                                    </ul>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                            </tr>
+
+                            <tr class="nk-tb-item">
+                                <td class="nk-tb-col tb-col-md"><span><a href="#">OD49</a></span></td>
+                                <td class="nk-tb-col">
+                                    <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>EF</span></div>
+                                            <div class="user-info"><span class="tb-lead">Eve Foster <span class="dot dot-success d-md-none ms-1"></span></span><span>eve@example.com</span></div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><span>JackSon</span></td>
+                                <td class="nk-tb-col tb-col-lg">
+                                    <ul class="list-status">
+                                        <li><em class="icon text-success ni ni-check-circle"></em><span>18 Dec 2019</span></li>
+                                    </ul>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                            </tr>
+
+                            <tr class="nk-tb-item">
+                                <td class="nk-tb-col tb-col-md"><span><a href="#">OD50</a></span></td>
+                                <td class="nk-tb-col">
+                                    <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>GH</span></div>
+                                            <div class="user-info"><span class="tb-lead">Garry Hobbs <span class="dot dot-success d-md-none ms-1"></span></span><span>garry@example.com</span></div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><span>Rihaan</span></td>
+                                <td class="nk-tb-col tb-col-lg">
+                                    <ul class="list-status">
+                                        <li><em class="icon text-success ni ni-check-circle"></em><span>22 Jan 2020</span></li>
+                                    </ul>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                            </tr>
+
+                            <tr class="nk-tb-item">
+                                <td class="nk-tb-col tb-col-md"><span><a href="#">OD51</a></span></td>
+                                <td class="nk-tb-col">
+                                    <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>IJ</span></div>
+                                            <div class="user-info"><span class="tb-lead">Ian Jacobs <span class="dot dot-success d-md-none ms-1"></span></span><span>ian@example.com</span></div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><span>Sheem</span></td>
+                                <td class="nk-tb-col tb-col-lg">
+                                    <ul class="list-status">
+                                        <li><em class="icon text-success ni ni-check-circle"></em><span>15 Feb 2020</span></li>
+                                    </ul>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <div class="card card-bordered">
+                            <div class="card-inner border-bottom">
+                                <div class="card-title-group">
+                                    <div class="card-title">
+                                        <h6 class="title">Completed Job Order (Non-Domestic)</h6>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-inner border-bottom completedJobOrders">
+                            <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
+                            <thead>
+                                <tr class="nk-tb-item nk-tb-head">
+                                    <th class="nk-tb-col"><span class="sub-text">Order ID</span></th>
+                                    <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
+                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Assigned Staff</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Completed Date</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">NDMG Declaration of works</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Inspection</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="nk-tb-item">
+                                    <td class="nk-tb-col tb-col-md"><span><a href="#">OD47</a></span></td>
+                                    <td class="nk-tb-col">
+                                        <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>AB</span></div>
+                                            <div class="user-info"><span class="tb-lead">Abu Bin
+                                                    Ishtiyak <span
+                                                        class="dot dot-success d-md-none ms-1"></span></span><span>info@softnio.com</span>
+                                            </div>
+                                        </div>
+                                        </a>
+                                      
+                                    </td>
+
+                                    <td class="nk-tb-col tb-col-md"><span>Arman</span></td>
+                                    <td class="nk-tb-col tb-col-lg">
+                                        <ul class="list-status">
+                                            <li><em class="icon text-success ni ni-check-circle"></em>
+                                                <span>05 Oct 2019</span></li>
+
+                                        </ul>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                    <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</td>
+                                   
+                                   
+
+                       
+                                </tr>
+                                
+                            <tr class="nk-tb-item">
+                                <td class="nk-tb-col tb-col-md"><span><a href="#">OD48</a></span></td>
+                                <td class="nk-tb-col">
+                                    <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>CD</span></div>
+                                            <div class="user-info"><span class="tb-lead">Carol Danvers <span class="dot dot-success d-md-none ms-1"></span></span><span>carol@example.com</span></div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><span>Robin</span></td>
+                                <td class="nk-tb-col tb-col-lg">
+                                    <ul class="list-status">
+                                        <li><em class="icon text-success ni ni-check-circle"></em><span>12 Nov 2019</span></li>
+                                    </ul>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                            </tr>
+
+                            <tr class="nk-tb-item">
+                                <td class="nk-tb-col tb-col-md"><span><a href="#">OD49</a></span></td>
+                                <td class="nk-tb-col">
+                                    <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>EF</span></div>
+                                            <div class="user-info"><span class="tb-lead">Eve Foster <span class="dot dot-success d-md-none ms-1"></span></span><span>eve@example.com</span></div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><span>JackSon</span></td>
+                                <td class="nk-tb-col tb-col-lg">
+                                    <ul class="list-status">
+                                        <li><em class="icon text-success ni ni-check-circle"></em><span>18 Dec 2019</span></li>
+                                    </ul>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                            </tr>
+
+                            <tr class="nk-tb-item">
+                                <td class="nk-tb-col tb-col-md"><span><a href="#">OD50</a></span></td>
+                                <td class="nk-tb-col">
+                                    <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>GH</span></div>
+                                            <div class="user-info"><span class="tb-lead">Garry Hobbs <span class="dot dot-success d-md-none ms-1"></span></span><span>garry@example.com</span></div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><span>Rihaan</span></td>
+                                <td class="nk-tb-col tb-col-lg">
+                                    <ul class="list-status">
+                                        <li><em class="icon text-success ni ni-check-circle"></em><span>22 Jan 2020</span></li>
+                                    </ul>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                            </tr>
+
+                            <tr class="nk-tb-item">
+                                <td class="nk-tb-col tb-col-md"><span><a href="#">OD51</a></span></td>
+                                <td class="nk-tb-col">
+                                    <a href="#">
+                                        <div class="user-card">
+                                            <div class="user-avatar bg-dim-primary d-none d-sm-flex">
+                                                <span>IJ</span></div>
+                                            <div class="user-info"><span class="tb-lead">Ian Jacobs <span class="dot dot-success d-md-none ms-1"></span></span><span>ian@example.com</span></div>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><span>Sheem</span></td>
+                                <td class="nk-tb-col tb-col-lg">
+                                    <ul class="list-status">
+                                        <li><em class="icon text-success ni ni-check-circle"></em><span>15 Feb 2020</span></li>
+                                    </ul>
+                                </td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                                <td class="nk-tb-col tb-col-md"><a href="#"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a></td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    
+                   </div>
+                    
                 </div>
             </div>
         </div>
