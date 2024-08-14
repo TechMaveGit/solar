@@ -200,7 +200,7 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group"><label class="form-label"
-                                                                for="fv-Postal">Postal Code</label>
+                                                                for="fv-Postal">Eircode</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="input-group">
                                                                     <div class="input-group-prepend"></div>

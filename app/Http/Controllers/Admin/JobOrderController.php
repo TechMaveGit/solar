@@ -51,7 +51,7 @@ class JobOrderController extends Controller
         // $e_complete_date = $this->normalizeDate($request->input('e_complete_date'));
         $client_id = $request->input('client_id');
         $staff_id = $request->input('staff_id');
-        $status = $request->input('status');
+        $status = $request->status;
 
 
         $query = JobOrder::with('client','staff')->orderBy('id','DESC');
@@ -623,6 +623,7 @@ class JobOrderController extends Controller
             'data' => $jobOrder,
                 ];
         $pdf = PDF::loadView('pdf.commissioning_report', $data);
+        // $pdf = PDF::loadView('pdf.document', $data);
 
         return $pdf->stream('document.pdf');
         // return $pdf->download('document.pdf');
@@ -636,6 +637,19 @@ class JobOrderController extends Controller
     //     $baseDocument->order_id = '3';
     //     $baseDocument->document_type = 'declaration_work';
     //     $baseDocument->save();
+
+    }
+    public function generate(Request $request)
+    {
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'data' => $jobOrder,
+                ];
+        // $pdf = PDF::loadView('pdf.commissioning_report', $data);
+        $pdf = PDF::loadView('pdf.document', $data)->setPaper('a4');
+
+        return $pdf->stream('document.pdf');
 
     }
 

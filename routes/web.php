@@ -56,7 +56,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'auth:admin'], func
     Route::post('client-change-status', [ClientController::class,'changeStatus'])->name('client-change-status');
     Route::get('client-job-orders/{id}', [ClientController::class,'jobOrders'])->name('client-job-orders');
 
-    Route::get('assigned-job-order', [JobOrderController::class,'index'])->name('assigned-job-order');
+    Route::get('assigned-job-order/{status?}', [JobOrderController::class,'index'])->name('assigned-job-order');
     Route::get('create-job-order', [JobOrderController::class,'create'])->name('create-job-order');
     Route::post('create-job-order', [JobOrderController::class,'store'])->name('create-job-order');
     Route::get('view-job-order/{id}', [JobOrderController::class,'show'])->name('view-job-order');
@@ -67,6 +67,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'auth:admin'], func
     Route::get('view-pictures/{id}', [ReportController::class,'viewPictures'])->name('view-pictures');
 
     Route::get('/pdf/{id?}', [JobOrderController::class, 'generatePDF'])->name('generate-pdf');
+    Route::get('/test', [JobOrderController::class, 'generate'])->name('generate');
     Route::get('/dom/{id?}', [JobOrderController::class, 'generateDom'])->name('generateDom');
     Route::get('/image/{id?}', [JobOrderController::class, 'generateIma'])->name('generateIma');
     Route::get('/certificate/{id?}', [JobOrderController::class, 'certificate'])->name('certificate');
