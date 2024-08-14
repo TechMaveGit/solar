@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/flatpickr.css')}}">
 
-
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 </head>
 
 <body class="nk-body bg-white has-sidebar ">
