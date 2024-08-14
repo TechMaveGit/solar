@@ -627,16 +627,16 @@ class JobOrderController extends Controller
 
         return $pdf->stream('document.pdf');
         // return $pdf->download('document.pdf');
-    // // Save the PDF to local storage
-    //     $fileName = 'document_' . time() . '.pdf';
-    //     Storage::put('public/base_document/' . $fileName, $pdf->output());
+        // // Save the PDF to local storage
+        //     $fileName = 'document_' . time() . '.pdf';
+        //     Storage::put('public/base_document/' . $fileName, $pdf->output());
 
-    //     // Save the file name to the database
-    //     $baseDocument = new BaseDocument();
-    //     $baseDocument->document = $fileName;
-    //     $baseDocument->order_id = '3';
-    //     $baseDocument->document_type = 'declaration_work';
-    //     $baseDocument->save();
+        //     // Save the file name to the database
+        //     $baseDocument = new BaseDocument();
+        //     $baseDocument->document = $fileName;
+        //     $baseDocument->order_id = '3';
+        //     $baseDocument->document_type = 'declaration_work';
+        //     $baseDocument->save();
 
     }
     public function generate(Request $request)
@@ -647,7 +647,7 @@ class JobOrderController extends Controller
             'data' => $jobOrder,
                 ];
         // $pdf = PDF::loadView('pdf.commissioning_report', $data);
-        $pdf = PDF::loadView('pdf.document', $data)->setPaper('a4');
+        $pdf = PDF::loadView('pdf.document', $data);
 
         return $pdf->stream('document.pdf');
 

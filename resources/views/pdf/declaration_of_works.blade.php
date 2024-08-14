@@ -153,9 +153,14 @@
                     <img src="{{ config('envoirment.SITE_LOGO')}}" alt="" style="width:250px">
                 </td>
             </tr>
+            @if($data['client_type']=='2')
+            <tr>
+                <td style="font-size: 14px; color: #1ab6aa;padding: 0 0 25px;">Non-Domestic Microgen Solar PV – Code of Practice for Installers</td>
+            </tr>
+            @endif
             <tr>
                 <th>
-                    <h2 style="text-align: left; font-size:24px"><u>Part 1 – @if($data['client_type']=='2') NDMG @endif Declaration of Works</u></h2>
+                    <h2 style="text-align: center;font-size:18px;padding:20px 5px;"><u>Part 1 – @if($data['client_type']=='2') NDMG @endif Declaration of Works</u></h2>
                 </th>
             </tr>
         </table>
@@ -508,6 +513,9 @@
             </tr>
         </table>
         @if($data['client_type']=='2')
+        <p style="font-size: 14px; color: #1ab6aa;padding: 20px 0; margin-top:200px">Non-Domestic Microgen Solar PV– Code of Practice for Installers</p>
+        @endif
+        @if($data['client_type']=='2')
         <h2 style="padding-top: 4pt;padding-left: 0pt;text-indent: 0pt;text-align: left;">Installer Declaration <span
                 class="s3">MUST BE ON THE SEAI  NDMG  SOLAR PV </span><u>INSTALLER</u></h2>
         @else
@@ -572,54 +580,71 @@
                     </ul>
                 </td>
             </tr>
-            <tr style="height:29pt">
-                <td colspan="1"
-                style= "border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-                    bgcolor="#D9D9D9">
-                    <p class="s1" style="padding-top: 1.5pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Name
-                        (CAPITALS)</p>
-                </td>
-                <td colspan="9"
-                    style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br />{{ $data['installer_name'] ?? '' }}</p>
-                </td>
-                <td colspan="2"
-                style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-                    bgcolor="#D9D9D9">
-                    <p class="s1" style="padding-top: 8pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Date</p>
-                </td>
-                <td colspan="6"
-                    style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br />{{ $data['installer_date'] ?? '' }}</p>
 
+            <tr>
+                <td colspan="2"
+                    style="border: 1px solid #000; vertical-align: middle;padding:5px 10px;background-color:#d9d9d9">
+                    Signed:
                 </td>
-            </tr>
-            <tr style="height:34pt">
-                <td colspan="1"style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-                    bgcolor="#D9D9D9">
-                    <p class="s1" style="padding-top: 10pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Signed:
-                    </p>
-                </td>
-                <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-                    colspan="17">
+                <td colspan="7" style="border: 1px solid #000;vertical-align: middle;">
                     @if(isset($data['installer_sign']) && strpos($data['installer_sign'], 'base_document') !== false)
-                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['installer_sign'] }}" alt="" style="width: 100%">
+                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['installer_sign'] }}" alt="" style="width: 100px;">
                     @else
                     <p style="text-indent: 0pt;text-align: left; font-size:16px; padding-bottom:2pt"><br />{{ $data['installer_sign'] ?? '' }}</p>
                     @endif
-
                 </td>
+                <td class="1"
+                    style="border: 1px solid #000;vertical-align: middle;padding:5px;background-color:#d9d9d9">
+                    Date
+                </td>
+                    @php
+                        $installerDate = $data['installer_date'] ?? ''; // Assuming the date is in Y-m-d format
+                        $formattedDate = !empty($installerDate) ? date('dmY', strtotime($installerDate)) : '';
+                    @endphp
+                    @foreach(str_split($formattedDate) as $index => $char)
+                        <td style="border: 1px solid #000; vertical-align: middle; text-align:center">{{ $char }}</td>
+                    @endforeach
+                @if(empty($installerDate))
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                @endif
             </tr>
-            <tr style="height:29pt">
-                <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-                    bgcolor="#D9D9D9" colspan="14">
-                    <p class="s1" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">DATE THE
-                        GRANT WORK WAS COMPLETED</p>
+            <tr>
+                <td colspan="2"
+                    style="border: 1px solid #000; vertical-align: middle;padding:5px 10px;background-color:#d9d9d9">
+                    Name <br>
+                    (CAPITALS)
                 </td>
-                <td colspan="4"
-                    style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br />{{ $data['installer_completed_date'] ?? '' }}</p>
+                <td colspan="16" style="border: 1px solid #000; vertical-align: middle; text-transform: uppercase;">{{ $data['installer_name'] ?? '' }}</td>
+            </tr>
+            <tr>
+                <td colspan="10"
+                    style="border: 1px solid #000; vertical-align: middle;padding:5px 10px;">
+                    DATE THE GRANT WORK WAS COMPLETED
                 </td>
+                @php
+                    $completedDate = $data['installer_completed_date'] ?? ''; // Assuming the date is in Y-m-d format
+                    $formattedDate = !empty($completedDate) ? date('dmY', strtotime($completedDate)) : '';
+                @endphp
+                @foreach(str_split($formattedDate) as $index => $char)
+                    <td style="border: 1px solid #000; vertical-align: middle; text-align:center">{{ $char }}</td>
+                @endforeach
+                @if(empty($completedDate))
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                @endif
             </tr>
         </table>
         <p style="padding-top: 10pt;text-indent: 0pt;text-align: left;"><br /></p>
@@ -661,42 +686,47 @@
                         the inspection / audit process.</p>
                 </td>
             </tr>
-            <tr style="height:29pt">
-                <td colspan="1"
-                style= "border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-                    bgcolor="#D9D9D9">
-                    <p class="s1" style="padding-top: 1.5pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Name
-                        (CAPITALS)</p>
-                </td>
-                <td colspan="9"
-                    style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br />{{ $data['owner_name'] ?? '' }}</p>
-                </td>
+            <tr>
                 <td colspan="2"
-                style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-                    bgcolor="#D9D9D9">
-                    <p class="s1" style="padding-top: 8pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Date</p>
+                    style="border: 1px solid #000; vertical-align: middle;padding:5px 10px;background-color:#d9d9d9">
+                    Signed:
                 </td>
-                <td colspan="6"
-                    style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-                    <p style="text-indent: 0pt;text-align: left;"><br />{{ $data['owner_date'] ?? '' }}</p>
-
-                </td>
-            </tr>
-            <tr style="height:34pt">
-                <td colspan="1"style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-                    bgcolor="#D9D9D9">
-                    <p class="s1" style="padding-top: 10pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Signed:
-                    </p>
-                </td>
-                <td style="border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-                    colspan="17">
+                <td colspan="7" style="border: 1px solid #000;vertical-align: middle;">
                     @if(isset($data['owner_sign']) && strpos($data['owner_sign'], 'base_document') !== false)
                     <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['owner_sign'] }}" alt="" style="width: 100%">
                     @else
                     <p style="text-indent: 0pt;text-align: left; font-size:16px; padding-bottom:2pt"><br />{{ $data['owner_sign'] ?? '' }}</p>
                     @endif
                 </td>
+                <td class="1"
+                    style="border: 1px solid #000;vertical-align: middle;padding:5px;background-color:#d9d9d9">
+                    Date
+                </td>
+                @php
+                    $ownerDate = $data['owner_date'] ?? '';
+                    $formattedDate = !empty($ownerDate) ? date('dmY', strtotime($ownerDate)) : '';
+                @endphp
+                @foreach(str_split($formattedDate) as $index => $char)
+                    <td style="border: 1px solid #000; vertical-align: middle; text-align:center">{{ $char }}</td>
+                @endforeach
+                @if(empty($ownerDate))
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                <td style="border: 1px solid #000; vertical-align: middle;text-align:center"></td>
+                @endif
+            </tr>
+            <tr>
+                <td colspan="2"
+                    style="border: 1px solid #000; vertical-align: middle;padding:5px 10px;background-color:#d9d9d9">
+                    Name <br>
+                    (CAPITALS)
+                </td>
+                <td colspan="16" style="border: 1px solid #000; vertical-align: middle; text-transform: uppercase;">{{ $data['owner_name'] ?? '' }}</td>
             </tr>
         </table>
         <h3 style="padding-top: 13pt;padding-left: 0pt;text-indent: 0pt;text-align: left;">NOTE:</h3>
