@@ -615,6 +615,64 @@ class JobOrderController extends Controller
         return view('jobOrder.view-job-order',compact('jobOrder'));
     }
 
+    //****************************************PDF Web Route****************************************/
+    public function generateComReport(Request $request)
+    {
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'data' => $jobOrder,
+                ];
+        return view('pdf.commissioning_report', $data);
+        // $pdf = PDF::loadView('pdf.commissioning_report', $data);
+        // return $pdf->stream('inspection_test_report.pdf');
+
+    }
+
+    public function generateDomestic(Request $request)
+    {
+
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'data' => $jobOrder,
+                ];
+
+        return view('pdf.declaration_of_works',$data);
+        // $pdf = PDF::loadView('pdf.declaration_of_works', $data);
+        // return $pdf->stream('declaration_of_works.pdf');
+
+    }
+    public function generateImage(Request $request)
+    {
+
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'base_documents' => $jobOrder->base_documents
+                ];
+
+        return view('pdf.images', $data);
+        // $pdf = PDF::loadView('pdf.images', $data);
+        // return $pdf->stream('images.pdf');
+
+    }
+    public function generateCertificate(Request $request)
+    {
+
+        $jobOrder = JobOrder::find($request->id);
+        $data = [
+            'title' => 'Job Order Document',
+            'base_documents' => $jobOrder->base_documents
+                ];
+
+        return view('pdf.certificate', $data);
+        // $pdf = PDF::loadView('pdf.certificate', $data);
+        // return $pdf->stream('certificate.pdf');
+
+    }
+
+    ////////// PDF Test Route//////////////////////////////
     public function generatePDF(Request $request)
     {
         $jobOrder = JobOrder::find($request->id);
@@ -648,7 +706,7 @@ class JobOrderController extends Controller
                 ];
         // $pdf = PDF::loadView('pdf.commissioning_report', $data);
         $pdf = PDF::loadView('pdf.document', $data);
-
+        // return view('pdf.declaration_of_works',$data);
         return $pdf->stream('document.pdf');
 
     }
@@ -692,5 +750,8 @@ class JobOrderController extends Controller
         return $pdf->stream('certificate.pdf');
 
     }
+
+
+
 
 }

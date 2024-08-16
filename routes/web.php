@@ -75,3 +75,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'auth:admin'], func
 
 
 });
+
+Route::get('test_report/{id}', [JobOrderController::class, 'generateComReport'])->name('generateComReport');
+Route::get('declaration_of_work/{id}', [JobOrderController::class, 'generateDomestic'])->name('generateDomestic');
+Route::get('images/{id}', [JobOrderController::class, 'generateImage'])->name('generateImage');
+Route::get('certificates/{id}', [JobOrderController::class, 'generateCertificate'])->name('generateCertificate');

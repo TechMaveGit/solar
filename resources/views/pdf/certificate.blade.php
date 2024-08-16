@@ -30,8 +30,7 @@
             </tr> --}}
 
         @if (isset($base_documents))
-            @php
-                // Chunk documents into pairs
+            {{-- @php
                 $document_pairs = array_chunk($base_documents->toArray(), 2);
             @endphp
 
@@ -44,6 +43,16 @@
                             </td>
                         @endif
                     @endforeach
+                </tr>
+            @endforeach --}}
+
+            @foreach ($base_documents as $document)
+                <tr>
+                    @if ($document['document_type'] == 'certificate_image')
+                        <td style="border: 2px solid;">
+                            <img src="{{ config('envoirment.IMAGE_API_PATH') . $document['document'] }}" alt="" style="width:100%;  object-fit:contain">
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         @endif
