@@ -50,10 +50,10 @@ Route::middleware('throttle:120,1')->group(function () {
 
         Route::get('view-document/{id}', [JobOrderController::class, 'viewDocument']);
 
-        Route::get('test_report/{id}', [JobOrderController::class, 'generateReport'])->name('generate-pdf');
-        Route::get('declaration_of_work/{id}', [JobOrderController::class, 'generateDom'])->name('generateDom');
-        Route::get('image/{id}', [JobOrderController::class, 'generateIma'])->name('generateIma');
-        Route::get('certificate/{id}', [JobOrderController::class, 'certificate'])->name('certificate');
+        Route::get('test_report/{id}', [JobOrderController::class, 'generateComReport'])->name('generateComReport');
+        Route::get('declaration_of_work/{id}', [JobOrderController::class, 'generateDomestic'])->name('generateDomestic');
+        Route::get('images/{id}', [JobOrderController::class, 'generateImage'])->name('generateImage');
+        Route::get('certificates/{id}', [JobOrderController::class, 'generateCertificate'])->name('generateCertificate');
 
     });
 
