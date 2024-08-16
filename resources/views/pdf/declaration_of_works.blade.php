@@ -519,7 +519,8 @@
         <h2 style="padding-top: 4pt;padding-left: 0pt;text-indent: 0pt;text-align: left;">Installer Declaration <span
                 class="s3">MUST BE ON THE SEAI  NDMG  SOLAR PV </span><u>INSTALLER</u></h2>
         @else
-        <h2 style="padding-top: 4pt;padding-left: 0pt;text-indent: 0pt;text-align: left;">Installer Declaration <span
+        <div style="height: 220px"></div>
+        <h2 style="padding-top: 80pt;padding-left: 0pt;text-indent: 0pt;text-align: left; ">Installer Declaration <span
             class="s3">MUST BE ON THE SEAI SOLAR PV </span><u>INSTALLER</u></h2>
         @endif
         <p class="s9" style="padding-bottom: 2pt;padding-left: 0pt;text-indent: 0pt;text-align: left;">REGISTER<b>
@@ -582,13 +583,13 @@
             </tr>
 
             <tr>
-                <td colspan="2"
+                <td colspan="4"
                     style="border: 1px solid #000; vertical-align: middle;padding:5px 10px;background-color:#d9d9d9">
                     Signed:
                 </td>
-                <td colspan="7" style="border: 1px solid #000;vertical-align: middle;">
+                <td colspan="5" style="border: 1px solid #000;vertical-align: middle;">
                     @if(isset($data['installer_sign']) && strpos($data['installer_sign'], 'base_document') !== false)
-                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['installer_sign'] }}" alt="" style="width: 100px;">
+                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['installer_sign'] }}" alt="" style="width: 100%; max-height: 40px;">
                     @else
                     <p style="text-indent: 0pt;text-align: left; font-size:16px; padding-bottom:2pt"><br />{{ $data['installer_sign'] ?? '' }}</p>
                     @endif
@@ -616,12 +617,12 @@
                 @endif
             </tr>
             <tr>
-                <td colspan="2"
+                <td colspan="4"
                     style="border: 1px solid #000; vertical-align: middle;padding:5px 10px;background-color:#d9d9d9">
                     Name <br>
                     (CAPITALS)
                 </td>
-                <td colspan="16" style="border: 1px solid #000; vertical-align: middle; text-transform: uppercase;">{{ $data['installer_name'] ?? '' }}</td>
+                <td colspan="14" style="border: 1px solid #000; vertical-align: middle; text-transform: uppercase;">{{ $data['installer_name'] ?? '' }}</td>
             </tr>
             <tr>
                 <td colspan="10"
@@ -648,7 +649,7 @@
             </tr>
         </table>
         <p style="padding-top: 10pt;text-indent: 0pt;text-align: left;"><br /></p>
-        <p style="padding-left: 8pt;text-indent: 0pt;line-height: 1pt;text-align: left;" />
+        <span style="display: block;border: 1px solid #000;border-left: 0;border-right: 0;padding: 1px 0;"></span>
         @if($data['client_type']=='2')
         <h2 style="padding-top: 5pt;padding-left: 0pt;text-indent: 0pt;text-align: left;">
             Section to be completed by the Applicant:</h2>
@@ -687,13 +688,13 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2"
+                <td colspan="4"
                     style="border: 1px solid #000; vertical-align: middle;padding:5px 10px;background-color:#d9d9d9">
                     Signed:
                 </td>
-                <td colspan="7" style="border: 1px solid #000;vertical-align: middle;">
+                <td colspan="5" style="border: 1px solid #000;vertical-align: middle;">
                     @if(isset($data['owner_sign']) && strpos($data['owner_sign'], 'base_document') !== false)
-                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['owner_sign'] }}" alt="" style="width: 100%">
+                    <img src="{{ config('envoirment.IMAGE_API_PATH') . $data['owner_sign'] }}" alt="" style="width: 100%; max-height: 40px;">
                     @else
                     <p style="text-indent: 0pt;text-align: left; font-size:16px; padding-bottom:2pt"><br />{{ $data['owner_sign'] ?? '' }}</p>
                     @endif
@@ -721,12 +722,12 @@
                 @endif
             </tr>
             <tr>
-                <td colspan="2"
+                <td colspan="4"
                     style="border: 1px solid #000; vertical-align: middle;padding:5px 10px;background-color:#d9d9d9">
                     Name <br>
                     (CAPITALS)
                 </td>
-                <td colspan="16" style="border: 1px solid #000; vertical-align: middle; text-transform: uppercase;">{{ $data['owner_name'] ?? '' }}</td>
+                <td colspan="14" style="border: 1px solid #000; vertical-align: middle; text-transform: uppercase;">{{ $data['owner_name'] ?? '' }}</td>
             </tr>
         </table>
         <h3 style="padding-top: 13pt;padding-left: 0pt;text-indent: 0pt;text-align: left;">NOTE:</h3>

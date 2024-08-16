@@ -1362,7 +1362,7 @@ class JobOrderController extends Controller
 
     }
 
-    public function generateReport(Request $request)
+    public function generateComReport(Request $request)
     {
         $jobOrder = JobOrder::find($request->id);
         $data = [
@@ -1374,7 +1374,7 @@ class JobOrderController extends Controller
 
     }
 
-    public function generateDom(Request $request)
+    public function generateDomestic(Request $request)
     {
 
         $jobOrder = JobOrder::find($request->id);
@@ -1382,12 +1382,13 @@ class JobOrderController extends Controller
             'title' => 'Job Order Document',
             'data' => $jobOrder,
                 ];
+        // return view('pdf.declaration_of_works',$data);
         $pdf = PDF::loadView('pdf.declaration_of_works', $data);
 
         return $pdf->stream('declaration_of_works.pdf');
 
     }
-    public function generateIma(Request $request)
+    public function generateImage(Request $request)
     {
 
         $jobOrder = JobOrder::find($request->id);
@@ -1400,7 +1401,7 @@ class JobOrderController extends Controller
         return $pdf->stream('images.pdf');
 
     }
-    public function certificate(Request $request)
+    public function generateCertificate(Request $request)
     {
 
         $jobOrder = JobOrder::find($request->id);
