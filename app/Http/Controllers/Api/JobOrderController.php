@@ -1384,7 +1384,6 @@ class JobOrderController extends Controller
                 ];
         // return view('pdf.declaration_of_works',$data);
         $pdf = PDF::loadView('pdf.declaration_of_works', $data);
-
         return $pdf->stream('declaration_of_works.pdf');
 
     }
@@ -1397,7 +1396,6 @@ class JobOrderController extends Controller
             'base_documents' => $jobOrder->base_documents
                 ];
         $pdf = PDF::loadView('pdf.images', $data);
-
         return $pdf->stream('images.pdf');
 
     }
@@ -1410,7 +1408,6 @@ class JobOrderController extends Controller
             'base_documents' => $jobOrder->base_documents
                 ];
         $pdf = PDF::loadView('pdf.certificate', $data);
-
         return $pdf->stream('certificate.pdf');
 
     }
