@@ -129,7 +129,9 @@
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Assigned Date</span></th>
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Completed Date</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
-                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Job Order Form</span></th>
+                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">View Details</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Declaration of work</span></th>
+                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Inspection</span></th>
                                     <th class="nk-tb-col "><span class="sub-text"> Pictures</span></th>
                                 </tr>
                             </thead>
@@ -182,6 +184,29 @@
                                         <span class="tb-status text-success">Completed</span>
                                     </td>
                                     <td class="nk-tb-col nk-tb-col-tools"><a class="textaction_right" href="{{ route('admin.view-job-order', base64_encode($jobOrder->id)) }}">Job Order <em class="icon ni ni-forward-ios"></em></a></td>
+                                    @php
+                                        $declaration_of_works_url = null;
+                                        $inspection_report_url = null;
+
+                                        foreach ($jobOrder->base_documents as $pdf) {
+                                            if ($pdf->document_type == 'declaration_of_works') {
+                                                $declaration_of_works_url = config('envoirment.IMAGE_API_PATH').$pdf->document;
+                                            } elseif ($pdf->document_type == 'inspection_test_and_commissioning_report') {
+                                                $inspection_report_url = config('envoirment.IMAGE_API_PATH').$pdf->document;
+                                            }
+                                        }
+                                    @endphp
+
+                                    <td class="nk-tb-col tb-col-md">
+                                        @if($declaration_of_works_url)
+                                        <a href="{{ $declaration_of_works_url }}" download target="_blank"><iconify-icon icon="tabler:download"></iconify-icon> Download Report</a>
+                                        @endif
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        @if($inspection_report_url)
+                                        <a href="{{ $inspection_report_url }}" download target="_blank"><iconify-icon icon="tabler:download"></iconify-icon> Download Report </a>
+                                        @endif
+                                    </td>
                                     <td class="nk-tb-col nk-tb-col-tools">
                                         <div class="actionFlexBtns">
                                             <a href="{{ route('admin.view-pictures', base64_encode($jobOrder->id)) }}"
