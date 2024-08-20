@@ -62,6 +62,7 @@
     color: white;
     border: none;
     cursor: pointer;
+    z-index: 10;
   }
 
 </style>
