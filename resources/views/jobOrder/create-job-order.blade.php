@@ -4629,11 +4629,12 @@
 
                 if (data.client) {
                     var clint = data.client;
-                    // alert(data.client.name);
+                    //  alert(data.client.eircode);
+                     var Eircode = data.client.eircode ? data.client.eircode : '';
                     $('.applicant_name').val(clint.name);
-                    $('.installation_address_all').val(clint.address +" "+ clint.city +", "+ clint.country +", "+ clint.eircode);
+                    $('.installation_address_all').val(clint.address +" "+ clint.city +", "+ clint.country +", "+ Eircode);
                     $('.installation_address').val(clint.address);
-                    $('.installation_eircode').val(clint.eircode);
+                    $('.installation_eircode').val(Eircode);
                     $('.installation_postalcode').val(clint.postal_code);
                     $('.client_country').val(clint.country);
                     $('.client_city').val(clint.city);
