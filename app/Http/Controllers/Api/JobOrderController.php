@@ -710,11 +710,12 @@ class JobOrderController extends Controller
             }
         }
         if ($request->hasFile('certificate_image')) {
-            print_r($request->file('certificate_image'));
-            dd('work');
+
 
             BaseDocument::where('order_id', $jobOrder->id)->where('document_type', 'certificate_image')->delete();
             foreach ($request->file('certificate_image') as $certificateImage) {
+                print_r($certificateImage);
+            die($filePath);
                 $folderName = 'base_document';
                 $filePath = $this->upload($certificateImage, $folderName);
                 $baseDocument = new BaseDocument();
