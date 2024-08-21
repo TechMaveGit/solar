@@ -64,6 +64,11 @@
     cursor: pointer;
     z-index: 10;
   }
+  .check-all{
+    right: 0;
+    top: 40%;
+    position: absolute;
+  }
 
 </style>
 @endpush
@@ -3845,49 +3850,50 @@
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="2">PV generator
                                                                         </td>
-                                                                        <td class="nk-tb-col">Module</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col custom-checkbox">Module
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Quantity</td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Quantity<input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity1"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity2"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity10"></td>
 
                                                                     </tr>
@@ -3947,7 +3953,7 @@
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="4">Protection
                                                                             device (branch
-                                                                            fuse)
+                                                                            fuse) <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
                                                                         <td class="nk-tb-col">Type </td>
                                                                         <td class="nk-tb-col"><input type="text"
@@ -4290,7 +4296,7 @@
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Earth
-                                                                            continuity (where fitted)
+                                                                            continuity (where fitted)<input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 name="earth_continuty1"></td>
@@ -4936,9 +4942,65 @@
     } else {
         scrollButton.style.display = 'none';
     }
-    });
+    });jo
 
 </script>
+{{-- <script>
+    $(document).ready(function() {
+        $('.check-all').on('click', function() {
+            var $row = $(this).closest('tr');
+            var $inputs = $row.find('.module-input');
+            var filledInputs = $inputs.filter(function() {
+                return $(this).val().trim() !== "";
+            });
+
+            if (filledInputs.length === 1) {
+                var filledValue = filledInputs.val();
+                $inputs.val(filledValue); // Fill all inputs with the same value
+            } else if (filledInputs.length > 1) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'More than one field already filled!',
+                    text: 'Only one field should be filled to copy the value to others.',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                $inputs.prop('checked', $(this).is(':checked')); // Check/uncheck all inputs
+            }
+        });
+    });
+</script> --}}
+<script>
+    $(document).ready(function() {
+        $('.check-all').on('click', function() {
+            var $row = $(this).closest('tr');
+            var $inputs = $row.find('.module-input');
+            var filledInputs = $inputs.filter(function() {
+                return $(this).val().trim() !== "";
+            });
+
+            if ($(this).is(':checked')) {
+                if (filledInputs.length === 1) {
+                    var filledValue = filledInputs.val();
+                    $inputs.val(filledValue); // Fill all inputs with the same value
+                } else if (filledInputs.length > 1) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'More than one field already filled!',
+                        text: 'Only one field should be filled to copy the value to others.',
+                        confirmButtonText: 'OK'
+                    });
+                    $(this).prop('checked', false); // Uncheck the checkbox
+                }
+            } else {
+                // Clear all input fields when the checkbox is unchecked
+                $inputs.prop('checked', $(this).is(':checked'));
+                // $inputs.val('');
+            }
+        });
+    });
+</script>
+
 
 <!-- submit trigger buttin page loader and redirection other page json_decode end-->
 @endpush
