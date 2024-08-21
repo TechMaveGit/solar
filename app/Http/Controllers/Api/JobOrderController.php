@@ -692,9 +692,6 @@ class JobOrderController extends Controller
         $imagesToUpload = ['rail_image', 'panel_label_image', 'panel_roof_image', 'fireman_switch_image',
         'inverter_label_image', 'inverter_install_image', 'fuseboard_image', 'meter_image', 'battry_image',
         'battry_label_image', 'diverter_image'];
-
-        // dd($request->file('rail_image'));
-
         foreach ($imagesToUpload as $field) {
             if ($request->hasFile($field)) {
                 BaseDocument::where('order_id', $jobOrder->id)->where('document_type', $field)->delete();
@@ -710,12 +707,10 @@ class JobOrderController extends Controller
             }
         }
         if ($request->hasFile('certificate_image')) {
-
-
             BaseDocument::where('order_id', $jobOrder->id)->where('document_type', 'certificate_image')->delete();
             foreach ($request->file('certificate_image') as $certificateImage) {
-                print_r($certificateImage);
-            die($filePath);
+            //     print_r($certificateImage);
+            // die($filePath);
                 $folderName = 'base_document';
                 $filePath = $this->upload($certificateImage, $folderName);
                 $baseDocument = new BaseDocument();
