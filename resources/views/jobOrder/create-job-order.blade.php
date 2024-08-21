@@ -65,9 +65,12 @@
     z-index: 10;
   }
   .check-all{
-    right: 0;
+    right: -14px;
     top: 40%;
     position: absolute;
+  }
+  .for-checkbox .check-all{
+    right: 8px;
   }
 
 </style>
@@ -2419,25 +2422,25 @@
                                                                         <th>3</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody>
+                                                                <tbody class="for-checkbox">
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="2">PV generator
                                                                         </td>
-                                                                        <td class="nk-tb-col">Module</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Module <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Quantity</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Quantity <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity3"></td>
                                                                     </tr>
 
@@ -2445,21 +2448,21 @@
                                                                         <td class="nk-tb-col" rowspan="2">PV generator
                                                                             parameters
                                                                         </td>
-                                                                        <td class="nk-tb-col">Voc (STC)</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Voc (STC) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Isc (STC)</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Isc (STC) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc3"></td>
                                                                     </tr>
 
@@ -2468,71 +2471,71 @@
                                                                             device (branch
                                                                             fuse)
                                                                         </td>
-                                                                        <td class="nk-tb-col">Type </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Type <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Rated Value (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Rated Value (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">DC rating (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">DC rating (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Capacity (kA) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Capacity (kA) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity3"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="3">Wiring
                                                                         </td>
-                                                                        <td class="nk-tb-col">Type </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Type <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col">Phase conductor (mm2)
-                                                                        </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col">Earth conductor (mm2)
-                                                                        </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth3"></td>
                                                                     </tr>
 
@@ -2541,42 +2544,42 @@
                                                                             Measurement of
                                                                             the strand
                                                                         </td>
-                                                                        <td class="nk-tb-col">Voc (V) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Voc (V) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Isc (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Isc (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Irradiance </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Irradiance <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance3"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Polarity
-                                                                            monitoring
+                                                                            monitoring <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring3"></td>
                                                                     </tr>
 
@@ -2584,98 +2587,100 @@
                                                                         <td class="nk-tb-col" rowspan="3">Array
                                                                             Insulation Resistance
                                                                         </td>
-                                                                        <td class="nk-tb-col">Test Voltage (V) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Test Voltage (V) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Pos – Earth (M ) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Pos – Earth (M ) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Neg – Earth (M ) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Neg – Earth (M ) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg3"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Earth
                                                                             continuity (where fitted)
+                                                                            <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Switchgear
                                                                             functioning
                                                                             correctly
+                                                                            <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            Make/Model
+                                                                            Make/Model <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            Serial Number
+                                                                            Serial Number <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            functioning correctly
+                                                                            functioning correctly <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col" colspan="2">Loss of mains
-                                                                            test
+                                                                        <td class="nk-tb-col" colspan="2">Loss of mains test
+                                                                            <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_3"></td>
                                                                     </tr>
 
@@ -3902,50 +3907,50 @@
                                                                         <td class="nk-tb-col" rowspan="2">PV generator
                                                                             parameters
                                                                         </td>
-                                                                        <td class="nk-tb-col">Voc (STC)</td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Voc (STC) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc1"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc2"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc10"></td>
 
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Isc (STC)</td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Isc (STC) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc1"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc2"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc10"></td>
 
                                                                     </tr>
@@ -3953,171 +3958,171 @@
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="4">Protection
                                                                             device (branch
-                                                                            fuse) <input type="checkbox" name="" value="" class="check-all" id="">
+                                                                            fuse)
                                                                         </td>
-                                                                        <td class="nk-tb-col">Type </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Type <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Rated Value (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Rated Value (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">DC rating (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">DC rating (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Capacity (kA) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Capacity (kA) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity10"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="3">Wiring
                                                                         </td>
-                                                                        <td class="nk-tb-col">Type </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Type <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col">Phase conductor (mm2)
-                                                                        </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col">Earth conductor (mm2)
-                                                                        </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth10"></td>
                                                                     </tr>
 
@@ -4126,98 +4131,98 @@
                                                                             Measurement of
                                                                             the strand
                                                                         </td>
-                                                                        <td class="nk-tb-col">Voc (V) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Voc (V) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Isc (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Isc (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Irradiance </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Irradiance <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance10"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Polarity
-                                                                            monitoring
+                                                                            monitoring <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring10"></td>
                                                                     </tr>
 
@@ -4225,72 +4230,72 @@
                                                                         <td class="nk-tb-col" rowspan="3">Array
                                                                             Insulation Resistance
                                                                         </td>
-                                                                        <td class="nk-tb-col">Test Voltage (V) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Test Voltage (V) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Pos – Earth (M ) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Pos – Earth (M ) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Neg – Earth (M ) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Neg – Earth (M ) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg10"></td>
                                                                     </tr>
 
@@ -4298,151 +4303,151 @@
                                                                         <td class="nk-tb-col" colspan="2">Earth
                                                                             continuity (where fitted)<input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Switchgear
                                                                             functioning
-                                                                            correctly
+                                                                            correctly <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            Make/Model
+                                                                            Make/Model <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            Serial Number
+                                                                            Serial Number <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            functioning correctly
+                                                                            functioning correctly <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Loss of mains
-                                                                            test
+                                                                            test <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_10"></td>
                                                                     </tr>
 
