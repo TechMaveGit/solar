@@ -708,7 +708,11 @@ class JobOrderController extends Controller
         }
         if ($request->hasFile('certificate_image')) {
             BaseDocument::where('order_id', $jobOrder->id)->where('document_type', 'certificate_image')->delete();
-            foreach ($request->file('certificate_image') as $certificateImage) {
+            $certificateImages = $request->file('certificate_image');
+            if (!is_array($certificateImages)) {
+                $certificateImages = [$certificateImages]; // Convert to array if it's a single file
+            }
+            foreach ($certificateImages as $certificateImage) {
             //     print_r($certificateImage);
             // die($filePath);
                 $folderName = 'base_document';
