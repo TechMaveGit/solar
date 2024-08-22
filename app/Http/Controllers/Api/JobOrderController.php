@@ -713,8 +713,8 @@ class JobOrderController extends Controller
             //     $certificateImages = [$certificateImages]; // Convert to array if it's a single file
             // }
             foreach ($request->file('certificate_image') as $certificateImage) {
-              print_r($certificateImage);
-              die($filePath);
+            //   print_r($certificateImage);
+            //   die($filePath);
                 $folderName = 'base_document';
                 $filePath = $this->upload($certificateImage, $folderName);
                 $baseDocument = new BaseDocument();
