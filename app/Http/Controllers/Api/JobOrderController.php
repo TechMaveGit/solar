@@ -184,23 +184,23 @@ class JobOrderController extends Controller
                 // 'job_order.installer_company_name' => 'required',
                 // 'job_order.installer_company_address' => 'required',
 
-                'rail_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'panel_label_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'panel_roof_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'fireman_switch_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'inverter_label_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'inverter_install_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'fuseboard_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'meter_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'battry_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'battry_label_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'diverter_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'rail_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'panel_label_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'panel_roof_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'fireman_switch_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'inverter_label_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'inverter_install_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'fuseboard_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'meter_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'battry_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'battry_label_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'diverter_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
                 'certificate_image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
                 'certificate_image' => 'nullable|array',
-                'installer_sign' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'owner_sign' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'tester_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'test_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'installer_sign' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'owner_sign' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'tester_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
+                'test_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
                 'job_order' => 'required|json',
             ]);
 
@@ -713,8 +713,8 @@ class JobOrderController extends Controller
             //     $certificateImages = [$certificateImages]; // Convert to array if it's a single file
             // }
             foreach ($request->file('certificate_image') as $certificateImage) {
-            //   print_r($certificateImage);
-            //   die($filePath);
+              print_r($certificateImage);
+              die($filePath);
                 $folderName = 'base_document';
                 $filePath = $this->upload($certificateImage, $folderName);
                 $baseDocument = new BaseDocument();
