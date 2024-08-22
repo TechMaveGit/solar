@@ -202,9 +202,6 @@ class JobOrderController extends Controller
                 'tester_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'test_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'job_order' => 'required|json',
-            ],[
-                    'certificate_image.*.max' => 'The certificate image must not be greater than 2MB.',
-                    'certificate_image.*.image' => 'The certificate file must be an image.',
             ]);
 
             if ($validator->passes()) {
@@ -716,8 +713,8 @@ class JobOrderController extends Controller
             //     $certificateImages = [$certificateImages]; // Convert to array if it's a single file
             // }
             foreach ($request->file('certificate_image') as $certificateImage) {
-            //     print_r($certificateImage);
-            // die($filePath);
+            //   print_r($certificateImage);
+            //   die($filePath);
                 $folderName = 'base_document';
                 $filePath = $this->upload($certificateImage, $folderName);
                 $baseDocument = new BaseDocument();
