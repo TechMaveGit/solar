@@ -37,7 +37,7 @@
         .table_c th {
             padding: 5px 4px;
             vertical-align: top;
-            font-size: 11px;
+            font-size: 10px;
         }
     </style>
 </head>
@@ -1037,343 +1037,343 @@
                 </tr>
                 <tr>
                     <th colspan="2" style="border: 1px solid; line-height:24px;">String</th>
-                    <th style="border: 1px solid;">1</th>
-                    <th style="border: 1px solid;">2</th>
-                    <th style="border: 1px solid;">3</th>
-                    <th style="border: 1px solid;">4</th>
-                    <th style="border: 1px solid;">5</th>
-                    <th style="border: 1px solid;">6</th>
-                    <th style="border: 1px solid;">7</th>
-                    <th style="border: 1px solid;">8</th>
-                    <th style="border: 1px solid;">9</th>
-                    <th style="border: 1px solid;">10</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">1</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">2</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">3</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">4</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">5</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">6</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">7</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">8</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">9</th>
+                    <th style="border: 1px solid;width:35.45px;word-break:break-all">10</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td rowspan="2" style="border: 1px solid;width:20%">PV generator</td>
-                    <td style="border: 1px solid;width:18%">Module</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module1 ?? '' }}</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module2 ?? '' }}</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module3 ?? '' }}</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module4 ?? '' }}</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module5 ?? '' }}</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module6 ?? '' }}</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module7 ?? '' }}</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module8 ?? '' }}</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module9 ?? '' }}</td>
-                    <td style="border: 1px solid;width:6.2%">{{ $test_report->pv_generator_module10 ?? '' }}</td>
+                    <td rowspan="2" style="border: 1px solid;width:120px">PV generator</td>
+                    <td style="border: 1px solid;width:100px">Module</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_module10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Quantity</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->pv_generator_quantity10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->pv_generator_quantity10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td rowspan="2" style="border: 1px solid;">PV generator parameters</td>
                     <td style="border: 1px solid;">Voc (STC)</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_voc10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_voc10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Isc (STC)</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->generator_parameters_isc10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->generator_parameters_isc10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td rowspan="4" style="border: 1px solid;line-height: 18px;">Protection device (branch fuse)</td>
                     <td style="border: 1px solid;">Type</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->protection_device10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->protection_device10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Rated Value (A)</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_rated_value10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_rated_value10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">DC rating (A)</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_dc_rating10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_dc_rating10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Capacity (kA)</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity1 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity2 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity3 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity4 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity5 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity6 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity7 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity8 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity9 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->device_capacity10 ?? '' }}</</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->device_capacity10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td rowspan="3" style="border: 1px solid;">Wiring</td>
                     <td style="border: 1px solid;">Type</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_type10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_type10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;white-space: nowrap;">Phase conductor (mm<sup>2</sup>)</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_phase10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_phase10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Earth conductor (mm<sup>2</sup>)</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->wiring_earth10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->wiring_earth10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td rowspan="3" style="border: 1px solid; line-height:18px">Testing and Measurement of the strand
                     </td>
                     <td style="border: 1px solid;">Voc (V)</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_voc10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_voc10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Isc (A)</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_isc10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_isc10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Irradiance</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->tm_irradiance10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->tm_irradiance10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td colspan="2" style="border: 1px solid;">Polarity monitoring</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->polarity_monitoring10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->polarity_monitoring10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td rowspan="3" style="border: 1px solid;line-height:18px margin-top:10px">Array Insulation Resistance</td>
                     <td style="border: 1px solid;">Test Voltage (V)</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_test_voltage10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_test_voltage10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Pos – Earth (MΩ)</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_pos10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_pos10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Neg – Earth (MΩ)</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->array_neg10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->array_neg10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Earth continuity (where fitted)</td>
                     <td style="border: 1px solid;"> </td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->earth_continuty10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->earth_continuty10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;line-height:18px">Switchgear functioning correctly</td>
                     <td style="border: 1px solid;"></td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->switchgear_functioning10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->switchgear_functioning10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Inverter Make/Model</td>
                     <td style="border: 1px solid;"></td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->test_inverter_make10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->test_inverter_make10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Inverter Serial Number</td>
                     <td style="border: 1px solid;"></td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_serial_no10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_serial_no10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Inverter functioning correctly</td>
-                    <td style="border: 1px solid;"></</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning1 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning2 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning3 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning4 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning5 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning6 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning7 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning8 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning9 ?? '' }}</</td>
-                    <td style="border: 1px solid;">{{ $test_report->inverter_functioning10 ?? '' }}</</td>
+                    <td style="border: 1px solid;"></td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->inverter_functioning10 ?? '' }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid;">Loss of mains test</td>
                     <td style="border: 1px solid;"></td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_1 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_2 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_3 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_4 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_5 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_6 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_7 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_8 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_9 ?? '' }}</td>
-                    <td style="border: 1px solid;">{{ $test_report->loss_10 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_1 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_2 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_3 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_4 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_5 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_6 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_7 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_8 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_9 ?? '' }}</td>
+                    <td style="border: 1px solid;width:35.45px;word-break:break-all">{{ $test_report->loss_10 ?? '' }}</td>
                 </tr>
             </tbody>
         </table>
