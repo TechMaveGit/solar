@@ -195,13 +195,16 @@ class JobOrderController extends Controller
                 'battry_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'battry_label_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'diverter_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'certificate_image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'certificate_image.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4048',
                 'certificate_image' => 'nullable|array',
                 'installer_sign' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'owner_sign' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'tester_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'test_signature' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'job_order' => 'required|json',
+            ],[
+                    'certificate_image.*.max' => 'The certificate image must not be greater than 2MB.',
+                    'certificate_image.*.image' => 'The certificate file must be an image.',
             ]);
 
             if ($validator->passes()) {
@@ -708,11 +711,11 @@ class JobOrderController extends Controller
         }
         if ($request->hasFile('certificate_image')) {
             BaseDocument::where('order_id', $jobOrder->id)->where('document_type', 'certificate_image')->delete();
-            $certificateImages = $request->file('certificate_image');
-            if (!is_array($certificateImages)) {
-                $certificateImages = [$certificateImages]; // Convert to array if it's a single file
-            }
-            foreach ($certificateImages as $certificateImage) {
+            // $certificateImages = $request->file('certificate_image');
+            // if (!is_array($certificateImages)) {
+            //     $certificateImages = [$certificateImages]; // Convert to array if it's a single file
+            // }
+            foreach ($request->file('certificate_image') as $certificateImage) {
             //     print_r($certificateImage);
             // die($filePath);
                 $folderName = 'base_document';
