@@ -165,7 +165,7 @@
                                 @foreach ($jobOrders as $key => $order)
                                 <tr class="nk-tb-item">
                                     <td hidden>{{ $key+1 }}</td>
-                                    <td class="nk-tb-col tb-col-md"><span>{{ $order->order_id }}</span></td>
+                                    <td class="nk-tb-col tb-col-md"><span><a href="{{ route('admin.view-job-order',base64_encode($order->id)) }}">{{ $order->order_id }}</a></span></td>
                                     <td class="nk-tb-col tb-col-md"><span>@if(isset($order->client)){{ $order->client->client_id }}@endif</span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">

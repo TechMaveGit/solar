@@ -8,7 +8,7 @@
             <div class="nk-block-head nk-block-head-sm">
                 <div class="nk-block-between">
                     <div class="nk-block-head-content">
-                        <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">Client Job Orders</h2>
+                        <h2 class="nk-block-title fw-normal customtitleBTMargin titlemargin_0">@if(isset($jobOrders[0]->client)) {{ $jobOrders[0]->client->name }} @endif Client Job Orders ({{ $jobOrders[0]->client->client_id ?? ''}})</h2>
 
                     </div>
                     <div class="nk-block-head-content">
@@ -36,7 +36,7 @@
                                 <tr class="nk-tb-item nk-tb-head">
                                     <th hidden>Sr. No.</th>
                                     {{-- <th class="nk-tb-col"><span class="sub-text">Client ID</span></th> --}}
-                                    <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
+                                    <th class="nk-tb-col"><span class="sub-text">Order ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Type</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Staff ID</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Assigned Staff</span></th>
@@ -53,7 +53,7 @@
                                     <tr class="nk-tb-item">
                                         <td hidden>{{ $key+1 }}</td>
                                         {{-- <td class="nk-tb-col tb-col-md"><span>{{ $order->client_id }}</span></td> --}}
-                                        <td class="nk-tb-col">
+                                        {{-- <td class="nk-tb-col">
                                             <div class="user-card">
                                                 <div class="user-avatar bg-dim-primary d-none d-sm-flex">
                                                     <span>AB</span></div>
@@ -61,7 +61,8 @@
                                                             class="dot dot-success d-md-none ms-1"></span></span><span>@if(isset($order->client)){{ $order->client->email }}@endif</span>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> --}}
+                                        <td class="nk-tb-col tb-col-md"><span><a href="{{ route('admin.view-job-order',base64_encode($order->id)) }}">{{ $order->order_id }}</a></span></td>
                                         <td class="nk-tb-col tb-col-md">
                                             <span>
                                                 @if($order->client_type=='1'){{ 'Domestic' }}

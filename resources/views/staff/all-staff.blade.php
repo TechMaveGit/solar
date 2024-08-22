@@ -57,7 +57,7 @@
                                     @foreach ($staffs as $key => $staff)
                                     <tr class="nk-tb-item">
                                         <td hidden>{{ $key+1 }}</td>
-                                        <td class="nk-tb-col tb-col-md"><span>{{ $staff->staff_id }}</span></td>
+                                        <td class="nk-tb-col tb-col-md"><span><a href="{{ route('admin.staff-job-orders',base64_encode($staff->id)) }}" title="View Order" data-bs-toggle="tooltip" data-bs-placement="top">{{ $staff->staff_id }}</a></span></td>
                                         <td class="nk-tb-col">
                                             <div class="user-card">
                                                 <div class="user-avatar bg-dim-primary d-none d-sm-flex">
