@@ -674,12 +674,13 @@ class JobOrderController extends Controller
                         'message' => $th->getMessage(),
                     ], 500);
                 }
+            }else{
+                return response()->json([
+                    'status' => false,
+                    'message' => $validator->errors()->first(),
+                    'errors' => $validator->errors(),
+                ]);
             }
-            return response()->json([
-                'status' => false,
-                'message' => $validator->errors()->first(),
-                'errors' => $validator->errors(),
-            ]);
         } else {
             return response()->json([
                 'status' => false,
