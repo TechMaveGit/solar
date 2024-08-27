@@ -243,14 +243,22 @@ class AuthController extends Controller
     {
         try {
             $request->validate(['email' => 'required']);
-            $otp = $this->generateOTP();
-            $this->storeOTP($request->email, $otp);
-            $this->sendOTPByEmail($request->email, $otp);
-            return response()->json([
-                'status' => true,
-                'success' => 'OTP sent to your email',
-                'opt' => $otp
-            ]);
+            $user = User::where('email', $request->email)->first();
+            if($user){
+                $otp = $this->generateOTP();
+                $this->storeOTP($request->email, $otp);
+                $this->sendOTPByEmail($request->email, $otp);
+                return response()->json([
+                    'status' => true,
+                    'success' => 'OTP sent to your email',
+                    'opt' => $otp
+                ]);
+            }else{
+                return response()->json([
+                    'status' => false,
+                    'error' =>'User Not Found!',
+                ], 403);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
@@ -295,13 +303,20 @@ class AuthController extends Controller
             ]);
 
             $user = User::where('email', $request->email)->first();
-            $user->password = Hash::make($request->password);
-            $user->otp = null;
-            $user->save();
-            return response()->json([
-                'status' => true,
-                'success' =>'Password updated successfully',
-            ]);
+            if($user){
+                $user->password = Hash::make($request->password);
+                $user->otp = null;
+                $user->save();
+                return response()->json([
+                    'status' => true,
+                    'success' =>'Password updated successfully',
+                ]);
+            }else{
+                return response()->json([
+                    'status' => false,
+                    'error' =>'User Not Found!',
+                ], 403);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
