@@ -79,9 +79,9 @@ class JobOrderController extends Controller
         if ($jobs->isEmpty()) {
             return response()->json([
                 'status' => false,
-                'message' => 'No job orders found.',
+                'error' => 'No job orders found.',
                 'all_job_orders' => [],
-            ],200);
+            ],403);
         }
 
         return response()->json([
@@ -134,7 +134,7 @@ class JobOrderController extends Controller
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'Job order not found',
+                'error' => 'Job order not found',
                 'job_order' => null,
             ],404);
         }
@@ -156,9 +156,9 @@ class JobOrderController extends Controller
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'document not found',
+                'error' => 'document not found',
                 'document' => null,
-            ],200);
+            ],403);
         }
     }
 
@@ -671,20 +671,20 @@ class JobOrderController extends Controller
                     DB::rollBack();
                     return response()->json([
                         'status' => false,
-                        'message' => $th->getMessage(),
+                        'error' => $th->getMessage(),
                     ], 500);
                 }
             }else{
                 return response()->json([
                     'status' => false,
-                    'message' => $validator->errors()->first(),
+                    'error' => $validator->errors()->first(),
                     'errors' => $validator->errors(),
                 ]);
             }
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'This Job order not found',
+                'error' => 'This Job order not found',
             ],404);
         }
     }
@@ -1279,19 +1279,19 @@ class JobOrderController extends Controller
     //             }
     //             return response()->json([
     //                 'status' => false,
-    //                 'message' => $validator->errors()->first(),
+    //                 'error' => $validator->errors()->first(),
     //                 'errors' => $validator->errors(),
     //             ]);
     //         } catch (\Throwable $th) {
     //             return response()->json([
     //                 'status' => false,
-    //                 'message' => $th->getMessage(),
+    //                 'error' => $th->getMessage(),
     //             ], 500);
     //         }
     //     } else {
     //         return response()->json([
     //             'status' => false,
-    //             'message' => 'This Job order not found',
+    //             'error' => 'This Job order not found',
     //         ],404);
     //     }
 
@@ -1333,14 +1333,14 @@ class JobOrderController extends Controller
                 DB::rollBack();
                 return response()->json([
                     'status' => false,
-                    'message' => $th->getMessage(),
+                    'error' => $th->getMessage(),
                 ], 500);
             }
 
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'This Job order not found',
+                'error' => 'This Job order not found',
             ],403);
         }
 
@@ -1357,8 +1357,8 @@ class JobOrderController extends Controller
         if ($jobHistory->isEmpty()) {
             return response()->json([
                 'status' => false,
-                'message' => 'No job orders found.',
-            ],200);
+                'error' => 'No job orders found.',
+            ],403);
         }
 
         return response()->json([

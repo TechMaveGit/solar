@@ -43,18 +43,18 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => $validator->errors()->first(),
+                'error' => $validator->errors()->first(),
                 'errors' => $validator->errors(),
             ], 422);
         } elseif (!User::where(['user_type' => '2', 'email' => $request->email])->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => 'User Not Found.',
+                'error' => 'User Not Found.',
             ], 422);
         }elseif (!User::where(['user_type' => '2', 'email' => $request->email, 'status' =>'1'])->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => "Your account has been deactivated",
+                'error' => "Your account has been deactivated",
             ], 422);
         }
 
@@ -64,13 +64,13 @@ class AuthController extends Controller
             if (!$token = JWTAuth::attempt($validator->validated())) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Invalid Credentials.',
+                    'error' => 'Invalid Credentials.',
                 ], 422);
             }
         } catch (\JWTException $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Failed to create token.',
+                'error' => 'Failed to create token.',
             ], 500);
         }
 
@@ -94,7 +94,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => $validator->errors()->first(),
+                'error' => $validator->errors()->first(),
                 'errors' => $validator->errors(),
             ], 422);
         }
@@ -147,13 +147,13 @@ class AuthController extends Controller
             if (!$user) {
                 return  response()->json([
                     'status' => false,
-                    'message'=>'user not found'
+                    'error'=>'user not found'
                 ],200);
             }
         } catch (JWTException $e) {
             return  response()->json([
                 'status' => false,
-                'message'=>$e->getMessage()
+                'error'=>$e->getMessage()
             ],500);
         }
 
