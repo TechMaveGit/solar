@@ -81,7 +81,7 @@ class JobOrderController extends Controller
                 'status' => false,
                 'error' => 'No job orders found.',
                 'all_job_orders' => [],
-            ],403);
+            ],404);
         }
 
         return response()->json([
@@ -158,7 +158,7 @@ class JobOrderController extends Controller
                 'status' => false,
                 'error' => 'document not found',
                 'document' => null,
-            ],403);
+            ],404);
         }
     }
 
@@ -1341,7 +1341,7 @@ class JobOrderController extends Controller
             return response()->json([
                 'status' => false,
                 'error' => 'This Job order not found',
-            ],403);
+            ],404);
         }
 
     }
@@ -1358,7 +1358,7 @@ class JobOrderController extends Controller
             return response()->json([
                 'status' => false,
                 'error' => 'No job orders found.',
-            ],403);
+            ],404);
         }
 
         return response()->json([
