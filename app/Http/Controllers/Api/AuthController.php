@@ -257,7 +257,7 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => false,
                     'error' =>'User Not Found!',
-                ], 403);
+                ], 404);
             }
         } catch (\Exception $e) {
             return response()->json([
@@ -315,7 +315,7 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => false,
                     'error' =>'User Not Found!',
-                ], 403);
+                ], 404);
             }
         } catch (\Exception $e) {
             return response()->json([
