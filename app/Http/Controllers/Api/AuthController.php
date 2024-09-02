@@ -315,11 +315,21 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request)
     {
+
+        $validator = Validator::make($request->all(),
+        [
+            'email' => 'required|exists:users,email',
+            'password' => 'required|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
         try {
-            $request->validate([
-                'email' => 'required',
-                'password' => 'required|min:6',
-            ]);
 
             $user = User::where('email', $request->email)->first();
             if($user){
@@ -339,8 +349,8 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'error' =>'Something went Wrong!',
-            ], 503);
+                'error' =>$e->getMessage(),
+            ], 422);
         }
     }
 
