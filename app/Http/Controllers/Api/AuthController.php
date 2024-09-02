@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ForgetPassword;
 use App\Models\JobOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -241,8 +242,17 @@ class AuthController extends Controller
 
     public function forgotPassword(Request $request)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'email' => 'required|exists:users,email'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
         try {
-            $request->validate(['email' => 'required']);
             $user = User::where('email', $request->email)->first();
             if($user){
                 $otp = $this->generateOTP();
@@ -262,18 +272,27 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'error' =>'Something went Wrong!',
-            ], 503);
+                'error' =>$e->getMessage(),
+            ], 422);
         }
     }
 
     public function verifyOtp(Request $request)
     {
+        $validator = Validator::make($request->all(),
+        [
+            'email' => 'required|exists:users,email',
+            'otp' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
         try {
-            $request->validate([
-                'email' => 'required',
-                'otp' => 'required',
-            ]);
 
             if ($this->validateOTP($request->email, $request->otp)) {
                 return response()->json([
@@ -284,13 +303,13 @@ class AuthController extends Controller
 
             return response()->json([
                 'status' => false,
-                'error' => 'Invalid OTP',
+                'error' => 'Invalid OTP or incorrect email',
             ],400);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
-                'error' =>'Something went Wrong!',
-            ], 503);
+                'error' =>$e->getMessage(),
+            ], 422);
         }
     }
 
@@ -339,18 +358,19 @@ class AuthController extends Controller
     private function sendOTPByEmail($email, $otp)
     {
 
-        Mail::raw("Your OTP is: $otp", function ($message) use ($email) {
-            $message->to($email)
-                ->subject('OTP for Verification');
-        });
-    }
+        // Mail::raw("Your OTP is: $otp", function ($message) use ($email) {
+            //     $message->to($email)
+            //         ->subject('OTP for Verification');
+            // });
+            Mail::to($email)->send(new ForgetPassword($otp));
+        }
 
     private function validateOTP($email, $otp)
     {
         // Validate OTP against stored OTP
         $storedOTP = User::where('email', $email)->first();
 
-        return $storedOTP && $storedOTP->otp === $otp;
+        return $storedOTP && $storedOTP->otp == $otp;
 
         return true; // For demonstration purposes
     }
