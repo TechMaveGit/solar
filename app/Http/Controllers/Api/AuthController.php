@@ -305,7 +305,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'status' => false,
-                'error' => 'Invalid OTP or incorrect email',
+                'error' => 'Invalid OTP',
             ],400);
         } catch (\Exception $e) {
             return response()->json([
@@ -341,7 +341,7 @@ class AuthController extends Controller
                 $user->save();
                 return response()->json([
                     'status' => true,
-                    'success' =>'Password updated successfully',
+                    'success' =>'New password updated',
                 ]);
             }else{
                 return response()->json([
