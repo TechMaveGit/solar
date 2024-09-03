@@ -574,7 +574,7 @@ class JobOrderController extends Controller
 
             } catch (\Throwable $th) {
                 DB::rollBack();
-                \Session::flash('error', 'Something Went Wrong. Please Try Again!');
+                \Session::flash('error', $th->getMessage());
                 // return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');
             }
         }
