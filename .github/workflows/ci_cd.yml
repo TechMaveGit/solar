@@ -20,5 +20,5 @@ jobs:
         vps-username: ${{ secrets.VPS_USERNAME }}
         vps-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
         deploy-path: '/var/www/html/solar/'
-        php-version: '8.1'
+        php-version: '8.3'
 
