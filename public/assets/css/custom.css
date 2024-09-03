@@ -18,9 +18,10 @@
 .nk-wgw.sm .nk-wgw-balance .amount {
 	font-size: 23px;
 }
-.viewneworder_linked{
-	font-size: 19px !important;
-	color: #364a63 !important;
+.viewneworder_linked {
+    font-size: 18px !important;
+    color: #364a63 !important;
+    padding-top: 7px;
 }
 .nk-tb-col {
 	padding-top: 1.125rem !important;
@@ -52,7 +53,7 @@
 	margin-left: 10px;
 	padding: 10px;
   }
-  
+
   @keyframes spin {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
@@ -338,7 +339,7 @@
 	background: #f1f1f1;
 	border-color: #d6d6d6;
   }
-  
+
   .avatar-upload .avatar-preview {
 	width: 130px;
   height: 130px;
@@ -385,3 +386,33 @@
 .NotesPointLi ul li{
 	list-style-type: disc !important;
 }
+.dashboardCard {
+    width: 20%;
+}
+.DasboardCardMain {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.completedJobOrders .dt-export-buttons {
+    display: none !important;
+}
+@media (min-width: 1540px) {
+    .nk-sidebar {
+      width: 400px;
+      width: 280px;
+    }
+  }
+
+  @media (min-width: 1540px) {
+    .nk-sidebar + .nk-wrap {
+      padding-left: 280px;
+    }
+  }
+
+
+  @media (min-width: 1200px) {
+    .wide-lg {
+      max-width: 100% !important;
+    }
+  }

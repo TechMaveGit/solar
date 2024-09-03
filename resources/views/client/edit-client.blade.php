@@ -59,7 +59,7 @@
                                                 <div class="form-control-wrap">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text"
-                                                                id="fv-phone">+353</span></div><input type="text" name="mobile" value="{{$client->mobile ?? old('mobile') }}" class="form-control" required>
+                                                                id="fv-phone">+353</span></div><input type="text" name="mobile" value="{{$client->mobile ?? old('mobile') }}" class="form-control phoneNumber" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,13 +160,24 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        {{-- <div class="col-md-3">
                                                             <div class="form-group"><label class="form-label"
                                                                     for="fv-Postal">Postal Code</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="input-group">
                                                                         <div class="input-group-prepend"></div><input
                                                                             type="text" name="postal_code" value="{{$client->postal_code ?? old('postal_code') }}"  class="form-control" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> --}}
+                                                        <div class="col-md-4">
+                                                            <div class="form-group"><label class="form-label"
+                                                                    for="fv-Postal">Eircode </label>
+                                                                <div class="form-control-wrap">
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-prepend"></div><input
+                                                                            type="text" name="eircode" value="{{$client->eircode ?? old('eircode') }}"  class="form-control" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -177,9 +188,9 @@
                                                     class="btn btn-lg btn-primary">Save
                                                     Informations</button></div>
 
-                                                    <div class="form-group btSecond"><a href="{{ route('admin.create-job-order') }}"
+                                                    {{-- <div class="form-group btSecond"><a href="{{ route('admin.create-job-order') }}"
                                                     class="btn btn-lg btn-primary btntoproceed_jobOrder">Save
-                                                    and Process for job Order</a></div></div>
+                                                    and Process for job Order</a></div></div> --}}
                                         </div>
                                     </div>
                                 </form>

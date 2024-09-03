@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('job_orders', function (Blueprint $table) {
             $table->id();
+            $table->string('order_id')->nullable();
             $table->enum('client_type', ['1', '2'])->default('1')->comment('1=>Domestic, 2=>NonDomestic');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('staff_id');
-            $table->string('date')->nullable();
+            $table->date('date')->nullable();
             $table->string('time')->nullable();
             $table->string('address')->nullable();
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('postal_code')->nullable();
-            $table->enum('status', ['0', '1'])->default('0')->comment('0=>pending, 1=>completed');
-
+            $table->enum('status', ['0', '1','2','3'])->default('0')->comment('0=>Assigned, 1=>Started, 2=>Progress, 3=>Completed');
             // Installation Details
             $table->string('applicant_name')->nullable();
             $table->string('installation_address')->nullable();
@@ -92,6 +92,7 @@ return new class extends Migration
             $table->json('pv_inverts')->nullable();
             $table->json('design_and_installation')->nullable();
             $table->json('test_report_grid')->nullable();
+            $table->timestamp('completed_date')->nullable();
 
             $table->timestamps();
         });

@@ -284,8 +284,8 @@
                 i = '<"row justify-between g-2' + t + '"<"col-7 col-sm-4 text-start"f><"col-5 col-sm-8 text-end"<"datatable-filter"<"d-flex justify-content-end g-2"' + a + 'l>>>><"datatable-wrap my-3"t><"row align-items-center"<"col-7 col-sm-12 col-md-9"p><"col-5 col-sm-12 col-md-3 text-start text-md-end"i>>',
                 t = '<"row justify-between g-2' + t + '"<"col-7 col-sm-4 text-start"f><"col-5 col-sm-8 text-end"<"datatable-filter"<"d-flex justify-content-end g-2"' + a + 'l>>>><"my-3"t><"row align-items-center"<"col-7 col-sm-12 col-md-9"p><"col-5 col-sm-12 col-md-3 text-start text-md-end"i>>',
                 a = {
-                    responsive: !0,
-                    autoWidth: !1,
+                    // responsive: !0,
+                    // autoWidth: !1,
                     dom: x(this).hasClass("is-separate") ? t : i,
                     language: {
                         search: "",
@@ -300,7 +300,8 @@
                             next: "Next",
                             previous: "Prev"
                         }
-                    }
+                    },
+                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]]
                 },
                 t = o ? u(a, o) : a,
                 t = !1 === e ? u(t, {
@@ -314,9 +315,9 @@
                 details: !0
             }
         }), p.DataTable(".datatable-init-export", {
-            responsive: {
-                details: !0
-            },
+            // responsive: {
+            //     details: !0
+            // },
             buttons: ["copy", "excel", "csv", "pdf"]
         }), x.fn.DataTable.ext.pager.numbers_length = 7
     }, p.BS.ddfix = function (e, t) {
@@ -589,7 +590,7 @@
             startView: 2,
             autoclose: !0,
             maxViewMode: 2,
-            minViewMode: 1
+            minViewMode: 1,
         })
     }, p.Addons.Init = function () {
         p.Knob.init(), p.Range.init(), p.Select2.init(), p.Dropzone.init(), p.Slider.init(), p.DataTable.init(), p.Tagify.init()

@@ -24,12 +24,21 @@
 @endif
 
 <style>
-    .text-success {
-        color: #0a204a !important;
+    .modal-body .text-success {
+        color: #3a8dfe !important;
     }
-    .text-success:hover {
+    .modal-body .text-success:hover {
         color: #ffffff !important;
-        background-color: #0a204a !important;
+        background-color: #0860d8 !important;
+    }
+    .modal-body .btn-outline-success{
+        border-color:#0860d8 !important;
+    }
+    .swal2-styled.swal2-confirm{
+        background-color:#3a8dfe !important
+    }
+    .swal2-styled.swal2-confirm:hover{
+        background-color:#0860d8 !important
     }
 </style>
 

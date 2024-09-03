@@ -21,6 +21,7 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'user_id',
         'name',
+        'staff_id',
         'email',
         'dial_code',
         'mobile',
@@ -66,12 +67,9 @@ class User extends Authenticatable implements JWTSubject
     //     return $this->hasMany(BaseDocument::class,'user_id','id');
     // }
 
-    // public function vehicle()
-    // {
-    //     return $this->hasOne(Vehicle::class,'user_id','id');
-    // }
-    // public function BusinessNo()
-    // {
-    //     return $this->hasOne(BusinessNumber::class,'user_id','id');
-    // }
+    public function jobOrders()
+    {
+        return $this->belongsTo(JobOrder::class, 'id', 'staff_id');
+    }
+
 }

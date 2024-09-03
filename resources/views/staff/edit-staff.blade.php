@@ -59,7 +59,7 @@
                                                             class="passcode-icon icon-show icon ni ni-eye"></em><em
                                                             class="passcode-icon icon-hide icon ni ni-eye-off"></em></a>
                                                     <input type="password" name="password" class="form-control" id="password"
-                                                        placeholder="Enter your passcode">
+                                                        placeholder="">
                                                         @error('password')
                                                             <span class="error">{{ $message }}</span>
                                                         @enderror
@@ -72,11 +72,11 @@
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text"
                                                                 id="fv-phone">+353</span></div><input type="text"
-                                                            name="mobile" value="{{$staff->mobile ?? old('mobile') }}" class="form-control" required>
-                                                            @error('mobile')
+                                                            name="mobile" value="{{$staff->mobile ?? old('mobile') }}" class="form-control phoneNumber" required>
+                                                        </div>
+                                                        @error('mobile')
                                                             <span class="error">{{ $message }}</span>
                                                         @enderror
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

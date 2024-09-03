@@ -29,6 +29,7 @@ class Authenticate extends Middleware
             }
             return route('dashboard');
         }
+        return null; // Return null if the request expects JSON
     }
     protected function getGuard(Request $request)
     {

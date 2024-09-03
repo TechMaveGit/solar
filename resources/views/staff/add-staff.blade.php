@@ -2,6 +2,14 @@
 @section('app-title', 'Add Staff')
 @section('main-content')
 @include('layouts.includes.alerts')
+@push('push_styles')
+<style>
+    .nk-content {
+        margin-top: 50px !important;
+        position: relative;
+    }
+</style>
+@endpush
     <div class="nk-content nk-content-fluid">
         <div class="container-xl wide-lg">
             <div class="nk-content-body">
@@ -41,10 +49,11 @@
                                                     Name</label>
                                                 <div class="form-control-wrap"><input type="text" name="name"
                                                         value="{{ old('name') }}" class="form-control" id="fv-full-name"
-                                                        name="fv-full-name" required></div>
-                                                        @error('name')
-                                                        <span class="error">{{ $message }}</span>
-                                                        @enderror
+                                                        name="fv-full-name" required>
+                                                    </div>
+                                                    @error('name')
+                                                    <span class="error">{{ $message }}</span>
+                                                    @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -65,17 +74,17 @@
                                             <div class="form-group">
                                                 <div class="form-label-group"><label class="form-label"
                                                         for="password">Password</label></div>
-                                                <div class="form-control-wrap"><a href="#"
+                                                    <div class="form-control-wrap"><a href="#"
                                                         class="form-icon form-icon-right passcode-switch lg"
                                                         data-target="password"><em
                                                             class="passcode-icon icon-show icon ni ni-eye"></em><em
                                                             class="passcode-icon icon-hide icon ni ni-eye-off"></em></a>
                                                     <input type="password" name="password" class="form-control" id="password"
-                                                        placeholder="Enter your passcode" required>
-                                                        @error('password')
-                                                            <span class="error">{{ $message }}</span>
-                                                        @enderror
-                                                </div>
+                                                        placeholder="" required>
+                                                    </div>
+                                                    @error('password')
+                                                        <span class="error">{{ $message }}</span>
+                                                    @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -84,11 +93,11 @@
                                                     <div class="input-group">
                                                         <div class="input-group-prepend"><span class="input-group-text"
                                                                 id="fv-phone">+353</span></div><input type="text"
-                                                            name="mobile" value="{{ old('mobile') }}" class="form-control" required>
-                                                            @error('mobile')
-                                                            <span class="error">{{ $message }}</span>
-                                                        @enderror
+                                                            name="mobile" value="{{ old('mobile') }}" class="form-control phoneNumber" required>
                                                     </div>
+                                                    @error('mobile')
+                                                    <span class="error">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -136,7 +145,6 @@
                                                 <div class="form-control-wrap "><select class="form-select js-select2"
                                                         id="fv-topics" name="status"
                                                         data-placeholder="Select a option" required>
-                                                        <option label="empty" value=""></option>
                                                         <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
                                                         <option value="2" {{ old('status') == '2' ? 'selected' : '' }}>Inactive</option>
                                                     </select>
@@ -170,7 +178,7 @@
 @endsection
 <!-- submit trigger buttin page loader and redirection other page json_decode -->
 @push('push_script')
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const forms = document.querySelectorAll('form');
 
@@ -206,6 +214,43 @@
             button.disabled = false;
         }
     });
+</script> --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const forms = document.querySelectorAll('form');
+
+        forms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return;
+                }
+
+                if (submitButton) {
+                    showLoader(submitButton);
+                    window.addEventListener('beforeunload', disableButton);
+                }
+            });
+        });
+
+        function showLoader(button) {
+            button.dataset.originalText = button.innerHTML;
+            button.innerHTML = 'Processing <span class="loaderButton_custom"></span>';
+            button.disabled = true;
+        }
+
+        function disableButton(event) {
+            const submitButton = document.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.innerHTML = 'Processing <span class="loaderButton_custom"></span>';
+            }
+        }
+    });
 </script>
+
     <!-- submit trigger buttin page loader and redirection other page json_decode end-->
 @endpush

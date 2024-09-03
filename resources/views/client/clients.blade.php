@@ -40,6 +40,7 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
+                                    <th hidden>Sr. No.</th>
                                     <th class="nk-tb-col"><span class="sub-text">Client ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Client Name</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></th>
@@ -48,18 +49,30 @@
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Client Type</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Orders Count</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-end"></th>
+                                    <th class="nk-tb-col nk-tb-col-tools text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if(count($clients)>0)
-                                @foreach ($clients as $client)
+                                @foreach ($clients as $key => $client)
                                 <tr class="nk-tb-item">
-                                    <td class="nk-tb-col tb-col-md"><span>{{ $client->id }}</span></td>
+                                    <td hidden>{{ $key+1 }}</td>
+                                    <td class="nk-tb-col tb-col-md"><span><a href="{{ route('admin.client-job-orders',base64_encode($client->id)) }}" title="View Order" data-bs-toggle="tooltip" data-bs-placement="top">{{ $client->client_id }}</a></span></td>
                                     <td class="nk-tb-col">
                                         <div class="user-card">
                                             <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                <span>AB</span></div>
+                                                @php
+                                                $formattedName = '';
+                                                if(isset($client->name)){
+                                                    $words = explode(' ', $client->name);
+                                                    if (count($words) == 1) {
+                                                        $formattedName = $words[0][0] . substr($words[0], -1);
+                                                    } elseif (count($words) >= 2) {
+                                                        $formattedName = $words[0][0] . $words[1][0];
+                                                    }
+                                                }
+                                                @endphp
+                                                <span class="text-uppercase">{{ $formattedName }}</span></div>
                                             <div class="user-info"><span class="tb-lead">{{ $client->name }}<span
                                                         class="dot dot-success d-md-none ms-1"></span></span><span>{{ $client->email }}</span>
                                             </div>
@@ -83,7 +96,7 @@
                                             <span class="badge rounded-pill badge-dim bg-primary">Non-Domestic</span>
                                         @endif
                                     </td>
-                                    <td class="nk-tb-col tb-col-md">2</td>
+                                    <td class="nk-tb-col tb-col-md"><a href="{{ route('admin.client-job-orders',base64_encode($client->id)) }}" title="View Order" data-bs-toggle="tooltip" data-bs-placement="top"> {{ $client->job_orders_count }} </a></td>
                                     <td class="nk-tb-col tb-col-md">
                                         @if($client->status == 1)
                                             <a href="javascript:void(0)" data-id="{{ $client->id }}" onclick="changeStatus(this);" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -101,7 +114,7 @@
 
                                             <li>
                                             <div class="actionFlexBtns">
-                                                    <a href="javascript:void(0)" class="btn btn-secondary btn-trigger btn-icon"
+                                                    <a href="{{ route('admin.client-job-orders',base64_encode($client->id)) }}" class="btn btn-secondary btn-trigger btn-icon"
                                                         data-bs-toggle="tooltip" data-bs-placement="top"
                                                         title="View Orders"> <em
                                                             class="icon ni ni-eye"></em></a>

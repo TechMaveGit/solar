@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ForgetPassword;
 use App\Models\JobOrder;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -21,7 +25,7 @@ class AuthController extends Controller
     public function __construct()
     {
 
-        $this->middleware('auth:api', ['except' => ['login','refresh']]);
+        // $this->middleware('auth:api', ['except' => ['login','refresh']]);
     }
 
     /**
@@ -40,13 +44,18 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => $validator->errors()->first(),
+                'error' => $validator->errors()->first(),
                 'errors' => $validator->errors(),
             ], 422);
         } elseif (!User::where(['user_type' => '2', 'email' => $request->email])->exists()) {
             return response()->json([
                 'status' => false,
-                'message' => 'User Not Found.',
+                'error' => 'User Not Found.',
+            ], 422);
+        }elseif (!User::where(['user_type' => '2', 'email' => $request->email, 'status' =>'1'])->exists()) {
+            return response()->json([
+                'status' => false,
+                'error' => "Your account has been deactivated",
             ], 422);
         }
 
@@ -56,18 +65,22 @@ class AuthController extends Controller
             if (!$token = JWTAuth::attempt($validator->validated())) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Invalid Credentials.',
+                    'error' => 'Invalid Credentials.',
                 ], 422);
             }
         } catch (\JWTException $e) {
             return response()->json([
                 'status' => false,
-                'message' => 'Failed to create token.',
+                'error' => 'Failed to create token.',
             ], 500);
         }
 
         // Authentication successful, respond with JWT token
-        return $this->respondWithToken($token, $user);
+        // return $this->respondWithToken($token, $user);
+        return $this->respondWithToken($token, [
+            'user' => $user,
+            'image_root' => config('envoirment.IMAGE_API_PATH')
+        ]);
     }
 
     public function updateProfile(Request $request)
@@ -82,7 +95,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => $validator->errors()->first(),
+                'error' => $validator->errors()->first(),
                 'errors' => $validator->errors(),
             ], 422);
         }
@@ -113,6 +126,7 @@ class AuthController extends Controller
             'user_data' => $user,
             'token_type' => 'bearer',
             'expires_in' => JWTAuth::factory()->getTTL() * 60, // Token expiry time in minutes
+            // 'expires_in' => JWTAuth::factory()->getTTL() * 5, // Token expiry time in minutes
         ]);
     }
 
@@ -121,12 +135,35 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    // public function profile()
+    // {
+
+    //     return response()->json(auth()->user());
+    // }
+
     public function profile()
     {
+        try {
+            $user = auth()->user();
+            if (!$user) {
+                return  response()->json([
+                    'status' => false,
+                    'error'=>'user not found'
+                ],200);
+            }
+        } catch (JWTException $e) {
+            return  response()->json([
+                'status' => false,
+                'error'=>$e->getMessage()
+            ],500);
+        }
 
-        return response()->json(auth()->user());
+        return  response()->json([
+            'status' => true,
+            'user'=>$user,
+            'image_root' => config('envoirment.IMAGE_API_PATH')
+        ]);
     }
-
     /**
      * Log the user out (Invalidate the token).
      *
@@ -163,15 +200,14 @@ class AuthController extends Controller
 
         try {
             // Invalidate the old token if it exists
-            $currentToken = JWTAuth::getToken();
-            if ($currentToken) {
-                JWTAuth::invalidate($currentToken);
-            }
+            // $currentToken = JWTAuth::getToken();
+            // if ($currentToken) {
+            //     JWTAuth::invalidate($currentToken);
+            // }
 
             // Generate a new token for the user
             $token = JWTAuth::fromUser($user);
 
-            // Return the new token
             return $this->respondWithToken($token, $user);
 
         } catch (JWTException $e) {
@@ -190,7 +226,10 @@ class AuthController extends Controller
             $profile_image = $this->upload($profile_images,$folderName);
         }
         User::whereId(auth()->user()->id)->update(['profile_image' => $profile_image]);
-        return response()->json(['success' => 'Image uploaded successfully']);
+        return response()->json([
+            'status' => true,
+            'success' => 'Image uploaded successfully'
+        ]);
     }
 
     public static function upload($image,$folderName)
@@ -201,26 +240,154 @@ class AuthController extends Controller
     }
 
 
+    public function forgotPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(),
+        [
+            'email' => 'required|exists:users,email'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>false,
+                'error' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        try {
+            $user = User::where('email', $request->email)->first();
+            if($user){
+                $otp = $this->generateOTP();
+                $this->storeOTP($request->email, $otp);
+                $this->sendOTPByEmail($request->email, $otp);
+                return response()->json([
+                    'status' => true,
+                    'success' => 'OTP sent to your email',
+                    'opt' => $otp
+                ]);
+            }else{
+                return response()->json([
+                    'status' => false,
+                    'error' =>'User Not Found!',
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'error' =>$e->getMessage(),
+            ], 422);
+        }
+    }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+    public function verifyOtp(Request $request)
+    {
+        $validator = Validator::make($request->all(),
+        [
+            'email' => 'required|exists:users,email',
+            'otp' => 'required',
+        ]);
 
-     public function getjob(Request $request)
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>false,
+                'error' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+
+            if ($this->validateOTP($request->email, $request->otp)) {
+                return response()->json([
+                    'status' => true,
+                    'success' => 'OTP verified successfully',
+                ]);
+            }
+
+            return response()->json([
+                'status' => false,
+                'error' => 'Invalid OTP',
+            ],400);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'error' =>$e->getMessage(),
+            ], 422);
+        }
+    }
+
+    public function resetPassword(Request $request)
     {
 
-        $job = JobOrder::whereId('1')->first();
-        $job = json_decode($job->system_components);
-
-        return response()->json([
-            'status' => true,
-            // 'message' => '',
-            'data' => $job,
+        $validator = Validator::make($request->all(),
+        [
+            'email' => 'required|exists:users,email',
+            'password' => 'required|min:6',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>false,
+                'error' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+
+            $user = User::where('email', $request->email)->first();
+            if($user){
+                $user->password = Hash::make($request->password);
+                $user->otp = null;
+                $user->save();
+                return response()->json([
+                    'status' => true,
+                    'success' =>'New password updated',
+                ]);
+            }else{
+                return response()->json([
+                    'status' => false,
+                    'error' =>'User Not Found!',
+                ], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'error' =>$e->getMessage(),
+            ], 422);
+        }
     }
+
+    private function generateOTP()
+    {
+        return str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+    }
+
+    private function storeOTP($email, $otp)
+    {
+        // Store OTP in database or cache
+        User::where('email', $email)->update(['otp' => $otp]);
+    }
+
+    private function sendOTPByEmail($email, $otp)
+    {
+
+        // Mail::raw("Your OTP is: $otp", function ($message) use ($email) {
+            //     $message->to($email)
+            //         ->subject('OTP for Verification');
+            // });
+            Mail::to($email)->send(new ForgetPassword($otp));
+        }
+
+    private function validateOTP($email, $otp)
+    {
+        // Validate OTP against stored OTP
+        $storedOTP = User::where('email', $email)->first();
+
+        return $storedOTP && $storedOTP->otp == $otp;
+
+        return true; // For demonstration purposes
+    }
+
+
 
 }

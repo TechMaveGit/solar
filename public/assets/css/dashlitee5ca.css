@@ -16441,22 +16441,22 @@ svg {
 
 @media (min-width:1200px) {
     .wide-lg {
-        max-width: 1200px !important;
-    }
+        max-width: 100%;
+      }
 
-    .wide-lg-fix {
-        max-width: 1200px !important;
-    }
+      .wide-lg {
+        max-width: 100%;
+      }
 }
 
 @media (min-width:1280px) {
-    .wide-xl {
-        max-width: 1240px !important
-    }
+    .wide-lg {
+        max-width: 100%;
+      }
 
-    .wide-xl-fix {
-        width: 1240px !important
-    }
+      .wide-lg {
+        max-width: 100%;
+      }
 }
 
 .wide-xs-fix {
@@ -34737,7 +34737,7 @@ body.nav-shown {
     }
 
     .nk-sidebar+.nk-wrap>.nk-header-fixed {
-        left: 400px
+        left: 280px;
     }
 
     .nk-sidebar .nk-sidebar-head {

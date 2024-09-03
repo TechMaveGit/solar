@@ -42,24 +42,37 @@
                     <table class="datatable-init-export nowrap table nk-tb-list nk-tb-ulist" data-export-title="Export">
                             <thead>
                                 <tr class="nk-tb-item nk-tb-head">
+                                    <th hidden>Sr. No.</th>
                                     <th class="nk-tb-col"><span class="sub-text">Staff ID</span></th>
                                     <th class="nk-tb-col"><span class="sub-text">Staff Name</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></th>
                                     <th class="nk-tb-col tb-col-lg"><span class="sub-text">Added Date</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
                                     <th class="nk-tb-col tb-col-md"><span class="sub-text">Assigned Orders</span></th>
-                                    <th class="nk-tb-col nk-tb-col-tools text-end"></th>
+                                    <th class="nk-tb-col nk-tb-col-tools text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @isset($staffs)
-                                    @foreach ($staffs as $staff)
+                                    @foreach ($staffs as $key => $staff)
                                     <tr class="nk-tb-item">
-                                        <td class="nk-tb-col tb-col-md"><span>{{ $staff->id }}</span></td>
+                                        <td hidden>{{ $key+1 }}</td>
+                                        <td class="nk-tb-col tb-col-md"><span><a href="{{ route('admin.staff-job-orders',base64_encode($staff->id)) }}" title="View Order" data-bs-toggle="tooltip" data-bs-placement="top">{{ $staff->staff_id }}</a></span></td>
                                         <td class="nk-tb-col">
                                             <div class="user-card">
                                                 <div class="user-avatar bg-dim-primary d-none d-sm-flex">
-                                                    <span>AB</span></div>
+                                                    @php
+                                                    $formattedName = '';
+                                                    if(isset($staff->name)){
+                                                        $words = explode(' ', $staff->name);
+                                                        if (count($words) == 1) {
+                                                            $formattedName = $words[0][0] . substr($words[0], -1);
+                                                        } elseif (count($words) >= 2) {
+                                                            $formattedName = $words[0][0] . $words[1][0];
+                                                        }
+                                                    }
+                                                    @endphp
+                                                    <span class="text-uppercase">{{ $formattedName }}</span></div>
                                                 <div class="user-info"><span class="tb-lead">{{ $staff->name }} <span
                                                             class="dot dot-success d-md-none ms-1"></span></span><span>{{ $staff->email }}</span>
                                                 </div>
@@ -84,14 +97,14 @@
                                                     title="Change Status"><span class="tb-status text-danger">Inactive</span></a>
                                             @endif
                                         </td>
-                                        <td class="nk-tb-col tb-col-md">12</td>
+                                        <td class="nk-tb-col tb-col-md"><a href="{{ route('admin.staff-job-orders',base64_encode($staff->id)) }}" title="View Order" data-bs-toggle="tooltip" data-bs-placement="top">{{ $staff->job_orders_count }}</a></td>
 
                                         <td class="nk-tb-col nk-tb-col-tools">
                                             <ul class="nk-tb-actions gx-1">
 
                                                 <li>
                                                 <div class="actionFlexBtns">
-                                                        <a href="javascript:void(0)" class="btn btn-secondary btn-trigger btn-icon"
+                                                        <a href="{{ route('admin.staff-job-orders',base64_encode($staff->id)) }}" class="btn btn-secondary btn-trigger btn-icon"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="View Orders"> <em class="icon ni ni-eye"></em></a>
 

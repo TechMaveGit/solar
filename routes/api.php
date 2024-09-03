@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\JobOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +27,34 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //,'prefix' => 'auth'
+Route::middleware('throttle:120,1')->group(function () {
 
-Route::group(['middleware' => 'api'], function ($router) {
+
     Route::post('login', [AuthController::class, 'login']);
-    Route::get('logout', [AuthController::class, 'logout']);
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+    Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
+    Route::post('/reset-password', [AuthController::class, 'resetPassword']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::get('profile', [AuthController::class, 'profile']);
-    Route::post('update-profile', [AuthController::class, 'updateProfile']);
-    Route::post('upload-profile', [AuthController::class, 'uploadProfile']);
-    Route::get('get-job', [AuthController::class, 'getJob']);
+
+    Route::group(['middleware' => 'auth:api'], function ($router) {
+        Route::get('logout', [AuthController::class, 'logout']);
+        Route::get('profile', [AuthController::class, 'profile']);
+        Route::post('update-profile', [AuthController::class, 'updateProfile']);
+        Route::post('upload-profile', [AuthController::class, 'uploadProfile']);
+
+        Route::get('job-orders', [JobOrderController::class, 'JobOrders']);
+        Route::get('view-job-order/{id}', [JobOrderController::class, 'viewJobOrder']);
+        Route::post('update-job-order/{id}', [JobOrderController::class, 'updateJobOrder']);
+        Route::get('job-order-history', [JobOrderController::class, 'jobOrderHistory']);
+        Route::post('job-order-change-status', [JobOrderController::class, 'jobStatusChange']);
+
+        Route::get('view-document/{id}', [JobOrderController::class, 'viewDocument']);
+
+        Route::get('test_report/{id}', [JobOrderController::class, 'generateComReport'])->name('generateComReport');
+        Route::get('declaration_of_work/{id}', [JobOrderController::class, 'generateDomestic'])->name('generateDomestic');
+        Route::get('images/{id}', [JobOrderController::class, 'generateImage'])->name('generateImage');
+        Route::get('certificates/{id}', [JobOrderController::class, 'generateCertificate'])->name('generateCertificate');
+
+    });
+
 });

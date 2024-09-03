@@ -3,16 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\StaffMail;
+use App\Models\Client;
+use App\Models\JobOrder;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class StaffController extends Controller
 {
 
 
     public function index(Request $request){
-        $staffs = User::where('user_type','2')->orderBy('id','DESC')->get();
+        $staffs = User::where('user_type','2')->withCount('jobOrders')->orderBy('id','DESC')->get();
         return view('staff.all-staff',compact('staffs'));
     }
 
@@ -32,8 +37,16 @@ class StaffController extends Controller
         ]);
 
         try {
+            $user = User::latest()->first();
+            $latest_id = $user ? $user->id : 0;
+
+            $new_id = $latest_id + 1;
+
+            $staff_id = 'ST00'.$new_id;
+
             $user = User::create([
                 'name'          => $request->name,
+                'staff_id'          => $staff_id,
                 'email'         => $request->email,
                 'dial_code'     => $request->dial_code,
                 'mobile'        => $request->mobile,
@@ -42,10 +55,14 @@ class StaffController extends Controller
                 'gender'     => $request->gender,
                 'status'     => $request->status,
             ]);
-            $details  = User::where('id', $user->id)->first();
-            return redirect()->back()->with('success','Register Successfully!');
+            $data  = User::where('id', $user->id)->first();
+            $password = $request->password;
+
+            Mail::to($request->email)->send(new StaffMail($data, $password));
+
+            return redirect()->route('admin.all-staff')->with('success','Staff Added Successfully!');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');
+            return redirect()->back()->with('error',$th->getMessage());
         }
 
     }
@@ -85,7 +102,7 @@ class StaffController extends Controller
                 $staff->password = Hash::make($request->password);
             }
             $staff->save();
-            return redirect()->route('admin.all-staff')->with('success','Updated Successfully!');
+            return redirect()->route('admin.all-staff')->with('success','Staff Updated Successfully!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error','Something Went Wrong. Please Try Again!');
         }
@@ -104,6 +121,86 @@ class StaffController extends Controller
         }
 
         return response()->json(['success' => false]);
+    }
+
+    public function jobOrders(Request $request){
+
+        // dd($request->all());
+        $id = base64_decode($request->id);
+        // $startDate = $this->normalizeDate($request->input('start_date'));
+        // $endDate = $this->normalizeDate($request->input('end_date'));
+        // $s_complete_date = $this->normalizeDate($request->input('s_complete_date'));
+        // $e_complete_date = $this->normalizeDate($request->input('e_complete_date'));
+        $startDate= '';
+        $endDate= '';
+        $s_complete_date = '';
+        $e_complete_date = '';
+        $assigndate = $request->input('assigndate');
+        $complete_date = $request->input('complete_date');
+        if(isset($assigndate)){
+            $dateParts = explode(' to ', $assigndate);
+            if (count($dateParts) === 1) {
+            $startDate = Carbon::createFromFormat('Y-m-d', trim($dateParts[0]))->startOfDay();
+            }elseif(count($dateParts) === 2){
+                $startDate = Carbon::createFromFormat('Y-m-d', trim($dateParts[0]))->startOfDay();
+                $endDate = Carbon::createFromFormat('Y-m-d', trim($dateParts[1]))->endOfDay();
+            }
+        }
+        if(isset($complete_date)){
+            $completeDateParts = explode(' to ', $complete_date);
+            if (count($completeDateParts) === 1) {
+                $s_complete_date = Carbon::createFromFormat('Y-m-d', trim($completeDateParts[0]))->startOfDay();
+            }elseif(count($completeDateParts) === 2){
+                $s_complete_date = Carbon::createFromFormat('Y-m-d', trim($completeDateParts[0]))->startOfDay();
+                $e_complete_date = Carbon::createFromFormat('Y-m-d', trim($completeDateParts[1]))->endOfDay();
+            }
+        }
+        $client_id = $request->input('client_id');
+        $status = $request->input('status');
+
+        // $query = JobOrder::with('client','staff')->orderBy('id','DESC');
+        $query = JobOrder::where('staff_id',$id)->with(['client', 'staff'])->orderBy('id','desc');
+
+        if ($startDate && $endDate) {
+            $query->whereBetween('date', [$startDate, $endDate]);
+        }elseif ($startDate) {
+            $query->where('date', '=', $startDate);
+        } elseif ($endDate) {
+            $query->where('date', '=', $endDate);
+        }
+
+        if ($s_complete_date && $e_complete_date) {
+            $query->whereBetween('completed_date', [$s_complete_date, $e_complete_date]);
+        }elseif ($s_complete_date) {
+            $query->where('completed_date', '=', $s_complete_date);
+        } elseif ($e_complete_date) {
+            $query->where('completed_date', '=', $e_complete_date);
+        }
+
+        if($client_id){
+            $query->where('client_id',$client_id);
+        }
+        if($status){
+            $query->where('status',$status);
+        }
+        $jobOrders = $query->get();
+
+        $clients = Client::orderBy('id','DESC')->get();
+
+        return view('staff.staff-all-job-orders',compact('jobOrders', 'clients','client_id','id','assigndate','status','complete_date'));
+
+    }
+
+    private function normalizeDate($date) {
+        if (!$date) {
+            return null;
+        }
+
+        try {
+            return Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+        } catch (\Exception $e) {
+            return null; // or handle the invalid date format as needed
+        }
     }
 
 

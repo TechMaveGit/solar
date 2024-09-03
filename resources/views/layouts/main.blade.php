@@ -21,13 +21,15 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dashlitee5ca.css?ver=3.2.3')}}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('assets/css/themee5ca.css?ver=3.2.3')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/css/flatpickr.css')}}">
 
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 </head>
 
 <body class="nk-body bg-white has-sidebar ">
     <div class="nk-app-root">
         <div class="nk-main ">
-
+            @stack('push_styles')
             @include('layouts.includes.alerts')
             @include('layouts.includes.sidebar')
             @include('layouts.includes.header')

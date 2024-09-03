@@ -1,7 +1,87 @@
 @extends('layouts.main')
 @section('app-title', 'Create Job Order')
 @section('main-content')
+@push('push_styles')
+<style>
+    .nk-content {
+        margin-top: 50px !important;
+        position: relative;
+    }
+    .loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    }
 
+    .loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
+    /* Styles to show loader */
+    .loader-wrapper.active {
+    opacity: 1;
+    visibility: visible;
+    }
+
+    .admin-panel {
+    display: none; /* Initially hide admin panel */
+    }
+
+    .admin-panel.show {
+    display: block; /* Show admin panel after loader */
+    }
+
+
+  /* Style for the scroll button */
+  .scroll-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+  }
+  .check-all{
+    right: -14px;
+    top: 40%;
+    position: absolute;
+  }
+  .for-checkbox .check-all{
+    right: 8px;
+  }
+
+</style>
+@endpush
+<button class="scroll-button" onclick="scrollToTop()">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+<div class="loader-wrapper" id="loader">
+    <div class="loader"></div>
+</div>
 <div class="nk-content nk-content-fluid">
     <div class="components-preview formMainContainer">
         <form class="nk-stepper stepper-init is-alter nk-stepper-s1" action="" enctype="multipart/form-data" id="stepper-create-project" method="post">
@@ -67,7 +147,7 @@
                                         <li class="nondomesticTab">
                                             <div class="step-item">
                                                 <div class="step-text">
-                                                    <div class="lead-text"> Inspection, Test and Commissioning Report NON</div>
+                                                    <div class="lead-text"> Inspection, Test and Commissioning Report</div>
 
                                                 </div>
                                             </div>
@@ -86,105 +166,113 @@
                                                     <div class="row ">
 
                                                         <div class="col-lg-6">
-                                                            <div class="form-group"><label class="form-label">Client Type</label>
+                                                            <div class="form-group"><label class="form-label">Client Type<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
-                                                                    <select class="form-select js-select2" name="client_type" onchange="getClient(this.value)" id="client_type">
+                                                                    <select class="form-select js-select2" name="client_type" onchange="getClient(this.value)" id="client_type" required>
                                                                         <option value="">Select an Option</option>
                                                                         <option value="1">Domestic</option>
                                                                         <option value="2">Non-Domestic</option>
                                                                     </select>
+                                                                    <span class="error client_type_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-6">
                                                             <div class="form-group"><label class="form-label">Client
-                                                                    Name</label>
+                                                                    Name <div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
-                                                                    <select class="form-select js-select2" data-search="on" name="client_id" id="client_id">
+                                                                    <select class="form-select js-select2" data-search="on" name="client_id" id="client_id" required>
                                                                         <option value="">Select an Option</option>
                                                                         {{-- <option value="john_doe">John Doe</option> --}}
 
                                                                     </select>
-
+                                                                    <span id="" class="error client_id_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-4">
                                                             <div class="form-group"><label class="form-label">Select
-                                                                    Staff</label>
+                                                                    Staff<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <select class="form-select js-select2"
-                                                                        data-search="on" name="staff_id">
+                                                                        data-search="on" name="staff_id" required>
                                                                         <option value="">Select an Option</option>
                                                                         @foreach ($staffs as $staff)
                                                                             <option value="{{ $staff->id }}">{{ $staff->name }}</option>
                                                                         @endforeach
                                                                     </select>
+                                                                    <span id="" class="error staff_id_err"></span>
 
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <div class="form-group"><label class="form-label">Select
-                                                                    Date</label>
+                                                            <div class="form-group"><label class="form-label">Schedule
+                                                                    Date<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em
                                                                             class="icon ni ni-calendar-alt"></em></div>
-                                                                    <input type="text" name="date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                    <input type="text" name="date" class="form-control date-pickerss" placeholder="mm/dd/yyyy" required>
+                                                                    <span id="" class="error date_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="cp1-project-name">Select Time</label>
+                                                                    for="cp1-project-name">Schedule Time<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <input type="text" name="time" value=""
                                                                         class="form-control time__pickers"
-                                                                        id="timepicker" placeholder="Select Time"
-                                                                        readonly="">
+                                                                        id="timepicker" placeholder="Schedule Time"
+                                                                        readonly="" required>
+                                                                        <span id="" class="error time_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="fv-message">Address</label>
+                                                                    for="fv-message">Address<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap"><textarea
-                                                                        class="form-control customtextarea form-control-sm"
+                                                                        class="form-control customtextarea form-control-sm installation_address"
                                                                         id="fv-message" name="address"
-                                                                        placeholder="Write your Address"></textarea>
+                                                                        placeholder="Write your Address" required></textarea>
+                                                                        <span class="error address_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    >Country</label>
+                                                                    >Country<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="fv-Country"
-                                                                        name="country">
+                                                                        type="text" class="form-control client_country" id="fv-Country"
+                                                                        name="country" required>
+                                                                        <span class="error country_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="fv-City">City</label>
+                                                                    for="fv-City">City<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="fv-City"
-                                                                        name="city">
+                                                                        type="text" class="form-control client_city" id="fv-City"
+                                                                        name="city" required>
+                                                                        <span class="error city_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    for="fv-Postal">Postal Code</label>
+                                                                    for="fv-Postal">Eircode<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="input-group">
                                                                         <div class="input-group-prepend"></div>
-                                                                        <input type="text" name="postal_code" class="form-control">
+                                                                        <input type="text" name="postal_code" class="form-control installation_eircode" required>
                                                                     </div>
+                                                                    <span class="error postal_code_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -207,30 +295,33 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="applicant_name"
-                                                                        name="applicant_name">
+                                                                        type="text" class="form-control applicant_name" id=""
+                                                                        name="applicant_name" required>
+                                                                        <span id="applicant_name_err" class="error applicant_name_err"></span>
+
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    >Installation Address</label>
+                                                                    >Installation Address<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installation_address"
-                                                                        name="installation_address">
+                                                                        type="text" class="form-control installation_address_all" id=""
+                                                                        name="installation_address" required>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
                                                                     > Installation Eircode <div
-                                                                        class="requiredField">*</div></label>
+                                                                        class="requiredField"></div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installation_eircode"
+                                                                        type="text" class="form-control installation_eircode" id=""
                                                                         name="installation_eircode">
+                                                                        <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -266,7 +357,8 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control"
                                                                         placeholder="kWp*" id="solar_pv_system_size"
-                                                                        name="solar_pv_system_size">
+                                                                        name="solar_pv_system_size" required>
+                                                                        <span id="" class="error solar_pv_system_size_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -343,8 +435,9 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" placeholder=""
-                                                                        id="company_name" name="company_name">
+                                                                        type="text" class="form-control company_name" placeholder=""
+                                                                        id="" name="company_name" required>
+                                                                        <span id="" class="error company_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -438,7 +531,7 @@
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
                                                                                 id="ms_rating"
-                                                                                name="ms_rating" readonly
+                                                                                name="ms_rating"
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
@@ -483,7 +576,7 @@
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
                                                                                 id="energy_rating"
-                                                                                name="energy_rating" readonly
+                                                                                name="energy_rating"
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
@@ -497,22 +590,36 @@
                                                                                 class="form-control" placeholder=""
                                                                                 id="battery_make"
                                                                                 name="battery_make"></td>
-                                                                        <td class="nk-tb-col">
+                                                                        {{-- <td class="nk-tb-col">
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox" name="battery_dc" value="battery_dc" class="custom-control-input"><label
+                                                                                    <input type="checkbox" name="battery_dc" value="DC Connected" class="custom-control-input" id="battery_dc1"><label
                                                                                         class="custom-control-label"
-                                                                                        for="customCheck7">DC
+                                                                                        for="battery_dc1">DC
                                                                                         Connected</label></div>
                                                                             </div>
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox" class="custom-control-input" name="battery_ac" value="battery_ac" ><label
+                                                                                    <input type="checkbox" class="custom-control-input" name="battery_ac" value="AC Connected" id="battery_ac1"><label
                                                                                         class="custom-control-label"
-                                                                                        for="customCheck7">AC Connected
+                                                                                        for="battery_ac1">AC Connected
                                                                                     </label></div>
+                                                                            </div>
+                                                                        </td> --}}
+                                                                        <td class="nk-tb-col">
+                                                                            <div class="g">
+                                                                                <div class="custom-control custom-control-sm custom-checkbox">
+                                                                                    <input type="checkbox" name="battery_dc" value="DC Connected" class="custom-control-input" id="battery_dc1">
+                                                                                    <label class="custom-control-label" for="battery_dc1">DC Connected</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="g">
+                                                                                <div class="custom-control custom-control-sm custom-checkbox">
+                                                                                    <input type="checkbox" name="battery_ac" value="AC Connected" class="custom-control-input" id="battery_ac1">
+                                                                                    <label class="custom-control-label" for="battery_ac1">AC Connected</label>
+                                                                                </div>
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col">
@@ -605,7 +712,7 @@
                                                                                     class="icon ni ni-calendar-alt"></em>
                                                                             </div>
                                                                             <input type="text" name="installer_date"
-                                                                                class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                                class="form-control date-picker" placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -619,7 +726,7 @@
                                                                             </div>
                                                                             <input type="text" name="installer_completed_date"
                                                                                 class="form-control date-picker"
-                                                                                placeholder="mm/dd/yyyy">
+                                                                                placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -691,7 +798,7 @@
                                                                             </div>
                                                                             <input type="text" name="owner_date"
                                                                                 class="form-control date-picker"
-                                                                                placeholder="mm/dd/yyyy">
+                                                                                placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -702,7 +809,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="owner_sign" class="form-control"
-                                                                                placeholder="">
+                                                                                placeholder="" >
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -735,30 +842,32 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="applicant_name"
-                                                                        name="applicant_name">
+                                                                        type="text" class="form-control applicant_name" id=""
+                                                                        name="applicant_name" required>
+                                                                        <span id="" class="error applicant_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
-                                                                    >Installation Address</label>
+                                                                    >Installation Address<div class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installation_address"
-                                                                        name="installation_address">
+                                                                        type="text" class="form-control installation_address_all" id=""
+                                                                        name="installation_address" required>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="form-group"><label class="form-label"
                                                                     > Installation Eircode <div
-                                                                        class="requiredField">*</div></label>
+                                                                        class="requiredField"></div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installation_eircode"
+                                                                        type="text" class="form-control installation_eircode" id=""
                                                                         name="installation_eircode">
+                                                                        <span id="" class="error installation_eircode_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -794,7 +903,7 @@
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control"
                                                                         placeholder="kWp*" id="solar_pv_system_size"
-                                                                        name="solar_pv_system_size">
+                                                                        name="solar_pv_system_size" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -871,8 +980,9 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" placeholder=""
-                                                                        id="company_name" name="company_name">
+                                                                        type="text" class="form-control company_name" placeholder=""
+                                                                        id="" name="company_name" required>
+                                                                        <span id="" class="error company_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -965,7 +1075,7 @@
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
                                                                                 id="ms_rating"
-                                                                                name="ms_rating" readonly
+                                                                                name="ms_rating"
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
@@ -1013,7 +1123,7 @@
                                                                                         kW</span></div>
                                                                                 <input type="text" name="inverter_rating2" class="form-control"
                                                                                     id="default-05" placeholder=""
-                                                                                    disabled readonly>
+                                                                                     >
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
@@ -1042,8 +1152,8 @@
                                                                         </td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
-                                                                                id="controller-Quantity"
-                                                                                name="controller-Quantity"></td>
+                                                                                id="inverter_quantity3"
+                                                                                name="inverter_quantity3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Energy Meter </th>
@@ -1058,7 +1168,7 @@
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder="N/A "
                                                                                 id="energy_rating"
-                                                                                name="energy_rating" readonly
+                                                                                name="energy_rating"
                                                                                 disabled></td>
                                                                         <td class="nk-tb-col"><input type="text"
                                                                                 class="form-control" placeholder=""
@@ -1072,26 +1182,37 @@
                                                                                 class="form-control" placeholder=""
                                                                                 id="battery_make"
                                                                                 name="battery_make"></td>
-                                                                        <td class="nk-tb-col">
+                                                                        {{-- <td class="nk-tb-col">
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox" name="battery_dc" value="battery_dc"
+                                                                                    <input type="checkbox" name="battery_dc" value="DC Connected"
                                                                                         class="custom-control-input"
-                                                                                        id="customCheck7"><label
-                                                                                        class="custom-control-label"
-                                                                                        for="customCheck7">DC
-                                                                                        Connected</label></div>
+                                                                                        id="battery_dc2"><label class="custom-control-label"
+                                                                                        for="battery_dc2">DC Connected</label></div>
                                                                             </div>
                                                                             <div class="g">
                                                                                 <div
                                                                                     class="custom-control custom-control-sm custom-checkbox">
-                                                                                    <input type="checkbox" name="battery_ac" value="battery_ac"
+                                                                                    <input type="checkbox" name="battery_ac" value="AC Connected"
                                                                                         class="custom-control-input"
-                                                                                        id="customCheck8"><label
-                                                                                        class="custom-control-label"
+                                                                                        id="customCheck8"><label class="custom-control-label"
                                                                                         for="customCheck8">AC Connected
                                                                                     </label></div>
+                                                                            </div>
+                                                                        </td> --}}
+                                                                        <td class="nk-tb-col">
+                                                                            <div class="g">
+                                                                                <div class="custom-control custom-control-sm custom-checkbox">
+                                                                                    <input type="checkbox" name="battery_dc" value="DC Connected" class="custom-control-input" id="battery_dc2">
+                                                                                    <label class="custom-control-label" for="battery_dc2">DC Connected</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="g">
+                                                                                <div class="custom-control custom-control-sm custom-checkbox">
+                                                                                    <input type="checkbox" name="battery_ac" value="AC Connected" class="custom-control-input" id="battery_ac2">
+                                                                                    <label class="custom-control-label" for="battery_ac2">AC Connected</label>
+                                                                                </div>
                                                                             </div>
                                                                         </td>
                                                                         <td class="nk-tb-col">
@@ -1189,7 +1310,7 @@
                                                                                     class="icon ni ni-calendar-alt"></em>
                                                                             </div>
                                                                             <input type="text" name="installer_date"
-                                                                                class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                                class="form-control date-picker" placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1203,7 +1324,7 @@
                                                                             </div>
                                                                             <input type="text" name="installer_completed_date"
                                                                                 class="form-control date-picker"
-                                                                                placeholder="mm/dd/yyyy">
+                                                                                placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1213,7 +1334,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="installer_sign" class="form-control"
-                                                                                placeholder="">
+                                                                                placeholder="" >
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1274,7 +1395,7 @@
                                                                             </div>
                                                                             <input type="text" name="owner_date"
                                                                                 class="form-control date-picker"
-                                                                                placeholder="mm/dd/yyyy">
+                                                                                placeholder="mm/dd/yyyy" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1285,7 +1406,7 @@
                                                                         <div class="form-control-wrap">
 
                                                                             <input type="text" name="owner_sign" class="form-control"
-                                                                                placeholder="">
+                                                                                placeholder="" >
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1331,8 +1452,10 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_name"
-                                                                        name="customer_name">
+                                                                        type="text" class="form-control applicant_name" id="customer_name"
+                                                                        name="customer_name" required>
+                                                                        <span id="" class="error customer_name_err"></span>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1342,7 +1465,7 @@
                                                                     >Customer Address</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_address"
+                                                                        type="text" class="form-control installation_address" id="customer_address"
                                                                         name="customer_address">
                                                                 </div>
                                                             </div>
@@ -1353,8 +1476,9 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_eircode"
-                                                                        name="customer_eircode">
+                                                                        type="text" class="form-control installation_eircode" id="customer_eircode"
+                                                                        name="customer_eircode" required>
+                                                                        <span id="" class="error customer_eircode_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1372,8 +1496,9 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installer_company_name"
-                                                                        name="installer_company_name">
+                                                                        type="text" class="form-control installer_company_name" id=""
+                                                                        name="installer_company_name" required>
+                                                                        <span id="" class="error installer_company_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1395,7 +1520,8 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_address"
-                                                                        name="installer_company_address">
+                                                                        name="installer_company_address" required>
+                                                                        <span id="" class="error installer_company_address_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1569,7 +1695,7 @@
                                                                             class="icon ni ni-calendar-alt"></em>
                                                                     </div>
                                                                     <input type="text" name="inverter_test_date" id="inverter_test_date" class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy">
+                                                                        placeholder="mm/dd/yyyy" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1581,7 +1707,7 @@
                                                                             class="icon ni ni-calendar-alt"></em>
                                                                     </div>
                                                                     <input type="text" name="inverter_next_test_date" id="inverter_next_test_date" class="form-control date-picker"
-                                                                        placeholder="mm/dd/yyyy">
+                                                                        placeholder="mm/dd/yyyy" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1595,19 +1721,19 @@
                                                                                 class="custom-control custom-control-sm custom-checkbox">
                                                                                 <input type="checkbox" name="inverter_test_reason"
                                                                                     class="custom-control-input"
-                                                                                    id="inverter_test_reason" value="initial_inspection"><label
+                                                                                    id="inverter_test_reason_1" value="Initial inspection"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-card-1">Initial
+                                                                                    for="inverter_test_reason_1">Initial
                                                                                     inspection</label></div>
                                                                         </li>
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
                                                                                 <input type="checkbox" name="inverter_test2_reason"
-                                                                                    class="custom-control-input" value="retesting"
-                                                                                    id="inverter_test2_reason"><label
+                                                                                    class="custom-control-input" value="Retesting"
+                                                                                    id="reasonFor"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-bitcoin-1">Retesting</label>
+                                                                                    for="reasonFor">Retesting</label>
                                                                             </div>
                                                                         </li>
 
@@ -1735,31 +1861,31 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result" value="no_defects"
+                                                                                <input type="checkbox" name="test_result" value="1"
                                                                                     class="custom-control-input"
-                                                                                    id="pay-card-1"><label
+                                                                                    id="pay-card1"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-card-1">No defects were
+                                                                                    for="pay-card1">No defects were
                                                                                     found</label></div>
                                                                         </li>
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result2" value="defects"
+                                                                                <input type="checkbox" name="test_result2" value="1"
                                                                                     class="custom-control-input"
-                                                                                    id="pay-bitcoin-1"><label
+                                                                                    id="pay-bitcoin1"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-bitcoin-1">Defects were
+                                                                                    for="pay-bitcoin1">Defects were
                                                                                     found </label></div>
                                                                         </li>
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result3" value="photovoltaic"
+                                                                                <input type="checkbox" name="test_result3" value="1"
                                                                                     class="custom-control-input"
-                                                                                    id="pay-card-1"><label
+                                                                                    id="pay-card2"><label
                                                                                     class="custom-control-label"
-                                                                                    for="pay-card-1">The Photovoltaic
+                                                                                    for="pay-card2">The Photovoltaic
                                                                                     system complies with the standards
                                                                                     of electrical engineering</label>
                                                                             </div>
@@ -1775,7 +1901,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="tester_signature" class="form-control"
-                                                                            placeholder="">
+                                                                            placeholder="" >
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1788,7 +1914,7 @@
                                                                         </div>
                                                                         <input type="text" name="test_result_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1827,7 +1953,7 @@
                                                                         </div>
                                                                         <input type="text" name="test_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1838,7 +1964,7 @@
                                                                     <div class="form-control-wrap">
 
                                                                         <input type="text" name="test_signature" class="form-control"
-                                                                            placeholder="">
+                                                                            placeholder="" >
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1864,11 +1990,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The DC system was generally
+                                                                            for="pay-card-d1">The DC system was generally
                                                                             designed, selected and set up in accordance
                                                                             with the
                                                                             requirements in DIN VDE 0100 (IEC 60364) and
@@ -1879,43 +2005,43 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The DC components were
+                                                                            for="pay-card-d2">The DC components were
                                                                             measured for DC operation </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The DC components are rated
+                                                                            for="pay-card-d3">The DC components are rated
                                                                             for the maximum current and maximum
                                                                             voltage</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Protection is provided by
+                                                                            for="pay-card-d4">Protection is provided by
                                                                             application of class II or equivalent
                                                                             insulation on the DC side</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_5" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d5"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">PV strand cables, PV
+                                                                            for="pay-card-d5">PV strand cables, PV
                                                                             generator cables and PV DC main cables have
                                                                             been selected and
                                                                             constructed so that the risk of earth faults
@@ -1926,11 +2052,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_6" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d6"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The wiring system has been
+                                                                            for="pay-card-d6">The wiring system has been
                                                                             selected and constructed so that it can
                                                                             withstand expected external
                                                                             influences such as wind, ice temperature and
@@ -1940,21 +2066,21 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_7" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d7"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">AC and DC cables are
+                                                                            for="pay-card-d7">AC and DC cables are
                                                                             physically separated</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_8" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d8"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Systems without strand
+                                                                            for="pay-card-d8">Systems without strand
                                                                             overcurrent protective device: Strand cables
                                                                             are designed so that they
                                                                             can take up the highest combined leakage
@@ -1964,11 +2090,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_9" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d9"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Systems with strand
+                                                                            for="pay-card-d9">Systems with strand
                                                                             overcurrent protective device: Overcurrent
                                                                             protective devices are set
                                                                             correctly according to local rules or
@@ -1979,11 +2105,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_10" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-d10"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">There are DC load break
+                                                                            for="pay-card-d10">There are DC load break
                                                                             switches installed on the DC side of the
                                                                             inverter (DIN VDE 0100-712
                                                                             para.
@@ -2007,22 +2133,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-o1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The inverter has a simple
+                                                                            for="pay-card-o1">The inverter has a simple
                                                                             separation between the AC side and the DC
                                                                             side </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-o2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Alternatively: A residual
+                                                                            for="pay-card-o2">Alternatively: A residual
                                                                             device is installed in the circuit and
                                                                             corresponds to a type B RCD (DIN
                                                                             VDE 0100-712 para. 413.1.1.1.2) </label>
@@ -2031,22 +2157,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-o3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The area of wiring loops
+                                                                            for="pay-card-o3">The area of wiring loops
                                                                             was kept as small as possible (DIN VDE
                                                                             0100-712, para. 54) </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-o4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">If equipotential bonding
+                                                                            for="pay-card-o4">If equipotential bonding
                                                                             conductors are installed, they run in
                                                                             parallel and in as close contact as
                                                                             possible to the PV DC cables </label></div>
@@ -2068,22 +2194,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-sp1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Devices for disconnecting
+                                                                            for="pay-card-sp1">Devices for disconnecting
                                                                             the inverter are provided on the AC side
                                                                         </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-sp2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Separating and switching
+                                                                            for="pay-card-sp2">Separating and switching
                                                                             devices are connected so that the PV
                                                                             installation in connected on the
                                                                             “load”side and the public supply on the
@@ -2094,11 +2220,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-sp3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Protection settings of the
+                                                                            for="pay-card-sp3">Protection settings of the
                                                                             inverter are programmed according to local
                                                                             regulations</label></div>
                                                                 </div>
@@ -2119,22 +2245,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">All circuits, protection
+                                                                            for="pay-card-ml1">All circuits, protection
                                                                             devices, switches and terminals have
                                                                             appropriate markings</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">All DC connection boxes (PV
+                                                                            for="pay-card-ml2">All DC connection boxes (PV
                                                                             sub-generator connection box and PV
                                                                             generator connection box)
                                                                             bear a warning that the active parts present
@@ -2147,21 +2273,21 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The AC main switch has a
+                                                                            for="pay-card-ml3">The AC main switch has a
                                                                             clear inscription </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Warnings are present for
+                                                                            for="pay-card-ml4">Warnings are present for
                                                                             the double supply at the point of
                                                                             interconnection </label></div>
                                                                 </div>
@@ -2169,11 +2295,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_5" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml5"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The protection settings of
+                                                                            for="pay-card-ml5">The protection settings of
                                                                             the inverter and details of the installation
                                                                             are provided on site </label>
                                                                     </div>
@@ -2181,22 +2307,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_6" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml6"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The procedures for
+                                                                            for="pay-card-ml6">The procedures for
                                                                             emergency shutdown are provided on site
                                                                         </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_7" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-ml7"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">All signs and markings are
+                                                                            for="pay-card-ml7">All signs and markings are
                                                                             suitable and permanently attached. </label>
                                                                     </div>
                                                                 </div>
@@ -2217,11 +2343,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-gm1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">Ventilation is provided
+                                                                            for="pay-card-gm1">Ventilation is provided
                                                                             behind the PV generator to prevent
                                                                             overheating/reduce the fire risk</label>
                                                                     </div>
@@ -2229,11 +2355,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-gm2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The frame and materials are
+                                                                            for="pay-card-gm2">The frame and materials are
                                                                             properly attached and stable; the roof
                                                                             fasteners are weather
                                                                             resistant </label>
@@ -2242,11 +2368,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-1"><label
+                                                                            id="pay-card-gm3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-1">The cable routing is
+                                                                            for="pay-card-gm3">The cable routing is
                                                                             weather-resistant </label></div>
                                                                 </div>
 
@@ -2296,25 +2422,25 @@
                                                                         <th>3</th>
                                                                     </tr>
                                                                 </thead>
-                                                                <tbody>
+                                                                <tbody class="for-checkbox">
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="2">PV generator
                                                                         </td>
-                                                                        <td class="nk-tb-col">Module</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Module <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Quantity</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Quantity <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity3"></td>
                                                                     </tr>
 
@@ -2322,21 +2448,21 @@
                                                                         <td class="nk-tb-col" rowspan="2">PV generator
                                                                             parameters
                                                                         </td>
-                                                                        <td class="nk-tb-col">Voc (STC)</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Voc (STC) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Isc (STC)</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Isc (STC) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc3"></td>
                                                                     </tr>
 
@@ -2345,71 +2471,71 @@
                                                                             device (branch
                                                                             fuse)
                                                                         </td>
-                                                                        <td class="nk-tb-col">Type </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Type <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Rated Value (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Rated Value (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">DC rating (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">DC rating (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Capacity (kA) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Capacity (kA) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity3"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="3">Wiring
                                                                         </td>
-                                                                        <td class="nk-tb-col">Type </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Type <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col">Phase conductor (mm2)
-                                                                        </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col">Earth conductor (mm2)
-                                                                        </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth3"></td>
                                                                     </tr>
 
@@ -2418,42 +2544,42 @@
                                                                             Measurement of
                                                                             the strand
                                                                         </td>
-                                                                        <td class="nk-tb-col">Voc (V) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Voc (V) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Isc (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Isc (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Irradiance </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Irradiance <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance3"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Polarity
-                                                                            monitoring
+                                                                            monitoring <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring3"></td>
                                                                     </tr>
 
@@ -2461,98 +2587,100 @@
                                                                         <td class="nk-tb-col" rowspan="3">Array
                                                                             Insulation Resistance
                                                                         </td>
-                                                                        <td class="nk-tb-col">Test Voltage (V) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Test Voltage (V) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Pos – Earth (M ) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Pos – Earth (M ) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Neg – Earth (M ) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Neg – Earth (M ) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg3"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Earth
                                                                             continuity (where fitted)
+                                                                            <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Switchgear
                                                                             functioning
                                                                             correctly
+                                                                            <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            Make/Model
+                                                                            Make/Model <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            Serial Number
+                                                                            Serial Number <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no3"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            functioning correctly
+                                                                            functioning correctly <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning3"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col" colspan="2">Loss of mains
-                                                                            test
+                                                                        <td class="nk-tb-col" colspan="2">Loss of mains test
+                                                                            <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_3"></td>
                                                                     </tr>
 
@@ -2603,8 +2731,9 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_name"
-                                                                        name="customer_name">
+                                                                        type="text" class="form-control applicant_name" id="customer_name"
+                                                                        name="customer_name" required>
+                                                                        <span id="" class="error customer_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2614,7 +2743,7 @@
                                                                     for="fv-Country3">Customer Address</label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_address"
+                                                                        type="text" class="form-control installation_address" id="customer_address"
                                                                         name="customer_address">
                                                                 </div>
                                                             </div>
@@ -2625,8 +2754,9 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="customer_eircode"
-                                                                        name="customer_eircode">
+                                                                        type="text" class="form-control installation_eircode" id="customer_eircode"
+                                                                        name="customer_eircode" required>
+                                                                        <span id="" class="error customer_eircode_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2644,8 +2774,9 @@
                                                                         class="requiredField">*</div></label>
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
-                                                                        type="text" class="form-control" id="installer_company_name"
-                                                                        name="installer_company_name">
+                                                                        type="text" class="form-control installer_company_name" id=""
+                                                                        name="installer_company_name" required>
+                                                                        <span id="" class="error installer_company_name_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2667,7 +2798,8 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"></div><input
                                                                         type="text" class="form-control" id="installer_company_address"
-                                                                        name="installer_company_address">
+                                                                        name="installer_company_address" required>
+                                                                        <span id="" class="error installer_company_address_err"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2991,7 +3123,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em class="icon ni ni-calendar-alt"></em>
                                                                     </div>
-                                                                    <input type="text" name="inverter_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                    <input type="text" name="inverter_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3001,7 +3133,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right"><em class="icon ni ni-calendar-alt"></em>
                                                                     </div>
-                                                                    <input type="text" name="inverter_next_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy">
+                                                                    <input type="text" name="inverter_next_test_date" class="form-control date-picker" placeholder="mm/dd/yyyy" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -3013,14 +3145,14 @@
                                                                     <ul class="custom-control-group g-3 align-center">
                                                                         <li>
                                                                             <div class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="inverter_test_reason" value="initial_inspection" class="custom-control-input"  id="pay-card-1">
-                                                                                <label class="custom-control-label" for="pay-card-1">Initial
+                                                                                <input type="checkbox" name="inverter_test_reason" value="Initial inspection" class="custom-control-input"  id="test_reason_b">
+                                                                                <label class="custom-control-label" for="test_reason_b">Initial
                                                                                     inspection</label></div>
                                                                         </li>
                                                                         <li>
                                                                             <div class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" class="custom-control-input" name="inverter_test2_reason" value="retesting" id="pay-bitcoin-1">
-                                                                                <label class="custom-control-label" for="pay-bitcoin-1">Retesting</label>
+                                                                                <input type="checkbox" class="custom-control-input" name="inverter_test2_reason" value="Retesting" id="test_reason_c">
+                                                                                <label class="custom-control-label" for="test_reason_c">Retesting</label>
                                                                             </div>
                                                                         </li>
 
@@ -3151,7 +3283,7 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result" value="no_defects"
+                                                                                <input type="checkbox" name="test_result" value="1"
                                                                                     class="custom-control-input"
                                                                                     id="pay-card-no"><label
                                                                                     class="custom-control-label"
@@ -3161,7 +3293,7 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result2" value="defects"
+                                                                                <input type="checkbox" name="test_result2" value="1"
                                                                                     class="custom-control-input"
                                                                                     id="pay-bitcoin-de"><label
                                                                                     class="custom-control-label"
@@ -3171,7 +3303,7 @@
                                                                         <li>
                                                                             <div
                                                                                 class="custom-control custom-control-sm custom-checkbox">
-                                                                                <input type="checkbox" name="test_result3" value="photovoltaic"
+                                                                                <input type="checkbox" name="test_result3" value="1"
                                                                                     class="custom-control-input"
                                                                                     id="pay-card-ph"><label
                                                                                     class="custom-control-label"
@@ -3190,8 +3322,8 @@
                                                                         class="form-label">Signature/Tester </label>
                                                                     <div class="form-control-wrap">
 
-                                                                        <input type="text" class="form-control"
-                                                                            placeholder="">
+                                                                        <input type="text" name="tester_signature" class="form-control"
+                                                                            placeholder="" >
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -3202,9 +3334,9 @@
                                                                         <div class="form-icon form-icon-right"><em
                                                                                 class="icon ni ni-calendar-alt"></em>
                                                                         </div>
-                                                                        <input type="text"
+                                                                        <input type="text" name="test_result_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -3243,7 +3375,7 @@
                                                                         </div>
                                                                         <input type="text" name="test_date"
                                                                             class="form-control date-picker"
-                                                                            placeholder="mm/dd/yyyy">
+                                                                            placeholder="mm/dd/yyyy" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -3280,11 +3412,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n1"><label
+                                                                            id="pay-card-dn1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n1">The DC system was generally
+                                                                            for="pay-card-dn1">The DC system was generally
                                                                             designed, selected and set up in accordance
                                                                             with the
                                                                             requirements in DIN VDE 0100 (IEC 60364) and
@@ -3295,43 +3427,43 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n2"><label
+                                                                            id="pay-card-dn2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n2">The DC components were
+                                                                            for="pay-card-dn2">The DC components were
                                                                             measured for DC operation </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n3"><label
+                                                                            id="pay-card-dn3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n3">The DC components are rated
+                                                                            for="pay-card-dn3">The DC components are rated
                                                                             for the maximum current and maximum
                                                                             voltage</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n4"><label
+                                                                            id="pay-card-dn4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n4">Protection is provided by
+                                                                            for="pay-card-dn4">Protection is provided by
                                                                             application of class II or equivalent
                                                                             insulation on the DC side</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_5" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n5"><label
+                                                                            id="pay-card-dn5"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n5">PV strand cables, PV
+                                                                            for="pay-card-dn5">PV strand cables, PV
                                                                             generator cables and PV DC main cables have
                                                                             been selected and
                                                                             constructed so that the risk of earth faults
@@ -3342,11 +3474,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_6" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n6"><label
+                                                                            id="pay-card-dn6"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n6">The wiring system has been
+                                                                            for="pay-card-dn6">The wiring system has been
                                                                             selected and constructed so that it can
                                                                             withstand expected external
                                                                             influences such as wind, ice temperature and
@@ -3356,21 +3488,21 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_7" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n7"><label
+                                                                            id="pay-card-dn7"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n7">AC and DC cables are
+                                                                            for="pay-card-dn7">AC and DC cables are
                                                                             physically separated</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_8" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n8"><label
+                                                                            id="pay-card-dn8"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n8">Systems without strand
+                                                                            for="pay-card-dn8">Systems without strand
                                                                             overcurrent protective device: Strand cables
                                                                             are designed so that they
                                                                             can take up the highest combined leakage
@@ -3380,11 +3512,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_9" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n9"><label
+                                                                            id="pay-card-dn9"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n9">Systems with strand
+                                                                            for="pay-card-dn9">Systems with strand
                                                                             overcurrent protective device: Overcurrent
                                                                             protective devices are set
                                                                             correctly according to local rules or
@@ -3395,11 +3527,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="design_installation_10" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-n10"><label
+                                                                            id="pay-card-dn10"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-n10">There are DC load break
+                                                                            for="pay-card-dn10">There are DC load break
                                                                             switches installed on the DC side of the
                                                                             inverter (DIN VDE 0100-712
                                                                             para.
@@ -3423,22 +3555,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m1"><label
+                                                                            id="pay-card-on1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m1">The inverter has a simple
+                                                                            for="pay-card-on1">The inverter has a simple
                                                                             separation between the AC side and the DC
                                                                             side </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m2"><label
+                                                                            id="pay-card-on2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m2">Alternatively: A residual
+                                                                            for="pay-card-on2">Alternatively: A residual
                                                                             device is installed in the circuit and
                                                                             corresponds to a type B RCD (DIN
                                                                             VDE 0100-712 para. 413.1.1.1.2) </label>
@@ -3447,22 +3579,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m3"><label
+                                                                            id="pay-card-on3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m3">The area of wiring loops
+                                                                            for="pay-card-on3">The area of wiring loops
                                                                             was kept as small as possible (DIN VDE
                                                                             0100-712, para. 54) </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="overvoltage_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m4"><label
+                                                                            id="pay-card-on4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m4">If equipotential bonding
+                                                                            for="pay-card-on4">If equipotential bonding
                                                                             conductors are installed, they run in
                                                                             parallel and in as close contact as
                                                                             possible to the PV DC cables </label></div>
@@ -3484,22 +3616,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m5"><label
+                                                                            id="pay-card-sfn1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m5">Devices for disconnecting
+                                                                            for="pay-card-sfn1">Devices for disconnecting
                                                                             the inverter are provided on the AC side
                                                                         </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m6"><label
+                                                                            id="pay-card-sfn2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m6">Separating and switching
+                                                                            for="pay-card-sfn2">Separating and switching
                                                                             devices are connected so that the PV
                                                                             installation in connected on the
                                                                             “load”side and the public supply on the
@@ -3510,11 +3642,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="special_factor_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-m7"><label
+                                                                            id="pay-card-sfn3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-m7">Protection settings of the
+                                                                            for="pay-card-sfn3">Protection settings of the
                                                                             inverter are programmed according to local
                                                                             regulations</label></div>
                                                                 </div>
@@ -3535,22 +3667,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t1"><label
+                                                                            id="pay-card-mln1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t1">All circuits, protection
+                                                                            for="pay-card-mln1">All circuits, protection
                                                                             devices, switches and terminals have
                                                                             appropriate markings</label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t2"><label
+                                                                            id="pay-card-mln2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t2">All DC connection boxes (PV
+                                                                            for="pay-card-mln2">All DC connection boxes (PV
                                                                             sub-generator connection box and PV
                                                                             generator connection box)
                                                                             bear a warning that the active parts present
@@ -3563,21 +3695,21 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t3"><label
+                                                                            id="pay-card-mln3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t3">The AC main switch has a
+                                                                            for="pay-card-mln3">The AC main switch has a
                                                                             clear inscription </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_4" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t4"><label
+                                                                            id="pay-card-mln4"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t4">Warnings are present for
+                                                                            for="pay-card-mln4">Warnings are present for
                                                                             the double supply at the point of
                                                                             interconnection </label></div>
                                                                 </div>
@@ -3585,11 +3717,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_5" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t5"><label
+                                                                            id="pay-card-mln5"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t5">The protection settings of
+                                                                            for="pay-card-mln5">The protection settings of
                                                                             the inverter and details of the installation
                                                                             are provided on site </label>
                                                                     </div>
@@ -3597,22 +3729,22 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_6" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t6"><label
+                                                                            id="pay-card-mln6"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t6">The procedures for
+                                                                            for="pay-card-mln6">The procedures for
                                                                             emergency shutdown are provided on site
                                                                         </label></div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="marking_labelling_7" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-t7"><label
+                                                                            id="pay-card-mln7"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-t7">All signs and markings are
+                                                                            for="pay-card-mln7">All signs and markings are
                                                                             suitable and permanently attached. </label>
                                                                     </div>
                                                                 </div>
@@ -3633,11 +3765,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_1" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-g1"><label
+                                                                            id="pay-card-gnm1"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-g1">Ventilation is provided
+                                                                            for="pay-card-gnm1">Ventilation is provided
                                                                             behind the PV generator to prevent
                                                                             overheating/reduce the fire risk</label>
                                                                     </div>
@@ -3645,11 +3777,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_2" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-g2"><label
+                                                                            id="pay-card-gnm2"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-g2">The frame and materials are
+                                                                            for="pay-card-gnm2">The frame and materials are
                                                                             properly attached and stable; the roof
                                                                             fasteners are weather
                                                                             resistant </label>
@@ -3658,11 +3790,11 @@
                                                                 <div class="form-group">
                                                                     <div
                                                                         class="custom-control custom-control-sm custom-checkbox">
-                                                                        <input type="checkbox"
+                                                                        <input type="checkbox" name="general_installation_3" value="1"
                                                                             class="custom-control-input"
-                                                                            id="pay-card-g3"><label
+                                                                            id="pay-card-gnm3"><label
                                                                             class="custom-control-label"
-                                                                            for="pay-card-g3">The cable routing is
+                                                                            for="pay-card-gnm3">The cable routing is
                                                                             weather-resistant </label></div>
                                                                 </div>
 
@@ -3723,49 +3855,50 @@
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="2">PV generator
                                                                         </td>
-                                                                        <td class="nk-tb-col">Module</td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col custom-checkbox">Module
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_module10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Quantity</td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Quantity<input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity1"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity2"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="pv_generator_quantity10"></td>
 
                                                                     </tr>
@@ -3774,50 +3907,50 @@
                                                                         <td class="nk-tb-col" rowspan="2">PV generator
                                                                             parameters
                                                                         </td>
-                                                                        <td class="nk-tb-col">Voc (STC)</td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Voc (STC) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc1"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc2"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_voc10"></td>
 
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Isc (STC)</td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Isc (STC) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc1"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc2"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="generator_parameters_isc10"></td>
 
                                                                     </tr>
@@ -3827,169 +3960,169 @@
                                                                             device (branch
                                                                             fuse)
                                                                         </td>
-                                                                        <td class="nk-tb-col">Type </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Type <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="protection_device10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Rated Value (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Rated Value (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_rated_value10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">DC rating (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">DC rating (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_dc_rating10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Capacity (kA) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Capacity (kA) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="device_capacity10"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" rowspan="3">Wiring
                                                                         </td>
-                                                                        <td class="nk-tb-col">Type </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Type <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_type10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col">Phase conductor (mm2)
-                                                                        </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_phase10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col">Earth conductor (mm2)
-                                                                        </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                            <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="wiring_earth10"></td>
                                                                     </tr>
 
@@ -3998,98 +4131,98 @@
                                                                             Measurement of
                                                                             the strand
                                                                         </td>
-                                                                        <td class="nk-tb-col">Voc (V) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Voc (V) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_voc10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Isc (A) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Isc (A) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_isc10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Irradiance </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Irradiance <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="tm_irradiance10"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Polarity
-                                                                            monitoring
+                                                                            monitoring <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="polarity_monitoring10"></td>
                                                                     </tr>
 
@@ -4097,225 +4230,225 @@
                                                                         <td class="nk-tb-col" rowspan="3">Array
                                                                             Insulation Resistance
                                                                         </td>
-                                                                        <td class="nk-tb-col">Test Voltage (V) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Test Voltage (V) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_test_voltage10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Pos – Earth (M ) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Pos – Earth (M ) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_pos10"></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="nk-tb-col">Neg – Earth (M ) </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col">Neg – Earth (M ) <input type="checkbox" name="" value="" class="check-all" id=""></td>
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="array_neg10"></td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Earth
-                                                                            continuity (where fitted)
+                                                                            continuity (where fitted)<input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="earth_continuty10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Switchgear
                                                                             functioning
-                                                                            correctly
+                                                                            correctly <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="switchgear_functioning10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            Make/Model
+                                                                            Make/Model <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="test_inverter_make10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            Serial Number
+                                                                            Serial Number <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_serial_no10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Inverter
-                                                                            functioning correctly
+                                                                            functioning correctly <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning9"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="inverter_functioning10"></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="nk-tb-col" colspan="2">Loss of mains
-                                                                            test
+                                                                            test <input type="checkbox" name="" value="" class="check-all" id="">
                                                                         </td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_1"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_2"></td>
-                                                                        <td class="nk-tb-col"><input type="text"
+                                                                        <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_3"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
-                                                                                name="loss_4"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_5"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_6"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_7"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_8"></td>
-                                                                                <td class="nk-tb-col"><input type="text"
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
                                                                                 name="loss_9"></td>
+                                                                                <td class="nk-tb-col"><input type="text" class="module-input"
+                                                                                name="loss_10"></td>
                                                                     </tr>
 
                                                                 </tbody>
@@ -4358,7 +4491,7 @@
                                                                 <div class="form-group">
                                                                     <div class="form-control-wrap"><textarea
                                                                             class="form-control form-control-sm"
-                                                                             name="fv-messagegd"
+                                                                             name="notes"
                                                                             placeholder="Write your message"
                                                                             ></textarea></div>
                                                                 </div>
@@ -4374,9 +4507,9 @@
                                         <ul class="nk-stepper-pagination pt-4 gx-4 gy-2 stepper-pagination">
                                             <li class="step-prev"><button class="btn btn-dim btn-primary">Prev</button>
                                             </li>
-                                            <li class="step-next"><button class="btn btn-primary">Next</button></li>
+                                            <li class="step-next"><button type="button" class="btn btn-primary">Next</button></li>
                                             {{-- <li class="step-submit"><button class="btn btn-primary" type="submit">Submit</button></li> --}}
-                                            <li class="step-submit"><button class="btn btn-primary" onclick="Validatecheck()">Submit</button></li>
+                                            <li class="step-submit"><button type="button" class="btn btn-primary" >Submit</button></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -4395,49 +4528,304 @@
 @endsection
 
 @push('push_script')
+@if (session('client'))
+    @php
+        $client = session('client');
+    @endphp
+    <script>
+        $(document).ready(function() {
+            // Pre-fill the form fields with the client data
+            // $('.applicant_name').val('{{ $client->name }}');
+            // $('.installation_address').val('{{ $client->address }}');
+            // $('.client_country').val('{{ $client->country }}');
+            // $('.client_city').val('{{ $client->city }}');
+            // $('.installation_postalcode').val('{{ $client->postal_code }}');
+            // $('.installation_eircode').val('{{ $client->eircode }}');
+            var clientType = '{{ $client->client_type }}';
+            var clientId = '{{ $client->id }}';
+            $('#client_type').val(clientType).trigger('change');
+            // getClient(clientType);
+            // $("#client_id").html('<option value="' + clientId + '">' + '{{ $client->name }}' + '</option>');
+            getClient(clientType, function() {
+                $("#client_id").val(clientId).trigger('change');
+            });
+
+        });
+    </script>
+@endif
+
 <script>
-    function Validatecheck(){
-        var clientValue = $('#client_type').val();
-        if(clientValue==1){
-            $('.NondomestiocFormTabContent').html('');
-        }else{
-            $('.domestiocFormTabContent').html('');
+
+    // Select all checkboxes by their IDs
+    const checkboxes = [
+    document.getElementById('battery_dc1'),
+    document.getElementById('battery_ac1')
+    ];
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkboxes.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            }
+        });
+    });
+
+    const Secheckboxes = [
+    document.getElementById('battery_dc2'),
+    document.getElementById('battery_ac2')
+    ];
+
+    Secheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                Secheckboxes.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            }
+        });
+    });
+
+    const test_checkbox = [
+    document.getElementById('inverter_test_reason_1'),
+    document.getElementById('reasonFor')
+    ];
+
+    test_checkbox.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                test_checkbox.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            }
+        });
+    });
+    const test2_checkbox = [
+    document.getElementById('test_reason_b'),
+    document.getElementById('test_reason_c')
+    ];
+
+    test2_checkbox.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                test2_checkbox.forEach(cb => {
+                    if (cb !== this) cb.checked = false;
+                });
+            }
+        });
+    });
+
+</script>
+<script>
+    $(document).ready(function() {
+        $('.company_name').on('change', function() {
+            var companyNameValue = $(this).val();
+            $('.installer_company_name').val(companyNameValue);
+        });
+    });
+    // get client details for auto fill
+    $('#client_id').on('change', function() {
+            var client_id = $(this).val();
+            $('#loader').addClass('active');
+        $.ajax({
+            url: "{{ route('admin.get_client_details') }}",
+            type: 'POST',
+            data: {
+                client_id: client_id,
+                "_token": "{{ csrf_token() }}",
+            },
+            success: function(data) {
+                $('#loader').removeClass('active');
+                // $('.error_clear').html('');
+
+                if (data.client) {
+                    var clint = data.client;
+                    //  alert(data.client.eircode);
+                     var Eircode = data.client.eircode ? data.client.eircode : '';
+                    $('.applicant_name').val(clint.name);
+                    $('.installation_address_all').val(clint.address +" "+ clint.city +", "+ clint.country +", "+ Eircode);
+                    $('.installation_address').val(clint.address);
+                    $('.installation_eircode').val(Eircode);
+                    $('.installation_postalcode').val(clint.postal_code);
+                    $('.client_country').val(clint.country);
+                    $('.client_city').val(clint.city);
+                } else {
+                    console.log('No client found.');
+                    $('.applicant_name').val('');
+                    $('.installation_address').val('');
+                    $('.installation_eircode').val('');
+                    $('.installation_postalcode').val('');
+                    $('.client_country').val('');
+                    $('.client_city').val('');
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#loader').removeClass('active');
+                console.error('An error occurred:', error);
+            }
+        });
+
+    });
+</script>
+
+<script>
+    function scrollToTop() {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 'fast');
+    }
+    function getVisibleRequiredFields() {
+        // Select all elements that match '.step [required]'
+        // var allRequiredFields = document.querySelectorAll('.nk-stepper-step [required]');
+        var allRequiredFields = Array.from(document.querySelectorAll('.nk-stepper-step [required]')).filter(field => !field.disabled);
+
+        // Convert NodeList to Array and filter out elements that are not visible
+        var visibleRequiredFields = Array.from(allRequiredFields).filter(function(element) {
+            return element.offsetParent !== null; // Check if element is visible
+        });
+
+        return visibleRequiredFields;
+    }
+    function validateForm() {
+        let isValid = true;
+        // const currentStepFields = document.querySelectorAll('.step:visible [required]');
+        var currentStepFields = getVisibleRequiredFields();
+        let firstInvalidField = null;
+        // console.log("validating =========================== ");
+        currentStepFields.forEach(field => {
+            const errorSpan = field.parentElement.querySelector('.error');
+            if (!field.value.trim()) {
+                isValid = false;
+                // errorSpan.textContent = 'This field is required';
+                // errorSpan.textContent = '';
+                if (!firstInvalidField) {
+                    firstInvalidField = field;
+                }
+            } else {
+                // errorSpan.textContent = '';
+            }
+        });
+        if (firstInvalidField) {
+            firstInvalidField.focus();
+            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-        alert(clientValue);
+
+        return isValid;
+    }
+   /////////////////// *************************** Validation Script//////////////////
+    document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('form');
+
+    forms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            if (!form.checkValidity()) {
+                event.stopPropagation();
+                return;
+            }
+
+
+        });
+    });
+
+
+    document.querySelector('.step-next button').addEventListener('click', function() {
+        if (validateForm()) {
+            scrollToTop();
+            showNextStep();
+        }
+    });
+
+    document.querySelector('.step-prev button').addEventListener('click', function() {
+        scrollToTop();
+        showPrevStep();
+    });
+
+    document.querySelector('.step-submit button').addEventListener('click', function() {
+        if (validateForm()) {
+            Validatecheck();
+        }
+    });
+
+    function getVisibleSteps() {
+        const stepperSteps = document.querySelectorAll('.nk-stepper-step');
+
+        // Filter the elements to only include those that are visible
+        const visibleSteps = Array.from(stepperSteps).filter(step => {
+            return step.offsetParent !== null; // or use other checks for visibility
+        });
+
+        // Do something with the visible steps
+        visibleSteps.forEach(step => {
+            // console.log(step); // or any other operation you need to perform
+            return step;
+        });
+    };
+    function showNextStep() {
+        // const currentStep = document.querySelector('.nk-stepper-step:visible');
+        const currentStep = getVisibleSteps();
+        const nextStep = currentStep.nextElementSibling;
+
+        if (nextStep) {
+            currentStep.style.display = 'none';
+            nextStep.style.display = 'block';
+        }
+    }
+
+    function showPrevStep() {
+        // const currentStep = document.querySelector('.nk-stepper-step:visible');
+        const currentStep = getVisibleSteps();
+        const prevStep = currentStep.previousElementSibling;
+
+        if (prevStep) {
+            currentStep.style.display = 'none';
+            prevStep.style.display = 'block';
+        }
+    }
+    });
+
+    /////////////////// ***************************Form Submission Script //////////////////
+    function Validatecheck() {
         var formData = new FormData($("#stepper-create-project")[0]);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $(".loader").show();
+        $('#loader').addClass('active');
         $.ajax({
-
             url: "{{ route('admin.create-job-order') }}",
-            type:'POST',
+            type: 'POST',
             data: formData,
             contentType: false,
             cache: false,
-            processData:false,
-               success: function(data) {
-                  $(".loader").hide();
-                $('.error_clear').html('');
-
-                   if($.isEmptyObject(data.error)){
-                      // alert(data.success);
-                      window.location = "{{ route('admin.assigned-job-order') }}";
-                   }
-                //    else{
-                //        printErrorMsg(data.error);
-                //    }
-               },
-           });
-
+            processData: false,
+            success: function(data) {
+                // $('#loader').removeClass('active');
+                $('.error').html('');
+                if ($.isEmptyObject(data.errors)) {
+                    window.location = "{{ route('admin.assigned-job-order') }}";
+                } else {
+                    printErrorMsg(data.errors);
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#loader').removeClass('active');
+            }
+        });
     }
-</script>
 
-<script>
-    function getClient(client_type) {
+    function printErrorMsg(msg) {
+        $.each(msg, function(key, value) {
+            $('.' + key + '_err').text(value);
+        });
+    }
+
+    /////////////////// *************************** Get Client Code//////////////////
+    function getClient(client_type, callback) {
         var defaultContent = $('.defaultFormTabContent');
         var domesticTabs = $('.domesticFormTab');
         var nondomesticTabs = $('.nondomesticTab');
@@ -4454,41 +4842,52 @@
         // Setup the correct steps based on the client type
         if (client_type == 1) {
             domesticTabs.show();
+            nondomesticContent.find(':input').prop('disabled', true);
+            domesticContent.show();
+            domesticContent.find(':input').prop('disabled', false);
             setupSteps(defaultContent.add(domesticContent));
         } else if (client_type == 2) {
             nondomesticTabs.show();
+            domesticContent.find(':input').prop('disabled', true);
+            nondomesticContent.show();
+            nondomesticContent.find(':input').prop('disabled', false);
             setupSteps(defaultContent.add(nondomesticContent));
-        } else{
+        } else {
             const submitButton = $('.step-submit button');
             submitButton.hide();
         }
-
+        $('#loader').addClass('active');
         $.ajax({
             url: "{{ route('admin.get_client') }}",
             type: 'POST',
             data: {
                 client_type: client_type,
                 "_token": "{{ csrf_token() }}",
-             },
+            },
             success: function(data) {
-                // $(".loader").hide();
+                $('#loader').removeClass('active');
                 // $('.error_clear').html('');
 
                 if (data.clientsOptions) {
-                    console.log(data.clientsOptions);
+                    // console.log(data.clientsOptions);
                     $("#client_id").html(data.clientsOptions);
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+                    // clients = data.clients;  // Assuming data.clients contains the client details
                 } else {
                     console.log('No client options found.');
                     $("#client_id").html('<option value="">Select an Option</option>');
                 }
             },
             error: function(xhr, status, error) {
-                $(".loader").hide();
+                $('#loader').removeClass('active');
                 console.error('An error occurred:', error);
             }
         });
     }
 
+    /////////////////// *************************** Steps Code//////////////////
     function setupSteps(content) {
         const steps = content;
         const prevButton = $('.step-prev button');
@@ -4516,87 +4915,97 @@
         });
 
         nextButton.off('click').on('click', function() {
-            if (currentStep < steps.length - 1) {
+            if (validateForm() && currentStep < steps.length - 1) {
                 currentStep++;
                 showStep(currentStep);
             }
         });
 
-        // $('form').off('submit').on('submit', function(event) {
-        //     const submitButton = $(this).find('button[type="submit"]');
-        //     if (submitButton) {
-        //         event.preventDefault();
-        //         showLoader(submitButton);
-        //         setTimeout(() => {
-        //             hideLoader(submitButton);
-        //             window.location.href = 'job-orders.php';
-        //         }, 2000);
-        //     }
-        // });
-
-        function showLoader(button) {
-            button.data('original-text', button.html());
-            button.html('Processing <span class="loaderButton_custom"></span>');
-            button.prop('disabled', true);
-        }
-
-        function hideLoader(button) {
-            button.html(button.data('original-text'));
-            button.prop('disabled', false);
-        }
-
         // Initialize the first step
         showStep(currentStep);
     }
 
+    @unless (session('client'))
+        $(document).ready(function() {
+            // Set initial tab visibility
+            $('.domesticFormTab').hide();
+            $('.nondomesticTab').hide();
+            $('.domestiocFormTabContent').hide();
+            $('.NondomestiocFormTabContent').hide();
+
+            // Initialize the stepper with default tab content
+            setupSteps($('.defaultFormTabContent'));
+            getClient(0);
+        });
+    @endunless
+
+    // Get the scroll button element
+    const scrollButton = document.querySelector('.scroll-button');
+    window.addEventListener('scroll', function() {
+    if (window.scrollY > 100) { // Adjust 100 to your desired scroll position
+        scrollButton.style.display = 'block';
+    } else {
+        scrollButton.style.display = 'none';
+    }
+    });jo
+
+</script>
+{{-- <script>
     $(document).ready(function() {
+        $('.check-all').on('click', function() {
+            var $row = $(this).closest('tr');
+            var $inputs = $row.find('.module-input');
+            var filledInputs = $inputs.filter(function() {
+                return $(this).val().trim() !== "";
+            });
 
-        // Set initial tab visibility
-        $('.domesticFormTab').hide();
-        $('.nondomesticTab').hide();
-        $('.domestiocFormTabContent').hide();
-        $('.NondomestiocFormTabContent').hide();
-
-        // Initialize the stepper with default tab content
-        setupSteps($('.defaultFormTabContent'));
-        getClient(0);
+            if (filledInputs.length === 1) {
+                var filledValue = filledInputs.val();
+                $inputs.val(filledValue); // Fill all inputs with the same value
+            } else if (filledInputs.length > 1) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'More than one field already filled!',
+                    text: 'Only one field should be filled to copy the value to others.',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                $inputs.prop('checked', $(this).is(':checked')); // Check/uncheck all inputs
+            }
+        });
     });
+</script> --}}
+<script>
+    $(document).ready(function() {
+        $('.check-all').on('click', function() {
+            var $row = $(this).closest('tr');
+            var $inputs = $row.find('.module-input');
+            var filledInputs = $inputs.filter(function() {
+                return $(this).val().trim() !== "";
+            });
 
+            if ($(this).is(':checked')) {
+                if (filledInputs.length === 1) {
+                    var filledValue = filledInputs.val();
+                    $inputs.val(filledValue); // Fill all inputs with the same value
+                } else if (filledInputs.length > 1) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'More than one field already filled!',
+                        text: 'Only one field should be filled to copy the value to others.',
+                        confirmButtonText: 'OK'
+                    });
+                    $(this).prop('checked', false); // Uncheck the checkbox
+                }
+            } else {
+                // Clear all input fields when the checkbox is unchecked
+                $inputs.prop('checked', $(this).is(':checked'));
+                // $inputs.val('');
+            }
+        });
+    });
 </script>
 
 
-
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const forms = document.querySelectorAll('form');
-        forms.forEach(form => {
-            form.addEventListener('submit', function(event) {
-                const submitButton = form.querySelector('button[type="submit"]');
-                if (submitButton) {
-                    event.preventDefault(); // Prevent default form submission
-                    showLoader(submitButton);
-                    // Simulate form submission for demonstration purposes
-                    setTimeout(() => {
-                        hideLoader(submitButton);
-                        // Redirect to another page after processing
-                        window.location.href =
-                        'job-orders.php'; // Change 'other-page.php' to your desired destination
-                    }, 2000); // Simulate a delay for form submission
-                }
-            });
-        });
-
-        function showLoader(button) {
-            button.dataset.originalText = button.innerHTML; // Save original button text
-            button.innerHTML = 'Processing <span class="loaderButton_custom"></span>';
-            button.disabled = true; // Disable the button to prevent multiple clicks
-        }
-
-        function hideLoader(button) {
-            button.innerHTML = button.dataset.originalText; // Restore original button text
-            button.disabled = false; // Enable the button
-        }
-    });
-</script> --}}
 <!-- submit trigger buttin page loader and redirection other page json_decode end-->
 @endpush

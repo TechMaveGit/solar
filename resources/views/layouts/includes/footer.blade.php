@@ -22,6 +22,7 @@
     <script src="{{ asset('assets/js/example-sweetalerte5ca.js?ver=3.2.3')}}"></script>
 
     <script src="{{ asset('assets/js/libs/datatable-btnse5ca.js?ver=3.2.3')}}"></script>
+    <script src="{{ asset('assets/js/flatpickr.js')}}"></script>
 
     <!-- ------------------------------------
     Time Picker custom plughin start
@@ -32,6 +33,24 @@
         $(document).ready(function() {
             $('.time__pickers').mdtimepicker(); //Initializes the time picker
         });
+
+        $(document).ready(function(){
+            $('.phoneNumber').on('input', function(){
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+
+    </script>
+    <script>
+         $(".date-pickerss").flatpickr({
+            dateFormat: "m/d/Y",
+            minDate: "today"
+        });
+        $(".daterange-pickerss").flatpickr({
+            mode: "range",
+            dateFormat: "Y-m-d",
+        });
+
     </script>
 
 <script>
