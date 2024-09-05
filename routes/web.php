@@ -7,6 +7,9 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JobOrderController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Mail\TestMail;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +22,23 @@ use App\Http\Controllers\Admin\ReportController;
 |
 */
 
+Route::get('/cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+});
+
 // Route::get('/', function () {
 //     return view('auth.login');
 // });
+Route::get('/send-mail', function () {
+    $recipient = 'shahzad@techmavesoftware.com';
+    Mail::to($recipient)->send(new TestMail());
+
+    return 'Test email sent successfully!';
+});
 Route::get('/', [AdminAuthController::class,'login'])->name('login');
 
 Route::group(['prefix'=>'admin','as'=>'admin.'], function(){
